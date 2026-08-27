@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=faf1fc01">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -53,8 +53,6 @@
     </nav>
   </div>
 </header>
-
-
 <!-- ---------- page ---------- -->
 <main>
 <!-- ============ 1. THE HERO ============
@@ -62,8 +60,14 @@
      once on load and the pool blooms where it lands. That is the
      whole animation, and it is the brand's only ornament. -->
 <section class="dark stage" style="padding: clamp(96px,13vh,150px) 0 clamp(110px,15vh,180px); overflow:hidden;">
-  <span class="beam" aria-hidden="true"></span>
-  <span class="landing" aria-hidden="true"></span>
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
   <span class="stage__pool" aria-hidden="true"></span>
 
   <div class="wrap">
@@ -502,7 +506,14 @@
 
 <!-- ============ 10. THE CLOSE ============ -->
 <section class="dark stage" style="padding:clamp(90px,12vh,140px) 0;overflow:hidden">
-  <span class="beam" aria-hidden="true" style="width:min(46vw,560px);top:-14%"></span>
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap center">
     <div data-lit>
@@ -581,5 +592,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=faf1fc01"></script>
 

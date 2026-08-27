@@ -162,36 +162,6 @@ def lockup(gid, base):
     </a>"""
 
 
-# --------------------------------------------------------------------------
-# THE PAGE MARK
-#
-# The review, verbatim: "in mobile all the page design looks exactly same.
-# There should some subtle change such that it is clearly identify that which
-# is agreement page, panelist page."
-#
-# A masthead names the site. Nothing named the page once the hero had scrolled
-# away, and on a phone the hero is gone after one flick. This strip is pinned
-# under the masthead and stays: what kind of thing this page is, what it is
-# called, and the one number that matters on it. The kind also flips the
-# strip's contrast, so a form and an agreement are recognisable before a word
-# of it is read.
-# --------------------------------------------------------------------------
-
-def pagemark(kind, name, meta):
-    if kind in (None, "home") or not name:
-        return ""
-    badge = KIND_BADGE.get(kind, "Page")
-    right = f'<span class="pagemark__meta pagemark__spacer">{meta}</span>' if meta else ""
-    return f"""<div class="pagemark pagemark--{kind}">
-  <div class="wrap pagemark__inner">
-    <span class="pagemark__kind">{badge}</span>
-    <span class="pagemark__dot" aria-hidden="true"></span>
-    <span class="pagemark__name">{name}</span>
-    {right}
-  </div>
-</div>"""
-
-
 def masthead(current, base):
     links = []
     for f, label in NAV:
@@ -280,7 +250,6 @@ body {{ background: #F7F2E8; }}
 <a class="skip" href="#main">Skip to content</a>
 {progress}
 {masthead}
-{pagemark}
 
 <main id="main">
 {body}
@@ -326,12 +295,9 @@ def build():
         # once here beats hand-tagging it across nine pages.
         body = body.replace("&trade;", '<span class="tm">&trade;</span>')
 
-        mark = pagemark(kind, markname, markmeta)
-
         out.write_text(SHELL.format(
             title=title, desc=desc, base=base, v=ASSET_V,
             progress=progress,
-            pagemark=mark,
             masthead=masthead(fname, base),
             footer=footer(base),
             body=body.strip(),
@@ -364,7 +330,6 @@ def build():
             '<div class="oyss oyss--bleed">\n\n'
             "<!-- ---------- masthead ---------- -->\n"
             + for_ghl(masthead(fname, "")) + "\n"
-            + for_ghl(mark) + "\n\n"
             "<!-- ---------- page ---------- -->\n"
             "<main>\n"
             + for_ghl(body.strip()) + "\n"

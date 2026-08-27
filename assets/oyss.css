@@ -1589,3 +1589,319 @@
 }
 .oyss .portrait__plate .eyebrow { color: var(--gold); margin-bottom: .3rem; }
 .oyss .portrait__plate .name { font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }
+
+/* ============================================================
+   28. THE SPOTLIGHT
+   ------------------------------------------------------------
+   The old `.beam` was a blurred trapezoid: a wash, not a light.
+   The review asked for the spotlight to be above the fold on
+   every page, and to move the way the supplied reference moves
+   (lignt_effect_and_fare29.mov).
+
+   That reference was measured, not eyeballed. Frames were pulled
+   at 10fps and sampled along arcs struck from the cone's apex:
+
+     - the cone half-angle is 43 degrees, constant with depth
+     - it holds 19 discrete rays whose ANGLES do not change with
+       radius, so they are true radial rays from one source
+     - ignition runs zero to full in about 1.1s, with a small
+       overshoot at 1.0s before it settles
+     - in the steady state total brightness is almost flat (std
+       0.78 on a mean of 44) while the frame-to-frame pixel delta
+       holds at 3.7, about 8 percent churn. The cone does NOT
+       sweep or pulse. Individual rays breathe in place.
+
+   Everything below follows from those numbers. The fans are conic
+   gradients whose stops ARE the reference's measured ray angles,
+   widths and relative intensities. Three fans drift at different
+   rates in opposite directions; superposed they give local
+   shimmer with no global movement, which is what the
+   frame-difference measurement describes.
+
+   The deck still rules the colour. A gold beam over navy
+   composites to brown and reads as paint, so the core is warm
+   WHITE and only the outermost fan carries gold.
+   ============================================================ */
+
+.oyss .spot {
+  position: absolute;
+  top: 0;
+  left: var(--beam-x, 50%);
+  width: var(--spot-w, min(190vw, 2000px));
+  height: var(--spot-h, 130%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -1;
+
+  /* The lamp's RESTING state is on, and there is no CSS transition
+     or animation on this element.
+
+     Both were tried and both sat permanently pending: startTime
+     stayed null and currentTime stayed 0 while every other
+     animation on the page advanced, so a `fill: both` animation
+     held its 0% frame and a transition held its start value. The
+     lamp was simply never on. This element is 2000px wide and
+     carries three blurred conic-gradient layers, blend modes and a
+     mask; the compositor never confirms the handoff that a CSS
+     animation needs before it can start.
+
+     So ignition is driven a frame at a time from oyss.js instead,
+     which needs no handshake. Leaving the resting state LIT also
+     means the stage is lit with JavaScript switched off, which is
+     the right way round for the one element that carries the
+     brand's only motif. */
+  opacity: 1;
+
+  /* One mask for the whole rig: light falls off with distance and
+     feathers at the edges of the throw. It lives here so the three
+     fans and the haze cannot disagree about where the cone ends. */
+  -webkit-mask-image: radial-gradient(78% 96% at 50% 0%, #000 0%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.55) 66%, transparent 100%);
+          mask-image: radial-gradient(78% 96% at 50% 0%, #000 0%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.55) 66%, transparent 100%);
+}
+
+/* --- the three ray fans ------------------------------------ */
+.oyss .spot__rays {
+  position: absolute; inset: 0;
+  transform-origin: 50% 0%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+/* The measured fan. */
+.oyss .spot__rays--a {
+  background: conic-gradient(from 136.0deg at 50% 0%,
+    transparent 0deg,
+    transparent 4.65deg,
+    rgba(255, 246, 232, 0.064) 5.40deg,
+    transparent 6.15deg,
+    transparent 7.77deg,
+    rgba(255, 246, 232, 0.0855) 8.30deg,
+    transparent 8.82deg,
+    transparent 10.19deg,
+    rgba(255, 246, 232, 0.1352) 11.70deg,
+    transparent 13.22deg,
+    transparent 17.00deg,
+    rgba(255, 246, 232, 0.185) 20.00deg,
+    transparent 23.00deg,
+    transparent 25.05deg,
+    rgba(255, 246, 232, 0.1537) 25.60deg,
+    transparent 26.16deg,
+    transparent 28.55deg,
+    rgba(255, 246, 232, 0.1423) 29.00deg,
+    transparent 29.45deg,
+    transparent 31.25deg,
+    rgba(255, 246, 232, 0.1523) 32.90deg,
+    transparent 34.55deg,
+    transparent 36.67deg,
+    rgba(255, 246, 232, 0.1735) 37.50deg,
+    transparent 38.33deg,
+    rgba(255, 246, 232, 0.175) 41.00deg,
+    transparent 44.12deg,
+    transparent 44.62deg,
+    rgba(255, 246, 232, 0.1722) 46.30deg,
+    transparent 47.97deg,
+    transparent 53.55deg,
+    rgba(255, 246, 232, 0.1565) 54.10deg,
+    transparent 54.65deg,
+    rgba(255, 246, 232, 0.165) 56.30deg,
+    transparent 58.12deg,
+    transparent 59.23deg,
+    rgba(255, 246, 232, 0.1323) 59.70deg,
+    transparent 60.17deg,
+    transparent 62.10deg,
+    rgba(255, 246, 232, 0.1708) 62.90deg,
+    transparent 63.70deg,
+    transparent 65.95deg,
+    rgba(255, 246, 232, 0.1167) 66.40deg,
+    transparent 66.85deg,
+    transparent 67.78deg,
+    rgba(255, 246, 232, 0.1267) 68.60deg,
+    transparent 69.41deg,
+    transparent 70.30deg,
+    rgba(255, 246, 232, 0.118) 70.80deg,
+    transparent 71.30deg,
+    transparent 73.15deg,
+    rgba(255, 246, 232, 0.1167) 73.60deg,
+    transparent 74.05deg,
+    transparent 75.74deg,
+    rgba(255, 246, 232, 0.1608) 76.90deg,
+    transparent 78.06deg,
+    transparent 88.00deg);
+  filter: blur(7px);
+  animation: ray-drift-a 19s ease-in-out infinite alternate,
+             ray-haze-a  11s ease-in-out infinite alternate;
+}
+/* The same rays spread wider and thickened: the near-field haze. */
+.oyss .spot__rays--b {
+  background: conic-gradient(from 136.0deg at 50% 0%,
+    transparent 0deg,
+    transparent 12.78deg,
+    rgba(255, 236, 200, 0.0484) 13.90deg,
+    transparent 15.03deg,
+    transparent 17.05deg,
+    rgba(255, 236, 200, 0.1023) 19.32deg,
+    transparent 21.59deg,
+    transparent 30.44deg,
+    rgba(255, 236, 200, 0.1163) 31.28deg,
+    transparent 32.11deg,
+    transparent 35.08deg,
+    rgba(255, 236, 200, 0.1152) 37.55deg,
+    transparent 40.03deg,
+    rgba(255, 236, 200, 0.1324) 44.52deg,
+    transparent 49.21deg,
+    transparent 54.96deg,
+    rgba(255, 236, 200, 0.1184) 55.79deg,
+    transparent 56.61deg,
+    transparent 59.90deg,
+    rgba(255, 236, 200, 0.1001) 60.60deg,
+    transparent 61.30deg,
+    transparent 65.69deg,
+    rgba(255, 236, 200, 0.0883) 66.36deg,
+    transparent 67.04deg,
+    transparent 69.40deg,
+    rgba(255, 236, 200, 0.0893) 70.15deg,
+    transparent 70.90deg,
+    transparent 73.65deg,
+    rgba(255, 236, 200, 0.1217) 75.39deg,
+    transparent 77.13deg,
+    transparent 88.00deg);
+  filter: blur(15px);
+  animation: ray-drift-b 27s ease-in-out infinite alternate,
+             ray-haze-b  16s ease-in-out infinite alternate;
+}
+/* The outermost fan is the only one allowed gold, because gold is
+   what light does in its falloff, never at its core. */
+.oyss .spot__rays--c {
+  background: conic-gradient(from 136.0deg at 50% 0%,
+    transparent 0deg,
+    transparent 0.98deg,
+    rgba(236, 200, 138, 0.0462) 1.40deg,
+    transparent 1.82deg,
+    transparent 11.52deg,
+    rgba(236, 200, 138, 0.1) 13.92deg,
+    transparent 16.32deg,
+    transparent 23.19deg,
+    rgba(236, 200, 138, 0.0769) 23.55deg,
+    transparent 23.91deg,
+    transparent 31.98deg,
+    rgba(236, 200, 138, 0.0938) 32.64deg,
+    transparent 33.30deg,
+    transparent 40.72deg,
+    rgba(236, 200, 138, 0.0931) 42.06deg,
+    transparent 43.40deg,
+    transparent 51.30deg,
+    rgba(236, 200, 138, 0.0892) 52.76deg,
+    transparent 54.22deg,
+    transparent 59.18deg,
+    rgba(236, 200, 138, 0.0923) 59.82deg,
+    transparent 60.46deg,
+    transparent 65.27deg,
+    rgba(236, 200, 138, 0.0685) 65.92deg,
+    transparent 66.57deg,
+    transparent 70.91deg,
+    rgba(236, 200, 138, 0.0631) 71.27deg,
+    transparent 71.63deg,
+    transparent 88.00deg);
+  filter: blur(24px);
+  animation: ray-drift-c 34s ease-in-out infinite alternate,
+             ray-haze-c  22s ease-in-out infinite alternate;
+}
+
+/* Fractions of a degree, in opposite directions. Any more and the
+   cone visibly swings, which the reference never does. */
+@keyframes ray-drift-a { from { transform: rotate(-.55deg); } to { transform: rotate(.55deg); } }
+@keyframes ray-drift-b { from { transform: rotate(.9deg);   } to { transform: rotate(-.9deg); } }
+@keyframes ray-drift-c { from { transform: rotate(-1.3deg); } to { transform: rotate(1.3deg); } }
+@keyframes ray-haze-a  { from { opacity: .82; } to { opacity: 1; } }
+@keyframes ray-haze-b  { from { opacity: 1; }   to { opacity: .7; } }
+@keyframes ray-haze-c  { from { opacity: .75; } to { opacity: 1; } }
+
+/* --- the source ---------------------------------------------
+   The hot point the rays come out of. Without it the fan reads as
+   a texture rather than as a lamp that is switched on. */
+.oyss .spot__source {
+  position: absolute; top: 0; left: 50%;
+  width: min(30vw, 380px); aspect-ratio: 2.2 / 1;
+  /* Pulled DOWN into the section rather than centred on its top
+     edge. The hero starts flush under the sticky masthead, so a
+     source sitting on that edge is half clipped by the section's
+     own overflow and the lamp reads as a gradient with no origin.
+     Two thirds of it is inside the frame now, which is what makes
+     the cone look cast rather than painted. */
+  transform: translate(-50%, -34%);
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(255, 253, 247, .72) 0%,
+    rgba(255, 244, 220, .34) 26%,
+    rgba(255, 232, 190, .13) 46%,
+    rgba(221, 170, 82, .05) 64%,
+    transparent 80%);
+  mix-blend-mode: screen;
+  filter: blur(7px);
+  animation: source-breathe 9s ease-in-out infinite alternate;
+}
+@keyframes source-breathe { from { opacity: .86; } to { opacity: 1; } }
+
+/* --- the throw ----------------------------------------------
+   One soft body of light inside the cone, so the rays sit in
+   something instead of floating on the navy. */
+.oyss .spot__haze {
+  position: absolute; inset: 0;
+  background: conic-gradient(from 136.0deg at 50% 0%,
+    transparent 0deg,
+    rgba(255, 244, 226, .085) 30deg,
+    rgba(255, 240, 214, .115) 44deg,
+    rgba(255, 244, 226, .085) 58deg,
+    transparent 88.0deg);
+  mix-blend-mode: screen;
+  filter: blur(34px);
+}
+
+/* --- where it lands ------------------------------------------
+   The review circled the gap between the gold pool and the light
+   that is supposed to be casting it. The floor glow is drawn at
+   the bottom of the throw on the cone's own axis, so the pool
+   sits inside a lit footprint instead of beside one. */
+.oyss .spot__floor {
+  position: absolute; left: 50%; bottom: 0;
+  width: 78%; height: 34%;
+  transform: translate(-50%, 30%);
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(255, 240, 214, .17) 0%,
+    rgba(221, 170, 82, .07) 42%,
+    transparent 72%);
+  mix-blend-mode: screen;
+  filter: blur(30px);
+  opacity: 1;
+}
+
+/* The cone is bright enough to matter now, so hero copy is lifted
+   above it. Without this the display type sits IN the beam and
+   loses contrast exactly where the beam is strongest. */
+.oyss .stage > .wrap, .oyss .dark > .wrap { position: relative; z-index: 1; }
+
+/* The pool is the deck's display underline, and under a spotlight it
+   is also the place the light lands. The review circled the gap
+   between the gold dash and the light supposedly casting it. Inside
+   a hero that holds a spot, the pool gets the glow it implies. */
+.oyss .stage:has(.spot) .pool,
+.oyss .dark:has(.spot) .pool {
+  box-shadow: 0 0 22px 7px rgba(221, 170, 82, .16),
+              0 0 60px 20px rgba(255, 236, 196, .07);
+}
+
+/* Reduced motion: the lamp is on, it simply does not breathe. */
+@media (prefers-reduced-motion: reduce) {
+  .oyss .spot__rays, .oyss .spot__source { animation: none; }
+}
+
+/* Phones: the same lamp, throttled. Three blurred full-bleed
+   layers compositing on a mid-range phone is the one place this
+   can cost something, so the outer fan goes and the blurs come
+   down. The cone reads the same. */
+@media (max-width: 700px) {
+  .oyss .spot { --spot-w: min(250vw, 940px); }
+  .oyss .spot__rays--c { display: none; }
+  .oyss .spot__rays--a { filter: blur(5px); }
+  .oyss .spot__rays--b { filter: blur(11px); }
+  .oyss .spot__haze { filter: blur(24px); }
+}

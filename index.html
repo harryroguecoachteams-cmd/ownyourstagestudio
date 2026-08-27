@@ -9,7 +9,7 @@
 <meta property="og:description" content="Own Your Stage Studio helps hidden experts become recognized authorities through professionally produced virtual panel events.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=820d9fc0">
+<link rel="stylesheet" href="assets/oyss.css?v=faf1fc01">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -62,15 +62,20 @@ body { background: #F7F2E8; }
   </div>
 </header>
 
-
 <main id="main">
 <!-- ============ 1. THE HERO ============
      The beam is the logo icon at architectural scale. It strikes
      once on load and the pool blooms where it lands. That is the
      whole animation, and it is the brand's only ornament. -->
 <section class="dark stage" style="padding: clamp(96px,13vh,150px) 0 clamp(110px,15vh,180px); overflow:hidden;">
-  <span class="beam" aria-hidden="true"></span>
-  <span class="landing" aria-hidden="true"></span>
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
   <span class="stage__pool" aria-hidden="true"></span>
 
   <div class="wrap">
@@ -509,7 +514,14 @@ body { background: #F7F2E8; }
 
 <!-- ============ 10. THE CLOSE ============ -->
 <section class="dark stage" style="padding:clamp(90px,12vh,140px) 0;overflow:hidden">
-  <span class="beam" aria-hidden="true" style="width:min(46vw,560px);top:-14%"></span>
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap center">
     <div data-lit>
@@ -587,7 +599,7 @@ body { background: #F7F2E8; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=820d9fc0"></script>
+<script src="assets/oyss.js?v=faf1fc01"></script>
 
 </body>
 </html>

@@ -50,15 +50,74 @@
     if (CALM || !('IntersectionObserver' in window)) {
       for (var i = 0; i < lightable.length; i++) lightable[i].classList.add('lit');
     } else {
+      /* threshold 0.12 asks for 12% of the ELEMENT to be visible, which is a
+         quiet trap: on the host agreement the lit container is 28,592px tall,
+         so it wanted 3,431px in a 641px viewport and could never fire. The
+         whole contract sat at opacity .1 forever and read as a rendering
+         failure. A ratio of an element cannot be a threshold when the element
+         may be taller than the screen. The trigger is a POSITION instead: an
+         element lights once it crosses into the bottom 12% of the viewport,
+         which behaves the same for a paragraph and for a contract. */
       var rig = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
           e.target.classList.add('lit');
           rig.unobserve(e.target);
         });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
 
       for (var j = 0; j < lightable.length; j++) rig.observe(lightable[j]);
+    }
+
+    /* --------------------------------------------------------
+       1b. STRIKING THE LAMP
+       The spotlight cannot be ignited with CSS. A keyframe
+       animation and a transition were both tried on `.spot` and
+       both sat permanently pending: startTime null, currentTime 0,
+       while every other animation on the page advanced normally.
+       The element is 2000px wide and carries three blurred
+       conic-gradient layers, blend modes and a mask, and the
+       compositor never confirms the handoff that a CSS animation
+       needs before it can start.
+
+       A frame-driven ramp needs no such handshake: each step is an
+       ordinary style write. The curve is the deck's own fader
+       (the same cubic-bezier as --fade-up) and the duration is the
+       1.1s the reference footage takes to reach full output.
+
+       `.spot` rests LIT in the stylesheet, so this only ever takes
+       the light DOWN and brings it back up. With JavaScript off,
+       the stage is lit.
+       -------------------------------------------------------- */
+    function easeFade(t) {
+      /* cubic-bezier(.22, .85, .3, 1), sampled. */
+      return 1 - Math.pow(1 - t, 2.6);
+    }
+
+    function strike(spot) {
+      if (CALM) return;
+      var DUR = 1150;
+      var floor = spot.querySelector('.spot__floor');
+      spot.style.opacity = '0';
+      if (floor) floor.style.opacity = '0';
+      var t0 = null;
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var t = Math.min(1, (ts - t0) / DUR);
+        var v = easeFade(t);
+        spot.style.opacity = v.toFixed(3);
+        /* The floor blooms late: light reaches the deck after it
+           leaves the lamp. */
+        if (floor) floor.style.opacity = Math.max(0, easeFade(Math.max(0, (t - 0.26) / 0.74))).toFixed(3);
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          /* Hand the element back to the stylesheet. */
+          spot.style.opacity = '';
+          if (floor) floor.style.opacity = '';
+        }
+      }
+      requestAnimationFrame(step);
     }
 
     /* --------------------------------------------------------
@@ -69,6 +128,7 @@
     if (!CALM) {
       requestAnimationFrame(function () {
         setTimeout(function () {
+          document.querySelectorAll('.spot').forEach(strike);
           document.querySelectorAll('.beam').forEach(function (b) { b.classList.add('beam--lit'); });
           document.querySelectorAll('.landing').forEach(function (l) { l.classList.add('landing--lit'); });
         }, 120);
@@ -287,14 +347,9 @@
        block reflows and 62% was wrong for exactly that reason.
        -------------------------------------------------------- */
     var beamed = [];
-    document.querySelectorAll('.beam').forEach(function (b) {
-      var sec = b.closest('section, .signblock, .frame-img, .portrait');
-      if (!sec) return;
-      /* An inline width/top on the span is a deliberate art
-         direction for a decorative beam inside a card. Those are
-         placed by hand and stay that way. */
-      if (b.style.opacity === '1') return;
-      beamed.push(sec);
+    document.querySelectorAll('.spot').forEach(function (b) {
+      var sec = b.closest('section');
+      if (sec) beamed.push(sec);
     });
 
     function aimBeams() {

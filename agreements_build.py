@@ -146,7 +146,14 @@ def toc_html(toc):
 
 HERO = """<!-- ============ HERO ============ -->
 <section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
-  <span class="beam" aria-hidden="true" style="width:min(40vw,480px)"></span>
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
     <div style="max-width:44rem" data-lit>
@@ -168,9 +175,9 @@ BODY = """
      lifted out of the dark hero. Section 22 of oyss.css. -->
 <section class="sheetbay">
   <div class="wrap">
-    <div class="sheet docsheet" data-lit>
+    <div class="sheet docsheet">
 
-      <div class="sheet__head">
+      <div class="sheet__head" data-lit>
         <div>
           <p class="sheet__kicker">Agreement &middot; draft for review</p>
           <p class="sheet__title">{title}</p>
