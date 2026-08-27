@@ -922,3 +922,23 @@
    light-context slate over navy: 2.41:1. */
 .oyss .signblock .field__label { color: var(--ash); }
 .oyss .signblock .field__help  { color: var(--ivory-70); }
+
+/* ============================================================
+   20. FULL-BLEED ESCAPE HATCH  (GoHighLevel and similar builders)
+   A page builder wraps pasted markup in its own centered, padded
+   container, which letterboxes every full-bleed section at the
+   container's max-width.
+
+   `50vw` counts the scrollbar but `50%` does not, so the naive
+   version overflows horizontally by exactly the scrollbar width.
+   Clipping that overflow away also clips the bleed, which is the
+   trap: the sections then measure full width and still paint
+   inside the container. So the scrollbar is measured in JS and
+   subtracted here instead.
+   ============================================================ */
+.oyss--bleed > header,
+.oyss--bleed > footer,
+.oyss--bleed > main > section {
+  margin-left:  calc(50% - 50vw + (var(--oyss-sbw, 0px) / 2));
+  margin-right: calc(50% - 50vw + (var(--oyss-sbw, 0px) / 2));
+}

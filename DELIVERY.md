@@ -104,20 +104,27 @@ both agreements actually say ("confirmed only after this Agreement is signed
 
 **The site cannot be created inside GHL programmatically.** GoHighLevel's public
 API is read-only for funnels and pages — there is no page or funnel builder
-endpoint, and the builder itself cannot be driven reliably. So there are two real
-routes, and this build supports both:
+endpoint, and the builder itself cannot be driven reliably. So it is a paste job,
+and the work has been done to make it one paste per page.
 
-1. **Host it as-is** (currently on GitHub Pages, see below). Fastest, and every
-   animation behaves exactly as built.
-2. **Paste into GHL.** Run `python build.py` and it writes `_ghl/` alongside the
-   site: one file per page, each being that page's markup wrapped and ready for a
-   **Custom Code / HTML element**. To use them, host `assets/oyss.css` and
-   `assets/oyss.js` somewhere reachable and replace the two
-   `REPLACE-WITH-ASSET-HOST` URLs at the top of each block.
+`python build.py` writes `_ghl/`: one block per page, each **a complete page
+including the masthead and footer**, with internal links already rewritten to
+funnel slugs (`/experience`, `/host-agreement`) and every asset path made
+absolute. Paste one into a Custom JS/HTML element and the step is done.
 
-The site was built for route 2 from the first line of CSS: **every selector is
-scoped under `.oyss`**, there is no global reset and no bare element styling, so
-nothing leaks into the GHL builder chrome or the rest of a funnel.
+**See `GHL_SETUP.md`** for the step-by-step: the funnel step names to use, the
+section settings, wiring the forms to an inbound webhook, and why the binding
+signature belongs in GHL's Documents & Contracts rather than in the HTML.
+
+Two things were built for this from the start:
+
+- **Every selector is scoped under `.oyss`**, with no global reset and no bare
+  element styling. Tested against a simulated GHL page that applied its own
+  `h1`, `p`, `ul`, `a` and form styles: nothing leaked in either direction.
+- **A full-bleed escape hatch.** A page builder wraps pasted markup in a
+  centered, padded container, which letterboxes every full-width dark section.
+  The blocks carry a `.oyss--bleed` class that breaks out of it, so the design
+  survives even if someone forgets to set the GHL section to full width.
 
 There is no ChatGPT connection available in this environment, so nothing was or
 could be pushed there.

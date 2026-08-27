@@ -43,6 +43,50 @@ SITE = [
 
 NAV = [(f, label) for f, label, _, _ in SITE if label]
 
+# --------------------------------------------------------------------------
+# GoHighLevel output
+#
+# GHL has no page or funnel builder API, so the site cannot be created inside
+# it programmatically. What it does have is a Custom JS/HTML element, so each
+# page body is emitted as a block that pastes straight into one.
+#
+# Two things have to change for a block to work inside a funnel:
+#   1. Relative links (experience.html) must become GHL page slugs (/experience).
+#   2. Relative asset paths must become absolute URLs.
+# Both are rewritten here rather than left as a find-and-replace chore.
+# --------------------------------------------------------------------------
+
+ASSET_HOST = "https://harryroguecoachteams-cmd.github.io/ownyourstagestudio"
+
+# file on disk -> the funnel step slug it becomes in GHL.
+# Change the right-hand side to match whatever the steps are actually named.
+SLUGS = {
+    "index.html":               "/",
+    "experience.html":          "/experience",
+    "assessment.html":          "/assessment",
+    "panelists.html":           "/panelists",
+    "about.html":               "/about",
+    "faq.html":                 "/faq",
+    "apply.html":               "/apply",
+    "contact.html":             "/spotlight-call",
+    "apply-panelist.html":      "/panelist-application",
+    "agreements/host.html":     "/host-agreement",
+    "agreements/panelist.html": "/panelist-agreement",
+}
+
+
+def for_ghl(markup):
+    """Rewrite a page body so it works pasted inside a GHL funnel step."""
+    # assets -> absolute
+    markup = re.sub(r'(src|href)="(?:\.\./)*assets/', rf'\1="{ASSET_HOST}/assets/', markup)
+
+    # internal page links -> funnel slugs. Longest paths first so
+    # "agreements/host.html" is matched before "host.html" could be.
+    for f in sorted(SLUGS, key=len, reverse=True):
+        markup = markup.replace(f'href="{f}"', f'href="{SLUGS[f]}"')
+        markup = markup.replace(f'href="../{f}"', f'href="{SLUGS[f]}"')
+    return markup
+
 # The masthead and footer render the icon at 34px, which is below the 40px
 # floor the deck sets for the gradient beam. Below that it specifies the
 # single-ink variant: the beam drawn as two rays. That is not a downgrade here,
@@ -197,23 +241,41 @@ def build():
             inline=inline.strip(),
         ), encoding="utf-8")
 
-        # GHL block: the same body, wrapped so it stands alone inside a builder.
+        # GHL block: the same body, links and assets rewritten for a funnel.
         ghl = GHL / fname.replace("/", "__")
+        slug = SLUGS.get(fname, "/")
         ghl.write_text(
             "<!-- ==========================================================\n"
-            f"     OWN YOUR STAGE STUDIO - GHL BLOCK: {fname}\n"
-            "     Paste into a GoHighLevel Custom Code / HTML element.\n"
-            "     All CSS is scoped under .oyss so it cannot leak into the\n"
-            "     builder chrome or the rest of the funnel.\n"
-            "     Host oyss.css and oyss.js somewhere reachable and update\n"
-            "     the two URLs below, or inline them if the site is one page.\n"
+            f"     OWN YOUR STAGE STUDIO - GHL BLOCK\n"
+            f"     Page:  {title}\n"
+            f"     Step:  {slug}\n"
+            "\n"
+            "     Paste ALL of this into one Custom JS/HTML element on that\n"
+            "     funnel step. Set the surrounding GHL section to full width\n"
+            "     with 0 padding, or its container will letterbox the design.\n"
+            "\n"
+            "     The <link> and <script> below are safe to leave on every\n"
+            "     page: the browser caches both after the first one. If you\n"
+            "     would rather load them once for the whole funnel, move them\n"
+            "     to Funnel Settings > Tracking Code (Header / Footer) and\n"
+            "     delete them from each block.\n"
+            "\n"
+            "     All CSS is scoped under .oyss, so nothing here can leak into\n"
+            "     the builder chrome or the rest of the funnel.\n"
             "     ========================================================== -->\n"
-            '<link rel="stylesheet" href="https://REPLACE-WITH-ASSET-HOST/oyss.css">\n'
-            '<div class="oyss">\n'
-            + body.strip() + "\n"
+            f'<link rel="stylesheet" href="{ASSET_HOST}/assets/oyss.css">\n'
+            '<div class="oyss oyss--bleed">\n\n'
+            "<!-- ---------- masthead ---------- -->\n"
+            + for_ghl(masthead(fname, "")) + "\n\n"
+            "<!-- ---------- page ---------- -->\n"
+            "<main>\n"
+            + for_ghl(body.strip()) + "\n"
+            "</main>\n\n"
+            "<!-- ---------- footer ---------- -->\n"
+            + for_ghl(footer("")) + "\n\n"
             "</div>\n"
-            '<script src="https://REPLACE-WITH-ASSET-HOST/oyss.js"></script>\n'
-            + inline.strip() + "\n",
+            f'<script src="{ASSET_HOST}/assets/oyss.js"></script>\n'
+            + for_ghl(inline.strip()) + "\n",
             encoding="utf-8")
 
         built.append(fname)

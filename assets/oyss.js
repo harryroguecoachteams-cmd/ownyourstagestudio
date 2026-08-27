@@ -24,6 +24,22 @@
   ready(function () {
 
     /* --------------------------------------------------------
+       0. FULL-BLEED SCROLLBAR MEASUREMENT
+       Only relevant when the markup is pasted inside a page
+       builder's centered container (see .oyss--bleed). `50vw`
+       counts the scrollbar and `50%` does not, so without this
+       the bleed overflows horizontally by the scrollbar width.
+       -------------------------------------------------------- */
+    if (document.querySelector('.oyss--bleed')) {
+      var setSbw = function () {
+        var sbw = window.innerWidth - document.documentElement.clientWidth;
+        document.documentElement.style.setProperty('--oyss-sbw', sbw + 'px');
+      };
+      setSbw();
+      window.addEventListener('resize', setSbw, { passive: true });
+    }
+
+    /* --------------------------------------------------------
        1. THE REVEAL
        Light hits a section and its contents resolve. One observer
        for the whole page; elements are released as they are lit

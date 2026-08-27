@@ -1,13 +1,54 @@
 <!-- ==========================================================
-     OWN YOUR STAGE STUDIO - GHL BLOCK: panelists.html
-     Paste into a GoHighLevel Custom Code / HTML element.
-     All CSS is scoped under .oyss so it cannot leak into the
-     builder chrome or the rest of the funnel.
-     Host oyss.css and oyss.js somewhere reachable and update
-     the two URLs below, or inline them if the site is one page.
+     OWN YOUR STAGE STUDIO - GHL BLOCK
+     Page:  Featured Panelist Program
+     Step:  /panelists
+
+     Paste ALL of this into one Custom JS/HTML element on that
+     funnel step. Set the surrounding GHL section to full width
+     with 0 padding, or its container will letterbox the design.
+
+     The <link> and <script> below are safe to leave on every
+     page: the browser caches both after the first one. If you
+     would rather load them once for the whole funnel, move them
+     to Funnel Settings > Tracking Code (Header / Footer) and
+     delete them from each block.
+
+     All CSS is scoped under .oyss, so nothing here can leak into
+     the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://REPLACE-WITH-ASSET-HOST/oyss.css">
-<div class="oyss">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<div class="oyss oyss--bleed">
+
+<!-- ---------- masthead ---------- -->
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+      <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="32" fill="#101A31"/>
+        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+      </svg>
+      <span class="lockup__type">
+        <span class="lockup__name">Own Your Stage</span>
+        <span class="lockup__desc">Studio</span>
+      </span>
+    </a>
+    <button class="burger" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav id="primary-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/experience">The Experience</a>
+      <a href="/assessment">Assessment</a>
+      <a href="/panelists" aria-current="page">Panelists</a>
+      <a href="/about">About</a>
+      <a href="/faq">FAQ</a>
+      <a class="btn btn--primary" href="/apply">Apply</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ---------- page ---------- -->
+<main>
 <!-- ============ HERO ============ -->
 <section class="dark stage" style="padding:clamp(80px,11vh,124px) 0 clamp(70px,9vh,106px);overflow:hidden">
   <span class="beam" aria-hidden="true" style="width:min(50vw,620px)"></span>
@@ -26,8 +67,8 @@
         credibility by association with the host and the other experts in the room.
       </p>
       <div class="actions" style="margin-top:2.6rem">
-        <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
-        <a class="cue" href="agreements/panelist.html">Read the agreement</a>
+        <a class="btn btn--primary" href="/panelist-application">Apply to be a panelist</a>
+        <a class="cue" href="/panelist-agreement">Read the agreement</a>
       </div>
     </div>
   </div>
@@ -75,7 +116,7 @@
   <div class="wrap">
     <div class="split">
       <figure class="frame-img" style="border-color:rgba(215,206,192,.16)" data-lit>
-        <img src="assets/stage-panelist.png" alt="A branded Own Your Stage Studio panelist frame with a name plate.">
+        <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/stage-panelist.png" alt="A branded Own Your Stage Studio panelist frame with a name plate.">
       </figure>
       <div data-lit data-cue="2">
         <p class="eyebrow">How it looks</p>
@@ -188,12 +229,64 @@
         decide whether you want one built around you.
       </p>
       <div class="actions" style="margin-top:2.6rem;justify-content:center">
-        <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
-        <a class="cue" href="experience.html">See the Host Experience</a>
+        <a class="btn btn--primary" href="/panelist-application">Apply to be a panelist</a>
+        <a class="cue" href="/experience">See the Host Experience</a>
       </div>
     </div>
   </div>
 </section>
+</main>
+
+<!-- ---------- footer ---------- -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+      <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="32" fill="#101A31"/>
+        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+      </svg>
+      <span class="lockup__type">
+        <span class="lockup__name">Own Your Stage</span>
+        <span class="lockup__desc">Studio</span>
+      </span>
+    </a>
+        <p class="footer__promise">We build the stage. You steal the show.</p>
+        <p class="caption" style="margin-top:1rem;max-width:34ch">
+          A premium authority building studio for established experts ready to become
+          more visible, more credible and easier to remember.
+        </p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="/experience">The Experience</a>
+        <a href="/assessment">Readiness Assessment</a>
+        <a href="/panelists">Panelist Program</a>
+        <a href="/about">About</a>
+        <a href="/faq">Frequently Asked Questions</a>
+      </div>
+      <div>
+        <h4>Next step</h4>
+        <a href="/apply">Apply for the Host Package</a>
+        <a href="/spotlight-call">Book a Spotlight Call</a>
+        <a href="/panelist-application">Panelist Application</a>
+        <div style="margin-top:1.6rem">
+          <h4>Agreements</h4>
+          <a href="/host-agreement">Host Services Agreement</a>
+          <a href="/panelist-agreement">Featured Panelist Agreement</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
+      <span>ownyourstagestudio.com</span>
+    </div>
+  </div>
+</footer>
+
 </div>
-<script src="https://REPLACE-WITH-ASSET-HOST/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
 
