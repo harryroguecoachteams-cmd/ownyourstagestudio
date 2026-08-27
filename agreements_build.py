@@ -27,6 +27,13 @@ SRC = ROOT.parent
 PAGES = ROOT / "_pages"
 
 
+# A run of typed underscores is how the .docx draws a blank to fill in. Left
+# as literal characters it is one unbreakable 42-character word, which on a
+# phone forces the whole document column wider than the screen. Rendered as a
+# rule it means the same thing and costs no minimum width.
+FILL = re.compile(r'_{4,}')
+
+
 def paragraphs(docx):
     """Yield (text, is_list_item, is_all_bold) for every non-empty paragraph.
 
@@ -82,7 +89,8 @@ def convert(docx, stop_at, skip_leading=0):
         if seen <= skip_leading:
             continue
 
-        esc = html.escape(text)
+        esc = FILL.sub(
+            '<span class="fill" aria-hidden="true"></span>', html.escape(text))
 
         if listed:
             if not open_list:

@@ -719,12 +719,14 @@
 .oyss .field__input[aria-invalid="true"] { border-color: var(--crimson); }
 
 .oyss .check {
-  display: grid; grid-template-columns: 20px 1fr; gap: .85rem;
+  /* 24px, not 20: WCAG 2.2 sets the minimum target at 24x24 and this is a
+     consent control, the one place a mis-tap is expensive. */
+  display: grid; grid-template-columns: 24px 1fr; gap: .85rem;
   align-items: start; cursor: pointer;
   font-size: var(--t-caption); line-height: 1.55; color: var(--slate);
 }
 .oyss .check + .check { margin-top: 1.05rem; }
-.oyss .check input { width: 20px; height: 20px; margin: .1rem 0 0; accent-color: var(--crimson); cursor: pointer; }
+.oyss .check input { width: 24px; height: 24px; margin: 0; accent-color: var(--crimson); cursor: pointer; }
 
 /* Radios rendered as a light ladder rather than dots. */
 .oyss .choice { display: block; cursor: pointer; }
@@ -791,6 +793,20 @@
 }
 .oyss .doctoc a:hover, .oyss .doctoc a.here { color: var(--navy); border-left-color: var(--gold); }
 @media (max-width: 900px) { .oyss .doclayout { grid-template-columns: 1fr; } .oyss .doctoc { display: none; } }
+
+/* A grid item's default min-width is auto, so the document column was being
+   sized by its longest unbreakable token instead of by the screen. That is
+   what pushed the agreements 39px wider than a 360px phone. Two belts:
+   the track may shrink, and legal prose may break inside a long term. */
+.oyss .doclayout > * { min-width: 0; }
+.oyss .doc p, .oyss .doc li, .oyss .doc h2, .oyss .doc h3 { overflow-wrap: break-word; }
+
+/* The blank to fill in. A rule, not forty typed underscores. */
+.oyss .fill {
+  display: inline-block; vertical-align: baseline;
+  min-width: 6rem; max-width: 100%; width: 18rem; height: 1em;
+  border-bottom: 1px solid var(--slate);
+}
 
 /* Reading progress — a beam that fills as the reader descends. */
 .oyss .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100; background: transparent; }
@@ -941,4 +957,112 @@
 .oyss--bleed > main > section {
   margin-left:  calc(50% - 50vw + (var(--oyss-sbw, 0px) / 2));
   margin-right: calc(50% - 50vw + (var(--oyss-sbw, 0px) / 2));
+}
+
+/* ============================================================
+   19. RESPONSIVE HARDENING
+   Phone, tablet and pointer-type behaviour. Every rule below is
+   inside a query or a pointer test, so the desktop composition
+   the deck specifies is untouched. Still scoped under .oyss so a
+   GHL paste stays sealed.
+   ============================================================ */
+
+/* iOS inflates text in landscape unless told not to. Scoped, not
+   set on html, so the GHL block still carries it. */
+.oyss { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* ---- the collapsed masthead -------------------------------- */
+@media (max-width: 1040px) {
+  /* Anchored to the bar, not to a number. The old top:78px broke
+     the moment the masthead changed height. .masthead is sticky,
+     so it is already the containing block for this. */
+  .oyss .masthead nav {
+    top: 100%;
+    max-height: calc(100vh - 96px);
+    max-height: calc(100svh - 96px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 22px 44px rgba(7, 11, 22, .5);
+  }
+  .oyss .masthead nav a { min-height: 48px; display: flex; align-items: center; }
+  .oyss .burger {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 46px; min-height: 44px; padding: .5rem .7rem;
+  }
+}
+
+/* ---- tablet ------------------------------------------------ */
+@media (max-width: 860px) {
+  /* The panel grid already halves at 780/760; the split stack is
+     handled above. What is left is the reading rhythm: a stacked
+     page needs less air between bays than a two-column one. */
+  .oyss { --bay: clamp(62px, 8vw, 104px); }
+  .oyss .doclayout { gap: 2rem; }
+}
+
+/* ---- phone ------------------------------------------------- */
+@media (max-width: 700px) {
+  /* 11px small caps survive a desk monitor. They do not survive a
+     phone held at arm's length by the audience this sells to. The
+     ladder ratio is preserved; only the bottom rung moves. */
+  .oyss { --t-eyebrow: .75rem; --gutter: clamp(18px, 5vw, 56px); }
+  .oyss .eyebrow,
+  .oyss .cuerow__claim,
+  .oyss .ledger__head,
+  .oyss .footer h4 { letter-spacing: .18em; }
+  .oyss .frame__sub { font-size: .75rem; }
+  .oyss .figure__label, .oyss .field__help, .oyss .ticklist li { font-size: .8125rem; }
+
+  /* One action per row. A wrapped half-width button next to a
+     text cue reads as a mistake at this width. */
+  .oyss .actions { flex-direction: column; align-items: stretch; gap: .85rem; }
+  .oyss .actions .btn { width: 100%; justify-content: center; }
+  .oyss .actions .cue { justify-content: flex-start; }
+  .oyss .masthead .btn, .oyss .masthead nav .btn { width: 100%; }
+
+  .oyss .footer__base { flex-direction: column; gap: .6rem; }
+  .oyss .footer__promise { font-size: 1.12rem; }
+
+  .oyss .cuerow { padding-left: 0; }
+  .oyss .cuesheet__rail, .oyss .cuesheet__marker { display: none; }
+
+  /* A narrow window on a desktop is still a narrow window, and an
+     audit measures there. */
+  .oyss .field__input { min-height: 48px; }
+}
+
+/* ---- small phone ------------------------------------------- */
+@media (max-width: 420px) {
+  .oyss .rig { grid-template-columns: 1fr; }
+  .oyss .frame--host { grid-column: span 1; }
+  .oyss .dimmer { grid-template-columns: 1fr; }
+  .oyss .btn { padding: 1.02rem 1.3rem; letter-spacing: .1em; }
+}
+
+/* ---- phone held sideways ----------------------------------- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .oyss .masthead nav { max-height: calc(100vh - 84px); }
+  .oyss { --bay: clamp(46px, 8vh, 84px); }
+}
+
+/* ---- touch pointers ---------------------------------------- */
+@media (pointer: coarse) {
+  /* A 32px underlined cue is legal at 24x24 and still a poor thumb
+     target. Padding, not font size, so the type ladder holds. */
+  .oyss .cue { padding-top: .55rem; padding-bottom: .7rem; }
+  .oyss .footer a { padding: .62rem 0; }
+  .oyss .field__input { min-height: 48px; }
+}
+
+/* ---- no hover: light cues that can never fire --------------- */
+@media (hover: none) {
+  /* The pointer-tracked pool has nothing to track. Removing it
+     saves the compositing rather than leaving an invisible layer. */
+  .oyss .stage__pool { display: none; }
+  /* The dimmer's key light is hover-only, so on touch the ladder
+     would read as four dead cells. Light them from the token
+     scale instead, which is what the deck's dimmer means anyway. */
+  .oyss .dimmer__cell:nth-child(3)::after { opacity: .55; transform: translateX(-50%) scaleY(1); }
+  .oyss .dimmer__cell:nth-child(4)::after { opacity: 1;   transform: translateX(-50%) scaleY(1); }
+  .oyss .dimmer__cell:nth-child(4) { border-top-color: var(--gold); }
 }

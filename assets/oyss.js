@@ -171,18 +171,41 @@
     var burger = document.querySelector('.burger');
     var nav = document.querySelector('.masthead nav');
     if (burger && nav) {
-      burger.addEventListener('click', function () {
-        var open = nav.classList.toggle('open');
+      var setNav = function (open) {
+        nav.classList.toggle('open', open);
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
         burger.textContent = open ? 'Close' : 'Menu';
+        /* The panel scrolls itself. Without this the page behind it
+           scrolls instead the moment a thumb lands outside a link. */
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setNav(!nav.classList.contains('open'));
       });
+
       nav.addEventListener('click', function (e) {
-        if (e.target.tagName === 'A' && nav.classList.contains('open')) {
-          nav.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-          burger.textContent = 'Menu';
-        }
+        if (e.target.closest('a') && nav.classList.contains('open')) setNav(false);
       });
+
+      /* Tapping the page behind an open menu should close it, which
+         is what every phone user expects and no CSS can express. */
+      document.addEventListener('click', function (e) {
+        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== burger) setNav(false);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('open')) { setNav(false); burger.focus(); }
+      });
+
+      /* Rotating a phone can cross the 1040px line with the panel
+         still open, leaving the body locked and the nav laid out as
+         a desktop row. Close it on the way past. */
+      var mq = window.matchMedia('(min-width: 1041px)');
+      var onWide = function (m) { if (m.matches && nav.classList.contains('open')) setNav(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onWide);
+      else if (mq.addListener) mq.addListener(onWide);
     }
 
     /* --------------------------------------------------------
