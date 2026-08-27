@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,6 +53,14 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--guide">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Read</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">Questions</span>
+    <span class="pagemark__meta pagemark__spacer">Tap a question to open it</span>
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
@@ -67,161 +82,193 @@
 <section class="bay light">
   <div class="wrap wrap--tight">
 
-    <p class="eyebrow eyebrow--gold" data-lit>The engagement</p>
-    <div class="stack-l" style="margin-top:1.8rem">
+    <p class="caption" data-lit style="margin-bottom:2.4rem;max-width:38rem">
+      Fourteen questions, answered in full. Open the ones that matter to you.
+    </p>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">What exactly am I paying for at $2,997?</h3>
-        <p class="body" style="margin-top:.8rem">
+    <p class="eyebrow eyebrow--gold" data-lit>The engagement</p>
+    <div style="margin-top:1.4rem">
+
+      <details class="qa" data-lit>
+        <summary><span>What exactly am I paying for at $2,997?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           A three month done-for-you engagement built around one professionally produced
           virtual panel event: strategy, topic development, panelist recruitment and
           management, complete event branding, the registration page, promotional assets
           and swipe copy, live production, the recording, authority building content and
           a closing Momentum Session.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">How long does it take?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>How long does it take?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           Each event runs on a minimum eight week planning and production cycle, inside a
           three month engagement. Delays on your side do not automatically extend the
           engagement, so the intake deadlines matter more than they look.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Do you fill the room for me?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Do you fill the room for me?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           No, and we say so before you sign rather than after. We create every
           promotional asset: branding, graphics, the registration page, email and social
           swipe copy. You and your panelists send them. We do not advertise the event,
           post on your behalf, email your list or guarantee registration or attendance
           numbers.
-        </p>
-        <p class="body" style="margin-top:.8rem">
+          </p>
+          <p>
           This is also why the panel matters. Five credible experts each inviting their
           own audience is what builds the room.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">What if I have never hosted anything before?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>What if I have never hosted anything before?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           That is the normal starting point. You are not asked to be an event producer.
           You are asked to prepare, show up and lead a conversation on a subject you
           already know well. Everything around that is ours.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Who is this not for?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Who is this not for?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           People who are new to their work, still building a first offer, looking for
           coaching or mentoring, or hoping someone else will promote the event for them.
           The engagement assumes real experience and a willingness to invite your own
           audience.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
     </div>
 
     <div class="rule" style="margin:3.4rem 0"></div>
 
     <p class="eyebrow eyebrow--gold" data-lit>Panelists</p>
-    <div class="stack-l" style="margin-top:1.8rem">
+    <div style="margin-top:1.4rem">
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Why is there a $47 fee to speak?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Why is there a $47 fee to speak?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           It is a commitment and administrative fee, not a speaking fee, and it buys
           nothing but a reserved position. It offsets onboarding, coordination, speaker
           communications, graphics, technical setup and support. It also filters for
           people who will actually turn up prepared and promote, which is what protects
           the quality of the panel for everyone else in it.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Is the fee refundable?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Is the fee refundable?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           No, because production and onboarding begin the moment your position is
           confirmed. The one exception: if we cancel the event and do not offer a
           comparable rescheduled date that you accept, it is refunded in full.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Can I sell from the stage?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Can I sell from the stage?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           No. You may introduce your business, reference your services as part of the
           teaching and offer one complimentary resource. You may not run a pitch,
           solicit purchases or request payment during the event. The primary purpose is
           education, and the host or moderator may redirect a presentation that drifts.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Can I send a recording instead of appearing live?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Can I send a recording instead of appearing live?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           No. Live appearance is required, on camera. Prerecorded presentations,
           AI generated presenters, avatars, voice clones and stand-ins are not permitted
           without prior written approval.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Who owns the recording?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Who owns the recording?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           The studio owns the full event recording and the edited productions. You keep
           all of your own pre-existing intellectual property, and you grant a licence to
           use your name, likeness and presentation in connection with the event. You may
           not distribute the complete event recording without written consent. Only the
           studio may record the event.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
     </div>
 
     <div class="rule" style="margin:3.4rem 0"></div>
 
     <p class="eyebrow eyebrow--gold" data-lit>Practical</p>
-    <div class="stack-l" style="margin-top:1.8rem">
+    <div style="margin-top:1.4rem">
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">What platform do you use?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>What platform do you use?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           Zoom, or another virtual platform designated by the studio. Events run
           approximately ninety minutes, with panelists checked in twenty minutes before
           the published start time.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">When is payment due?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>When is payment due?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           The full package price is due when the Host Services Agreement is signed. No
           date is reserved and no work begins until the agreement is signed, payment has
           processed and the initial intake is complete.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Can I read the agreement first?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Can I read the agreement first?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           Yes, both are published in full on this site rather than sent after you commit.
           <a href="/host-agreement" style="border-bottom:1px solid var(--gold)">Host Services Agreement</a>
           and
           <a href="/panelist-agreement" style="border-bottom:1px solid var(--gold)">Featured Panelist Agreement</a>.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
 
-      <div data-lit>
-        <h3 style="font-family:var(--serif);font-size:1.45rem;font-weight:400">Is there anything beyond a single event?</h3>
-        <p class="body" style="margin-top:.8rem">
+      <details class="qa" data-lit>
+        <summary><span>Is there anything beyond a single event?</span><span class="qa__sw" aria-hidden="true"></span></summary>
+        <div class="qa__body">
+          <p>
           A year-long signature partnership of six produced events is in development for
           experts who want a recognized series rather than one appearance. Ask about it
           on a Spotlight Call.
-        </p>
-      </div>
+          </p>
+        </div>
+      </details>
     </div>
 
   </div>
@@ -250,12 +297,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -296,5 +350,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 

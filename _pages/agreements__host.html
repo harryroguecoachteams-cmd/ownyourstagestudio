@@ -1,5 +1,5 @@
 <!-- ============ HERO ============ -->
-<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(54px,7vh,80px);overflow:hidden">
+<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
   <span class="beam" aria-hidden="true" style="width:min(40vw,480px)"></span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
@@ -15,13 +15,43 @@
   </div>
 </section>
 
-<!-- ============ THE DOCUMENT ============ -->
-<section class="bay--half light">
+<!-- ============ THE DOCUMENT ============
+     A contract is an object, so it is drawn as one: paper with an edge,
+     lifted out of the dark hero. Section 22 of oyss.css. -->
+<section class="sheetbay">
   <div class="wrap">
-    <div class="doclayout">
+    <div class="sheet docsheet" data-lit>
 
-      <aside class="doctoc">
-        <p class="eyebrow eyebrow--gold">Contents</p>
+      <div class="sheet__head">
+        <div>
+          <p class="sheet__kicker">Agreement &middot; draft for review</p>
+          <p class="sheet__title">Done-For-You Panel Host Services Agreement</p>
+        </div>
+        <p class="sheet__meta">
+          <b>$2,997.00</b>
+          Due on signature, non-refundable<br>
+          Florida law &middot; 41 sections
+        </p>
+      </div>
+
+      <!-- The parties block. A real agreement opens by saying who is bound
+           and by what. This one now does too, before the first clause. -->
+      <dl class="parties">
+        <div><dt>Between</dt><dd>Own Your Stage Studio, LLC, a Florida limited liability company</dd></div>
+        <div><dt>And</dt><dd>The Client, named in the signature block below</dd></div>
+        <div><dt>Governed by</dt><dd>The laws of the State of Florida</dd></div>
+        <div><dt>Signed</dt><dd>Electronically, at the end of this page</dd></div>
+      </dl>
+
+      <div class="notice" style="margin:2.2rem 0 2.6rem">
+        <strong style='color:var(--navy)'>Read this before you pay.</strong> The whole agreement is on this page. The parts most people miss are section 4, which makes payment non-refundable, section 7, which puts audience promotion on you, and section 9, which gives you 48 hours to complete intake once you sign.
+      </div>
+
+      <!-- The rail is hidden under 900px, so on a phone this disclosure is
+           the only way to reach section 12 without forty screens of thumbing. -->
+      <details class="doctoc--mobile">
+        <summary>Contents &middot; 41 sections</summary>
+        <div class="doctoc__list">
       <a href="#s1">1. Purpose of Agreement</a>
       <a href="#s2">2. Engagement Term</a>
       <a href="#s3">3. Package Price and Payment</a>
@@ -63,14 +93,57 @@
       <a href="#s39">39. Headings and Interpretation</a>
       <a href="#s40">40. Electronic Signatures and Counterparts</a>
       <a href="#s41">41. Client Acknowledgments</a>
-        <div class="rule" style="margin:1.4rem 0"></div>
-        <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
-      </aside>
-
-      <div>
-        <div class="notice" style="margin-bottom:2.6rem">
-          <strong style='color:var(--navy)'>Read this before you pay.</strong> The whole agreement is on this page. The parts most people miss are section 4, which makes payment non-refundable, section 7, which puts audience promotion on you, and section 9, which gives you 48 hours to complete intake once you sign.
         </div>
+      </details>
+
+      <div class="doclayout">
+
+        <aside class="doctoc">
+          <p class="eyebrow eyebrow--gold">Contents</p>
+      <a href="#s1">1. Purpose of Agreement</a>
+      <a href="#s2">2. Engagement Term</a>
+      <a href="#s3">3. Package Price and Payment</a>
+      <a href="#s4">4. Nonrefundable Payment</a>
+      <a href="#s5">5. Scope of Services</a>
+      <a href="#s6">6. Excluded Services</a>
+      <a href="#s7">7. Audience Generation and Promotion</a>
+      <a href="#s8">8. Client Responsibilities</a>
+      <a href="#s9">9. Intake Deadline and Project Activation</a>
+      <a href="#s10">10. Event Scheduling and Lead Time</a>
+      <a href="#s11">11. Client Delays and Failure to Cooperate</a>
+      <a href="#s12">12. Revisions and Changes in Scope</a>
+      <a href="#s13">13. Panelist Independence</a>
+      <a href="#s14">14. Event Content and Complimentary Offers</a>
+      <a href="#s15">15. Recording Restrictions</a>
+      <a href="#s16">16. Client Recording and Content License</a>
+      <a href="#s17">17. Company’s Recording and Promotional Rights</a>
+      <a href="#s18">18. Intellectual Property</a>
+      <a href="#s19">19. Confidentiality</a>
+      <a href="#s20">20. Professional Conduct and Brand Protection</a>
+      <a href="#s21">21. No Business-Outcome Guarantee</a>
+      <a href="#s22">22. Third-Party Platforms and Services</a>
+      <a href="#s23">23. Event Cancellation and Rescheduling by Client</a>
+      <a href="#s24">24. Cancellation or Rescheduling by Company</a>
+      <a href="#s25">25. Force Majeure</a>
+      <a href="#s26">26. Termination</a>
+      <a href="#s27">27. Client Representations and Warranties</a>
+      <a href="#s28">28. Indemnification</a>
+      <a href="#s29">29. Limitation of Liability</a>
+      <a href="#s30">30. Dispute-Resolution Process</a>
+      <a href="#s31">31. Governing Law and Venue</a>
+      <a href="#s32">32. Attorneys’ Fees and Costs</a>
+      <a href="#s33">33. Independent Contractor Relationship</a>
+      <a href="#s34">34. Notices</a>
+      <a href="#s35">35. Assignment</a>
+      <a href="#s36">36. Entire Agreement</a>
+      <a href="#s37">37. Amendments and Waivers</a>
+      <a href="#s38">38. Severability</a>
+      <a href="#s39">39. Headings and Interpretation</a>
+      <a href="#s40">40. Electronic Signatures and Counterparts</a>
+      <a href="#s41">41. Client Acknowledgments</a>
+          <div class="rule" style="margin:1.4rem 0"></div>
+          <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
+        </aside>
 
         <article class="doc" id="agreement-body">
       <h2 id="s1"><span class="doc__n">1</span>Purpose of Agreement</h2>
@@ -690,8 +763,8 @@
       </ul>
           <div id="agreement-end" style="height:1px"></div>
         </article>
-      </div>
 
+      </div>
     </div>
   </div>
 </section>

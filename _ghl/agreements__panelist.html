@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,11 +53,19 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--agreement">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Agreement</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">Featured Panelist</span>
+    <span class="pagemark__meta pagemark__spacer">Draft · read then sign</span>
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
 <!-- ============ HERO ============ -->
-<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(54px,7vh,80px);overflow:hidden">
+<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
   <span class="beam" aria-hidden="true" style="width:min(40vw,480px)"></span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
@@ -66,13 +81,43 @@
   </div>
 </section>
 
-<!-- ============ THE DOCUMENT ============ -->
-<section class="bay--half light">
+<!-- ============ THE DOCUMENT ============
+     A contract is an object, so it is drawn as one: paper with an edge,
+     lifted out of the dark hero. Section 22 of oyss.css. -->
+<section class="sheetbay">
   <div class="wrap">
-    <div class="doclayout">
+    <div class="sheet docsheet" data-lit>
 
-      <aside class="doctoc">
-        <p class="eyebrow eyebrow--gold">Contents</p>
+      <div class="sheet__head">
+        <div>
+          <p class="sheet__kicker">Agreement &middot; draft for review</p>
+          <p class="sheet__title">Featured Panelist Agreement</p>
+        </div>
+        <p class="sheet__meta">
+          <b>$47.00</b>
+          Administrative fee, non-refundable<br>
+          Florida law &middot; 26 sections
+        </p>
+      </div>
+
+      <!-- The parties block. A real agreement opens by saying who is bound
+           and by what. This one now does too, before the first clause. -->
+      <dl class="parties">
+        <div><dt>Between</dt><dd>Own Your Stage Studio, LLC, a Florida limited liability company</dd></div>
+        <div><dt>And</dt><dd>The Featured Panelist, named in the signature block below</dd></div>
+        <div><dt>Governed by</dt><dd>The laws of the State of Florida</dd></div>
+        <div><dt>Signed</dt><dd>Electronically, at the end of this page</dd></div>
+      </dl>
+
+      <div class="notice" style="margin:2.2rem 0 2.6rem">
+        <strong style='color:var(--navy)'>Read this before you pay.</strong> The parts most people miss are section 9, which forbids selling from the stage, section 10, which commits you to promoting three times, section 11, which requires you to appear live, and section 12, which makes the $47 fee non-refundable.
+      </div>
+
+      <!-- The rail is hidden under 900px, so on a phone this disclosure is
+           the only way to reach section 12 without forty screens of thumbing. -->
+      <details class="doctoc--mobile">
+        <summary>Contents &middot; 26 sections</summary>
+        <div class="doctoc__list">
       <a href="#s1">1. PURPOSE</a>
       <a href="#s2">2. NATURE OF THE EVENT</a>
       <a href="#s3">3. EVENT DETAILS</a>
@@ -99,14 +144,42 @@
       <a href="#s24">24. PAYMENT AUTHORIZATION</a>
       <a href="#s25">25. MISCELLANEOUS</a>
       <a href="#s26">26. ACKNOWLEDGMENT</a>
-        <div class="rule" style="margin:1.4rem 0"></div>
-        <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
-      </aside>
-
-      <div>
-        <div class="notice" style="margin-bottom:2.6rem">
-          <strong style='color:var(--navy)'>Read this before you pay.</strong> The parts most people miss are section 9, which forbids selling from the stage, section 10, which commits you to promoting three times, section 11, which requires you to appear live, and section 12, which makes the $47 fee non-refundable.
         </div>
+      </details>
+
+      <div class="doclayout">
+
+        <aside class="doctoc">
+          <p class="eyebrow eyebrow--gold">Contents</p>
+      <a href="#s1">1. PURPOSE</a>
+      <a href="#s2">2. NATURE OF THE EVENT</a>
+      <a href="#s3">3. EVENT DETAILS</a>
+      <a href="#s4">4. ELIGIBILITY</a>
+      <a href="#s5">5. INDEPENDENT EXPERT STATUS</a>
+      <a href="#s6">6. PANELIST RESPONSIBILITIES</a>
+      <a href="#s7">7. PRESENTATION STANDARDS</a>
+      <a href="#s8">8. COMPLIMENTARY RESOURCE</a>
+      <a href="#s9">9. SALES AND PROMOTIONAL ACTIVITIES</a>
+      <a href="#s10">10. PROMOTIONAL COMMITMENT</a>
+      <a href="#s11">11. LIVE APPEARANCE REQUIREMENT</a>
+      <a href="#s12">12. PANELIST COMMITMENT &amp; ADMINISTRATIVE FEE</a>
+      <a href="#s13">13. WITHDRAWAL, CANCELLATION, AND EVENT CHANGES</a>
+      <a href="#s14">14. COMPANY RESPONSIBILITIES</a>
+      <a href="#s15">15. RECORDING, MEDIA RELEASE, AND INTELLECTUAL PROPERTY</a>
+      <a href="#s16">16. EVENT RECORDING AND PARTICIPANT RESTRICTIONS</a>
+      <a href="#s17">17. PROFESSIONAL CONDUCT</a>
+      <a href="#s18">18. REPRESENTATIONS AND WARRANTIES</a>
+      <a href="#s19">19. CONFIDENTIALITY</a>
+      <a href="#s20">20. INDEMNIFICATION</a>
+      <a href="#s21">21. LIMITATION OF LIABILITY</a>
+      <a href="#s22">22. FORCE MAJEURE</a>
+      <a href="#s23">23. GOVERNING LAW AND VENUE</a>
+      <a href="#s24">24. PAYMENT AUTHORIZATION</a>
+      <a href="#s25">25. MISCELLANEOUS</a>
+      <a href="#s26">26. ACKNOWLEDGMENT</a>
+          <div class="rule" style="margin:1.4rem 0"></div>
+          <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
+        </aside>
 
         <article class="doc" id="agreement-body">
       <p>The Company and the Panelist may each be referred to individually as a &quot;Party&quot; and collectively as the &quot;Parties.&quot;</p>
@@ -472,8 +545,8 @@
       </ul>
           <div id="agreement-end" style="height:1px"></div>
         </article>
-      </div>
 
+      </div>
     </div>
   </div>
 </section>
@@ -604,12 +677,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -650,5 +730,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 <script>OYSS.signing({ agreement: "Featured Panelist Agreement" });</script>

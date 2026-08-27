@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,6 +53,14 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--form">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Form</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">Readiness Assessment</span>
+    <span class="pagemark__meta pagemark__spacer">8 questions · 3 minutes</span>
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
@@ -72,7 +87,8 @@
 </section>
 
 <!-- ============ THE LADDER ============ -->
-<section class="bay--half paper">
+<section class="bay--half dark stage" style="padding-bottom:clamp(96px,12vh,140px)">
+  <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
     <div style="max-width:42rem" data-lit>
       <p class="eyebrow eyebrow--gold">What it measures</p>
@@ -86,12 +102,31 @@
 </section>
 
 <!-- ============ THE ASSESSMENT ============ -->
-<section class="bay light" id="start">
+<section class="sheetbay" id="start">
   <div class="wrap wrap--tight">
 
-    <form id="assessment-form" novalidate data-lit>
+    <div class="sheet" data-lit>
 
-      <p class="eyebrow eyebrow--gold">Question 1 of 8 &middot; Positioning</p>
+      <div class="sheet__head">
+        <div>
+          <p class="sheet__kicker">Assessment</p>
+          <p class="sheet__title">Where you are on the visibility ladder</p>
+        </div>
+        <p class="sheet__meta">
+          <b>8 questions</b>
+          About three minutes<br>
+          No email required
+        </p>
+      </div>
+
+      <form id="assessment-form" novalidate>
+
+        <p class="sheet__key">
+          Answer every question. Your result appears on this page and is not sent
+          anywhere.
+        </p>
+
+        <p class="sheet__sec">Positioning<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 1 of 8</span></p>
       <fieldset data-q="1" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           If someone in your industry described you in one sentence, would they name a subject?
@@ -106,7 +141,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>My name and one subject are already linked</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 2 of 8 &middot; Recognition</p>
+        <p class="sheet__sec">Recognition<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 2 of 8</span></p>
       <fieldset data-q="2" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           Where does new business come from?
@@ -121,7 +156,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>Mostly people who found me without an introduction</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 3 of 8 &middot; Consistency</p>
+        <p class="sheet__sec">Consistency<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 3 of 8</span></p>
       <fieldset data-q="3" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           How consistently does your expertise show up in public?
@@ -136,7 +171,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>Consistently, and it compounds</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 4 of 8 &middot; Audience reach</p>
+        <p class="sheet__sec">Audience reach<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 4 of 8</span></p>
       <fieldset data-q="4" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           If you invited your audience to something next month, who would actually come?
@@ -151,7 +186,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>An engaged audience that turns up when I ask</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 5 of 8 &middot; Platform</p>
+        <p class="sheet__sec">Platform<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 5 of 8</span></p>
       <fieldset data-q="5" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           Do you have a platform of your own, or do you appear on other people's?
@@ -166,7 +201,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>I convene my own rooms already</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 6 of 8 &middot; Assets</p>
+        <p class="sheet__sec">Assets<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 6 of 8</span></p>
       <fieldset data-q="6" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           If someone asked for video of you speaking, what could you send today?
@@ -181,7 +216,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>Professional footage I use in my marketing</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 7 of 8 &middot; Network</p>
+        <p class="sheet__sec">Network<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 7 of 8</span></p>
       <fieldset data-q="7" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           Could you name five credible experts who would share a stage with you?
@@ -196,7 +231,7 @@
           <span class="choice__box"><span class="choice__dot"></span><span>Easily, and they would say yes</span></span></label>
       </fieldset>
 
-      <p class="eyebrow eyebrow--gold">Question 8 of 8 &middot; Readiness</p>
+        <p class="sheet__sec">Readiness<span class="pagemark__spacer" style="font-size:.6875rem;color:var(--slate);letter-spacing:.16em">Question 8 of 8</span></p>
       <fieldset data-q="8" style="border:0;padding:0;margin:0 0 2.8rem">
         <legend style="font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin-bottom:1.3rem;padding:0">
           What has been stopping you from doing something like this already?
@@ -211,17 +246,25 @@
           <span class="choice__box"><span class="choice__dot"></span><span>Nothing. I have been looking for the right vehicle</span></span></label>
       </fieldset>
 
-      <p id="assess-error" hidden class="notice notice--action" style="margin-bottom:1.6rem" role="alert"></p>
+        <div class="sheet__foot">
+          <p id="assess-error" hidden class="notice notice--action" style="margin-bottom:1.4rem" role="alert"></p>
+          <button type="submit" class="btn btn--primary">See my level</button>
+          <p class="caption">
+            Your result appears on this page. Nothing is sent anywhere unless you choose to
+            take a next step.
+          </p>
+        </div>
+      </form>
 
-      <button type="submit" class="btn btn--primary">See my level</button>
-      <p class="caption" style="margin-top:1.2rem">
-        Your result appears on this page. Nothing is sent anywhere unless you choose to
-        take a next step.
-      </p>
-    </form>
-
-    <!-- ============ RESULT ============ -->
-    <div id="assessment-result" hidden>
+      <!-- ============ RESULT ============ -->
+      <div id="assessment-result" hidden>
+      <div class="sheet__head" style="margin-bottom:2rem">
+        <div>
+          <p class="sheet__kicker">Result</p>
+          <p class="sheet__title">Your place on the ladder</p>
+        </div>
+        <p class="sheet__meta"><b>Complete</b>Based on your eight answers</p>
+      </div>
       <p class="eyebrow eyebrow--gold">Your current level</p>
       <h2 class="display" id="result-level" style="font-size:clamp(2.2rem,1.6rem+2.6vw,3.6rem)"></h2>
       <span class="pool" aria-hidden="true"></span>
@@ -270,8 +313,9 @@
         Not ready for either. <a href="/panelists" style="border-bottom:1px solid var(--gold)">Join a panel as a featured expert</a>
         and see the production from the inside first.
       </p>
-    </div>
+      </div>
 
+    </div><!-- /sheet -->
   </div>
 </section>
 </main>
@@ -281,12 +325,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -327,5 +378,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 <script>OYSS.assessment();</script>

@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,6 +53,14 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--guide">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Read</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">The Experience</span>
+    <span class="pagemark__meta pagemark__spacer">Three months · $2,997</span>
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
@@ -360,12 +375,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -406,5 +428,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 

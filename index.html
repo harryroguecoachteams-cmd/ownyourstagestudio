@@ -9,7 +9,19 @@
 <meta property="og:description" content="Own Your Stage Studio helps hidden experts become recognized authorities through professionally produced virtual panel events.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css">
+<link rel="stylesheet" href="assets/oyss.css?v=820d9fc0">
+<style>
+/* PAGE SHELL RESET.
+   oyss.css carries no global reset on purpose: every selector is scoped
+   under .oyss so the same file can be pasted into a GoHighLevel Custom Code
+   element without touching the builder chrome. The cost is that on a
+   standalone page the browser's own 8px body margin survives, and it was
+   drawing a pale frame around every dark section on every page. It is the
+   page shell's job to remove it, not the brand system's, so it lives here
+   and never reaches the GHL block. */
+html, body { margin: 0; padding: 0; }
+body { background: #F7F2E8; }
+</style>
 </head>
 <body>
 <div class="oyss">
@@ -18,12 +30,19 @@
 
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="index.html" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -42,6 +61,7 @@
     </nav>
   </div>
 </header>
+
 
 <main id="main">
 <!-- ============ 1. THE HERO ============
@@ -318,8 +338,11 @@
         </p>
       </div>
 
-      <div class="rig" data-lit data-cue="2" aria-hidden="true">
+      <div data-lit data-cue="2">
+      <p class="eyebrow" style="margin-bottom:.9rem">The rig, live</p>
+      <div class="rig" role="img" aria-label="A six frame virtual panel rig. One large host frame and five panelist frames, with the key light switching between them the way a producer switches cameras.">
         <div class="frame frame--host on">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate">
             <div class="frame__role">Host</div>
             <div class="frame__name">Your name here</div>
@@ -327,20 +350,30 @@
           </div>
         </div>
         <div class="frame">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
+      </div>
+      <p class="rig__note">
+        One host, five featured experts. The key light moves between them the way a
+        producer switches cameras, so the person speaking is always the person lit.
+      </p>
       </div>
     </div>
 
@@ -501,12 +534,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="index.html" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -547,7 +587,7 @@
 </footer>
 
 </div>
-<script src="assets/oyss.js"></script>
+<script src="assets/oyss.js?v=820d9fc0"></script>
 
 </body>
 </html>

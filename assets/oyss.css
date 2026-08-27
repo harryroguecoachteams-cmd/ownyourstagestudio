@@ -1066,3 +1066,526 @@
   .oyss .dimmer__cell:nth-child(4)::after { opacity: 1;   transform: translateX(-50%) scaleY(1); }
   .oyss .dimmer__cell:nth-child(4) { border-top-color: var(--gold); }
 }
+
+/* ============================================================
+   21. ISSUE PASS, 28 AUG 2026
+   Everything below answers a specific, measured complaint from
+   the review. Grouped by the complaint so a later reader can see
+   why a rule exists, not just what it does.
+   ============================================================ */
+
+/* ---- 21.1 THE LOCKUP BROKE IN TWO ---------------------------
+   Two separate faults that looked like one.
+
+   (a) `.oyss .footer a` is (0,3,1) and `.oyss .lockup` is (0,2,0),
+       so the FOOTER lockup was being served display:block by the
+       footer link rule. The icon then stacked above the wordmark.
+   (b) `.lockup__name` and `.lockup__desc` were never given a
+       display, so they were inline. The two-line lockup on desktop
+       was an accident of wrapping, not a rule, and on a phone the
+       line broke wherever it happened to run out of room.
+   The lockup is artwork. Its proportions are locked in the deck,
+   so they are locked here.                                      */
+.oyss .lockup,
+.oyss .footer .lockup { display: inline-flex; align-items: center; gap: .78rem; }
+.oyss .lockup__type { flex: 0 1 auto; min-width: 0; }
+.oyss .lockup__name,
+.oyss .lockup__desc { display: block; white-space: nowrap; }
+.oyss .lockup__icon { flex: none; }
+
+/* ---- 21.2 THE BEAM WAS NOT OVER THE HEADLINE ----------------
+   `left: 62%` is a fixed number on a page whose headline column
+   is not fixed. On a centered section it landed to the right of
+   the words; on a phone it landed off the text entirely. The
+   position is now a token, defaulted to the middle and set per
+   section by the light engine to the optical centre of whatever
+   that section's headline block actually is.                    */
+.oyss .beam { left: var(--beam-x, 50%); }
+.oyss .landing { left: var(--beam-x, 50%); }
+
+/* ---- 21.3 A STACKED CUE DREW A FULL-WIDTH UNDERLINE ---------
+   `.actions` becomes a stretch column on a phone, so the cue,
+   an inline-flex, was stretched and its gold underline ran the
+   whole width with the label sitting at one end. It reads as a
+   broken divider. The cue hugs its own text at every width.     */
+.oyss .actions .cue { align-self: flex-start; }
+
+/* ---- 21.4 SMALL TYPE -----------------------------------------
+   Reviewed at arm's length on a phone, not on a desk monitor.
+   The audience is 40+ professionals. Only the bottom two rungs
+   of the ladder move; the ratio between them is preserved and
+   nothing above body size changes, so the deck's composition is
+   intact.                                                       */
+.oyss { --t-eyebrow: .75rem; --t-caption: .875rem; }
+@media (max-width: 700px) { .oyss { --t-eyebrow: .8125rem; --t-caption: .9375rem; } }
+
+/* The deliverables and "come with" lists were set at caption size
+   while carrying primary content. Content gets content size. */
+.oyss .ticklist li { font-size: .9375rem; line-height: 1.55; }
+@media (max-width: 700px) { .oyss .ticklist li { font-size: 1rem; } }
+
+/* A field label is an instruction, not a caption. */
+.oyss .field__label { font-size: .75rem; letter-spacing: .14em; }
+@media (max-width: 700px) { .oyss .field__label { font-size: .8125rem; } }
+.oyss .check { font-size: .9375rem; }
+
+/* ---- 21.5 ANCHORS LANDED UNDER THE STICKY MASTHEAD ---------- */
+.oyss [id] { scroll-margin-top: 128px; }
+
+/* ============================================================
+   22. PAGE IDENTITY
+   The review: "in mobile all the page design looks exactly the
+   same". True, and it was worst where it matters most, because
+   an agreement and an application form were reading as two more
+   marketing pages.
+
+   So the site now has three page kinds and each one has its own
+   silhouette, not just its own words:
+
+     guide      dark hero, content on ivory. The brand voice.
+     form       dark hero, then a PAPER SHEET that lifts out of it.
+     agreement  dark hero, then a DOCUMENT SHEET with a letterhead.
+
+   The sheet is the tell. A form and a contract are objects you
+   fill in and sign, so on this site they are drawn as objects
+   sitting on a stage, lit, rather than as page background.
+   ============================================================ */
+
+/* ---- 22.1 THE PAGE MARK -------------------------------------
+   A cue strip pinned under the masthead. It names the page and
+   its kind at all times, which is the thing a phone could not
+   answer before. Light bar under a dark masthead on the pages
+   that are objects; dark on the pages that are reading.         */
+.oyss .pagemark {
+  /* Anchored to the bar it sits under, not to the number that bar
+     happens to be today. `top: 78px` was already a bug the moment
+     the masthead got shorter on a phone: the strip stuck 11px too
+     high and the masthead painted over its own page name. The light
+     engine measures the masthead and publishes it as --oyss-mh. */
+  position: sticky; top: var(--oyss-mh, 78px); z-index: 89;
+  border-bottom: 1px solid rgba(215, 206, 192, .16);
+  background: var(--navy);
+}
+.oyss .pagemark__inner {
+  display: flex; align-items: center; gap: .8rem;
+  min-height: 36px; padding-top: .3rem; padding-bottom: .3rem;
+}
+.oyss .pagemark__kind {
+  font-family: var(--sans);
+  font-size: .6875rem; font-weight: 600; letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: .24rem .55rem;
+  border: 1px solid currentColor; border-radius: 2px;
+  line-height: 1.3; flex: none;
+}
+.oyss .pagemark__name {
+  font-family: var(--sans);
+  font-size: .75rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.oyss .pagemark__dot {
+  width: 14px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex: none;
+}
+
+/* guide: the reading pages stay in the dark. */
+.oyss .pagemark--guide { background: #0A1020; }
+.oyss .pagemark--guide .pagemark__kind { color: var(--gold); }
+.oyss .pagemark--guide .pagemark__name { color: var(--ivory-70); }
+
+/* form and agreement: an ivory strip under a navy masthead. The
+   contrast flip is the signal, and it survives being glanced at. */
+.oyss .pagemark--form,
+.oyss .pagemark--agreement {
+  background: var(--ivory);
+  border-bottom-color: var(--ash);
+  box-shadow: 0 1px 0 var(--gold);
+}
+.oyss .pagemark--form .pagemark__kind,
+.oyss .pagemark--agreement .pagemark__kind { color: #84662A; background: var(--gold-08); }
+.oyss .pagemark--form .pagemark__name,
+.oyss .pagemark--agreement .pagemark__name { color: var(--navy); }
+.oyss .pagemark--form .pagemark__dot,
+.oyss .pagemark--agreement .pagemark__dot { background: #84662A; }
+
+.oyss .pagemark__spacer { margin-left: auto; }
+.oyss .pagemark__meta {
+  font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 600; color: var(--slate); white-space: nowrap;
+}
+.oyss .pagemark--guide .pagemark__meta { color: var(--ivory-46); }
+@media (max-width: 620px) { .oyss .pagemark__meta { display: none; } }
+
+/* An anchor has to clear both bars, whatever they currently measure. */
+.oyss [id] { scroll-margin-top: calc(var(--oyss-mh, 78px) + 52px); }
+
+/* A shorter bar on a phone. The lockup is artwork, so it scales as a
+   whole rather than losing its descriptor, and the two sticky bars
+   together still leave more than three quarters of the screen. */
+@media (max-width: 700px) {
+  .oyss .masthead__inner { height: 64px; }
+  .oyss .lockup__icon { width: 30px; height: 30px; }
+  .oyss .lockup__name { font-size: .95rem; letter-spacing: .14em; }
+  .oyss .lockup__desc { font-size: .46rem; letter-spacing: .5em; }
+  .oyss .pagemark__inner { min-height: 34px; }
+}
+
+/* ---- 22.2 THE SHEET ------------------------------------------
+   A form or a contract is an object. It lifts out of the dark
+   hero on paper, with a gold head rule where the light lands.    */
+.oyss .sheetbay { padding-bottom: var(--bay); background: var(--ivory); }
+.oyss .sheet {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--ash);
+  border-radius: 3px;
+  margin-top: calc(-1 * clamp(40px, 6vw, 84px));
+  padding: clamp(26px, 3.6vw, 54px);
+  box-shadow: 0 30px 70px -46px rgba(7, 11, 22, .75),
+              0 2px 0 rgba(16, 26, 49, .03);
+  counter-reset: fsec;
+}
+.oyss .sheet::before {
+  content: ''; position: absolute; left: -1px; right: -1px; top: -1px;
+  height: 3px; background: var(--gold); border-radius: 3px 3px 0 0;
+}
+.oyss .sheet--wide { max-width: 62rem; margin-left: auto; margin-right: auto; }
+
+/* The letterhead. Says what the object is before it says anything
+   else, which is what a real form or contract does. */
+.oyss .sheet__head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1.2rem; flex-wrap: wrap;
+  padding-bottom: 1.4rem; margin-bottom: 2.2rem;
+  border-bottom: 1px solid var(--ash);
+}
+.oyss .sheet__title {
+  font-family: var(--serif); font-size: clamp(1.4rem, 1.15rem + 1vw, 1.9rem);
+  font-weight: 400; line-height: 1.15; color: var(--navy);
+}
+.oyss .sheet__kicker {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .22em;
+  text-transform: uppercase; color: #84662A; margin-bottom: .55rem;
+}
+.oyss .sheet__meta {
+  font-size: var(--t-caption); color: var(--slate);
+  text-align: right; line-height: 1.5; min-width: 9rem;
+}
+.oyss .sheet__meta b { display: block; color: var(--navy); font-weight: 600; }
+@media (max-width: 640px) {
+  .oyss .sheet__head { display: block; }
+  .oyss .sheet__meta { text-align: left; margin-top: 1rem; }
+}
+
+/* Section headers inside a sheet are numbered, the way a form is. */
+.oyss .sheet__sec {
+  counter-increment: fsec;
+  display: flex; align-items: baseline; gap: .8rem;
+  padding-bottom: .7rem; margin: 3rem 0 1.9rem;
+  border-bottom: 1px solid var(--ash);
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--navy);
+}
+.oyss .sheet__sec:first-child { margin-top: 0; }
+.oyss .sheet__sec::before {
+  content: counter(fsec, decimal-leading-zero);
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: 1.35rem; letter-spacing: 0; text-transform: none;
+  color: #84662A; line-height: 1;
+}
+
+/* The action bar. A form ends in a decision, so it gets its own
+   ground rather than trailing off into the page. */
+.oyss .sheet__foot {
+  margin: 2.6rem calc(-1 * clamp(26px, 3.6vw, 54px)) calc(-1 * clamp(26px, 3.6vw, 54px));
+  padding: clamp(22px, 2.6vw, 32px) clamp(26px, 3.6vw, 54px);
+  background: var(--ivory);
+  border-top: 1px solid var(--ash);
+  border-radius: 0 0 3px 3px;
+}
+.oyss .sheet__foot .caption { margin-top: .9rem; }
+
+/* A required-field key, because the form now claims to be one. */
+.oyss .sheet__key {
+  font-size: var(--t-caption); color: var(--slate);
+  padding: .8rem 1.05rem; margin-bottom: 2.2rem;
+  background: var(--ivory); border-left: 2px solid var(--gold);
+}
+.oyss .req { color: var(--crimson); font-weight: 600; }
+
+/* ---- 22.3 THE CONTENTS RAIL ON A PHONE -----------------------
+   It was hidden under 900px, which left a fifty clause contract
+   with no way to navigate on a phone. It becomes a disclosure at
+   the top of the document instead of vanishing.                  */
+.oyss .doctoc--mobile { display: none; }
+@media (max-width: 900px) {
+  .oyss .doctoc--mobile {
+    display: block; margin-bottom: 2.4rem;
+    border: 1px solid var(--ash); border-radius: 3px; background: var(--ivory);
+  }
+  .oyss .doctoc--mobile > summary {
+    list-style: none; cursor: pointer;
+    padding: .95rem 1.1rem;
+    font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--navy);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .oyss .doctoc--mobile > summary::-webkit-details-marker { display: none; }
+  .oyss .doctoc--mobile > summary::after {
+    content: ''; width: 16px; height: 4px; border-radius: 50%;
+    background: var(--gold); flex: none;
+    transition: transform 300ms var(--settle);
+  }
+  .oyss .doctoc--mobile[open] > summary::after { transform: scaleX(.4); }
+  .oyss .doctoc__list { padding: 0 1.1rem 1.1rem; max-height: 46vh; overflow-y: auto; }
+  .oyss .doctoc--mobile a {
+    display: block; padding: .5rem 0 .5rem .9rem;
+    font-size: var(--t-caption); color: var(--slate);
+    border-left: 1px solid var(--ash);
+  }
+}
+
+/* ---- 22.4 THE PARTIES BLOCK ----------------------------------
+   A real agreement opens by naming who is bound and by what. The
+   reader can answer "what is this and what does it cost" without
+   reading a clause.                                              */
+.oyss .parties {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--ash);
+  border: 1px solid var(--ash); border-radius: 3px;
+  margin-top: 0;
+}
+.oyss .parties > div { background: var(--white); padding: 1rem 1.2rem; }
+.oyss .parties dt {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: #84662A; margin-bottom: .4rem;
+}
+.oyss .parties dd { margin: 0; font-size: var(--t-caption); line-height: 1.5; color: var(--navy); }
+@media (max-width: 620px) { .oyss .parties { grid-template-columns: 1fr; } }
+
+/* A document sheet holds the two-column doclayout, so the sheet's
+   own padding is the page margin and the doc gets a real measure. */
+.oyss .docsheet .doclayout { align-items: start; }
+.oyss .docsheet .doc { max-width: 40rem; }
+.oyss .docsheet .doctoc { top: 132px; }
+
+/* ---- 22.5 A SHEET THAT DOES NOT LIFT -------------------------
+   Inside a two-column split there is nothing above to lift out
+   of, so the edge alone does the work.                           */
+.oyss .sheet--inline { margin-top: 0; }
+
+@media print {
+  .oyss .sheet { box-shadow: none; border: 0; margin-top: 0; padding: 0; }
+  .oyss .sheet::before, .oyss .pagemark { display: none; }
+  .oyss .doctoc--mobile { display: none !important; }
+}
+
+/* ============================================================
+   23. THE ACCORDION
+   The review: the FAQ should collapse. Built on <details> so it
+   works with no JavaScript and is keyboard operable for free.
+   The open state is expressed as light, not as a chevron
+   spinning: the rule lights and the question brightens.
+   ============================================================ */
+
+.oyss .qa { border-bottom: 1px solid var(--ash); }
+.oyss .qa:first-of-type { border-top: 1px solid var(--ash); }
+.oyss .qa > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; gap: 1.2rem;
+  align-items: center;
+  padding: 1.35rem 0;
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+  line-height: 1.3; color: var(--slate);
+  transition: color 300ms var(--settle);
+}
+.oyss .qa > summary::-webkit-details-marker { display: none; }
+.oyss .qa > summary:hover { color: var(--navy); }
+.oyss .qa > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.oyss .qa[open] > summary { color: var(--navy); }
+
+/* The switch: a pool of light that widens when the answer opens. */
+.oyss .qa__sw {
+  width: 26px; height: 6px; border-radius: 50%;
+  background: var(--ash); flex: none;
+  transition: background 300ms var(--settle), width 300ms var(--settle);
+}
+.oyss .qa > summary:hover .qa__sw { background: var(--gold-40); }
+.oyss .qa[open] .qa__sw { background: var(--gold); width: 38px; }
+
+.oyss .qa__body { padding: 0 0 1.7rem; max-width: var(--measure); }
+.oyss .qa__body p + p { margin-top: .9rem; }
+.oyss .qa[open] .qa__body { animation: qa-lit 460ms var(--fade-up); }
+@keyframes qa-lit { from { opacity: 0; filter: brightness(.6); } to { opacity: 1; filter: none; } }
+
+@media (max-width: 700px) {
+  .oyss .qa > summary { font-size: 1.12rem; padding: 1.2rem 0; gap: .9rem; }
+  .oyss .qa__sw { width: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .oyss .qa[open] .qa__body { animation: none; } }
+
+/* ============================================================
+   24. THE DIMMER, ON A PHONE
+   The review: "missing scroll effect". Correct. The ladder's key
+   light was bound to :hover, so on a touch screen the component
+   was four dead cells and the one idea it exists to carry, that
+   visibility is a ladder you climb, never fired. It is driven by
+   scroll position instead, which is the right trigger on a device
+   with no pointer.
+   ============================================================ */
+
+.oyss .dimmer__cell.on::after { opacity: 1; transform: translateX(-50%) scaleY(1); }
+.oyss .dimmer__cell.on { border-top-color: var(--gold); }
+.oyss .dimmer__cell.on .dimmer__n { color: var(--gold); }
+.oyss .dimmer__cell.on .dimmer__name { color: var(--ivory); }
+
+@media (hover: none) {
+  /* Replaces the static token lift from section 19: a cell climbs
+     as it is reached, then holds, so scrolling performs the ladder. */
+  .oyss .dimmer__cell:nth-child(3)::after,
+  .oyss .dimmer__cell:nth-child(4)::after { opacity: 0; transform: translateX(-50%) scaleY(.2); }
+  .oyss .dimmer__cell.on::after { opacity: 1; transform: translateX(-50%) scaleY(1); }
+  .oyss .dimmer__cell { transition: background 520ms var(--settle), border-color 520ms var(--settle); }
+}
+
+/* The rung the reader landed on, in the assessment result.
+   Marked, not merely lit. The ladder's baseline luminance climbs by
+   design, so on a result screen an unreached Level 04 is brighter than
+   the reached Level 03 and reads as the answer. In a result the rungs
+   still ahead are knocked back, and the one reached is named in the
+   markup rather than in a pseudo-element, because it is content. */
+.oyss .dimmer--result .dimmer__cell::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(5, 8, 15, .62);
+  transition: opacity 500ms var(--settle);
+  pointer-events: none;
+}
+.oyss .dimmer--result .dimmer__cell.on::before { opacity: 0; }
+.oyss .dimmer--result .dimmer__cell > * { position: relative; z-index: 1; }
+.oyss .dimmer__here {
+  display: inline-block; margin-top: .9rem;
+  padding: .22rem .5rem;
+  font-family: var(--sans);
+  font-size: .625rem; font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--gold-40); border-radius: 2px;
+}
+
+/* ============================================================
+   25. THE PANEL RIG, ON A PHONE
+   The review: "this section is not clear". At one column the
+   frames became tall empty rectangles with a small plate at the
+   bottom and a light switching between them that read as nothing.
+   On a phone the rig now states what it is: a producer's grid,
+   with the live frame marked.
+   ============================================================ */
+
+.oyss .frame__live {
+  position: absolute; top: 10px; right: 10px;
+  display: inline-flex; align-items: center; gap: .38rem;
+  padding: .22rem .48rem;
+  font-size: .5625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); background: rgba(7, 11, 22, .62);
+  border: 1px solid var(--gold-40); border-radius: 2px;
+  opacity: 0; transition: opacity 500ms var(--settle);
+}
+.oyss .frame__live::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+}
+.oyss .frame.on .frame__live { opacity: 1; }
+
+.oyss .rig__note {
+  display: flex; align-items: center; gap: .7rem;
+  margin-top: 1.2rem;
+  font-size: var(--t-caption); color: var(--ivory-46);
+}
+.oyss .rig__note::before {
+  content: ''; width: 16px; height: 4px; border-radius: 50%; background: var(--gold); flex: none;
+}
+
+@media (max-width: 760px) {
+  /* A 16:9 frame at half a phone's width is 88px tall and has to
+     hold a name plate. Squarer frames give the plate somewhere to sit. */
+  .oyss .frame { aspect-ratio: 4 / 3; padding: 9px; }
+  .oyss .frame--host { aspect-ratio: 16 / 10; }
+  .oyss .frame__plate { width: 100%; }
+  .oyss .frame__name { font-size: .95rem; }
+  .oyss .frame--host .frame__name { font-size: 1.2rem; }
+}
+@media (max-width: 420px) {
+  /* One column, so the frames are wide again and 16:9 reads. */
+  .oyss .frame, .oyss .frame--host { aspect-ratio: 16 / 9; }
+}
+
+/* ============================================================
+   26. THE HEADER LOGO, LIT
+   The review asked whether the header logo could be a motion
+   logo. It can, on the identity's own terms: the mark is a beam
+   and a pool, so it does what a beam does. The rays strike, the
+   pool blooms under them, once on load and again on hover. It
+   does not loop, because a light cue that repeats forever stops
+   being a cue and becomes a decoration.
+   ============================================================ */
+
+.oyss .lockup__icon { transition: filter 320ms var(--settle); }
+.oyss .lockup__icon .glow { opacity: .26; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .oyss .lockup--motion .ray {
+    transform-origin: 32px 13px;
+    animation: ray-strike 820ms var(--fade-up) both;
+  }
+  .oyss .lockup--motion .ray--b { animation-delay: 90ms; }
+  .oyss .lockup--motion .pooltop {
+    transform-origin: 32px 47px;
+    animation: pool-bloom 700ms var(--fade-up) 300ms both;
+  }
+  .oyss .lockup--motion .glow { animation: mark-glow 1050ms var(--settle) 220ms both; }
+
+  @keyframes ray-strike {
+    0%   { opacity: 0; transform: scaleY(.05); }
+    55%  { opacity: 1; }
+    100% { opacity: 1; transform: scaleY(1); }
+  }
+  @keyframes pool-bloom {
+    0%   { opacity: 0; transform: scaleX(.1); }
+    100% { opacity: 1; transform: scaleX(1); }
+  }
+  @keyframes mark-glow {
+    0%   { opacity: 0; }
+    42%  { opacity: .8; }
+    100% { opacity: .26; }
+  }
+  .oyss .lockup:hover .lockup__icon,
+  .oyss .lockup:focus-visible .lockup__icon { filter: brightness(1.14); }
+}
+
+/* ============================================================
+   27. THE FOUNDER PORTRAIT
+   Real photography, lit to the brand rather than recoloured out
+   of recognition: the frame carries the falloff and the key, the
+   face is left alone.
+   ============================================================ */
+
+.oyss .portrait {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--ash); border-radius: 3px;
+  background: var(--navy);
+  aspect-ratio: 4 / 5;
+}
+.oyss .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 24%; }
+.oyss .portrait::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(76% 56% at 50% -6%, rgba(255, 240, 210, .18) 0%, transparent 58%),
+    linear-gradient(180deg, transparent 44%, rgba(7, 11, 22, .30) 100%);
+}
+.oyss .portrait__plate {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 1.15rem 1.25rem 1.1rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 11, 22, .86) 58%);
+  color: var(--ivory);
+}
+.oyss .portrait__plate .eyebrow { color: var(--gold); margin-bottom: .3rem; }
+.oyss .portrait__plate .name { font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }

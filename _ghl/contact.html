@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,6 +53,14 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--form">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Form</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">Spotlight Call</span>
+    <span class="pagemark__meta pagemark__spacer">30 minutes · no charge</span>
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
@@ -105,10 +120,24 @@
       </div>
 
       <div data-lit data-cue="2">
-        <div class="card" style="padding:clamp(28px,3.2vw,44px)">
+        <div class="sheet sheet--inline">
+
+          <div class="sheet__head">
+            <div>
+              <p class="sheet__kicker">Request form</p>
+              <p class="sheet__title">Book a Spotlight Call</p>
+            </div>
+            <p class="sheet__meta">
+              <b>30 minutes</b>
+              No charge<br>
+              No obligation
+            </p>
+          </div>
+
           <form id="spotlight-form" novalidate>
-            <p class="eyebrow eyebrow--gold">Request a call</p>
-            <div class="rule" style="margin:.9rem 0 2rem"></div>
+            <p class="sheet__key">
+              Five fields. We reply within two business days.
+            </p>
 
             <label class="field">
               <span class="field__label">Full name</span>
@@ -138,10 +167,11 @@
               </select>
             </label>
 
-            <p id="call-error" hidden class="notice notice--action" style="margin-top:1.4rem" role="alert"></p>
-
-            <button type="submit" class="btn btn--primary" style="margin-top:1.8rem">Request the call</button>
-            <p class="caption" style="margin-top:1rem">We reply within two business days.</p>
+            <div class="sheet__foot">
+              <p id="call-error" hidden class="notice notice--action" style="margin-bottom:1.2rem" role="alert"></p>
+              <button type="submit" class="btn btn--primary">Request the call</button>
+              <p class="caption">We reply within two business days.</p>
+            </div>
           </form>
 
           <div id="call-done" hidden>
@@ -174,12 +204,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -220,7 +257,7 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 <script>
 (function () {
   var CONFIG = { endpoint: null, tag: 'spotlight-call-request' };

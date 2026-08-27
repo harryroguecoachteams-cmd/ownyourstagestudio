@@ -16,6 +16,7 @@ Writes  <name>.html          (full standalone page, for GitHub Pages)
 
 import os
 import re
+import hashlib
 import pathlib
 
 ROOT = pathlib.Path(__file__).parent
@@ -26,22 +27,65 @@ GHL = ROOT / "_ghl"
 # Page register. Order here is the order in the footer "Explore" column.
 # depth = how many directories down the file sits, so asset paths resolve.
 # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Asset versioning.
+# GitHub Pages serves oyss.css and oyss.js with a long cache lifetime, so a
+# stylesheet-only fix can ship and simply not arrive for anyone who loaded the
+# page earlier. That is how a fixed bug gets reported a second time. The URLs
+# carry a content hash, so a changed file is a changed URL and an unchanged
+# file still comes from cache.
+# --------------------------------------------------------------------------
+
+def asset_v():
+    h = hashlib.sha1()
+    for name in ("assets/oyss.css", "assets/oyss.js"):
+        f = ROOT / name
+        if f.exists():
+            h.update(f.read_bytes())
+    return h.hexdigest()[:8]
+
+
+ASSET_V = asset_v()
+
+
 SITE = [
-    # file,                    nav label,        title,                                        description
-    ("index.html",             "Home",           "We build the stage. You steal the show.",    "Own Your Stage Studio helps hidden experts become recognized authorities through professionally produced virtual panel events."),
-    ("experience.html",        "The Experience", "The Own Your Stage Experience",              "A three month done-for-you visibility and authority experience built around one professionally produced virtual panel event."),
-    ("assessment.html",        "Assessment",     "Readiness Assessment",                       "Eight questions that place you on the visibility ladder and tell you what to do next."),
-    ("panelists.html",         "Panelists",      "Featured Panelist Program",                  "Join a produced panel as a featured expert. A spotlight, professional footage and exposure to the combined audience."),
-    ("about.html",             "About",          "About Own Your Stage Studio",                "A premium authority building studio founded by Annette Knecht Seier."),
-    ("faq.html",               "FAQ",            "Frequently Asked Questions",                 "What the Own Your Stage Experience includes, what it costs and what stays with you."),
-    ("apply.html",             None,             "Apply for the Host Package",                 "Apply for the Own Your Stage Experience, a three month done-for-you authority engagement."),
-    ("contact.html",           None,             "Book a Spotlight Call",                      "A short conversation about the subject you should be known for."),
-    ("apply-panelist.html",    None,             "Panelist Application",                       "Apply to be considered as a featured panelist on an Own Your Stage Studio panel event."),
-    ("agreements/host.html",   None,             "Done-For-You Panel Host Services Agreement", "The agreement governing the Own Your Stage Experience host engagement."),
-    ("agreements/panelist.html", None,           "Featured Panelist Agreement",                "The agreement governing participation as a featured panelist."),
+    # A page is not only a title. It is a KIND, and the kind decides the
+    # silhouette: a guide is something you read, a form is something you fill
+    # in, an agreement is something you sign. The review found every page
+    # reading the same on a phone, which is what happens when kind is only
+    # expressed in words. See section 22 of oyss.css.
+    #
+    # file, nav label, title, description, kind, page-mark name, page-mark meta
+    ("index.html",             "Home",           "We build the stage. You steal the show.",    "Own Your Stage Studio helps hidden experts become recognized authorities through professionally produced virtual panel events.",
+     "home",      None,                       None),
+    ("experience.html",        "The Experience", "The Own Your Stage Experience",              "A three month done-for-you visibility and authority experience built around one professionally produced virtual panel event.",
+     "guide",     "The Experience",           "Three months \u00b7 $2,997"),
+    ("assessment.html",        "Assessment",     "Readiness Assessment",                       "Eight questions that place you on the visibility ladder and tell you what to do next.",
+     "form",      "Readiness Assessment",     "8 questions \u00b7 3 minutes"),
+    ("panelists.html",         "Panelists",      "Featured Panelist Program",                  "Join a produced panel as a featured expert. A spotlight, professional footage and exposure to the combined audience.",
+     "guide",     "Featured Panelists",       "$47 · by application"),
+    ("about.html",             "About",          "About Own Your Stage Studio",                "A premium authority building studio founded by Annette Knecht Seier.",
+     "guide",     "About the Studio",         None),
+    ("faq.html",               "FAQ",            "Frequently Asked Questions",                 "What the Own Your Stage Experience includes, what it costs and what stays with you.",
+     "guide",     "Questions",                "Tap a question to open it"),
+    ("apply.html",             None,             "Apply for the Host Package",                 "Apply for the Own Your Stage Experience, a three month done-for-you authority engagement.",
+     "form",      "Host Package",             "No payment at this step"),
+    ("contact.html",           None,             "Book a Spotlight Call",                      "A short conversation about the subject you should be known for.",
+     "form",      "Spotlight Call",           "30 minutes · no charge"),
+    ("apply-panelist.html",    None,             "Panelist Application",                       "Apply to be considered as a featured panelist on an Own Your Stage Studio panel event.",
+     "form",      "Panelist Application",     "Kept on file 12 months"),
+    ("agreements/host.html",   None,             "Done-For-You Panel Host Services Agreement", "The agreement governing the Own Your Stage Experience host engagement.",
+     "agreement", "Host Services",            "Draft · read then sign"),
+    ("agreements/panelist.html", None,           "Featured Panelist Agreement",                "The agreement governing participation as a featured panelist.",
+     "agreement", "Featured Panelist",        "Draft · read then sign"),
 ]
 
-NAV = [(f, label) for f, label, _, _ in SITE if label]
+# What the page-mark badge says for each kind. "Guide" would be jargon to a
+# reader; "Read" and "Form" and "Agreement" are what the thing actually is.
+KIND_BADGE = {"guide": "Read", "form": "Form", "agreement": "Agreement"}
+PAGEKIND = {f: k for f, _, _, _, k, _, _ in SITE}
+
+NAV = [(f, label) for f, label, _, _, _, _, _ in SITE if label]
 
 # --------------------------------------------------------------------------
 # GoHighLevel output
@@ -95,20 +139,57 @@ def for_ghl(markup):
 # shade, which is precisely what the identity forbids.
 LOGO_SVG = """<svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#g{gid})"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="g{gid}" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>"""
 
 
 def lockup(gid, base):
-    return f"""<a href="{base}index.html" class="lockup" aria-label="Own Your Stage Studio, home">
+    return f"""<a href="{base}index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       {LOGO_SVG.format(gid=gid)}
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
         <span class="lockup__desc">Studio</span>
       </span>
     </a>"""
+
+
+# --------------------------------------------------------------------------
+# THE PAGE MARK
+#
+# The review, verbatim: "in mobile all the page design looks exactly same.
+# There should some subtle change such that it is clearly identify that which
+# is agreement page, panelist page."
+#
+# A masthead names the site. Nothing named the page once the hero had scrolled
+# away, and on a phone the hero is gone after one flick. This strip is pinned
+# under the masthead and stays: what kind of thing this page is, what it is
+# called, and the one number that matters on it. The kind also flips the
+# strip's contrast, so a form and an agreement are recognisable before a word
+# of it is read.
+# --------------------------------------------------------------------------
+
+def pagemark(kind, name, meta):
+    if kind in (None, "home") or not name:
+        return ""
+    badge = KIND_BADGE.get(kind, "Page")
+    right = f'<span class="pagemark__meta pagemark__spacer">{meta}</span>' if meta else ""
+    return f"""<div class="pagemark pagemark--{kind}">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">{badge}</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">{name}</span>
+    {right}
+  </div>
+</div>"""
 
 
 def masthead(current, base):
@@ -179,7 +260,19 @@ SHELL = """<!doctype html>
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{base}assets/oyss.css">
+<link rel="stylesheet" href="{base}assets/oyss.css?v={v}">
+<style>
+/* PAGE SHELL RESET.
+   oyss.css carries no global reset on purpose: every selector is scoped
+   under .oyss so the same file can be pasted into a GoHighLevel Custom Code
+   element without touching the builder chrome. The cost is that on a
+   standalone page the browser's own 8px body margin survives, and it was
+   drawing a pale frame around every dark section on every page. It is the
+   page shell's job to remove it, not the brand system's, so it lives here
+   and never reaches the GHL block. */
+html, body {{ margin: 0; padding: 0; }}
+body {{ background: #F7F2E8; }}
+</style>
 </head>
 <body>
 <div class="oyss">
@@ -187,6 +280,7 @@ SHELL = """<!doctype html>
 <a class="skip" href="#main">Skip to content</a>
 {progress}
 {masthead}
+{pagemark}
 
 <main id="main">
 {body}
@@ -195,7 +289,7 @@ SHELL = """<!doctype html>
 {footer}
 
 </div>
-<script src="{base}assets/oyss.js"></script>
+<script src="{base}assets/oyss.js?v={v}"></script>
 {inline}
 </body>
 </html>
@@ -206,7 +300,7 @@ def build():
     GHL.mkdir(exist_ok=True)
     built = []
 
-    for fname, label, title, desc in SITE:
+    for fname, label, title, desc, kind, markname, markmeta in SITE:
         src = PAGES / (fname.replace("/", "__"))
         if not src.exists():
             print(f"  skip  {fname}  (no fragment at {src.name})")
@@ -232,9 +326,12 @@ def build():
         # once here beats hand-tagging it across nine pages.
         body = body.replace("&trade;", '<span class="tm">&trade;</span>')
 
+        mark = pagemark(kind, markname, markmeta)
+
         out.write_text(SHELL.format(
-            title=title, desc=desc, base=base,
+            title=title, desc=desc, base=base, v=ASSET_V,
             progress=progress,
+            pagemark=mark,
             masthead=masthead(fname, base),
             footer=footer(base),
             body=body.strip(),
@@ -263,10 +360,11 @@ def build():
             "     All CSS is scoped under .oyss, so nothing here can leak into\n"
             "     the builder chrome or the rest of the funnel.\n"
             "     ========================================================== -->\n"
-            f'<link rel="stylesheet" href="{ASSET_HOST}/assets/oyss.css">\n'
+            f'<link rel="stylesheet" href="{ASSET_HOST}/assets/oyss.css?v={ASSET_V}">\n'
             '<div class="oyss oyss--bleed">\n\n'
             "<!-- ---------- masthead ---------- -->\n"
-            + for_ghl(masthead(fname, "")) + "\n\n"
+            + for_ghl(masthead(fname, "")) + "\n"
+            + for_ghl(mark) + "\n\n"
             "<!-- ---------- page ---------- -->\n"
             "<main>\n"
             + for_ghl(body.strip()) + "\n"
@@ -274,7 +372,7 @@ def build():
             "<!-- ---------- footer ---------- -->\n"
             + for_ghl(footer("")) + "\n\n"
             "</div>\n"
-            f'<script src="{ASSET_HOST}/assets/oyss.js"></script>\n'
+            f'<script src="{ASSET_HOST}/assets/oyss.js?v={ASSET_V}"></script>\n'
             + for_ghl(inline.strip()) + "\n",
             encoding="utf-8")
 

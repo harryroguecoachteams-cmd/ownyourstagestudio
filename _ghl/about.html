@@ -16,18 +16,25 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=820d9fc0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -46,6 +53,14 @@
     </nav>
   </div>
 </header>
+<div class="pagemark pagemark--guide">
+  <div class="wrap pagemark__inner">
+    <span class="pagemark__kind">Read</span>
+    <span class="pagemark__dot" aria-hidden="true"></span>
+    <span class="pagemark__name">About the Studio</span>
+    
+  </div>
+</div>
 
 <!-- ---------- page ---------- -->
 <main>
@@ -163,13 +178,14 @@
   <div class="wrap">
     <div class="split">
       <div data-lit>
-        <div class="frame-img" style="aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;background:var(--navy);position:relative;overflow:hidden">
-          <span class="beam" aria-hidden="true" style="width:70%;top:-10%;opacity:1"></span>
-          <p class="caption" style="position:relative;text-align:center;padding:2rem;color:var(--ivory-46)">
-            Founder portrait to be supplied.<br>
-            Shoulders up, one warm key at 45 degrees,<br>navy background, eyes to camera.
-          </p>
-        </div>
+        <figure class="portrait">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/annette-knecht-seier.jpg" width="900" height="1125"
+               alt="Annette Knecht Seier, founder of Own Your Stage Studio, seated with an open notebook.">
+          <figcaption class="portrait__plate">
+            <p class="eyebrow">Founder</p>
+            <p class="name">Annette Knecht Seier</p>
+          </figcaption>
+        </figure>
       </div>
       <div data-lit data-cue="2">
         <p class="eyebrow eyebrow--gold">Founder</p>
@@ -185,9 +201,9 @@
         </p>
         <p class="draft-flag" style="margin-top:1.8rem">Biography pending from Annette</p>
         <p class="caption" style="margin-top:1rem;max-width:36rem">
-          This section is a placeholder. It needs Annette's professional background, the
-          experience that led to the studio and a portrait. Nothing has been invented
-          here.
+          The portrait is Annette&rsquo;s own, from transformationcoaching.me. What is still
+          needed is the professional background in her words: the work that led to the
+          studio, and why she built it. Nothing has been invented here.
         </p>
       </div>
     </div>
@@ -238,12 +254,19 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a href="/" class="lockup" aria-label="Own Your Stage Studio, home">
+        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <path d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
+        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
+        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
+        <defs>
+          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
+            <stop offset="0%" stop-color="#FFEBC4"/>
+            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -284,5 +307,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=820d9fc0"></script>
 

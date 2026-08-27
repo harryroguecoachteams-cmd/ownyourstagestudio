@@ -249,6 +249,167 @@
         if (el) tocObs.observe(el);
       });
     }
+
+
+    /* --------------------------------------------------------
+       13. HOW TALL THE MASTHEAD ACTUALLY IS
+       The page mark sticks directly under the masthead and every
+       in-page anchor has to clear both. Hard-coding 78px was
+       already wrong on a phone, where the bar is shorter, so the
+       strip stuck too high and the masthead painted over the page
+       name it exists to show. Measured, published as --oyss-mh,
+       and remeasured on resize.
+       -------------------------------------------------------- */
+    var bar = document.querySelector('.masthead');
+    if (bar) {
+      var publishBar = function () {
+        document.documentElement.style.setProperty(
+          '--oyss-mh', Math.round(bar.getBoundingClientRect().height) + 'px');
+      };
+      publishBar();
+      window.addEventListener('resize', publishBar, { passive: true });
+      if ('ResizeObserver' in window) new ResizeObserver(publishBar).observe(bar);
+    }
+
+    /* --------------------------------------------------------
+       9. WHERE THE BEAM FALLS
+       The review: "not in the middle".
+
+       The beam was pinned at left:62%, a fixed number on a page
+       whose headline column is not fixed. On a centered section
+       it landed to the right of the words. On a phone, where the
+       whole composition is one column, it landed off the text.
+
+       A beam falls on the thing it is lighting, so its position
+       is read from the thing it is lighting: the optical centre
+       of the section's own headline block, expressed back to the
+       section as --beam-x. Recomputed on resize, because the
+       block reflows and 62% was wrong for exactly that reason.
+       -------------------------------------------------------- */
+    var beamed = [];
+    document.querySelectorAll('.beam').forEach(function (b) {
+      var sec = b.closest('section, .signblock, .frame-img, .portrait');
+      if (!sec) return;
+      /* An inline width/top on the span is a deliberate art
+         direction for a decorative beam inside a card. Those are
+         placed by hand and stay that way. */
+      if (b.style.opacity === '1') return;
+      beamed.push(sec);
+    });
+
+    function aimBeams() {
+      var narrow = window.innerWidth <= 1040;
+      beamed.forEach(function (sec) {
+        /* A centered section is centered. Nothing to measure. */
+        if (sec.querySelector('.center') || narrow) {
+          sec.style.setProperty('--beam-x', '50%');
+          return;
+        }
+        var head = sec.querySelector('h1, h2, .display');
+        if (!head) { sec.style.setProperty('--beam-x', '50%'); return; }
+        var s = sec.getBoundingClientRect();
+        var h = head.getBoundingClientRect();
+        if (!s.width || !h.width) return;
+        /* Optical, not geometric: a headline is ragged right, so
+           its true weight sits left of the box centre. */
+        var x = (h.left - s.left) + h.width * 0.46;
+        sec.style.setProperty('--beam-x', ((x / s.width) * 100).toFixed(2) + '%');
+      });
+    }
+    aimBeams();
+    var aimTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(aimTimer);
+      aimTimer = setTimeout(aimBeams, 120);
+    }, { passive: true });
+
+    /* --------------------------------------------------------
+       10. THE DIMMER LADDER ON A TOUCH SCREEN
+       The review: "missing scroll effect".
+
+       The ladder's key light was bound to :hover, so on a phone
+       the component was four dead cells and the idea it exists
+       to carry, that visibility is a ladder you climb, never
+       fired. On a device with no pointer the right trigger is
+       the only input there is: scroll position. Each cell lights
+       as it is reached and holds, so scrolling the ladder
+       performs the ladder.
+       -------------------------------------------------------- */
+    /* Not gated on pointer type. A phone was where the complaint came
+       from, but a desktop reader who never happens to hover the ladder
+       sees the same dead component, and scroll is the one input every
+       device has. Hover still moves the light on top of this. */
+    if (!CALM && 'IntersectionObserver' in window) {
+      document.querySelectorAll('.dimmer').forEach(function (ladder) {
+        var cells = ladder.querySelectorAll('.dimmer__cell');
+        if (!cells.length) return;
+        var dimObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('on');
+            dimObs.unobserve(e.target);
+          });
+        }, { threshold: 0.55, rootMargin: '0px 0px -18% 0px' });
+        cells.forEach(function (c, n) {
+          /* Stagger by index so a four-across desktop-width
+             ladder still climbs rather than lighting at once. */
+          setTimeout(function () { dimObs.observe(c); }, n * 60);
+        });
+      });
+    } else if (CALM) {
+      document.querySelectorAll('.dimmer__cell').forEach(function (c) { c.classList.add('on'); });
+    }
+
+    /* --------------------------------------------------------
+       11. THE MARK, LIT
+       The review asked for a motion logo. The mark is a beam and
+       a pool, so it does what a beam does: it strikes once when
+       the page loads, and again on hover or keyboard focus. It
+       never loops. A light cue that repeats forever is no longer
+       a cue, it is a decoration, and the deck rules those out.
+       -------------------------------------------------------- */
+
+    /* --------------------------------------------------------
+       12. REQUIRED MARKERS
+       The sheets now state that required fields are marked. They
+       have to actually be marked, and marking them by hand across
+       four forms is how one gets missed when a field's `required`
+       attribute later changes. The label is derived from the
+       control, so the two can never disagree.
+       -------------------------------------------------------- */
+    document.querySelectorAll('.sheet [required]').forEach(function (el) {
+      var wrap = el.closest('.field, .check');
+      if (!wrap) return;
+      var label = wrap.querySelector('.field__label');
+      if (!label || label.querySelector('.req')) return;
+      var star = document.createElement('span');
+      star.className = 'req';
+      star.setAttribute('aria-hidden', 'true');
+      star.textContent = ' *';
+      label.appendChild(star);
+    });
+
+    if (!CALM) {
+      document.querySelectorAll('.lockup--motion').forEach(function (mark) {
+        function strike() {
+          mark.classList.remove('lockup--motion');
+          /* Reading offsetWidth restarts the animation; without
+             it the class comes straight back on in the same frame
+             and nothing replays. */
+          void mark.offsetWidth;
+          mark.classList.add('lockup--motion');
+        }
+        var cooling = false;
+        function restrike() {
+          if (cooling) return;
+          cooling = true;
+          strike();
+          setTimeout(function () { cooling = false; }, 1200);
+        }
+        mark.addEventListener('pointerenter', restrike);
+        mark.addEventListener('focus', restrike);
+      });
+    }
   });
 
   /* ==========================================================
@@ -450,12 +611,27 @@
       document.getElementById('result-opportunity').textContent = level.opportunity;
       document.getElementById('result-step').textContent = level.step;
 
-      /* Light the ladder up to the level reached. */
+      /* Light the ladder up to the level reached.
+         Not with opacity: the cells are near-black and the result now sits
+         on a white sheet, so a faded cell went pale grey and read as the
+         BRIGHTEST rung on a ladder whose whole point is that brighter means
+         further along. The rungs that have been reached are lit; the rest
+         stay at their own dark token, which is exactly what they mean. */
+      var ladder = out.querySelector('.dimmer');
+      if (ladder) ladder.classList.add('dimmer--result');
       var cells = out.querySelectorAll('.dimmer__cell');
       var reached = LEVELS.indexOf(level);
       cells.forEach(function (c, n) {
-        c.style.opacity = n <= reached ? '1' : '.32';
-        c.style.borderTopColor = n === reached ? 'var(--gold)' : '';
+        c.classList.toggle('on', n <= reached);
+        var tag = c.querySelector('.dimmer__here');
+        if (n === reached && !tag) {
+          tag = document.createElement('p');
+          tag.className = 'dimmer__here';
+          tag.textContent = 'You are here';
+          c.appendChild(tag);
+        } else if (n !== reached && tag) {
+          tag.remove();
+        }
       });
 
       form.hidden = true;

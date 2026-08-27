@@ -145,7 +145,7 @@ def toc_html(toc):
 # --------------------------------------------------------------------------
 
 HERO = """<!-- ============ HERO ============ -->
-<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(54px,7vh,80px);overflow:hidden">
+<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
   <span class="beam" aria-hidden="true" style="width:min(40vw,480px)"></span>
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
@@ -163,33 +163,67 @@ HERO = """<!-- ============ HERO ============ -->
 """
 
 BODY = """
-<!-- ============ THE DOCUMENT ============ -->
-<section class="bay--half light">
+<!-- ============ THE DOCUMENT ============
+     A contract is an object, so it is drawn as one: paper with an edge,
+     lifted out of the dark hero. Section 22 of oyss.css. -->
+<section class="sheetbay">
   <div class="wrap">
-    <div class="doclayout">
+    <div class="sheet docsheet" data-lit>
 
-      <aside class="doctoc">
-        <p class="eyebrow eyebrow--gold">Contents</p>
-{toc}
-        <div class="rule" style="margin:1.4rem 0"></div>
-        <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
-      </aside>
-
-      <div>
-        <div class="notice" style="margin-bottom:2.6rem">
-          {notice}
+      <div class="sheet__head">
+        <div>
+          <p class="sheet__kicker">Agreement &middot; draft for review</p>
+          <p class="sheet__title">{title}</p>
         </div>
+        <p class="sheet__meta">
+          <b>{fee}</b>
+          {feenote}<br>
+          Florida law &middot; {sections} sections
+        </p>
+      </div>
+
+      <!-- The parties block. A real agreement opens by saying who is bound
+           and by what. This one now does too, before the first clause. -->
+      <dl class="parties">
+        <div><dt>Between</dt><dd>Own Your Stage Studio, LLC, a Florida limited liability company</dd></div>
+        <div><dt>And</dt><dd>{party}</dd></div>
+        <div><dt>Governed by</dt><dd>The laws of the State of Florida</dd></div>
+        <div><dt>Signed</dt><dd>Electronically, at the end of this page</dd></div>
+      </dl>
+
+      <div class="notice" style="margin:2.2rem 0 2.6rem">
+        {notice}
+      </div>
+
+      <!-- The rail is hidden under 900px, so on a phone this disclosure is
+           the only way to reach section 12 without forty screens of thumbing. -->
+      <details class="doctoc--mobile">
+        <summary>Contents &middot; {sections} sections</summary>
+        <div class="doctoc__list">
+{toc}
+        </div>
+      </details>
+
+      <div class="doclayout">
+
+        <aside class="doctoc">
+          <p class="eyebrow eyebrow--gold">Contents</p>
+{toc}
+          <div class="rule" style="margin:1.4rem 0"></div>
+          <button type="button" class="cue no-print" onclick="window.print()" style="border:0;background:none;padding:0;cursor:pointer">Print or save as PDF</button>
+        </aside>
 
         <article class="doc" id="agreement-body">
 {body}
           <div id="agreement-end" style="height:1px"></div>
         </article>
-      </div>
 
+      </div>
     </div>
   </div>
 </section>
 """
+
 
 
 def sign_section(kind):
@@ -410,6 +444,9 @@ def build():
             docx=SRC / "Agreement Host.docx",
             out="agreements__host.html",
             kind="host",
+            fee="$2,997.00",
+            feenote="Due on signature, non-refundable",
+            party="The Client, named in the signature block below",
             eyebrow="Own Your Stage Experience™ · $2,997",
             title="Done-For-You Panel Host Services Agreement",
             blurb=("The full agreement, published before you commit rather than sent "
@@ -426,6 +463,9 @@ def build():
             docx=SRC / "Agreement Featured Panelist.docx",
             out="agreements__panelist.html",
             kind="panelist",
+            fee="$47.00",
+            feenote="Administrative fee, non-refundable",
+            party="The Featured Panelist, named in the signature block below",
             eyebrow="Featured Panelist Program · $47",
             title="Featured Panelist Agreement",
             blurb=("The full agreement for featured panelists. Read it, then sign at the "
@@ -449,7 +489,9 @@ def build():
 
         page = (
             HERO.format(eyebrow=j["eyebrow"], title=j["title"], blurb=j["blurb"])
-            + BODY.format(toc=toc_html(toc), body=body, notice=j["notice"])
+            + BODY.format(toc=toc_html(toc), body=body, notice=j["notice"],
+                          title=j["title"], fee=j["fee"], feenote=j["feenote"],
+                          party=j["party"], sections=len(toc))
             + sign_section(j["kind"])
             + "%%INLINE%%\n"
             + f'<script>OYSS.signing({{ agreement: "{j["title"]}" }});</script>\n'
