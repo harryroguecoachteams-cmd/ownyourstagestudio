@@ -1,5 +1,5 @@
 /* ============================================================
-   OWN YOUR STAGE STUDIO — Brand System
+   OWN YOUR STAGE STUDIO: Brand System
    Built to OYSS_Brand_Deck_v3. Every value below traces to a page
    of that deck. Do not introduce a color, typeface or motion that
    is not specified there.
@@ -14,10 +14,10 @@
 
 .oyss {
   /* --- CORE / CARRIES THE BRAND (deck p12) --- */
-  --navy:    #101A31;   /* Authority Navy  — depth and credibility  */
-  --ivory:   #F7F2E8;   /* Spotlight Ivory — keeps the brand bright */
-  --gold:    #DDAA52;   /* Spotlight Gold  — light, line, highlight */
-  --crimson: #C92E38;   /* Stage Crimson   — action only, never mood*/
+  --navy:    #101A31;   /* Authority Navy,  depth and credibility  */
+  --ivory:   #F7F2E8;   /* Spotlight Ivory, keeps the brand bright */
+  --gold:    #DDAA52;   /* Spotlight Gold,  light, line, highlight */
+  --crimson: #C92E38;   /* Stage Crimson,   action only, never mood*/
 
   /* --- SUPPORT / STRUCTURE, NEVER IDENTITY --- */
   --ink:     #070B16;
@@ -427,7 +427,7 @@
 
 /* ============================================================
    7. THE LOGO
-   Artwork, not live text — but rendered as inline SVG so it stays
+   Artwork, not live text, but rendered as inline SVG so it stays
    crisp at every size and can be lit. Proportions are locked to
    the deck: pool width = wordmark width, gap fixed.
    ============================================================ */
@@ -808,7 +808,7 @@
   border-bottom: 1px solid var(--slate);
 }
 
-/* Reading progress — a beam that fills as the reader descends. */
+/* Reading progress: a beam that fills as the reader descends. */
 .oyss .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100; background: transparent; }
 .oyss .progress__fill { height: 100%; width: 0; background: var(--gold); transition: width 90ms linear; }
 

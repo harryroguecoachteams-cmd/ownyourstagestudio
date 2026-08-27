@@ -1,5 +1,5 @@
 /* ============================================================
-   OWN YOUR STAGE STUDIO — The Light Engine
+   OWN YOUR STAGE STUDIO: The Light Engine
    ------------------------------------------------------------
    The brand has exactly one motif: light. So the site has exactly
    one motion system. Nothing slides in. Nothing bounces. Things
@@ -209,7 +209,7 @@
     }
 
     /* --------------------------------------------------------
-       7. READING PROGRESS — a beam that fills as you descend.
+       7. READING PROGRESS: a beam that fills as you descend.
        -------------------------------------------------------- */
     var fill = document.querySelector('.progress__fill');
     if (fill) {
