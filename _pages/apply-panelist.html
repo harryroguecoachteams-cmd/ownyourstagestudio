@@ -1,0 +1,329 @@
+<!-- ============ HERO ============ -->
+<section class="dark stage" style="padding:clamp(72px,9vh,110px) 0 clamp(58px,7vh,86px);overflow:hidden">
+  <span class="beam" aria-hidden="true" style="width:min(44vw,540px)"></span>
+  <span class="stage__pool" aria-hidden="true"></span>
+  <div class="wrap">
+    <div style="max-width:44rem" data-lit>
+      <p class="eyebrow">Featured Panelist Program</p>
+      <h1 class="display" style="font-size:clamp(2rem,1.5rem+2.4vw,3.4rem)">
+        Panelist application.
+      </h1>
+      <span class="pool" aria-hidden="true"></span>
+      <p class="lead" style="margin-top:1.9rem;max-width:37rem">
+        We are looking for coaches, consultants, speakers, authors and business owners
+        who can give an audience something practical in ten minutes.
+      </p>
+      <p class="caption" style="margin-top:1.3rem;max-width:37rem">
+        Submitting does not guarantee placement. Applications are kept on file for
+        twelve months and we make contact when your expertise fits an upcoming topic.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bay light">
+  <div class="wrap wrap--tight">
+    <form id="panelist-application" novalidate data-lit>
+
+      <!-- ---------- CONTACT ---------- -->
+      <p class="eyebrow eyebrow--gold">Contact information</p>
+      <div class="rule" style="margin:.9rem 0 2rem"></div>
+
+      <div class="cols-2" style="gap:1.5rem">
+        <label class="field" style="margin:0">
+          <span class="field__label">First name</span>
+          <input class="field__input" type="text" name="first_name" required autocomplete="given-name">
+        </label>
+        <label class="field" style="margin:0">
+          <span class="field__label">Last name</span>
+          <input class="field__input" type="text" name="last_name" required autocomplete="family-name">
+        </label>
+      </div>
+      <label class="field">
+        <span class="field__label">Email address</span>
+        <input class="field__input" type="email" name="email" required autocomplete="email">
+      </label>
+      <label class="field">
+        <span class="field__label">Mobile number</span>
+        <input class="field__input" type="tel" name="phone" required autocomplete="tel">
+      </label>
+      <label class="field">
+        <span class="field__label">LinkedIn profile</span>
+        <input class="field__input" type="url" name="linkedin" required placeholder="https://linkedin.com/in/">
+      </label>
+      <label class="field">
+        <span class="field__label">Website <span style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></span>
+        <input class="field__input" type="url" name="website" placeholder="https://">
+      </label>
+
+      <!-- ---------- WORK ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">About your work</p>
+      <div class="rule" style="margin:.9rem 0 2rem"></div>
+
+      <label class="field">
+        <span class="field__label">Business or organization name</span>
+        <input class="field__input" type="text" name="business" required autocomplete="organization">
+      </label>
+      <label class="field">
+        <span class="field__label">Professional title</span>
+        <input class="field__input" type="text" name="title" required autocomplete="organization-title">
+      </label>
+      <label class="field">
+        <span class="field__label">What you do, whom you help, and the results they get</span>
+        <textarea class="field__input" name="what_you_do" required></textarea>
+      </label>
+      <label class="field">
+        <span class="field__label">Primary area of expertise</span>
+        <input class="field__input" type="text" name="expertise" required>
+      </label>
+      <label class="field">
+        <span class="field__label">Which category best represents your work</span>
+        <select class="field__input" name="category" required>
+          <option value="">Select</option>
+          <option>Business and Entrepreneurship</option>
+          <option>Leadership and Professional Development</option>
+          <option>Marketing, Branding and Visibility</option>
+          <option>Sales and Business Growth</option>
+          <option>Career and Workplace</option>
+          <option>Health and Wellness</option>
+          <option>Mental Health and Emotional Well-Being</option>
+          <option>Personal Development</option>
+          <option>Relationships and Family</option>
+          <option>Financial Education and Wealth</option>
+          <option>Holistic and Spiritual Development</option>
+          <option>Author, Speaker or Media Professional</option>
+          <option>Service-Based Business</option>
+          <option>Other</option>
+        </select>
+      </label>
+
+      <fieldset style="border:0;padding:0;margin:1.5rem 0 0">
+        <legend class="field__label" style="padding:0">Years of professional experience</legend>
+        <div style="margin-top:.6rem">
+          <label class="choice"><input type="radio" name="years" value="Less than 2 years" required>
+            <span class="choice__box"><span class="choice__dot"></span><span>Less than 2 years</span></span></label>
+          <label class="choice"><input type="radio" name="years" value="2 to 5 years">
+            <span class="choice__box"><span class="choice__dot"></span><span>2 to 5 years</span></span></label>
+          <label class="choice"><input type="radio" name="years" value="6 to 10 years">
+            <span class="choice__box"><span class="choice__dot"></span><span>6 to 10 years</span></span></label>
+          <label class="choice"><input type="radio" name="years" value="More than 10 years">
+            <span class="choice__box"><span class="choice__dot"></span><span>More than 10 years</span></span></label>
+        </div>
+      </fieldset>
+
+      <!-- ---------- CONTRIBUTION ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">Panel contribution</p>
+      <div class="rule" style="margin:.9rem 0 2rem"></div>
+
+      <label class="field">
+        <span class="field__label">Which topics are you most qualified to speak about</span>
+        <textarea class="field__input" name="topics" required placeholder="Up to three."></textarea>
+      </label>
+      <label class="field">
+        <span class="field__label">What could an audience take away from your ten minute spotlight</span>
+        <textarea class="field__input" name="takeaways" required></textarea>
+        <span class="field__help">Practical is better than impressive. The spotlight is teaching time, not a pitch.</span>
+      </label>
+      <label class="field">
+        <span class="field__label">Your previous speaking, teaching, podcast, webinar or panel experience</span>
+        <textarea class="field__input" name="speaking_experience" required></textarea>
+      </label>
+      <label class="field">
+        <span class="field__label">A link to you presenting <span style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></span>
+        <input class="field__input" type="url" name="video" placeholder="https://">
+      </label>
+
+      <!-- ---------- FREE RESOURCE ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">Complimentary resource</p>
+      <div class="rule" style="margin:.9rem 0 1.4rem"></div>
+      <p class="caption" style="margin-bottom:1.4rem;max-width:40rem">
+        Each panelist may introduce one complimentary resource during their spotlight. It
+        should give the audience genuine value: a guide, an assessment, a checklist, a
+        workbook, a template or similar.
+      </p>
+
+      <fieldset style="border:0;padding:0;margin:0">
+        <legend class="field__label" style="padding:0">Do you have a free resource you could share</legend>
+        <div style="margin-top:.6rem">
+          <label class="choice"><input type="radio" name="resource" value="Yes" required>
+            <span class="choice__box"><span class="choice__dot"></span><span>Yes</span></span></label>
+          <label class="choice"><input type="radio" name="resource" value="No">
+            <span class="choice__box"><span class="choice__dot"></span><span>No</span></span></label>
+          <label class="choice"><input type="radio" name="resource" value="Creating one">
+            <span class="choice__box"><span class="choice__dot"></span><span>I am currently creating one</span></span></label>
+        </div>
+      </fieldset>
+
+      <!-- ---------- COMMITMENTS ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">Panelist commitments</p>
+      <div class="rule" style="margin:.9rem 0 1.4rem"></div>
+
+      <div class="notice" style="margin-bottom:1.6rem">
+        <strong style="color:var(--navy)">Selected panelists are expected to:</strong>
+        <ul class="ticklist" style="margin-top:.9rem">
+          <li>Sign the Featured Panelist Agreement</li>
+          <li>Pay a $47 non-refundable administrative fee to secure their place</li>
+          <li>Attend a mandatory virtual preparation meeting</li>
+          <li>Join the event platform fifteen minutes before the scheduled start</li>
+          <li>Complete at least three promotional activities using the materials provided</li>
+          <li>Work actively toward generating at least twenty event registrations</li>
+        </ul>
+      </div>
+
+      <fieldset style="border:0;padding:0;margin:0">
+        <legend class="field__label" style="padding:0">Are you willing to meet these commitments</legend>
+        <div style="margin-top:.6rem">
+          <label class="choice"><input type="radio" name="commitments" value="Yes" required>
+            <span class="choice__box"><span class="choice__dot"></span><span>Yes</span></span></label>
+          <label class="choice"><input type="radio" name="commitments" value="No">
+            <span class="choice__box"><span class="choice__dot"></span><span>No</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset style="border:0;padding:0;margin:2rem 0 0">
+        <legend class="field__label" style="padding:0">How would you help promote the event</legend>
+        <p class="field__help" style="margin:.3rem 0 1rem">Select all that apply.</p>
+        <label class="check"><input type="checkbox" name="promo" value="Email my audience"><span>Email my audience</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Post on LinkedIn"><span>Post on LinkedIn</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Post on Facebook"><span>Post on Facebook</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Post on Instagram"><span>Post on Instagram</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Share in professional groups"><span>Share in appropriate professional groups</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Personally invite contacts"><span>Personally invite colleagues, clients or contacts</span></label>
+        <label class="check"><input type="checkbox" name="promo" value="Other"><span>Other</span></label>
+      </fieldset>
+
+      <!-- ---------- FINAL ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">Final questions</p>
+      <div class="rule" style="margin:.9rem 0 2rem"></div>
+
+      <label class="field">
+        <span class="field__label">Why would you like to join an Own Your Stage Studio panel</span>
+        <textarea class="field__input" name="why" required></textarea>
+      </label>
+      <label class="field">
+        <span class="field__label">How did you hear about us</span>
+        <select class="field__input" name="source" required>
+          <option value="">Select</option>
+          <option>Zoom networking event</option>
+          <option>Virtual summit or webinar</option>
+          <option>LinkedIn</option>
+          <option>Facebook</option>
+          <option>Referral</option>
+          <option>Current or former panelist</option>
+          <option>Own Your Stage Studio website</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field__label">If someone referred you, their name <span style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></span>
+        <input class="field__input" type="text" name="referrer">
+      </label>
+      <label class="field">
+        <span class="field__label">Anything else we should know <span style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></span>
+        <textarea class="field__input" name="notes"></textarea>
+      </label>
+
+      <!-- ---------- ACKNOWLEDGMENT ---------- -->
+      <p class="eyebrow eyebrow--gold" style="margin-top:3.2rem">Acknowledgment</p>
+      <div class="rule" style="margin:.9rem 0 1.4rem"></div>
+      <p class="caption" style="max-width:42rem">By submitting this application, I understand that:</p>
+      <ul class="ticklist" style="margin-top:1rem;max-width:42rem">
+        <li>Submitting an application does not guarantee selection</li>
+        <li>Own Your Stage Studio decides whether my expertise fits an upcoming panel</li>
+        <li>My application may be kept on file for up to twelve months</li>
+        <li>If selected, I will receive the event details, the Featured Panelist Agreement and the Speaker Information Form</li>
+        <li>My participation is not confirmed until all required documents and the $47 non-refundable administrative fee have been received</li>
+      </ul>
+
+      <label class="check" style="margin-top:1.6rem">
+        <input type="checkbox" name="acknowledge" required>
+        <span>I have read and agree to the acknowledgment above.</span>
+      </label>
+
+      <p id="pan-error" hidden class="notice notice--action" style="margin-top:1.6rem" role="alert"></p>
+
+      <button type="submit" class="btn btn--primary" style="margin-top:2rem">Submit my application</button>
+      <p class="caption" style="margin-top:1.1rem">
+        No payment is taken at this step. The $47 fee is only due once you are selected
+        and sign the agreement.
+      </p>
+    </form>
+
+    <!-- ---------- CONFIRMATION ---------- -->
+    <div id="pan-done" hidden>
+      <p class="eyebrow eyebrow--gold">Received</p>
+      <h2 class="display" style="font-size:clamp(1.9rem,1.4rem+2vw,2.8rem)">Thank you for applying.</h2>
+      <span class="pool" aria-hidden="true"></span>
+      <p class="lead" style="margin-top:1.9rem">
+        We will review your application and keep it on file for up to twelve months. If
+        your expertise fits an upcoming panel topic, we will be in touch with the details.
+      </p>
+      <p class="belief" style="font-size:1.6rem;margin-top:2rem;color:var(--navy)">
+        We build the stage. You steal the show.
+      </p>
+      <div class="actions" style="margin-top:2.2rem">
+        <a class="cue" href="agreements/panelist.html">Read the Featured Panelist Agreement</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+%%INLINE%%
+<script>
+(function () {
+  var CONFIG = { endpoint: null, tag: 'panelist-application' };
+  var form = document.getElementById('panelist-application');
+  var done = document.getElementById('pan-done');
+  var err  = document.getElementById('pan-error');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var missing = [];
+    /* text, email, url, select */
+    form.querySelectorAll('input[required]:not([type=radio]):not([type=checkbox]), select[required], textarea[required]')
+      .forEach(function (el) {
+        var bad = !el.value.trim();
+        el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad) missing.push(el);
+      });
+    /* radio groups */
+    ['years', 'resource', 'commitments'].forEach(function (n) {
+      if (!form.querySelector('input[name="' + n + '"]:checked')) {
+        missing.push(form.querySelector('input[name="' + n + '"]'));
+      }
+    });
+    /* the acknowledgment */
+    var ack = form.querySelector('[name="acknowledge"]');
+    if (!ack.checked) missing.push(ack);
+
+    if (missing.length) {
+      err.textContent = 'Complete every required field. ' + missing.length + ' remaining.';
+      err.hidden = false;
+      missing[0].scrollIntoView({ block: 'center' });
+      missing[0].focus();
+      return;
+    }
+    err.hidden = true;
+
+    var fd = new FormData(form), data = {}, promo = [];
+    fd.forEach(function (v, k) {
+      if (k === 'promo') { promo.push(v); } else { data[k] = v; }
+    });
+    data.promo = promo.join(', ');
+    data.tag = CONFIG.tag;
+    data.submittedAt = new Date().toISOString();
+
+    function finish() { form.hidden = true; done.hidden = false; window.scrollTo({ top: 0 }); }
+
+    if (CONFIG.endpoint) {
+      fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(finish).catch(finish);
+    } else {
+      try { sessionStorage.setItem('oyss:panelist-application', JSON.stringify(data)); } catch (_) {}
+      setTimeout(finish, 400);
+    }
+  });
+})();
+</script>

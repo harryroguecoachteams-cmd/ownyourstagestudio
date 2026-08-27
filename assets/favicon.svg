@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 16px variant: the beam thickens and the pool deepens, per the deck. -->
+  <defs><clipPath id="c"><rect width="64" height="64" rx="10"/></clipPath></defs>
+  <g clip-path="url(#c)">
+    <rect width="64" height="64" fill="#101A31"/>
+    <path d="M22 0 H42 L52 43 H12 Z" fill="#DDAA52" opacity=".55"/>
+  </g>
+  <ellipse cx="32" cy="47" rx="16" ry="4.2" fill="#DDAA52"/>
+</svg>

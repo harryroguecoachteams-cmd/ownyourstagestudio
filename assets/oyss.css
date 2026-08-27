@@ -1,0 +1,924 @@
+/* ============================================================
+   OWN YOUR STAGE STUDIO — Brand System
+   Built to OYSS_Brand_Deck_v3. Every value below traces to a page
+   of that deck. Do not introduce a color, typeface or motion that
+   is not specified there.
+
+   ARCHITECTURE NOTE (GoHighLevel):
+   Every selector is scoped under .oyss so this file can be pasted
+   into a GHL Custom Code element without touching the builder UI.
+   There is no global reset and no bare element styling.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Work+Sans:wght@300;400;500;600&display=swap');
+
+.oyss {
+  /* --- CORE / CARRIES THE BRAND (deck p12) --- */
+  --navy:    #101A31;   /* Authority Navy  — depth and credibility  */
+  --ivory:   #F7F2E8;   /* Spotlight Ivory — keeps the brand bright */
+  --gold:    #DDAA52;   /* Spotlight Gold  — light, line, highlight */
+  --crimson: #C92E38;   /* Stage Crimson   — action only, never mood*/
+
+  /* --- SUPPORT / STRUCTURE, NEVER IDENTITY --- */
+  --ink:     #070B16;
+  --slate:   #4E586B;
+  --ash:     #D7CEC0;
+  --white:   #FFFDF8;
+
+  /* Derived. Kept as tokens so the ratios stay honest. */
+  --navy-80: rgba(16, 26, 49, .80);
+  --navy-60: rgba(16, 26, 49, .60);   /* the scrim minimum, deck p19 */
+  --gold-40: rgba(221, 170, 82, .40);
+  --gold-18: rgba(221, 170, 82, .18);
+  --gold-08: rgba(221, 170, 82, .08);
+  --ivory-70: rgba(247, 242, 232, .70);
+  --ivory-46: rgba(247, 242, 232, .52);  /* .46 measured 4.22:1 on navy, under the deck's 4.5 floor */
+
+  /* --- TYPE (deck p10) --- */
+  --serif: 'Crimson Pro', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans:  'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* --- LADDER (deck p11). Each step ~1.4x the one below. --- */
+  --t-eyebrow: .6875rem;
+  --t-caption: .8125rem;
+  --t-action:  .875rem;
+  --t-body:    1.0625rem;
+  --t-lead:    clamp(1.125rem, 1.02rem + .45vw, 1.3125rem);
+  --t-heading: clamp(1.6rem, 1.24rem + 1.6vw, 2.35rem);
+  --t-display: clamp(2.35rem, 1.5rem + 3.7vw, 4.5rem);
+
+  /* --- RHYTHM --- */
+  --gutter: clamp(20px, 5vw, 56px);
+  --bay: clamp(72px, 9vw, 132px);   /* vertical section padding */
+  --measure: 34rem;                 /* editorial line length      */
+
+  /* --- MOTION. One curve for light, one for matter. --- */
+  --fade-up: cubic-bezier(.22, .85, .3, 1);      /* a fader being pushed */
+  --settle:  cubic-bezier(.4, 0, .2, 1);
+
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--navy);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.oyss *, .oyss *::before, .oyss *::after { box-sizing: border-box; }
+.oyss p, .oyss h1, .oyss h2, .oyss h3, .oyss h4, .oyss ul, .oyss ol, .oyss figure { margin: 0; }
+.oyss ul, .oyss ol { padding: 0; list-style: none; }
+.oyss img, .oyss svg { display: block; max-width: 100%; }
+.oyss a { color: inherit; text-decoration: none; }
+.oyss button, .oyss input, .oyss select, .oyss textarea { font: inherit; color: inherit; }
+
+/* ============================================================
+   1. THE LADDER
+   Six levels, and no more. (deck p11)
+   ============================================================ */
+
+.oyss .eyebrow {
+  font-family: var(--sans);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: .26em;       /* +2.6 in small caps labels, deck p10 */
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 1.15rem;
+}
+.oyss .eyebrow--gold { color: #84662A; }  /* the deck notes gold on ivory fails 4.5:1;
+                                             this is the darkest step that still reads gold
+                                             and measures 4.81:1 */
+.oyss .dark .eyebrow, .oyss .stage .eyebrow { color: var(--gold); }
+
+.oyss .display {
+  font-family: var(--serif);
+  font-size: var(--t-display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+.oyss h1, .oyss h2 {
+  font-family: var(--serif);
+  font-size: var(--t-heading);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.oyss h3 {
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.005em;
+}
+.oyss .lead {
+  font-size: var(--t-lead);
+  line-height: 1.56;
+  font-weight: 300;
+  color: var(--slate);
+  max-width: var(--measure);
+}
+.oyss .dark .lead, .oyss .stage .lead { color: var(--ivory-70); }
+.oyss .body { max-width: var(--measure); }
+.oyss .caption {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--slate);
+}
+.oyss .dark .caption, .oyss .stage .caption { color: var(--ivory-46); }
+
+/* The serif states the belief. The sans delivers the instruction. */
+.oyss .belief { font-family: var(--serif); font-weight: 400; }
+
+/* ============================================================
+   2. LIGHT PRIMITIVES
+   Light is the only motif. Beams, falloff and pools. Never a lamp,
+   a curtain, a microphone or a proscenium. (deck p14)
+   ============================================================ */
+
+/* --- THE POOL ---------------------------------------------
+   One flat gold ellipse. The only ornament the identity is
+   allowed. Used as the display underline everywhere. */
+.oyss .pool {
+  display: block;
+  width: 74px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-top: 1.6rem;
+  transform-origin: center;
+}
+.oyss .pool--sm { width: 46px; height: 5px; margin-top: 1.1rem; }
+
+/* --- THE RULE ---------------------------------------------
+   Ash Gold divides. It never carries a headline or a logo. */
+.oyss .rule { height: 1px; background: var(--ash); border: 0; }
+.oyss .dark .rule, .oyss .stage .rule { background: rgba(215, 206, 192, .18); }
+
+/* --- THE FALLOFF ------------------------------------------
+   A dark section never has a flat background. It always has a
+   light origin: one source, one direction. */
+.oyss .dark {
+  background: var(--navy);
+  color: var(--ivory);
+  position: relative;
+  isolation: isolate;
+}
+.oyss .dark::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(115% 78% at 50% -14%, var(--gold-08) 0%, transparent 62%),
+    linear-gradient(180deg, transparent 0%, rgba(7, 11, 22, .55) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --- THE BEAM ---------------------------------------------
+   The logo icon at architectural scale. A shaft of light and the
+   pool it lands on. The beam falls off downward, because light
+   does. Environmental beams carry falloff; the LOGO mark stays
+   one flat gold. (deck p14 vs p16) */
+.oyss .beam {
+  position: absolute;
+  top: -8%; left: 62%;
+  width: min(74vw, 900px);
+  aspect-ratio: 1 / 1.5;
+  transform: translateX(-50%);
+  /* Light desaturates toward white at its core and only shows its color in the
+     falloff. A beam built from flat gold at low alpha composites to brown over
+     navy and stops reading as light, which is why the top stop is warm white. */
+  background: linear-gradient(180deg,
+    rgba(255, 240, 210, .26) 0%,
+    rgba(238, 198, 128, .15) 28%,
+    rgba(221, 170, 82,  .06) 60%,
+    transparent 88%);
+  mix-blend-mode: screen;
+  clip-path: polygon(43% 0%, 57% 0%, 100% 100%, 0% 100%);
+  /* The clip gives the silhouette; the mask feathers it. A hard diagonal edge
+     is the tell that a beam was drawn rather than cast, and light spreads
+     softer the further it travels, which is why the mask widens downward. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 32%, #000 68%, transparent 98%);
+          mask-image: linear-gradient(90deg, transparent 2%, #000 32%, #000 68%, transparent 98%);
+  filter: blur(56px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.oyss .beam--lit { animation: beam-ignite 1150ms var(--fade-up) forwards; }
+
+@keyframes beam-ignite {
+  0%   { opacity: 0; clip-path: polygon(49.4% 0%, 50.6% 0%, 53% 100%, 47% 100%); }
+  100% { opacity: 1; clip-path: polygon(43% 0%, 57% 0%, 100% 100%, 0% 100%); }
+}
+
+/* Where the beam lands. Blooms 220ms after ignition. */
+.oyss .landing {
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: min(72vw, 900px); height: 190px;
+  transform: translate(-50%, 46%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 236, 200, .16) 0%, rgba(221, 170, 82, .05) 45%, transparent 72%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.oyss .landing--lit { animation: bloom 900ms var(--fade-up) 220ms forwards; }
+@keyframes bloom { from { opacity: 0; transform: translate(-50%, 46%) scaleX(.4); }
+                   to   { opacity: 1; transform: translate(-50%, 46%) scaleX(1); } }
+
+/* --- THE TRAVELLING POOL ----------------------------------
+   A pool of light that follows the pointer across dark sections.
+   Subtle by contract: gold at 8%, never a glow, never a flare. */
+.oyss .stage { position: relative; isolation: isolate; }
+.oyss .stage__pool {
+  position: absolute;
+  width: 620px; height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, var(--gold-08) 0%, transparent 68%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms var(--settle);
+  z-index: -1;
+}
+.oyss .stage:hover .stage__pool { opacity: 1; }
+
+/* ============================================================
+   3. THE REVEAL
+   Nothing slides. Nothing bounces. Things become visible because
+   they are lit. That is the entire motion language.
+   ============================================================ */
+
+.oyss [data-lit] {
+  opacity: .1;
+  filter: brightness(.55);
+  transform: translateY(14px);
+  transition:
+    opacity 900ms var(--fade-up),
+    filter 1100ms var(--fade-up),
+    transform 900ms var(--fade-up);
+}
+.oyss [data-lit].lit {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+/* Cue stagger. Light hits one thing at a time. */
+.oyss [data-lit][data-cue="1"] { transition-delay:  90ms; }
+.oyss [data-lit][data-cue="2"] { transition-delay: 180ms; }
+.oyss [data-lit][data-cue="3"] { transition-delay: 270ms; }
+.oyss [data-lit][data-cue="4"] { transition-delay: 360ms; }
+.oyss [data-lit][data-cue="5"] { transition-delay: 450ms; }
+.oyss [data-lit][data-cue="6"] { transition-delay: 540ms; }
+
+/* The pool draws itself open rather than fading in. */
+.oyss [data-lit] .pool { transform: scaleX(0); transition: transform 800ms var(--fade-up) 260ms; }
+.oyss [data-lit].lit .pool { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .oyss [data-lit],
+  .oyss [data-lit] .pool { opacity: 1; filter: none; transform: none; transition: none; }
+  .oyss .beam, .oyss .landing { opacity: 1; animation: none; }
+  .oyss .stage__pool { display: none; }
+  .oyss * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ============================================================
+   4. STRUCTURE
+   ============================================================ */
+
+.oyss .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.oyss .wrap--tight { max-width: 900px; }
+.oyss .bay { padding: var(--bay) 0; }
+.oyss .bay--half { padding: calc(var(--bay) * .58) 0; }
+.oyss .light { background: var(--ivory); }
+.oyss .paper { background: var(--white); }
+
+.oyss .split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 5.5vw, 88px);
+  align-items: center;
+}
+.oyss .split--copyfirst { grid-template-columns: .95fr 1.05fr; }
+.oyss .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.6vw, 34px); }
+.oyss .cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.6vw, 34px); }
+.oyss .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2vw, 26px); }
+
+.oyss .stack-xs > * + * { margin-top: .5rem; }
+.oyss .stack-s  > * + * { margin-top: 1rem; }
+.oyss .stack    > * + * { margin-top: 1.5rem; }
+.oyss .stack-l  > * + * { margin-top: 2.5rem; }
+
+@media (max-width: 860px) {
+  .oyss .split, .oyss .split--copyfirst, .oyss .cols-3, .oyss .cols-2 { grid-template-columns: 1fr; }
+  .oyss .cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   5. ACTION
+   One primary per view. Never two crimson buttons competing in
+   the same viewport. (deck p13)
+   ============================================================ */
+
+.oyss .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  padding: 1.02rem 1.9rem;
+  font-family: var(--sans);
+  font-size: var(--t-action);
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: background 260ms var(--settle), color 260ms var(--settle),
+              border-color 260ms var(--settle), transform 260ms var(--settle);
+}
+.oyss .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* The single thing on the page that must be noticed. */
+.oyss .btn--primary { background: var(--crimson); color: var(--white); }
+.oyss .btn--primary:hover { background: #B0242D; transform: translateY(-1px); }
+
+.oyss .btn--ghost { border-color: var(--navy); color: var(--navy); }
+.oyss .btn--ghost:hover { background: var(--navy); color: var(--ivory); }
+.oyss .dark .btn--ghost, .oyss .stage .btn--ghost { border-color: rgba(247, 242, 232, .34); color: var(--ivory); }
+.oyss .dark .btn--ghost:hover, .oyss .stage .btn--ghost:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }
+
+/* A text action that is not a button. Gold as a line, not a fill. */
+.oyss .cue {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-size: var(--t-action); font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding-bottom: .45rem;
+  border-bottom: 1px solid var(--gold-40);
+  transition: border-color 260ms var(--settle), gap 260ms var(--settle);
+}
+.oyss .cue:hover { border-color: var(--gold); gap: .95rem; }
+.oyss .cue::after { content: '\2192'; font-size: 1.05em; }
+
+.oyss .actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+/* ============================================================
+   6. MASTHEAD
+   The horizontal lockup exists for headers and email signatures
+   only. (deck p16)
+   ============================================================ */
+
+.oyss .masthead {
+  position: sticky; top: 0; z-index: 90;
+  background: rgba(16, 26, 49, .90);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid rgba(215, 206, 192, .13);
+  transition: background 300ms var(--settle);
+}
+.oyss .masthead__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; height: 78px;
+}
+.oyss .masthead nav { display: flex; align-items: center; gap: clamp(1rem, 2.1vw, 2.1rem); }
+.oyss .masthead nav a {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ivory-70);
+  padding: .4rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 220ms var(--settle), border-color 220ms var(--settle);
+}
+.oyss .masthead nav a:hover { color: var(--ivory); border-color: var(--gold); }
+.oyss .masthead nav a[aria-current="page"] { color: var(--ivory); border-color: var(--gold); }
+.oyss .masthead .btn { padding: .72rem 1.3rem; font-size: .75rem; }
+
+.oyss .burger {
+  display: none;
+  background: none; border: 1px solid rgba(247, 242, 232, .3);
+  border-radius: 2px; padding: .55rem .8rem;
+  color: var(--ivory); cursor: pointer;
+  font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+}
+
+@media (max-width: 1040px) {
+  .oyss .burger { display: block; }
+  .oyss .masthead nav {
+    position: absolute; top: 78px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch;
+    gap: 0;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(215, 206, 192, .16);
+    padding: .5rem var(--gutter) 1.6rem;
+    display: none;
+  }
+  .oyss .masthead nav.open { display: flex; }
+  .oyss .masthead nav a { padding: .95rem 0; border-bottom: 1px solid rgba(215, 206, 192, .1); }
+  .oyss .masthead nav .btn { margin-top: 1.1rem; justify-content: center; }
+}
+
+/* ============================================================
+   7. THE LOGO
+   Artwork, not live text — but rendered as inline SVG so it stays
+   crisp at every size and can be lit. Proportions are locked to
+   the deck: pool width = wordmark width, gap fixed.
+   ============================================================ */
+
+.oyss .lockup { display: flex; align-items: center; gap: .78rem; }
+.oyss .lockup__icon { width: 34px; height: 34px; flex: none; }
+.oyss .lockup__type { display: block; }
+.oyss .lockup__name {
+  font-family: var(--serif);
+  font-size: 1.06rem; font-weight: 600;
+  letter-spacing: .16em;              /* tracked to +6, never condensed */
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ivory);
+}
+.oyss .lockup__desc {
+  font-family: var(--sans);
+  font-size: .5rem; font-weight: 500;
+  letter-spacing: .58em;              /* to the full width of the wordmark */
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: .3rem;
+}
+.oyss .lockup--navy .lockup__name { color: var(--navy); }
+
+/* ============================================================
+   8. CARDS & PANELS
+   Warm White sits on Ivory to lift cards off the page. (deck p12)
+   ============================================================ */
+
+.oyss .card {
+  background: var(--white);
+  border: 1px solid var(--ash);
+  border-radius: 3px;
+  padding: clamp(24px, 2.6vw, 36px);
+  position: relative;
+  transition: border-color 320ms var(--settle), transform 320ms var(--settle);
+}
+.oyss .card:hover { border-color: var(--gold-40); transform: translateY(-3px); }
+.oyss .card__index {
+  font-family: var(--serif);
+  font-size: 1.9rem; font-weight: 300; font-style: italic;
+  color: #84662A; line-height: 1;          /* light context is the default */
+  margin-bottom: 1.25rem;
+}
+.oyss .dark .card__index, .oyss .stage .card__index { color: var(--gold); }
+.oyss .dark .card, .oyss .stage .card {
+  background: rgba(247, 242, 232, .035);
+  border-color: rgba(215, 206, 192, .15);
+}
+.oyss .dark .card:hover, .oyss .stage .card:hover { border-color: var(--gold-40); }
+
+/* ============================================================
+   9. THE DIMMER LADDER
+   The four visibility levels rendered as what they are: an
+   intensity ladder. Each cell is literally brighter than the one
+   before it. Hover moves the light.
+   ============================================================ */
+
+.oyss .dimmer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 2.6rem; }
+.oyss .dimmer__cell {
+  position: relative;
+  padding: clamp(22px, 2.4vw, 34px) clamp(16px, 1.8vw, 24px) clamp(26px, 2.8vw, 38px);
+  background: var(--ink);
+  border-top: 2px solid rgba(215, 206, 192, .16);
+  text-align: left;
+  cursor: default;
+  overflow: hidden;
+  transition: background 420ms var(--settle), border-color 420ms var(--settle);
+}
+/* Baseline luminance climbs across the ladder. */
+.oyss .dimmer__cell:nth-child(1) { background: #05080F; }
+.oyss .dimmer__cell:nth-child(2) { background: #0A1020; }
+.oyss .dimmer__cell:nth-child(3) { background: #101A31; }
+.oyss .dimmer__cell:nth-child(4) { background: #1A2947; border-top-color: var(--gold); }
+
+.oyss .dimmer__cell::after {   /* the pool that lands on this cell */
+  content: '';
+  position: absolute; left: 50%; top: -34%;
+  width: 150%; aspect-ratio: 1 / .9;
+  transform: translateX(-50%) scaleY(.2);
+  transform-origin: top;
+  background: radial-gradient(50% 50% at 50% 50%, var(--gold-18) 0%, transparent 66%);
+  opacity: 0;
+  transition: opacity 420ms var(--settle), transform 520ms var(--fade-up);
+  pointer-events: none;
+}
+.oyss .dimmer__cell:hover::after,
+.oyss .dimmer__cell:focus-within::after { opacity: 1; transform: translateX(-50%) scaleY(1); }
+.oyss .dimmer__cell:hover, .oyss .dimmer__cell:focus-within { border-top-color: var(--gold); }
+
+.oyss .dimmer__n {
+  font-family: var(--sans); font-size: var(--t-eyebrow); font-weight: 600;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--slate);
+  transition: color 420ms var(--settle);
+}
+.oyss .dimmer__cell:nth-child(4) .dimmer__n { color: var(--gold); }
+.oyss .dimmer__cell:hover .dimmer__n { color: var(--gold); }
+.oyss .dimmer__name {
+  font-family: var(--serif); font-size: 1.55rem; font-weight: 400;
+  line-height: 1.1; margin: .85rem 0 .7rem;
+  color: rgba(247, 242, 232, .38);
+  transition: color 420ms var(--settle);
+}
+.oyss .dimmer__cell:nth-child(2) .dimmer__name { color: rgba(247, 242, 232, .55); }
+.oyss .dimmer__cell:nth-child(3) .dimmer__name { color: rgba(247, 242, 232, .74); }
+.oyss .dimmer__cell:nth-child(4) .dimmer__name { color: var(--ivory); }
+.oyss .dimmer__cell:hover .dimmer__name,
+.oyss .dimmer__cell:focus-within .dimmer__name { color: var(--ivory); }
+.oyss .dimmer__note { font-size: var(--t-caption); line-height: 1.5; color: var(--ivory-46); }
+
+@media (max-width: 780px) { .oyss .dimmer { grid-template-columns: repeat(2, 1fr); } }
+
+/* ============================================================
+   10. THE CUE SHEET
+   The client journey, rendered the way a production is actually
+   run: as a numbered cue stack with a light travelling down it.
+   ============================================================ */
+
+.oyss .cuesheet { position: relative; margin-top: 3.4rem; }
+.oyss .cuesheet__rail {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+  background: rgba(215, 206, 192, .18);
+}
+.oyss .cuesheet__marker {
+  position: absolute; left: -3px; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--gold);
+  transition: top 240ms var(--settle);
+  box-shadow: 0 0 0 5px rgba(221, 170, 82, .13);
+}
+.oyss .cuerow {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: clamp(18px, 3vw, 48px);
+  padding: clamp(26px, 3vw, 40px) 0 clamp(26px, 3vw, 40px) clamp(24px, 3vw, 44px);
+  border-bottom: 1px solid rgba(215, 206, 192, .13);
+}
+.oyss .cuerow:last-child { border-bottom: 0; }
+.oyss .cuerow__n {
+  font-family: var(--serif); font-size: 2.5rem; font-weight: 300;
+  font-style: italic; line-height: .9;
+  color: rgba(132, 102, 42, .45);
+  transition: color 600ms var(--settle);
+}
+.oyss .cuerow.lit .cuerow__n { color: #84662A; }
+.oyss .dark .cuerow__n, .oyss .stage .cuerow__n { color: rgba(221, 170, 82, .42); }
+.oyss .dark .cuerow.lit .cuerow__n,
+.oyss .stage .cuerow.lit .cuerow__n { color: var(--gold); }
+.oyss .cuerow__label {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+  line-height: 1.15; margin-bottom: .3rem;
+}
+.oyss .cuerow__claim {
+  font-family: var(--sans); font-size: var(--t-eyebrow); font-weight: 600;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: #84662A; margin-bottom: 1rem;     /* 11px text: needs the full 4.5:1 */
+}
+.oyss .dark .cuerow__claim, .oyss .stage .cuerow__claim { color: var(--gold); }
+@media (max-width: 700px) {
+  .oyss .cuerow { grid-template-columns: 1fr; gap: .9rem; }
+  .oyss .cuerow__n { font-size: 1.9rem; }
+}
+
+/* ============================================================
+   11. THE PANEL RIG
+   Six frames. The light switches between them the way a producer
+   switches cameras. This is the deliverable, shown working.
+   ============================================================ */
+
+.oyss .rig { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 2.6rem; }
+.oyss .frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(168deg, #16233F 0%, #0A1120 100%);
+  border: 1px solid rgba(215, 206, 192, .13);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+  padding: 12px;
+  transition: border-color 500ms var(--settle), transform 500ms var(--settle);
+}
+.oyss .frame::before {   /* the key light, always from above */
+  content: '';
+  position: absolute; left: 50%; top: -46%;
+  width: 118%; aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(221, 170, 82, .22) 0%, transparent 64%);
+  opacity: 0;
+  transition: opacity 620ms var(--settle);
+}
+.oyss .frame.on::before { opacity: 1; }
+.oyss .frame.on { border-color: var(--gold-40); }
+.oyss .frame--host { grid-column: span 2; grid-row: span 2; }
+.oyss .frame__plate {
+  position: relative;
+  background: rgba(7, 11, 22, .72);
+  border-left: 2px solid var(--gold);
+  padding: .5rem .75rem;
+  backdrop-filter: blur(4px);
+}
+.oyss .frame__role {
+  font-size: .5625rem; font-weight: 600; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--gold); line-height: 1;
+}
+.oyss .frame__name {
+  font-family: var(--serif); font-size: 1rem; line-height: 1.2;
+  color: var(--ivory); margin-top: .2rem;
+}
+.oyss .frame--host .frame__name { font-size: 1.4rem; }
+.oyss .frame__sub { font-size: .6875rem; color: var(--ivory-46); margin-top: .1rem; }
+@media (max-width: 760px) {
+  .oyss .rig { grid-template-columns: repeat(2, 1fr); }
+  .oyss .frame--host { grid-column: span 2; grid-row: span 1; }
+}
+
+/* ============================================================
+   12. THE LEDGER
+   Division of responsibilities. Two columns that never pretend to
+   be neutral: what we hold, and what you hold.
+   ============================================================ */
+
+.oyss .ledger { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ash); border: 1px solid var(--ash); }
+.oyss .ledger__col { background: var(--white); padding: clamp(24px, 3vw, 40px); }
+.oyss .ledger__col--them { background: var(--ivory); }
+.oyss .ledger__head {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--slate);
+  padding-bottom: 1rem; margin-bottom: 1.6rem;
+  border-bottom: 1px solid var(--ash);
+}
+.oyss .ledger__col--us .ledger__head { color: #84662A; }
+.oyss .ticklist li {
+  position: relative; padding-left: 1.7rem; font-size: var(--t-caption);
+  line-height: 1.5; color: var(--slate);
+}
+.oyss .ticklist li + li { margin-top: .85rem; }
+.oyss .ticklist li::before {   /* a pool, not a checkmark */
+  content: ''; position: absolute; left: 0; top: .52em;
+  width: 11px; height: 4px; border-radius: 50%; background: var(--gold);
+}
+.oyss .ticklist--none li::before { background: var(--ash); }
+.oyss .dark .ticklist li, .oyss .stage .ticklist li { color: var(--ivory-70); }
+@media (max-width: 760px) { .oyss .ledger { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   13. FIGURES / PRICE
+   ============================================================ */
+
+.oyss .figure__value {
+  font-family: var(--serif); font-size: clamp(2.6rem, 1.8rem + 3vw, 4rem);
+  font-weight: 300; line-height: .95; letter-spacing: -.02em;
+}
+.oyss .figure__label {
+  font-size: var(--t-caption); color: var(--slate); margin-top: .7rem; max-width: 22ch;
+}
+.oyss .dark .figure__label, .oyss .stage .figure__label { color: var(--ivory-46); }
+
+/* ============================================================
+   14. FORMS
+   Sans for what the reader has to do. Every field is legible,
+   large-target and labelled. The audience is 40+ professionals.
+   ============================================================ */
+
+.oyss .field { display: block; }
+.oyss .field + .field { margin-top: 1.5rem; }
+.oyss .field__label {
+  display: block;
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--slate); margin-bottom: .6rem;
+}
+.oyss .dark .field__label, .oyss .stage .field__label { color: var(--ash); }
+.oyss .field__input {
+  width: 100%;
+  padding: .95rem 1.05rem;
+  background: var(--white);
+  border: 1px solid var(--ash);
+  border-radius: 2px;
+  font-size: var(--t-body);
+  transition: border-color 220ms var(--settle), box-shadow 220ms var(--settle);
+}
+.oyss .field__input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-18);
+}
+.oyss textarea.field__input { min-height: 140px; resize: vertical; }
+.oyss .field__help { font-size: var(--t-caption); color: var(--slate); margin-top: .5rem; }
+.oyss .field__input[aria-invalid="true"] { border-color: var(--crimson); }
+
+.oyss .check {
+  display: grid; grid-template-columns: 20px 1fr; gap: .85rem;
+  align-items: start; cursor: pointer;
+  font-size: var(--t-caption); line-height: 1.55; color: var(--slate);
+}
+.oyss .check + .check { margin-top: 1.05rem; }
+.oyss .check input { width: 20px; height: 20px; margin: .1rem 0 0; accent-color: var(--crimson); cursor: pointer; }
+
+/* Radios rendered as a light ladder rather than dots. */
+.oyss .choice { display: block; cursor: pointer; }
+.oyss .choice + .choice { margin-top: .6rem; }
+.oyss .choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+.oyss .choice__box {
+  display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: center;
+  padding: .95rem 1.15rem;
+  background: var(--white);
+  border: 1px solid var(--ash);
+  border-radius: 2px;
+  font-size: var(--t-body); line-height: 1.4;
+  transition: border-color 200ms var(--settle), background 200ms var(--settle);
+}
+.oyss .choice__dot {
+  width: 16px; height: 6px; border-radius: 50%;
+  background: var(--ash);
+  transition: background 200ms var(--settle), width 200ms var(--settle);
+}
+.oyss .choice:hover .choice__box { border-color: var(--gold-40); }
+.oyss .choice input:checked + .choice__box { border-color: var(--gold); background: #FFFCF4; }
+.oyss .choice input:checked + .choice__box .choice__dot { background: var(--gold); width: 22px; }
+.oyss .choice input:focus-visible + .choice__box { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ============================================================
+   15. THE DOCUMENT
+   Agreements. Editorial legal setting: a real measure, numbered
+   sections, gold rules. A contract people can actually read.
+   ============================================================ */
+
+.oyss .doc { max-width: 42rem; }
+.oyss .doc h2 {
+  font-family: var(--sans); font-size: var(--t-action); font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--navy);
+  padding-top: 2.6rem; margin-top: 2.6rem;
+  border-top: 1px solid var(--ash);
+}
+.oyss .doc h2:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+.oyss .doc h2 .doc__n { color: #84662A; margin-right: .7rem; }  /* 14px on ivory: gold measured 1.89:1 */
+.oyss .doc h3 {
+  font-size: var(--t-body); font-weight: 600; margin-top: 1.8rem; color: var(--navy);
+}
+.oyss .doc p { margin-top: 1.05rem; font-size: .9875rem; line-height: 1.72; color: #2C3547; }
+.oyss .doc ul { margin-top: 1rem; }
+.oyss .doc ul li {
+  position: relative; padding-left: 1.5rem; margin-top: .6rem;
+  font-size: .9375rem; line-height: 1.62; color: #2C3547;
+}
+.oyss .doc ul li::before {
+  content: ''; position: absolute; left: 0; top: .62em;
+  width: 9px; height: 3px; border-radius: 50%; background: var(--gold);
+}
+.oyss .doc strong { font-weight: 600; color: var(--navy); }
+
+/* Sticky contents rail beside the document. */
+.oyss .doclayout { display: grid; grid-template-columns: 220px 1fr; gap: clamp(30px, 5vw, 76px); align-items: start; }
+.oyss .doctoc { position: sticky; top: 106px; }
+.oyss .doctoc a {
+  display: block; padding: .42rem 0 .42rem .9rem;
+  font-size: var(--t-caption); color: var(--slate);
+  border-left: 1px solid var(--ash);
+  transition: color 200ms var(--settle), border-color 200ms var(--settle);
+}
+.oyss .doctoc a:hover, .oyss .doctoc a.here { color: var(--navy); border-left-color: var(--gold); }
+@media (max-width: 900px) { .oyss .doclayout { grid-template-columns: 1fr; } .oyss .doctoc { display: none; } }
+
+/* Reading progress — a beam that fills as the reader descends. */
+.oyss .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100; background: transparent; }
+.oyss .progress__fill { height: 100%; width: 0; background: var(--gold); transition: width 90ms linear; }
+
+/* The signature block. */
+.oyss .signblock {
+  background: var(--navy); color: var(--ivory);
+  padding: clamp(28px, 3.4vw, 48px);
+  border-radius: 3px;
+  position: relative; overflow: hidden;
+}
+.oyss .signblock .field__input { background: rgba(247, 242, 232, .07); border-color: rgba(215, 206, 192, .26); color: var(--ivory); }
+.oyss .signblock .field__input::placeholder { color: rgba(247, 242, 232, .3); }
+.oyss .signblock .check { color: var(--ivory-70); }
+.oyss .sig {
+  font-family: var(--serif); font-style: italic; font-size: 1.7rem;
+  letter-spacing: .01em; color: var(--gold);
+}
+.oyss .sig-preview {
+  min-height: 78px; display: flex; align-items: center;
+  padding: .5rem 1.05rem;
+  border-bottom: 1px solid var(--gold-40);
+  background: rgba(247, 242, 232, .04);
+}
+.oyss .locked { opacity: .42; pointer-events: none; transition: opacity 500ms var(--settle); }
+.oyss .locked.unlocked { opacity: 1; pointer-events: auto; }
+
+.oyss .fee {
+  display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  padding: 1.5rem 0; border-top: 1px solid var(--gold-40); border-bottom: 1px solid var(--gold-40);
+}
+.oyss .fee__amt { font-family: var(--serif); font-size: 2.6rem; font-weight: 300; line-height: 1; color: var(--gold); }
+
+/* ============================================================
+   16. NOTICES
+   ============================================================ */
+
+.oyss .notice {
+  padding: 1.15rem 1.35rem;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-08);
+  font-size: var(--t-caption); line-height: 1.6; color: var(--slate);
+}
+.oyss .notice--action { border-left-color: var(--crimson); background: rgba(201, 46, 56, .05); }
+.oyss .dark .notice, .oyss .stage .notice { color: var(--ivory-70); background: rgba(221, 170, 82, .07); }
+
+.oyss .draft-flag {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .38rem .8rem;
+  font-size: .625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: #84662A; background: var(--gold-08); border: 1px solid var(--gold-40); border-radius: 2px;
+}
+
+/* ============================================================
+   17. FOOTER
+   A signature is a business card, not a landing page. (deck p23)
+   ============================================================ */
+
+.oyss .footer { background: var(--ink); color: var(--ivory-70); padding: calc(var(--bay) * .7) 0 2.6rem; }
+.oyss .footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(30px, 4vw, 60px); }
+.oyss .footer h4 {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.3rem;
+}
+.oyss .footer a { display: block; padding: .34rem 0; font-size: var(--t-caption); color: var(--ivory-70); transition: color 200ms var(--settle); }
+.oyss .footer a:hover { color: var(--ivory); }
+.oyss .footer__base {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  margin-top: 3.6rem; padding-top: 1.7rem;
+  border-top: 1px solid rgba(215, 206, 192, .12);
+  font-size: var(--t-caption); color: var(--ivory-46);
+}
+.oyss .footer__promise { font-family: var(--serif); font-size: 1.25rem; color: var(--ivory); margin-top: 1.5rem; }
+@media (max-width: 760px) { .oyss .footer__grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   18. UTILITIES
+   ============================================================ */
+
+.oyss .sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.oyss .skip {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--crimson); color: var(--white); padding: .9rem 1.4rem;
+  font-size: var(--t-action); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+}
+.oyss .skip:focus { left: 0; }
+.oyss .center { text-align: center; }
+.oyss .center .lead, .oyss .center .body { margin-left: auto; margin-right: auto; }
+.oyss .center .pool { margin-left: auto; margin-right: auto; }
+.oyss .hold { max-width: 62rem; }
+.oyss .frame-img { border: 1px solid var(--ash); border-radius: 3px; overflow: hidden; background: var(--navy); }
+
+@media print {
+  .oyss .masthead, .oyss .footer, .oyss .progress, .oyss .doctoc, .oyss .no-print { display: none !important; }
+  .oyss { background: #fff; }
+  .oyss .doc { max-width: none; }
+  .oyss [data-lit] { opacity: 1 !important; filter: none !important; transform: none !important; }
+}
+
+/* Crimson Pro draws the trademark glyph at nearly cap height. Scaled and
+   raised here so a product name does not read as a typesetting mistake. */
+.oyss .tm {
+  font-size: .5em;
+  vertical-align: .78em;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+/* ============================================================
+   19. CONTRAST CORRECTIONS
+   Found by measuring the rendered page rather than reading the
+   stylesheet. Both were invisible in source.
+   ============================================================ */
+
+/* `.masthead nav a` (0,3,1) outranks `.btn--primary` (0,2,0), so the header's
+   primary CTA was inheriting ivory at 70% over crimson: 3.03:1. */
+.oyss .masthead nav a.btn--primary { color: var(--white); }
+
+/* The footer is dark but is not `.dark`, so `.caption` kept its light-context
+   slate over Deep Ink: 2.74:1. */
+.oyss .footer .caption { color: var(--ivory-46); }
+.oyss .footer .ticklist li { color: var(--ivory-46); }
+
+/* The signature block is dark but is not `.dark`, so its field labels kept
+   light-context slate over navy: 2.41:1. */
+.oyss .signblock .field__label { color: var(--ash); }
+.oyss .signblock .field__help  { color: var(--ivory-70); }
