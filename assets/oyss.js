@@ -468,98 +468,116 @@
 
 
     /* --------------------------------------------------------
-       15. THE REEL
-       The home hero is footage now, not a CSS lamp, so it needs
-       the three things a background video always needs and
-       usually does not get.
+       15. FOOTAGE
+       Two clips on the home page and the same contract for both:
+       play only while on screen, never on a metered connection,
+       never under prefers-reduced-motion. A looping video that
+       has been scrolled past is a decoded frame every 33ms for a
+       picture nobody is looking at, and on a laptop that is the
+       fan coming on while somebody reads the pricing.
 
-       1. It must stop when it is not on screen. A looping video
-          scrolled past is a decoded frame every 42ms for a
-          picture nobody is looking at, and on a laptop that is
-          the fan coming on while someone reads the pricing.
-       2. It must dim out rather than be cut off. The section
-          under it is the same ink, so as the hero leaves the
-          doorway fades and pushes in fractionally and the join
-          is invisible.
-       3. It must not fire at all on a metered connection. The
-          poster carries the same frame, so a reader on Save-Data
-          loses the motion and nothing else.
-
-       Autoplay can still be refused (low power mode is the usual
-       reason). The catch is not decoration: without it the
-       promise rejects, the poster stays, and that is already the
-       correct outcome.
+       Autoplay can still be refused, usually by low power mode.
+       The catch is not decoration: the promise rejects, the
+       poster stays, and that is already the right outcome.
        -------------------------------------------------------- */
-    var reel = document.querySelector('.reel');
-    var clip = reel && reel.querySelector('video');
+    var conn = navigator.connection || {};
+    var METERED = conn.saveData === true || /^(slow-)?2g$/.test(conn.effectiveType || '');
 
-    if (clip) {
-      var conn = navigator.connection || {};
-      var metered = conn.saveData === true || /^(slow-)?2g$/.test(conn.effectiveType || '');
+    function playSafely(v) {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }
 
-      if (CALM || metered) {
+    function whileVisible(v, onChange) {
+      if (!('IntersectionObserver' in window)) { playSafely(v); return; }
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) playSafely(v); else v.pause();
+          if (onChange) onChange(e.isIntersecting);
+        });
+      }, { threshold: 0.12 }).observe(v);
+    }
+
+    document.querySelectorAll('.reel__media video').forEach(function (clip) {
+      if (CALM || METERED) {
         clip.removeAttribute('autoplay');
         clip.pause();
-        /* Leave the poster showing. The CSS already swaps to the
-           still under prefers-reduced-motion; this covers the
-           metered case, where the still is not in the cascade. */
         clip.style.display = 'none';
-        var still = reel.querySelector('.reel__still');
+        var still = clip.parentNode.querySelector('.reel__still');
         if (still) still.style.display = 'block';
-      } else {
-        var play = clip.play();
-        if (play && play.catch) play.catch(function () {});
-
-        if ('IntersectionObserver' in window) {
-          new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (e.isIntersecting) {
-                var p = clip.play();
-                if (p && p.catch) p.catch(function () {});
-              } else {
-                clip.pause();
-              }
-            });
-          }, { threshold: 0.01 }).observe(reel);
-        }
-
-        /* The exit. One rAF-coalesced read, two custom properties
-           written, no layout touched. */
-        var pending = false;
-        var dim = function () {
-          pending = false;
-          var h = reel.offsetHeight || 1;
-          var travelled = Math.min(Math.max(-reel.getBoundingClientRect().top / h, 0), 1);
-          reel.style.setProperty('--reel-o', (1 - travelled * 0.85).toFixed(3));
-          reel.style.setProperty('--reel-s', (1 + travelled * 0.07).toFixed(3));
-        };
-        var onExit = function () {
-          if (pending) return;
-          pending = true;
-          window.requestAnimationFrame(dim);
-        };
-        window.addEventListener('scroll', onExit, { passive: true });
-        window.addEventListener('resize', onExit, { passive: true });
-        dim();
+        return;
       }
+      whileVisible(clip);
+    });
+
+    /* --------------------------------------------------------
+       16. THE MASTHEAD, OVER THE FILM
+       On the home page the bar has nothing behind it while the
+       hero film is under it, and takes its ground back the
+       moment the film leaves. Driven from the hero's own
+       position rather than from a scroll threshold, so it stays
+       correct at any viewport height.
+       -------------------------------------------------------- */
+    var over = document.querySelector('[data-over]');
+    var barEl = document.querySelector('.masthead');
+    if (over && barEl) {
+      var syncBar = function () {
+        var h = barEl.getBoundingClientRect().height;
+        barEl.classList.toggle('masthead--over',
+          over.getBoundingClientRect().bottom > h + 8);
+      };
+      syncBar();
+      window.addEventListener('scroll', syncBar, { passive: true });
+      window.addEventListener('resize', syncBar, { passive: true });
     }
 
     /* --------------------------------------------------------
-       16. THE BAND
-       The rails are pure CSS, but a rail that runs while the
-       page is scrolled past it is work the compositor is doing
-       for nobody. Same contract as the reel: on screen, running.
+       17. THE FILM
+       The brand film under the hero. It runs while it is on
+       screen and stops when it is not, and the one control is a
+       real toggle rather than a play badge, because by the time
+       anybody looks at it the film is already running.
+
+       Under reduced motion or on a metered connection it does
+       not load at all: preload is "none" and the poster carries
+       the frame. The five beats are written out under the
+       picture either way, so nothing is only available to
+       somebody who can watch a video.
        -------------------------------------------------------- */
-    var rails = document.querySelector('.rails');
-    if (rails && !CALM && 'IntersectionObserver' in window) {
-      /* A class, not an inline animation-play-state. Inline style
-         would outrank the :hover rule that lets a reader stop a
-         rail to actually read it. */
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          rails.classList.toggle('rails--off', !e.isIntersecting);
-        });
-      }, { threshold: 0 }).observe(rails);
+    var film = document.getElementById('film');
+    var filmBtn = document.querySelector('.film__toggle');
+    if (film && filmBtn) {
+      var wanted = !(CALM || METERED);   // what the reader has asked for
+      var inView = false;
+
+      var label = function () {
+        var playing = !film.paused;
+        filmBtn.textContent = playing ? 'Pause' : 'Play';
+        filmBtn.dataset.state = playing ? 'playing' : 'paused';
+        filmBtn.setAttribute('aria-label', playing ? 'Pause the film' : 'Play the film');
+      };
+
+      if (wanted) film.preload = 'metadata';
+
+      whileVisible(film, function (visible) {
+        inView = visible;
+        if (!wanted) { film.pause(); return; }
+        label();
+      });
+      /* whileVisible plays on entry; if the reader has asked for
+         no motion we undo that immediately rather than never
+         observing, because the observer is also what stops it. */
+      if (!wanted) film.pause();
+
+      film.addEventListener('play', label);
+      film.addEventListener('pause', label);
+
+      filmBtn.addEventListener('click', function () {
+        wanted = film.paused;
+        if (film.paused) playSafely(film); else film.pause();
+        label();
+      });
+      label();
     }
   });
 

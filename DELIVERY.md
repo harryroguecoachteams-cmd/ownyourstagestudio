@@ -26,12 +26,46 @@ what it sells. The motion *is* the positioning:
 | **The cue sheet** | The six-step client journey as a production cue stack, light travelling down the rail. | "Produced" is one of the five brand essence words. This is what produced looks like. |
 | **The panel rig** | Six frames, one light, switching like a producer switching cameras. | Shows the deliverable working rather than describing it. |
 | **The travelling pool** | A pool of light following the pointer on dark sections. Gold at 8%, desktop only. | The deck permits one pool of light and forbids flares. It stays a pool. |
-| **The reel** | The home hero is footage: a figure on a dark floor facing a tall doorway of light, boomeranged into a seamless 20 second loop. | The brief asked for "the light falling into a person standing beneath it". It is the positioning in one frame, and it replaces the CSS lamp that was standing in for it. |
-| **The band** | Under the hero, two rails running in opposite directions: services in the serif, deliverables in small caps, crimson between them. | Says what kind of company this is, in motion. Counter-running rails read as a title sequence rather than a news ticker. |
-| **The flood** | The closing call to action is one edge-to-edge block. Pointing at it brings Stage Crimson up from the floor and takes the whole block. | The one moment on the site where the entire field goes red. Crimson is the deck's action color, and this is the action. |
+| **The reel** | The home hero: type column left, and the film running full bleed to the right edge. A person standing at the base of a tall doorway of light, boomeranged into a seamless 20 second loop. | The client's brief for the header, and the composition all three of her reference sites open with. |
+| **The film** | A 25 second brand film under the hero. Six beats on one stage: a hidden expert, the stage we build, the panel we cast, the live show, and the content that stays. | Two of her notes asked for the same thing, a motion graphic after the header and an animated explainer. This is one answer to both. |
+| **The cover card** | Three cards. Point at one and a navy panel comes up and takes the whole card, carrying the list of what is actually included. | "The end CTA showing up to full screen when hovering." On her reference that is a card whose hidden panel covers it. |
+| **The red** | One stage-lit crimson field for the visibility ladder, and the same wash on the closing cue. | The red she picked, sampled off her own reference frame: #7A0011 in shadow to #EC2938 in the key light. Stage Crimson sits between them, so the deck's colour is the middle of hers. |
+| **The flood** | The closing block. Pointing at it brings the red up from the floor across the whole field. | The only moment on the site where the entire field goes red, which is what the deck's action colour is for. |
 
 Everything switches itself off under `prefers-reduced-motion`, and the whole site
 is fully readable with JavaScript blocked.
+
+### The two clips
+
+| File | What | Size |
+|---|---|---|
+| `assets/media/hero-portal-loop.mp4` | The hero. 1280x960, 20s, silent, boomeranged so the loop has no seam. | 1.05MB |
+| `assets/media/oyss-how-it-works.mp4` | The brand film. 1600x900, 25s, silent. | 0.94MB |
+
+Both are served from this repo rather than the tool that generated the source
+footage, so nobody outside this project can delete the home page's main visual.
+The unedited hero source is one folder up as `hero-portal-source.mp4`, and the
+film is rendered by a script (Pillow into ffmpeg) so its copy and timing can be
+changed and re-rendered rather than re-shot.
+
+Both clips pause when scrolled off screen, are skipped entirely on a metered
+connection and under `prefers-reduced-motion`, and the film's five beats are
+also written out as text underneath it. Nothing on this page is only available
+to somebody who can watch a video.
+
+### Responsive
+
+Three layouts, all built and checked:
+
+- **Desktop (1041px and up)** Type column and film side by side. On a short
+  screen, a 1366x768 laptop included, the air compresses so the primary action
+  stays above the fold; the headline never shrinks to make room.
+- **Tablet (621 to 1040px)** The film moves above the copy at its own aspect,
+  the cards go to one column and print in full rather than hiding half of
+  themselves behind a hover, and the ladder goes 2x2.
+- **Phone (620px and down)** Same stack, tighter. Every hover-only reveal is
+  printed open, because a detail that only exists on hover does not exist on a
+  phone.
 
 ### The hero clip
 
