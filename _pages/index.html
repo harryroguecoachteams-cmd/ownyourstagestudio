@@ -1,31 +1,102 @@
-<!-- ============ 1. THE HERO ============
-     The beam is the logo icon at architectural scale. It strikes
-     once on load and the pool blooms where it lands. That is the
-     whole animation, and it is the brand's only ornament. -->
-<section class="dark stage" style="padding: clamp(96px,13vh,150px) 0 clamp(110px,15vh,180px); overflow:hidden;">
-  <span class="spot" aria-hidden="true">
-    <span class="spot__haze"></span>
-    <span class="spot__rays spot__rays--c"></span>
-    <span class="spot__rays spot__rays--b"></span>
-    <span class="spot__rays spot__rays--a"></span>
-    <span class="spot__source"></span>
-    <span class="spot__floor"></span>
-  </span>
-  <span class="stage__pool" aria-hidden="true"></span>
+<!-- ============ 1. THE REEL ============
+     The brief: "the light falling into a person standing beneath
+     it". The hero stops drawing a lamp in CSS and shows the real
+     thing. A figure on a dark floor, facing a doorway of light,
+     boomeranged into a seamless twenty second loop. It is the
+     positioning in one frame: the stage is built, the light is
+     already on, all that is left is to walk into it. -->
+<section class="reel dark">
+  <div class="reel__media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="assets/media/hero-portal-poster.jpg">
+      <source src="assets/media/hero-portal-loop.mp4" type="video/mp4">
+    </video>
+    <!-- Shown instead of the clip when the reader asks for reduced motion. -->
+    <img class="reel__still" src="assets/media/hero-portal-poster.jpg" alt="">
+  </div>
 
   <div class="wrap">
-    <div style="max-width:53rem" data-lit>
-      <p class="eyebrow">Own Your Stage Experience&trade;</p>
+    <div class="reel__copy" data-lit>
+      <p class="eyebrow eyebrow--keyed">Virtual event production and management</p>
       <h1 class="display">Become known for the work you are here to lead.</h1>
       <span class="pool" aria-hidden="true"></span>
-      <p class="lead" style="margin-top:2.1rem;max-width:38rem">
-        A professionally produced virtual panel event, built around your subject,
-        your authority and your audience. We handle strategy, panelists, branding
-        and production. You lead the conversation.
+      <p class="lead">
+        We produce virtual panel events that put you at the center of your own
+        subject. Strategy, panelists, branding and live production are ours.
+        You lead the room.
       </p>
-      <div class="actions" style="margin-top:2.8rem">
-        <a class="btn btn--primary" href="apply.html">Apply for the Host Package</a>
-        <a class="cue" href="assessment.html">Take the Readiness Assessment</a>
+      <div class="actions">
+        <a class="btn btn--primary" href="apply.html">Apply to host a panel</a>
+        <a class="cue" href="assessment.html">Find your visibility level</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1b. THE BAND ============
+     Directly under the header, on the same ink the reel fades
+     into: what kind of company this is, said in motion. Two rails
+     running against each other, services in the serif above,
+     deliverables in small caps below, crimson between them. -->
+<section class="band dark">
+  <div class="wrap">
+    <div class="band__lead" data-lit>
+      <p class="eyebrow eyebrow--keyed">The company</p>
+      <h2 class="band__line">
+        Own Your Stage Studio is a virtual event production and management company.
+        <em>We build the stage. You steal the show.</em>
+      </h2>
+    </div>
+  </div>
+
+  <div class="rails" data-lit data-cue="2">
+    <div class="rail rail--front">
+      <div class="rail__track">
+        <div class="rail__set">
+          <span class="rail__word">Authority strategy</span>
+          <span class="rail__word">Panel casting</span>
+          <span class="rail__word">Event branding</span>
+          <span class="rail__word">Live production</span>
+          <span class="rail__word">Promotional kit</span>
+          <span class="rail__word">Recording and edit</span>
+          <span class="rail__word">Post-event content</span>
+          <span class="rail__word">Momentum session</span>
+        </div>
+        <div class="rail__set" aria-hidden="true">
+          <span class="rail__word">Authority strategy</span>
+          <span class="rail__word">Panel casting</span>
+          <span class="rail__word">Event branding</span>
+          <span class="rail__word">Live production</span>
+          <span class="rail__word">Promotional kit</span>
+          <span class="rail__word">Recording and edit</span>
+          <span class="rail__word">Post-event content</span>
+          <span class="rail__word">Momentum session</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail rail--back">
+      <div class="rail__track">
+        <div class="rail__set">
+          <span class="rail__word">One produced panel event</span>
+          <span class="rail__word">Up to five vetted panelists</span>
+          <span class="rail__word">Branded stage and name plates</span>
+          <span class="rail__word">Registration page</span>
+          <span class="rail__word">Promotional graphics and swipe copy</span>
+          <span class="rail__word">Full event recording</span>
+          <span class="rail__word">Authority building clips</span>
+          <span class="rail__word">Sixty minute strategy session</span>
+        </div>
+        <div class="rail__set" aria-hidden="true">
+          <span class="rail__word">One produced panel event</span>
+          <span class="rail__word">Up to five vetted panelists</span>
+          <span class="rail__word">Branded stage and name plates</span>
+          <span class="rail__word">Registration page</span>
+          <span class="rail__word">Promotional graphics and swipe copy</span>
+          <span class="rail__word">Full event recording</span>
+          <span class="rail__word">Authority building clips</span>
+          <span class="rail__word">Sixty minute strategy session</span>
+        </div>
       </div>
     </div>
   </div>
@@ -447,8 +518,12 @@
   </div>
 </section>
 
-<!-- ============ 10. THE CLOSE ============ -->
-<section class="dark stage" style="padding:clamp(90px,12vh,140px) 0;overflow:hidden">
+<!-- ============ 10. THE CLOSE ============
+     The last thing on the page is one edge-to-edge cue. Pointing
+     at it brings the crimson wash up from the floor and takes the
+     whole block, which is the one moment on this site the field
+     is allowed to go red. -->
+<section class="dark stage" style="padding:clamp(90px,12vh,140px) 0 0;overflow:hidden">
   <span class="spot" aria-hidden="true">
     <span class="spot__haze"></span>
     <span class="spot__rays spot__rays--c"></span>
@@ -468,10 +543,21 @@
         Every day you stay hidden, someone else becomes known for the work you should be
         leading.
       </p>
-      <div class="actions" style="margin-top:2.6rem;justify-content:center">
-        <a class="btn btn--primary" href="apply.html">Apply for the Host Package</a>
-        <a class="cue" href="contact.html">Book a Spotlight Call</a>
-      </div>
     </div>
+  </div>
+
+  <a class="flood" href="apply.html" style="margin-top:clamp(56px,7vh,92px)">
+    <span class="wrap flood__inner">
+      <span>
+        <span class="flood__eyebrow">The next step</span>
+        <span class="flood__label">Apply for the Host Package</span>
+        <span class="flood__meta">Three months &middot; $2,997 &middot; no payment at this step</span>
+      </span>
+      <span class="flood__arrow" aria-hidden="true">&#8594;</span>
+    </span>
+  </a>
+
+  <div class="wrap center" style="padding-top:clamp(34px,4.5vh,54px);padding-bottom:clamp(66px,9vh,110px)">
+    <a class="cue" href="contact.html">Book a Spotlight Call</a>
   </div>
 </section>

@@ -26,9 +26,29 @@ what it sells. The motion *is* the positioning:
 | **The cue sheet** | The six-step client journey as a production cue stack, light travelling down the rail. | "Produced" is one of the five brand essence words. This is what produced looks like. |
 | **The panel rig** | Six frames, one light, switching like a producer switching cameras. | Shows the deliverable working rather than describing it. |
 | **The travelling pool** | A pool of light following the pointer on dark sections. Gold at 8%, desktop only. | The deck permits one pool of light and forbids flares. It stays a pool. |
+| **The reel** | The home hero is footage: a figure on a dark floor facing a tall doorway of light, boomeranged into a seamless 20 second loop. | The brief asked for "the light falling into a person standing beneath it". It is the positioning in one frame, and it replaces the CSS lamp that was standing in for it. |
+| **The band** | Under the hero, two rails running in opposite directions: services in the serif, deliverables in small caps, crimson between them. | Says what kind of company this is, in motion. Counter-running rails read as a title sequence rather than a news ticker. |
+| **The flood** | The closing call to action is one edge-to-edge block. Pointing at it brings Stage Crimson up from the floor and takes the whole block. | The one moment on the site where the entire field goes red. Crimson is the deck's action color, and this is the action. |
 
 Everything switches itself off under `prefers-reduced-motion`, and the whole site
 is fully readable with JavaScript blocked.
+
+### The hero clip
+
+`assets/media/hero-portal-loop.mp4`, 1.05MB, 1280x960, 20 seconds, no audio.
+
+It is served from this repo, not from the generation tool's CloudFront bucket, so
+nobody outside this project can delete the home page's main visual. The unedited
+source is kept one folder up as `hero-portal-source.mp4`.
+
+The clip pauses whenever it is scrolled off screen, is skipped entirely on a
+metered connection or under `prefers-reduced-motion` (the poster frame carries the
+same picture), and its vertical framing follows the viewport: the wider the screen,
+the further down the frame the crop travels, so the figure and the floor stay in
+shot on a 1366x768 laptop instead of falling off the bottom. On a phone the clip
+takes the top of the screen at its own aspect and the headline stands on the ink
+below it, because no scrim heavy enough to put type over a doorway of light leaves
+a doorway worth showing.
 
 ---
 

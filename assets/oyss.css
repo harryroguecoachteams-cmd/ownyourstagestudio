@@ -1905,3 +1905,460 @@
   .oyss .spot__rays--b { filter: blur(11px); }
   .oyss .spot__haze { filter: blur(24px); }
 }
+
+/* ============================================================
+   29. THE REEL
+   ------------------------------------------------------------
+   The brief, in the client's words: "the light falling into a
+   person standing beneath it". That is not a decoration request,
+   it is the brand's own thesis rendered as footage, so the home
+   hero stops simulating a lamp in CSS and shows the real thing.
+
+   The clip is a figure on a dark floor facing a tall doorway of
+   light. It is the whole positioning in one frame: the stage is
+   built, the light is already on, the only thing left is to walk
+   into it.
+
+   Three things make it usable rather than merely pretty:
+
+     1. It is BOOMERANGED. The source pushes in over ten seconds,
+        so a straight loop cuts from tight back to wide and the
+        seam is the only thing anyone would look at. Forward plus
+        reverse gives twenty seconds that close on themselves.
+     2. It is 1.05MB. The 4.3Mbps source is re-encoded at 1280
+        wide, CRF 28. Near-black footage compresses to almost
+        nothing and the fog still holds without banding.
+     3. It carries TWO scrims, not one. The side scrim buys the
+        headline its contrast back over a centered light source;
+        the bottom scrim lands the clip on --ink so the section
+        under it begins with no seam.
+
+   The clip is served from this repo, not from the CloudFront
+   bucket it was generated in. That bucket belongs to a
+   generation tool, and a hero a third party can delete is not a
+   hero.
+   ============================================================ */
+
+.oyss .reel {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  min-height: clamp(560px, 100svh, 920px);
+  display: flex;
+  align-items: center;
+  /* The clip runs UNDER the masthead rather than starting below
+     it. The bar is already translucent with a backdrop blur, so
+     the footage blurs behind the navigation instead of butting
+     against a hard navy edge, and the top of the frame is the
+     darkest part of the shot, so nothing in the bar loses
+     contrast. */
+  margin-top: calc(-1 * var(--oyss-mh, 78px));
+  padding: calc(var(--oyss-mh, 78px) + clamp(56px, 7vh, 96px)) 0 clamp(96px, 13vh, 150px);
+}
+
+.oyss .reel__media {
+  position: absolute;
+  /* Not inset: 0. The doorway sits centered in a 4:3 frame and
+     the copy column owns the left third, so at desktop widths the
+     two collide. Widening the media box to the right and leaving
+     it anchored left slides the light source into the empty half
+     without cropping anything off the left edge. */
+  inset: 0 -26% 0 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.oyss .reel__media video,
+.oyss .reel__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  display: block;
+  /* Written by the light engine as the hero leaves: the doorway
+     dims out rather than being cut off by the next section. */
+  opacity: var(--reel-o, 1);
+  transform: scale(var(--reel-s, 1));
+  transform-origin: 50% 42%;
+}
+
+/* --- the scrims ----------------------------------------------
+   The copy column sits over the left third, where the clip is
+   darkest already, so the side scrim only has to hold the
+   difference. The bottom scrim runs to solid --ink so the band
+   below it starts on the same value and there is no seam. */
+.oyss .reel__media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right,
+      rgba(7, 11, 22, .90) 0%,
+      rgba(7, 11, 22, .78) 20%,
+      rgba(7, 11, 22, .40) 34%,
+      rgba(7, 11, 22, .06) 48%,
+      rgba(7, 11, 22, 0) 62%),
+    linear-gradient(to bottom,
+      rgba(7, 11, 22, .62) 0%,
+      rgba(7, 11, 22, .10) 22%,
+      rgba(7, 11, 22, 0) 48%,
+      rgba(7, 11, 22, .10) 66%,
+      rgba(7, 11, 22, .64) 86%,
+      var(--ink) 100%);
+}
+
+.oyss .reel > .wrap { position: relative; z-index: 1; }
+/* Held short of the light source on purpose. The headline is the
+   only thing allowed to sit in the dark half. */
+.oyss .reel__copy { max-width: 37rem; }
+
+/* The category line the brief asked to sit right under the
+   header. A crimson keyline, not a crimson field: the deck
+   allows red as a line and an action, never as a mood. */
+.oyss .eyebrow--keyed {
+  display: flex; align-items: center; gap: .85rem;
+  color: var(--gold);
+}
+.oyss .eyebrow--keyed::before {
+  content: '';
+  width: clamp(28px, 4vw, 52px); height: 2px;
+  background: var(--crimson);
+  flex: none;
+}
+
+/* --- the vertical framing ------------------------------------
+   The clip is 4:3 and a desktop hero is not. On a 1366x768
+   laptop the usable viewport is 585px tall, which means cover
+   shows barely 45 percent of the frame's height, and the default
+   centered crop spends all of it on the empty top of the doorway
+   while the figure and the floor fall off the bottom.
+
+   The figure IS the shot. So the wider the viewport gets, the
+   further down the frame the crop window travels: at laptop
+   aspect ratios the top of the doorway leaves and what stays is a
+   wall of light coming down, a person standing at the base of it
+   and the mist on the floor. Which is the brief, verbatim.        */
+@media (min-aspect-ratio: 8/5) {
+  .oyss .reel__media video,
+  .oyss .reel__media img { object-position: center 60%; }
+}
+@media (min-aspect-ratio: 19/10) {
+  .oyss .reel__media video,
+  .oyss .reel__media img { object-position: center 86%; }
+}
+
+/* On the reel the headline sits over moving footage, so it gets
+   a shadow the flat sections do not need. */
+.oyss .reel .display { text-shadow: 0 2px 34px rgba(7, 11, 22, .72); }
+.oyss .reel .lead {
+  color: rgba(247, 242, 232, .82);
+  max-width: 36rem;
+  margin-top: 2.1rem;
+}
+.oyss .reel .actions { margin-top: 2.8rem; }
+
+/* --- the short viewport ---------------------------------------
+   A 1366x768 laptop leaves 585px of page. At the comfortable
+   spacing the primary call to action lands below the fold, which
+   is the one thing a hero is not allowed to do. The type keeps
+   its size and the AIR is what gives way, because a smaller
+   headline was the complaint the last review opened with.       */
+@media (min-aspect-ratio: 8/5) and (max-height: 760px) {
+  .oyss .reel {
+    padding-top: calc(var(--oyss-mh, 78px) + clamp(10px, 2vh, 40px));
+    padding-bottom: clamp(34px, 6vh, 90px);
+  }
+  .oyss .reel .eyebrow { margin-bottom: .8rem; }
+  .oyss .reel .pool { margin-top: 1rem; }
+  .oyss .reel .lead { margin-top: 1.4rem; }
+  .oyss .reel .actions { margin-top: 1.5rem; }
+}
+
+/* Phones: the clip is 4:3 and a phone hero is nearly 1:2, so
+   cover crops it to a vertical slice of the doorway. Pulling the
+   framing up keeps the figure and the floor in shot, which is
+   the half of the frame carrying the meaning. */
+@media (max-width: 760px) {
+  /* The copy comes OUT of the frame. There is one column at this
+     width, so type over the clip means type over the brightest
+     thing in it, and no scrim heavy enough to fix that leaves a
+     doorway worth showing. The clip takes the top of the screen
+     at its own aspect and fades into ink; the headline stands on
+     the ink below it. Which is still the picture: the light, and
+     someone standing under it. */
+  .oyss .reel {
+    display: block;
+    min-height: 0;
+    padding: 0 0 clamp(44px, 8vw, 72px);
+  }
+  .oyss .reel__media {
+    position: relative;
+    inset: auto;
+    height: clamp(330px, 52svh, 470px);
+    /* Still runs up behind the masthead. */
+    margin-top: calc(-1 * var(--oyss-mh, 78px));
+  }
+  .oyss .reel__media video,
+  .oyss .reel__media img { object-position: center center; }
+  .oyss .reel__media::after {
+    background:
+      linear-gradient(to bottom,
+        rgba(7, 11, 22, .60) 0%,
+        rgba(7, 11, 22, .10) 20%,
+        rgba(7, 11, 22, 0) 48%,
+        rgba(7, 11, 22, .34) 74%,
+        rgba(7, 11, 22, .84) 91%,
+        var(--ink) 100%);
+  }
+  .oyss .reel > .wrap { padding-top: clamp(22px, 5vw, 38px); }
+  .oyss .reel__copy { max-width: none; }
+  .oyss .reel .display { text-shadow: none; }
+}
+
+.oyss .reel__media img.reel__still { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  /* The still tells the same story. The motion is what goes. */
+  .oyss .reel__media video { display: none; }
+  .oyss .reel__media img.reel__still { display: block; }
+}
+
+
+/* ============================================================
+   30. THE BAND
+   ------------------------------------------------------------
+   "After header: Virtual Event Production and Management
+   Company. Create and add a motion style graphic like this."
+
+   So directly under the reel, on the same ink the reel fades
+   into, the site says what kind of company it is, and says it in
+   motion. Two rails run in opposite directions at different
+   speeds: the top names the services in the brand serif, the
+   bottom names the deliverables in small caps. Crimson lozenges
+   separate them.
+
+   Counter-running rails are the point. One rail scrolling is a
+   news ticker. Two rails opposed read as a title sequence, which
+   is the register a production company should speak in.
+
+   The rail is duplicated in the markup and translated by exactly
+   -50%, so the wrap is seamless at any width without measuring
+   anything in JavaScript.
+   ============================================================ */
+
+.oyss .band {
+  background: var(--ink);
+  padding: clamp(46px, 6vw, 76px) 0 clamp(40px, 5vw, 62px);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(215, 206, 192, .10);
+}
+.oyss .band__lead { max-width: 46rem; }
+.oyss .band__line {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 1.05rem + 1.9vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -.012em;
+  color: var(--ivory);
+  margin-top: .2rem;
+}
+.oyss .band__line em { font-style: normal; color: var(--gold); }
+
+.oyss .rails { margin-top: clamp(34px, 4.4vw, 58px); }
+
+.oyss .rail {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  /* Feathered ends. Without this the words are guillotined at the
+     viewport edge and the motion reads as a bug. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+.oyss .rail + .rail { margin-top: clamp(12px, 1.4vw, 20px); }
+
+.oyss .rail__track {
+  display: flex;
+  flex: none;
+  min-width: 200%;
+  will-change: transform;
+  animation: rail-left 46s linear infinite;
+}
+.oyss .rail--back .rail__track { animation-name: rail-right; animation-duration: 58s; }
+
+.oyss .rail__set {
+  display: flex; align-items: center;
+  flex: none;
+  width: 50%;
+}
+.oyss .rail__word {
+  display: inline-flex; align-items: center;
+  flex: none;
+  white-space: nowrap;
+}
+.oyss .rail__word::after {
+  content: '';
+  width: 7px; height: 7px;
+  margin: 0 clamp(18px, 2.4vw, 40px);
+  flex: none;
+  background: var(--crimson);
+  transform: rotate(45deg);
+}
+
+/* Top rail: the services, in the voice the brand uses for beliefs. */
+.oyss .rail--front .rail__word {
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, .95rem + 1.5vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  color: var(--ivory);
+}
+/* Bottom rail: the deliverables, in the voice it uses for labels. */
+.oyss .rail--back .rail__word {
+  font-family: var(--sans);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 232, .56);
+}
+.oyss .rail--back .rail__word::after {
+  width: 5px; height: 5px;
+  background: var(--gold);
+}
+
+@keyframes rail-left  { from { transform: translate3d(0, 0, 0); }    to { transform: translate3d(-50%, 0, 0); } }
+@keyframes rail-right { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+
+/* A rail that keeps moving while someone is reading it is a rail
+   being read against its will. */
+.oyss .rails:hover .rail__track,
+/* Scrolled past. Set by the light engine, section 16. */
+.oyss .rails--off .rail__track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oyss .rail__track { animation: none; transform: none; min-width: 0; }
+  .oyss .rail__set + .rail__set { display: none; }
+  .oyss .rail { -webkit-mask-image: linear-gradient(to right, #000 0, #000 88%, transparent 100%);
+                        mask-image: linear-gradient(to right, #000 0, #000 88%, transparent 100%); }
+}
+
+
+/* ============================================================
+   31. THE FLOOD
+   ------------------------------------------------------------
+   "I really like the animation style of this website, especially
+   the end CTA showing up to full screen when hovering."
+
+   The closing call to action is one edge-to-edge block, and
+   pointing at it fills the whole block with Stage Crimson from
+   the floor up, the way a wash comes up on a cue. Everything
+   inside inverts to ivory as the fill passes.
+
+   Two rules keep this a cue rather than a gimmick:
+
+     - Crimson is the deck's ACTION color, and this is the only
+       moment on the site where the entire field goes red. It is
+       the last thing on the page and the one thing being asked.
+       That is what earns it.
+     - The fill is a transform on one pseudo-element, not a
+       background or a height animation, so it composites on the
+       GPU and never reflows the headline sitting on top of it.
+
+   Keyboard focus fires the same cue, and a device with no hover
+   gets the wash already up, because on a phone a call to action
+   that only appears on hover is one that never appears at all.
+   ============================================================ */
+
+.oyss .flood {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(16, 26, 49, .42);
+  border-top: 1px solid rgba(221, 170, 82, .22);
+  border-bottom: 1px solid rgba(221, 170, 82, .22);
+  padding: clamp(52px, 7.5vw, 96px) 0;
+  cursor: pointer;
+  transition: background 420ms var(--settle);
+}
+.oyss .flood::before {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: -1;
+  background: var(--crimson);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 620ms cubic-bezier(.16, .84, .28, 1);
+}
+.oyss .flood:hover::before,
+.oyss .flood:focus-visible::before { transform: scaleY(1); }
+.oyss .flood:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+
+.oyss .flood__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+}
+.oyss .flood__eyebrow {
+  display: block;
+  font-family: var(--sans);
+  font-size: var(--t-eyebrow);
+  font-weight: 600; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--gold);
+  transition: color 420ms var(--settle);
+}
+.oyss .flood__label {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -.018em;
+  color: var(--ivory);
+  margin-top: .7rem;
+  text-wrap: balance;
+}
+.oyss .flood__meta {
+  display: block;
+  font-size: var(--t-caption);
+  letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+  color: var(--ivory-46);
+  margin-top: 1.1rem;
+  transition: color 420ms var(--settle);
+}
+
+/* The arrow is the cue light. It is already travelling before the
+   wash reaches it. */
+.oyss .flood__arrow {
+  flex: none;
+  display: grid; place-items: center;
+  width: clamp(58px, 6.4vw, 84px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(247, 242, 232, .30);
+  border-radius: 50%;
+  color: var(--ivory);
+  font-size: clamp(1.2rem, .9rem + 1vw, 1.7rem);
+  line-height: 1;
+  transition: transform 520ms cubic-bezier(.16, .84, .28, 1),
+              border-color 420ms var(--settle),
+              background 420ms var(--settle),
+              color 420ms var(--settle);
+}
+.oyss .flood:hover .flood__arrow,
+.oyss .flood:focus-visible .flood__arrow {
+  transform: translateX(12px);
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--crimson);
+}
+.oyss .flood:hover .flood__eyebrow,
+.oyss .flood:focus-visible .flood__eyebrow { color: rgba(255, 253, 248, .92); }
+.oyss .flood:hover .flood__meta,
+.oyss .flood:focus-visible .flood__meta { color: rgba(255, 253, 248, .80); }
+
+@media (max-width: 720px) {
+  .oyss .flood__inner { flex-direction: column; align-items: flex-start; }
+  .oyss .flood__arrow { margin-top: .4rem; }
+}
+
+/* No pointer, no hover cue. The wash is simply up. */
+@media (hover: none) {
+  .oyss .flood::before { transform: scaleY(1); }
+  .oyss .flood__eyebrow { color: rgba(255, 253, 248, .92); }
+  .oyss .flood__meta { color: rgba(255, 253, 248, .80); }
+  .oyss .flood__arrow { background: var(--ivory); border-color: var(--ivory); color: var(--crimson); }
+}
