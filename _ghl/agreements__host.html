@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=28399038">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=48cc09a4">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -24,17 +24,8 @@
   <div class="wrap masthead__inner">
     <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
-        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
-        <defs>
-          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
-            <stop offset="0%" stop-color="#FFEBC4"/>
-            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -55,29 +46,24 @@
 </header>
 <!-- ---------- page ---------- -->
 <main>
-<!-- ============ HERO ============ -->
-<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
-  <span class="spot" aria-hidden="true">
-    <span class="spot__haze"></span>
-    <span class="spot__rays spot__rays--c"></span>
-    <span class="spot__rays spot__rays--b"></span>
-    <span class="spot__rays spot__rays--a"></span>
-    <span class="spot__source"></span>
-    <span class="spot__floor"></span>
-  </span>
-  <span class="stage__pool" aria-hidden="true"></span>
-  <div class="wrap">
-    <div style="max-width:44rem" data-lit>
-      <p class="eyebrow">Own Your Stage Experience™ · $2,997</p>
-      <h1 class="display" style="font-size:clamp(1.9rem,1.4rem+2.2vw,3rem)">Done-For-You Panel Host Services Agreement</h1>
-      <span class="pool" aria-hidden="true"></span>
-      <p class="lead" style="margin-top:1.8rem;max-width:36rem">The full agreement, published before you commit rather than sent after. Read it, then sign at the bottom of the page.</p>
-      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(221,170,82,.08)">
-        Draft for review &middot; not yet legally executed
-      </p>
-    </div>
+<!-- ============ HEAD ============
+     The same component as the home page: type column left, a
+     plate cut from the brand film full bleed right, masthead
+     transparent over it. See section 35 of oyss.css. -->
+<section class="reel reel--short dark" data-over>
+  <div class="reel__copy" data-lit>
+    <p class="eyebrow eyebrow--keyed">Own Your Stage Experience &middot; $2,997</p>
+    <h1 class="display">Done-For-You Panel Host Services Agreement</h1>
+    <span class="reel__rule" aria-hidden="true"></span>
+    <p class="lead">The full agreement, published before you commit rather than sent after. Read it, then sign at the bottom of the page.</p>
+    <p class="draft-flag">Draft for review &middot; not yet legally executed</p>
+  </div>
+
+  <div class="reel__media">
+    <img class="reel__plate reel__plate--keep" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/plate-keep.jpg" alt="Six frames laid out as a strip and labelled replay, clips, quotes, audio, posts and proof.">
   </div>
 </section>
+
 
 <!-- ============ THE DOCUMENT ============
      A contract is an object, so it is drawn as one: paper with an edge,
@@ -991,17 +977,8 @@
       <div>
         <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
-        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
-        <defs>
-          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
-            <stop offset="0%" stop-color="#FFEBC4"/>
-            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -1042,5 +1019,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=28399038"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=48cc09a4"></script>
 <script>OYSS.signing({ agreement: "Done-For-You Panel Host Services Agreement" });</script>

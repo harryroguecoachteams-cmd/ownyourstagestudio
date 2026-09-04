@@ -30,6 +30,7 @@ what it sells. The motion *is* the positioning:
 | **The film** | A 25 second brand film under the hero. Six beats on one stage: a hidden expert, the stage we build, the panel we cast, the live show, and the content that stays. | Two of her notes asked for the same thing, a motion graphic after the header and an animated explainer. This is one answer to both. |
 | **The cover card** | Three cards. Point at one and a navy panel comes up and takes the whole card, carrying the list of what is actually included. | "The end CTA showing up to full screen when hovering." On her reference that is a card whose hidden panel covers it. |
 | **The red** | One stage-lit crimson field for the visibility ladder, and the same wash on the closing cue. | The red she picked, sampled off her own reference frame: #7A0011 in shadow to #EC2938 in the key light. Stage Crimson sits between them, so the deck's colour is the middle of hers. |
+| **The searchlight** | The film opens with the lamp coming up and hunting: it sweeps, misses twice, closes in, and lands on somebody who has been standing there the whole time. | The client's own reference, adjusted as she asked: "instead of a person falling I want the light to search for the person here and there and then find the person standing." |
 | **The flood** | The closing block. Pointing at it brings the red up from the floor across the whole field. | The only moment on the site where the entire field goes red, which is what the deck's action colour is for. |
 
 Everything switches itself off under `prefers-reduced-motion`, and the whole site
@@ -52,6 +53,37 @@ Both clips pause when scrolled off screen, are skipped entirely on a metered
 connection and under `prefers-reduced-motion`, and the film's five beats are
 also written out as text underneath it. Nothing on this page is only available
 to somebody who can watch a video.
+
+### The interior pages
+
+All ten open with the same component as the home page: type column left, media
+panel full bleed right. What changes is the size and what is in the panel.
+
+The home page gets the doorway film. Every other page gets a still PLATE CUT
+FROM THE BRAND FILM, so the picture at the top of a page is a frame of the same
+stage the film is shot on rather than stock, and the whole site is lit by one
+lamp.
+
+| Plate | What it shows | Pages |
+|---|---|---|
+| `plate-solo` | One figure in the beam | About, Assessment, Spotlight Call |
+| `plate-rig`  | The host frame and the panel under it | The Experience, Apply |
+| `plate-live` | The same rig, on air, audience filling in | Panelists, Panelist application |
+| `plate-keep` | The content strip afterwards | FAQ, both agreements |
+
+Two sizes: `reel--page` for the pages you read, `reel--short` for the ones that
+carry a form or a contract, where the object below is the content and the head
+should get out of the way.
+
+Re-cut them with the commands in `_film/README.md` if the film changes.
+
+### The mark
+
+Simplified. It used to be a navy disc carrying two thin rays, a radial glow and
+a pool; on a navy masthead the disc is invisible, so what was on screen at 34px
+was two gold slivers and a dash with a haze behind them. It is now one flat
+gold beam and the pool it lands in, which is what the identity actually is, and
+it reads at 24px.
 
 ### Responsive
 

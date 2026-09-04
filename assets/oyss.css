@@ -918,6 +918,10 @@
   letter-spacing: 0;
   font-weight: 400;
 }
+/* At display size half an em is still a 29px superscript hanging off the
+   end of the headline. It scales down again as the type scales up. */
+.oyss .display .tm { font-size: .32em; vertical-align: 1.28em; }
+.oyss .eyebrow .tm { font-size: .74em; vertical-align: .32em; }
 
 /* ============================================================
    19. CONTRAST CORRECTIONS
@@ -1529,16 +1533,15 @@
    ============================================================ */
 
 .oyss .lockup__icon { transition: filter 320ms var(--settle); }
-.oyss .lockup__icon .glow { opacity: .26; }
 
 @media (prefers-reduced-motion: no-preference) {
   .oyss .lockup--motion .ray {
-    transform-origin: 32px 13px;
+    transform-origin: 32px 8px;
     animation: ray-strike 820ms var(--fade-up) both;
   }
   .oyss .lockup--motion .ray--b { animation-delay: 90ms; }
   .oyss .lockup--motion .pooltop {
-    transform-origin: 32px 47px;
+    transform-origin: 32px 50.5px;
     animation: pool-bloom 700ms var(--fade-up) 300ms both;
   }
   .oyss .lockup--motion .glow { animation: mark-glow 1050ms var(--settle) 220ms both; }
@@ -2027,22 +2030,6 @@
   .oyss .reel__media .reel__still { display: block; }
 }
 
-/* --- the scroll cue ----------------------------------------- */
-.oyss .reel__cue {
-  position: absolute; left: 0; bottom: clamp(18px, 3vh, 34px);
-  z-index: 2;
-  padding-left: max(var(--gutter), calc((100vw - 1180px) / 2 + var(--gutter)));
-  display: flex; align-items: center; gap: .7rem;
-  font-size: var(--t-eyebrow); font-weight: 600;
-  letter-spacing: .24em; text-transform: uppercase;
-  color: rgba(247, 242, 232, .46);
-}
-.oyss .reel__cue::after {
-  content: ''; width: 44px; height: 1px; background: rgba(247, 242, 232, .3);
-  animation: cue-slide 2.6s var(--settle) infinite;
-}
-@keyframes cue-slide { 0%,100% { transform: translateX(0); opacity: .35 } 50% { transform: translateX(9px); opacity: 1 } }
-
 /* --- the masthead, over the film ---------------------------- */
 /* On the home page the bar has nothing behind it until you
    scroll. It gains its ground back the moment the film leaves,
@@ -2079,12 +2066,19 @@
     margin: 0 auto;
     padding: clamp(26px, 4.5vw, 44px) var(--gutter) clamp(48px, 8vw, 76px);
   }
-  .oyss .reel__cue { display: none; }
+  /* The head stops running under the bar. On a desktop the media panel is
+     600px tall and losing 78px of it behind a transparent masthead costs
+     nothing; in a 240px slot on a tablet it is a third of the picture, and
+     what it eats is the top of the subject. So below this width the bar takes
+     its ground back and the panel starts underneath it. */
+  .oyss .reel { margin-top: 0; }
   .oyss .masthead--over {
-    background: rgba(7, 11, 22, .55);
-    backdrop-filter: saturate(140%) blur(12px);
-    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    background: rgba(16, 26, 49, .94);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom-color: rgba(215, 206, 192, .13);
   }
+
 }
 @media (max-width: 620px) {
   .oyss .reel__media { height: clamp(260px, 38svh, 380px); }
@@ -2457,3 +2451,97 @@
 .oyss .plainrow__v { max-width: 46rem; }
 .oyss .plainrow__v .caption { margin-top: .5rem; }
 @media (max-width: 720px) { .oyss .plainrow { grid-template-columns: 1fr; gap: .5rem; } }
+
+/* ============================================================
+   35. THE REEL, ON AN INTERIOR PAGE
+   ------------------------------------------------------------
+   The home page was rebuilt and the other ten were left opening
+   the old way, which made the site read as two sites. They all
+   use the same component now: type column left, media panel full
+   bleed right, masthead transparent over it.
+
+   What changes is only the size and what is in the panel. The
+   home page gets the doorway film. Every other page gets a still
+   PLATE CUT FROM THE BRAND FILM, so the picture at the top of a
+   page is a frame of the same stage the film is shot on rather
+   than stock, and the whole site is lit by one lamp.
+
+     plate-solo   one figure in the beam        about, assessment, contact
+     plate-rig    the host frame and the panel  experience, apply
+     plate-live   the same rig, on air          panelists, panelist application
+     plate-keep   the content strip afterwards  faq, both agreements
+
+   Two sizes. A guide is something you read, so its head can take
+   the room. A form or an agreement is an object you fill in, and
+   the object is the content: its head gets out of the way.
+   ============================================================ */
+
+.oyss .reel--page  { min-height: clamp(400px, 62svh, 660px); }
+.oyss .reel--short { min-height: clamp(330px, 48svh, 540px); }
+
+.oyss .reel--page .display  { font-size: clamp(2.2rem, 1.45rem + 2.7vw, 3.6rem); }
+.oyss .reel--short .display { font-size: clamp(1.95rem, 1.4rem + 2.1vw, 3.05rem); }
+
+/* An interior head sits under a bar the reader has already seen,
+   so it needs less air above it than the home page does. */
+.oyss .reel--page .reel__copy,
+.oyss .reel--short .reel__copy {
+  padding-top: calc(var(--oyss-mh, 78px) + clamp(22px, 3.6vh, 56px));
+  padding-bottom: clamp(32px, 5.5vh, 72px);
+}
+.oyss .reel--short .reel__rule { margin-top: 1.35rem; }
+.oyss .reel--short .lead { margin-top: 1.35rem; }
+.oyss .reel--short .actions { margin-top: 1.8rem; }
+
+/* The caption that some heads carry under the lead. */
+.oyss .reel .caption { color: var(--ivory-46); margin-top: 1.1rem; max-width: 32rem; }
+.oyss .reel .draft-flag { margin-top: 1.5rem; }
+
+/* Plates are stills. On a desktop the panel is portrait and the crop is
+   horizontal, so this does nothing; on a phone the panel is a wide slot and
+   the crop is vertical, and a centred crop cuts the host frame off the top of
+   the rig and the figure off the bottom of the solo. So each plate is centred
+   on the band its subject actually occupies. Measured off the plates, not
+   guessed. */
+/* Written against `.reel__media img` and not against the plate class alone:
+   the base rule that sets the doorway clip's framing is .oyss .reel__media img,
+   which outranks a bare .oyss .reel__plate--rig and silently wins. */
+/* On a desktop the panel is near square and the plates are 1.23:1, so the
+   crop is almost entirely horizontal and these barely bite. */
+.oyss .reel__media img.reel__plate--rig  { object-position: center 42%; }
+.oyss .reel__media img.reel__plate--live { object-position: center 50%; }
+.oyss .reel__media img.reel__plate--solo { object-position: center 62%; }
+.oyss .reel__media img.reel__plate--keep { object-position: center 32%; }
+
+/* Narrow: the panel becomes a wide short slot that cannot hold what a tall one
+   can, so each plate re-centres on the one thing it still has room for. These
+   have to sit AFTER the rules above and not merely inside a media query: the
+   selectors are identical, a media query adds no specificity, and source order
+   is the only thing deciding which of them wins. */
+@media (max-width: 1040px) {
+  .oyss .reel__media img.reel__plate--rig  { object-position: center 55%; }
+  .oyss .reel__media img.reel__plate--live { object-position: center 62%; }
+  .oyss .reel__media img.reel__plate--solo { object-position: center 81%; }
+  .oyss .reel__media img.reel__plate--keep { object-position: center 25%; }
+}
+
+@media (min-width: 1041px) and (max-height: 780px) {
+  .oyss .reel--page .display  { font-size: clamp(2rem, 1.35rem + 2.2vw, 3rem); }
+  .oyss .reel--short .display { font-size: clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem); }
+}
+
+@media (max-width: 1040px) {
+  .oyss .reel--page .reel__media  { height: clamp(240px, 34svh, 400px); }
+  .oyss .reel--short .reel__media { height: clamp(190px, 26svh, 320px); }
+  .oyss .reel--page .reel__copy,
+  .oyss .reel--short .reel__copy {
+    padding-top: clamp(24px, 4vw, 40px);
+    padding-bottom: clamp(38px, 7vw, 64px);
+  }
+}
+@media (max-width: 620px) {
+  .oyss .reel--page .reel__media  { height: clamp(200px, 28svh, 300px); }
+  .oyss .reel--short .reel__media { height: clamp(160px, 22svh, 240px); }
+  .oyss .reel--page .display  { font-size: clamp(1.85rem, 1.3rem + 2.4vw, 2.5rem); }
+  .oyss .reel--short .display { font-size: clamp(1.7rem, 1.25rem + 2vw, 2.2rem); }
+}

@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=28399038">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=48cc09a4">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -24,17 +24,8 @@
   <div class="wrap masthead__inner">
     <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gmb)"/>
-        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
-        <defs>
-          <radialGradient id="gmb" cx="50%" cy="26%" r="62%">
-            <stop offset="0%" stop-color="#FFEBC4"/>
-            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -55,32 +46,23 @@
 </header>
 <!-- ---------- page ---------- -->
 <main>
-<!-- ============ HERO ============ -->
-<section class="dark stage" style="padding:clamp(80px,11vh,124px) 0 clamp(70px,9vh,106px);overflow:hidden">
-  <span class="spot" aria-hidden="true">
-    <span class="spot__haze"></span>
-    <span class="spot__rays spot__rays--c"></span>
-    <span class="spot__rays spot__rays--b"></span>
-    <span class="spot__rays spot__rays--a"></span>
-    <span class="spot__source"></span>
-    <span class="spot__floor"></span>
-  </span>
-  <span class="stage__pool" aria-hidden="true"></span>
-  <div class="wrap">
-    <div style="max-width:48rem" data-lit>
-      <p class="eyebrow">About the studio</p>
-      <h1 class="display" style="font-size:clamp(2.1rem,1.5rem+2.8vw,3.7rem)">
-        Recognition should follow substance.
-      </h1>
-      <span class="pool" aria-hidden="true"></span>
-      <p class="lead" style="margin-top:2rem;max-width:37rem">
-        In most industries, the most visible voice is not the most qualified one. Own
-        Your Stage Studio exists to narrow that gap for people who have already done
-        the work.
-      </p>
-    </div>
+<!-- ============ HEAD ============
+     The same component as the home page: type column left, a
+     plate cut from the brand film full bleed right, masthead
+     transparent over it. See section 35 of oyss.css. -->
+<section class="reel reel--page dark" data-over>
+  <div class="reel__copy" data-lit>
+    <p class="eyebrow eyebrow--keyed">About the studio</p>
+    <h1 class="display">Recognition should follow substance.</h1>
+    <span class="reel__rule" aria-hidden="true"></span>
+    <p class="lead">In most fields the most visible voice is not the most qualified one. We exist to close that gap for people who have already done the work.</p>
+  </div>
+
+  <div class="reel__media">
+    <img class="reel__plate reel__plate--solo" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/plate-solo.jpg" alt="A single figure standing alone in a spotlight on an otherwise dark stage.">
   </div>
 </section>
+
 
 <!-- ============ MISSION / VISION ============ -->
 <section class="bay light">
@@ -261,17 +243,8 @@
       <div>
         <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <circle class="glow" cx="32" cy="30" r="26" fill="url(#gfb)"/>
-        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
-        <defs>
-          <radialGradient id="gfb" cx="50%" cy="26%" r="62%">
-            <stop offset="0%" stop-color="#FFEBC4"/>
-            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -312,5 +285,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=28399038"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=48cc09a4"></script>
 

@@ -131,30 +131,25 @@ def for_ghl(markup):
         markup = markup.replace(f'href="../{f}"', f'href="{SLUGS[f]}"')
     return markup
 
-# The masthead and footer render the icon at 34px, which is below the 40px
-# floor the deck sets for the gradient beam. Below that it specifies the
-# single-ink variant: the beam drawn as two rays. That is not a downgrade here,
-# it is the only version that still reads as light at this size. A solid
-# trapezoid clipped by the circle domes at the top and turns into a lamp
-# shade, which is precisely what the identity forbids.
+# THE MARK, CLEANED UP.
+# It used to be a navy disc carrying two thin rays, a radial glow and a pool.
+# On a navy masthead the disc is invisible, so what was actually on screen at
+# 34px was two gold slivers and a dash with a haze behind them: three faint
+# things instead of one clear one.
+#
+# The identity is a beam and the pool it lands in. So that is all this draws
+# now, in one flat gold, with nothing behind it. One shape reads at 24px; three
+# never did. The two-ray split was only ever there because a solid wedge domed
+# against the inside of the disc, and there is no disc any more.
 LOGO_SVG = """<svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="32" fill="#101A31"/>
-        <circle class="glow" cx="32" cy="30" r="26" fill="url(#g{gid})"/>
-        <path class="ray ray--a" d="M27.5 13 H31 L26 42 H21 Z" fill="#DDAA52"/>
-        <path class="ray ray--b" d="M33 13 H36.5 L43 42 H38 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="47" rx="14.5" ry="3.2" fill="#DDAA52"/>
-        <defs>
-          <radialGradient id="g{gid}" cx="50%" cy="26%" r="62%">
-            <stop offset="0%" stop-color="#FFEBC4"/>
-            <stop offset="100%" stop-color="#FFEBC4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
+        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
       </svg>"""
 
 
-def lockup(gid, base):
+def lockup(gid, base):  # gid kept: the callers name their instances
     return f"""<a href="{base}index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
-      {LOGO_SVG.format(gid=gid)}
+      {LOGO_SVG}
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
         <span class="lockup__desc">Studio</span>

@@ -144,13 +144,19 @@ def build_ground():
     return base
 
 
-def build_beam():
-    """The cone. Precomputed at full strength; per frame we only scale alpha."""
+APEX = (CX, -60)                 # the lamp hangs here; the beam pivots on it
+
+def build_beam(spread=250, core=120, mouth=26, blur=34, gain=1.0):
+    """A cone. Precomputed at full strength; per frame we only scale its
+    alpha and, while the light is hunting, rotate it about the lamp."""
     m = Image.new("L", (W, H), 0)
     d = ImageDraw.Draw(m)
-    d.polygon([(CX - 26, -60), (CX + 26, -60), (CX + 250, GY + 20), (CX - 250, GY + 20)], fill=150)
-    d.polygon([(CX - 12, -60), (CX + 12, -60), (CX + 120, GY + 20), (CX - 120, GY + 20)], fill=225)
-    m = m.filter(ImageFilter.GaussianBlur(34))
+    o, c = int(150 * gain), int(225 * gain)
+    d.polygon([(CX - mouth, -60), (CX + mouth, -60),
+               (CX + spread, GY + 20), (CX - spread, GY + 20)], fill=o)
+    d.polygon([(CX - mouth // 2, -60), (CX + mouth // 2, -60),
+               (CX + core, GY + 20), (CX - core, GY + 20)], fill=c)
+    m = m.filter(ImageFilter.GaussianBlur(blur))
     # light falls off as it travels
     fall = Image.new("L", (W, H), 0)
     fp = fall.load()
@@ -164,13 +170,13 @@ def build_beam():
     return layer
 
 
-def build_pool():
+def build_pool(rx=250, ry=34, cx=132, cy=17, blur=40):
     """Where the beam lands. Gold, flat, no flare."""
     m = Image.new("L", (W, H), 0)
     d = ImageDraw.Draw(m)
-    d.ellipse([CX - 250, GY - 34, CX + 250, GY + 34], fill=78)
-    d.ellipse([CX - 132, GY - 17, CX + 132, GY + 17], fill=140)
-    m = m.filter(ImageFilter.GaussianBlur(40))
+    d.ellipse([CX - rx, GY - ry, CX + rx, GY + ry], fill=78)
+    d.ellipse([CX - cx, GY - cy, CX + cx, GY + cy], fill=140)
+    m = m.filter(ImageFilter.GaussianBlur(blur))
     layer = Image.new("RGBA", (W, H), GOLD + (0,))
     layer.putalpha(m)
     return layer
@@ -202,8 +208,56 @@ def scale_alpha(layer, k):
 
 GROUND = build_ground()
 BEAM = build_beam()
+BEAM_TIGHT = build_beam(spread=96, core=44, mouth=13, blur=20, gain=1.18)
 POOL = build_pool()
+POOL_TIGHT = build_pool(rx=104, ry=17, cx=58, cy=10, blur=26)
 SCRIM = build_scrim()
+
+THROW = GY + 60                  # how far the light travels to reach the floor
+
+
+def swing(layer, deg):
+    """Pivot a beam about the lamp."""
+    if abs(deg) < 0.05:
+        return layer
+    # PIL rotates counter-clockwise, and a point below the pivot swings the
+    # same way, so a positive angle leans the beam right - which is the same
+    # direction the floor pool is translated. Get this sign wrong and the
+    # light and the puddle it casts search opposite halves of the room.
+    return layer.rotate(deg, resample=Image.BILINEAR, center=APEX)
+
+
+def slide(layer, dx):
+    """Move a floor pool sideways to wherever the beam is now landing."""
+    if abs(dx) < 0.5:
+        return layer
+    return layer.transform((W, H), Image.AFFINE, (1, 0, -dx, 0, 1, 0),
+                           resample=Image.BILINEAR)
+
+
+# ---------------------------------------------------------------- the search
+# The brief, from the client: "instead of a person falling I want the light to
+# open and then search for the person here and there and then find the person
+# standing." So the film opens the way the room actually feels: the lamp comes
+# up, hunts, misses twice, and only then lands on somebody who has been
+# standing there the whole time.
+#
+# Angles are degrees off vertical. The figure is at zero, so every key that is
+# not zero is a miss, and the misses get smaller as it closes in.
+HUNT = [(0.80, -24.0), (1.55, 20.0), (2.25, -14.0), (2.85, 10.0),
+        (3.35, -4.5), (3.90, 0.0)]
+LAMP_ON, FOUND = 0.72, 3.90
+
+
+def hunt_angle(t):
+    if t <= HUNT[0][0]:
+        return HUNT[0][1]
+    if t >= FOUND:
+        return 0.0
+    for (t0, a0), (t1, a1) in zip(HUNT, HUNT[1:]):
+        if t <= t1:
+            return lerp(a0, a1, ease_io(seg(t, t0, t1)))
+    return 0.0
 
 
 # ---------------------------------------------------------------- the rig
@@ -290,19 +344,36 @@ def render(t):
     img = GROUND.copy()
 
     # --- the light --------------------------------------------------------
-    # Beat 0 is one dim work light. The beam strikes on the head of beat 1
-    # and never restarts, because a cue does not fire twice.
-    strike = ease_out(seg(t, BEAT[1][0], BEAT[1][0] + 1.3))
-    beam_k = 0.11 + 0.89 * strike
-    pool_k = 0.05 + 0.95 * ease_out(seg(t, BEAT[1][0] + 0.3, BEAT[1][0] + 1.8))
+    # The lamp comes up, hunts, misses, and lands. After that it never
+    # restarts, because a cue does not fire twice.
+    ang = hunt_angle(t)
+    dx = math.tan(math.radians(ang)) * THROW
+    hunting = t < FOUND + 0.45
+
+    # tight while it is looking, wide once it has found somebody
+    lock = ease_io(seg(t, FOUND - 0.35, FOUND + 0.45))
+    on = ease_out(seg(t, LAMP_ON, LAMP_ON + 0.34))
+
+    tight_k = on * (1 - lock) * 0.95
+    wide_k = lock * (0.34 + 0.66 * ease_out(seg(t, BEAT[1][0], BEAT[1][0] + 1.3)))
+    pool_k = lock * (0.30 + 0.70 * ease_out(seg(t, BEAT[1][0] + 0.3, BEAT[1][0] + 1.8)))
     pool_k *= lerp(1.0, 0.45, ease_io(seg(t, BEAT[2][0], BEAT[2][0] + 1.2)))
+    tpool_k = on * (1 - lock) * 0.9
+
     if t > BEAT[5][0]:
         dip = lerp(1.0, 0.22, ease_io(seg(t, BEAT[5][0], BEAT[5][0] + 1.1)))
-        beam_k *= dip
+        wide_k *= dip
         pool_k *= dip
-    beam_k *= 1 + 0.035 * math.sin(t * 1.15)
+    wide_k *= 1 + 0.035 * math.sin(t * 1.15)
 
-    for layer, k in ((BEAM, beam_k), (POOL, pool_k)):
+    stack = []
+    if hunting and tight_k > 0.004:
+        stack.append((swing(BEAM_TIGHT, ang), tight_k))
+        stack.append((slide(POOL_TIGHT, dx), tpool_k))
+    stack.append((BEAM, wide_k))
+    stack.append((POOL, pool_k))
+
+    for layer, k in stack:
         sc = scale_alpha(layer, clamp(k))
         if sc:
             img = Image.alpha_composite(img.convert("RGBA"), sc).convert("RGB")
@@ -329,7 +400,10 @@ def render(t):
                 d.ellipse([ax - rad, ay - rad, ax + rad, ay + rad], fill=rgba(GOLD, k))
 
     # --- the figure, and the rig it becomes -------------------------------
-    lit = 0.16 + 0.84 * ease_out(seg(t, BEAT[1][0] + 0.2, BEAT[1][0] + 1.5))
+    # It brightens as the beam closes on it, which is what makes the search
+    # read as a search rather than as a light waving about.
+    near = clamp(1 - abs(ang) / 9.0)
+    lit = 0.11 + 0.89 * max(near * on, ease_out(seg(t, FOUND - 0.2, BEAT[1][0] + 1.2)))
     draw_figure(d, lit, 1 - ease_io(seg(t, BEAT[2][0], BEAT[2][0] + 0.6)))
 
     live = BEAT[3][0] < t < BEAT[4][0]
@@ -370,13 +444,11 @@ def render(t):
     # --- sign off ---------------------------------------------------------
     sa = ease_out(seg(t, BEAT[5][0] + 0.55, BEAT[5][0] + 1.5))
     if sa > 0.01:
-        my, k = 300, 2.6            # the mark, at the deck's own proportions
+        my, k = 300, 2.6            # the mark: one beam, one pool, flat gold
         px, py = CX - 32 * k, my - 32 * k
         P = lambda x, y: (px + x * k, py + y * k)
-        d.ellipse([P(0, 0), P(64, 64)], fill=(16, 26, 49, int(255 * sa)))
-        d.polygon([P(27.5, 13), P(31, 13), P(26, 42), P(21, 42)], fill=rgba(GOLD, sa))
-        d.polygon([P(33, 13), P(36.5, 13), P(43, 42), P(38, 42)], fill=rgba(GOLD, sa))
-        d.ellipse([P(17.5, 43.8), P(46.5, 50.2)], fill=rgba(GOLD, sa))
+        d.polygon([P(28.4, 8), P(35.6, 8), P(48, 44), P(16, 44)], fill=rgba(GOLD, sa))
+        d.ellipse([P(15, 46.9), P(49, 54.1)], fill=rgba(GOLD, sa))
         d.text((CX, my + 128), "We build the stage.", font=F_SIGN,
                fill=rgba(IVORY, sa), anchor="ma")
         d.text((CX, my + 208), "You steal the show.", font=F_SIGN,
