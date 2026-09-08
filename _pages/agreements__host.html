@@ -4,7 +4,6 @@
      transparent over it. See section 35 of oyss.css. -->
 <section class="reel reel--short dark" data-over>
   <div class="reel__copy" data-lit>
-    <p class="eyebrow eyebrow--keyed">Own Your Stage Experience &middot; $2,997</p>
     <h1 class="display">Done-For-You Panel Host Services Agreement</h1>
     <span class="reel__rule" aria-hidden="true"></span>
     <p class="lead">The full agreement, published before you commit rather than sent after. Read it, then sign at the bottom of the page.</p>
@@ -872,20 +871,45 @@
             <label class="check"><input type="checkbox" name="ack_promo" required><span>I understand that I am responsible for promoting the event, and that Own Your Stage Studio does not guarantee audience size, registrations, leads, sales or revenue.</span></label>
             <label class="check"><input type="checkbox" name="ack_ip" required><span>I accept the recording and intellectual property provisions, and Florida law with Martin County venue.</span></label>
 
-            <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Signature</p>
-            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(215,206,192,.2)"></div>
-
-            <label class="field" style="margin:0">
-              <span class="field__label">Type your full legal name to sign</span>
-              <input class="field__input" type="text" name="signature" required autocomplete="off" placeholder="Your full legal name">
-            </label>
-            <div class="sig-preview" style="margin-top:1.2rem">
-              <span class="sig" id="sig-preview"></span>
-            </div>
-            <p class="caption" style="color:var(--ivory-46);margin-top:.8rem">
-              Signed on <span id="sig-date" style="color:var(--gold)"></span>. The date is
-              stamped automatically and cannot be edited.
+            <!-- THE EXECUTION PAGE.
+                 "When you say to sign you should give option to sign at the
+                 end it just looks another form to nothing looks like an
+                 agreement." Correct: a labelled input with a placeholder is a
+                 web form, and the last page of a contract does not look like
+                 one. This is set as an execution page instead: the witness
+                 clause, then two signature panels side by side, each with a
+                 ruled signature line, a printed name and a date. Only the
+                 client's panel is fillable; the studio's is countersigned. -->
+            <p class="exec__witness">
+              In witness whereof, the parties have executed this Agreement as of the date
+              of the last signature below.
             </p>
+
+            <div class="exec">
+              <div class="exec__party">
+                <p class="exec__for">The Client</p>
+                <label class="exec__sign">
+                  <span class="sig" id="sig-preview" aria-hidden="true"></span>
+                  <input class="exec__input" type="text" name="signature" required
+                         autocomplete="off" aria-label="Type your full legal name to sign">
+                </label>
+                <p class="exec__rule"></p>
+                <dl class="exec__meta">
+                  <dt>Signature</dt><dd>Type your full legal name above</dd>
+                  <dt>Date</dt><dd id="sig-date"></dd>
+                </dl>
+              </div>
+
+              <div class="exec__party exec__party--them">
+                <p class="exec__for">Own Your Stage Studio, LLC</p>
+                <span class="sig sig--them">Annette Knecht Seier</span>
+                <p class="exec__rule"></p>
+                <dl class="exec__meta">
+                  <dt>Signature</dt><dd>Founder, for the Studio</dd>
+                  <dt>Date</dt><dd>On countersignature</dd>
+                </dl>
+              </div>
+            </div>
 
             <p id="sign-error" hidden class="notice notice--action" style="margin-top:1.6rem;color:var(--ivory)" role="alert"></p>
 

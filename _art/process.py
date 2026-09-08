@@ -36,6 +36,11 @@ STILLS = [
     ("panel-room",   "panel-conversation.png",  1500, 3 / 2,  0.50),
     ("attendee",     "attendee-screenlight.png", 1400, 16 / 9, 0.50),
     ("room-empty",   "empty-room.png",          1500, 16 / 9, 0.52),
+    # feedback 2.0: the About room was liked but empty; same room, one figure
+    ("room-figure",  "room-figure.png",         1500, 16 / 9, 0.52),
+    # the panelist pages had the Experience page's pictures
+    ("panelist-mid", "panelist-speaking.png",   1500, 3 / 2,  0.48),
+    ("panelist-one", "panelist-framed.png",      900, 16 / 9, 0.42),
     ("desk",         "desk-still.png",          1400, 16 / 9, 0.52),
     ("control",      "control-room.png",        1500, 16 / 9, 0.50),
     ("texture",      "texture-plate.png",       1400, 16 / 9, 0.50),
@@ -79,10 +84,14 @@ def clip(name, src, _):
     if not p.exists():
         print("  miss  %s" % src); return
     out = OUT / (name + ".mp4")
+    # "Video lacks clarity here." CRF 29 on a very dark, very fine-grained clip
+    # is false economy: h.264 spends its bits on the grain and smears the faces,
+    # and on a navy scene the blocking shows up as banding in the falloff. 23
+    # with a tuned deblock roughly doubles the file and makes it a picture again.
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(p), "-an",
                     "-movflags", "+faststart", "-c:v", "libx264", "-preset", "veryslow",
-                    "-crf", "29", "-pix_fmt", "yuv420p",
-                    "-x264-params", "aq-mode=3:aq-strength=1.15",
+                    "-crf", "23", "-pix_fmt", "yuv420p",
+                    "-x264-params", "aq-mode=3:aq-strength=1.0:deblock=-1,-1:psy-rd=1.0,0.15",
                     "-vf", "scale=1280:-2", str(out)], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(out),
                     "-vf", "select=eq(n\\,0)", "-frames:v", "1", "-q:v", "5",

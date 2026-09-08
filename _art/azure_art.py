@@ -187,6 +187,37 @@ SHOTS = [
      "above left, soft reflections on the dark surface. Product photography, "
      "shallow depth of field. No landscapes, no sunsets, no scenery on the "
      "screens. The screens carry no readable text and no user interface."),
+    # ---- feedback 2.0, 9 Sep ------------------------------------------------
+    # "Add a person here the image is very good and lighting, just add a person
+    # not very big, normal one." The About hero room was liked and was empty.
+    # Same room, same light, one figure standing in the pool at a distance, so
+    # the architecture still reads and the left third stays clear for type.
+    ("room-figure", "1536x1024", "high",
+     "A vast empty room in deep navy near-darkness, a single broad shaft of warm "
+     "amber light entering from high on the right and landing as a soft pool on a "
+     "dark textured floor. One person in a dark suit stands in that pool, seen "
+     "from far back so they are small in the frame, a full-length figure about a "
+     "fifth of the frame height, turned slightly away, still. Fine haze in the "
+     "beam. The entire left third of the frame is dark and empty. Architectural, "
+     "wide, cinematic, nobody else present."),
+
+    # "Why panelist is having the same images as the experience page." The
+    # panelist is one expert among several, not the host, so the shot is the
+    # moment a panelist is speaking and the others are listening.
+    ("panelist-speaking", "1536x1024", "high",
+     "A woman in her forties leaning forward mid sentence, speaking with a "
+     "relaxed open hand, sharply lit by one warm key from camera left. Two other "
+     "professionals sit out of focus in the deep navy darkness either side of "
+     "her, listening, their faces barely caught. Mid shot from slightly low. The "
+     "light is clearly on her and not on them. Documentary, unposed."),
+
+    # The panelist frame, occupied. Replaces an empty branded backdrop.
+    ("panelist-framed", "1024x1024", "high",
+     "A man in his fifties, grey at the temples, open collar shirt under a dark "
+     "jacket, seated facing the camera and speaking, head and shoulders centred "
+     "with headroom above. Warm amber key at 45 degrees from camera left, deep "
+     "navy background falling to black. Broadcast quality video call framing, "
+     "sharp, evenly lit, no screen artefacts."),
 ]
 
 

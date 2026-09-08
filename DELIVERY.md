@@ -779,3 +779,170 @@ brand film itself, which has not been on a page since the human pass.
 as a spare face but not shipped: the rig is one host plus five panelists.
 
 55 probes, 0 findings, at the new type size.
+
+---
+
+# Feedback 2.0, and the prompts, 9 September 2026
+
+Twenty-one annotated screenshots plus a brief for pop-up surfaces. Every note
+below is answered; the numbering follows the order in the document.
+
+## The notes
+
+**1, 17, 18, 20. "Remove this line."** The `.eyebrow--keyed` line above every
+hero headline, boxed in red on four separate pages. Gone from all eleven. It was
+labelling a section whose headline already said what it was, which is the first
+tell on the AI-rhythm list.
+
+**2. "Can the logo be continuous motion."** It runs now, on the brand's terms:
+a lamp that is on does not flash, it breathes. Beam opacity and pool width drift
+a few percent on a nine second cycle, out of phase with each other so the pair
+never pulses together. Nothing moves position. At 34px what a reader perceives
+is that the light is live rather than drawn. Held while the pointer is down, and
+silent under reduced motion.
+
+**3, 6. "This is an ai style, change it to something more humanize."** Twice, on
+two components that were the same idea: small grey text beside a gold marker.
+That is the generated-UI pattern. Both are now editorial footnotes rather than
+UI callouts: serif, reading size, indented, marked by a small raised italic
+numeral, the way a note sits in the margin of a printed proof.
+
+**4. "Remove the highlighted part."** The pool ellipse under the band headline.
+Gone.
+
+**5. "On hovering each panel section should light up."** Done, and the timer
+genuinely stops rather than being outvoted by CSS, because two lights on at once
+is the one thing the component exists to say never happens. Hovering a frame
+takes the desk the way a producer overrides a running order; leaving resumes the
+cycle. Non-hovered frames dip below their resting state so the lit one reads.
+
+**7. "This section is great but something feels missing here."** What was
+missing was the specification: the reader had been told the room looks produced
+and given nothing to check it against. Added `.spec`, four terms and their
+consequences: 1920×1080 on every asset, two rehearsals, one operator on the
+frames, a clean separate capture.
+
+**8. "Video lacks clarity here."** Two causes, both fixed. CRF 29 on a dark,
+fine-grained clip is false economy: h.264 spends its bits on grain and smears
+the faces. Re-encoded at CRF 23 with a tuned deblock and psy-rd. And the scrim
+was covering the whole picture at .74 alpha across 42% of the frame; it now hugs
+the copy column instead of the image.
+
+**9. "Keep this list style but innovate, try something new with animation."**
+The cue sheet was three generic scroll effects layered on one component: a drawn
+rail, a sliding bead, a fade per row. It is now one idea instead of three, and
+it is the brand's own: each cue is a **lighting state**. The row you are level
+with goes to full, rows behind hold at a readable half, rows ahead sit at a
+quarter with their numbers unlit, and the rail fills like a dimmer track to
+wherever the light has reached. Passing a row hands the light on rather than
+revealing it.
+
+**10. "Why image for stage 4... you have already explained 4 steps, now image
+and then linking to page, this is not cool at all."** Right, it was the same
+thing told three times. Both the picture and the link out are gone.
+
+**11. "Do not use Annette names, it is Own Your Stage team who will reply."**
+Every service promise now says the studio. Her name survives only on the founder
+byline, which is attribution rather than an operations claim.
+
+**12. "This is confusing section."** The `.marginal` I had added spoke in the
+studio's voice while the section beside it spoke to the reader, and two voices
+in one block is exactly what makes a block confusing. Removed.
+
+**13. "Do not create assessment as a long form, create it in a box, once the
+person selects question 1 question 2 pops up, and then next and back."** Built.
+One question in a box, pips for progress, back button, and it advances on answer
+after a 420ms beat so you see your own choice register first. The submit button
+only appears on the last question, so nobody can submit an unfinished form and
+meet an error. **The stepper is applied on top of the full form rather than
+replacing it**, so with JS off the page is still the eight question form it
+always was and no question is hidden from anybody.
+
+**14. "Why panelist is having the same images as The Experience page."** New
+photography commissioned for it: a panelist mid sentence, sharply lit, with the
+other experts listening in the darkness either side of her. The distinction is
+the point, since a panelist is one expert among several rather than the host.
+
+**15. "Create a video here how it looks."** A video would be the wrong tool: the
+thing being explained is how a frame gets dressed, and the dressing is live text
+and vector. Baked into an mp4 it goes soft on a retina screen and a copy change
+becomes a re-render. So it animates in the browser instead, as a four beat
+sequence on the real frame: the light, the frame and mark, the name plate, the
+on-air marker, each beat named underneath as it lands. Runs once on scroll,
+replays on click or Enter, and **rests fully assembled**, so with JS off the
+reader simply sees the finished frame.
+
+**16. "Add a person here, the image is very good and lighting, just add a person
+not very big, normal one."** Same room, same light, one figure standing in the
+pool at a distance, about a fifth of the frame height, left third still clear
+for the headline.
+
+**19. "When you say to sign you should give option to sign at the end, it just
+looks another form, nothing looks like an agreement."** The block was already at
+the end; what was wrong is that it looked like a web form. It is an **execution
+page** now: the witness clause, then two signature panels side by side, each
+with a ruled signature line above a printed name and a date. The client's panel
+is fillable, the studio's is shown as countersigned, so it reads as an agreement
+between two parties rather than a form submitted into a void. The input itself
+is invisible furniture: no box, no placeholder, just your name appearing in the
+signature face on the rule.
+
+**21. "Remove this line and add something very short motivation quote."** The
+domain was sitting where a closing thought should be, and it was already in the
+copyright line above. Replaced with: *The room is already looking for you.*
+
+**22. "Lets use this big lines in the footer I really liked."** Taken from the
+v2 build, and the right call: the tagline is the strongest thing the brand owns
+and it was set in 19px sans halfway down a column. It is now at display scale
+above the normal footer, split in the deck's own colours — the promise in ivory,
+the payoff in gold.
+
+## The prompts
+
+*"two bottom bar for desktop and top bar for mobile and exit intent for all the
+three types of layout."*
+
+Three surfaces, one governing rule: on a premium site a prompt has to be
+**earned** or it costs more than it makes.
+
+- **The bar.** Bottom on desktop and tablet, top on a phone. The reason for the
+  flip is the thumb: at the bottom of a phone it fights the browser chrome and
+  the reader's own hand, and at the top it sits under a bar they are already
+  ignoring.
+- **It waits for the price.** The trigger is a real element (`.figure__value`),
+  not a scroll percentage, so it fires at the same *moment in the argument* on a
+  long page and a short one. Before the reader knows what it costs, an "apply"
+  bar is asking them to commit to an unknown.
+- **The second surface is per page kind, not per page.** `home` and `guide` are
+  pages somebody is *reading*, so a prompt is the natural next step and the two
+  kinds carry different offers (apply on the home page, the assessment on the
+  guides). `form` and `agreement` are pages somebody is *doing*: both surfaces
+  stay off, because the action is already on screen and an interruption there
+  costs a conversion rather than earning one.
+- **Exit intent, all three layouts.** On a pointer device it fires on the mouse
+  leaving through the **top** of the window, the only edge that means "going to
+  the address bar" rather than "reaching for the scrollbar", and only after six
+  seconds. On touch there is no exit gesture, so the honest equivalent is a fast
+  upward flick toward the address bar *after* the reader has passed 45% of the
+  page. Both conditions matter: the flick alone is just scrolling.
+- **It never interrupts somebody mid-form.** If anything on the page has been
+  typed or ticked, the modal does not open. Whatever it offers is worth less
+  than the application they are already filling in.
+- **Everything remembers.** A dismissal is stored for seven days, and the
+  storage accessor is wrapped, because a browser with site data blocked throws
+  on the accessor itself rather than returning null.
+- Real dialog semantics: focus moves in, Tab is trapped, Escape closes, focus
+  returns to where it was.
+
+## Verified
+
+55 probes across 11 pages × 5 widths: **0 findings**. Every page loaded at 1440
+and 390 with **no JavaScript errors and no failed requests**. The bar was
+measured in place at 1440, 1024 and 390, exit intent fired and trapped focus on
+both a pointer and a touch profile, and the assessment stepper was driven
+through an answer to confirm it advances.
+
+One bug worth recording because it is now the third time on this project: **a
+`<span>` with no `display` is inline, whatever its class name implies.** The
+prompt bar's title and meta ran together as one sentence, and the panelist name
+plate set its three lines horizontally. Both invisible in source.

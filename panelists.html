@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=d6857755">
+<link rel="stylesheet" href="assets/oyss.css?v=7ddd365f">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -72,7 +72,6 @@ body { background: #F7F2E8; }
      transparent over it. See section 35 of oyss.css. -->
 <section class="reel reel--page dark" data-over>
   <div class="reel__copy" data-lit>
-    <p class="eyebrow eyebrow--keyed">Featured Panelist Program &middot; $47</p>
     <h1 class="display">Your spotlight should last longer than the event.</h1>
     <span class="reel__rule" aria-hidden="true"></span>
     <p class="lead">Join a produced panel as a featured expert. You get a designated spotlight, professional footage, and exposure to everyone the host and the other panelists bring.</p>
@@ -83,7 +82,7 @@ body { background: #F7F2E8; }
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate" src="assets/media/panel-room.jpg" alt="The panel rig with the on-air light showing and an audience filling the floor below it.">
+    <img class="reel__plate" src="assets/media/panelist-mid.jpg" alt="A panelist speaking, sharply lit, with the other experts listening in the darkness either side of her.">
   </div>
 </section>
 
@@ -124,14 +123,40 @@ body { background: #F7F2E8; }
   </div>
 </section>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="oyss-mark" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="32" fill="#F7F2E8"/>
+    <path d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="#1D2947"/>
+    <ellipse cx="32" cy="50.3" rx="17.8" ry="4.8" fill="#101A31"/>
+  </symbol>
+</svg>
+
 <!-- ============ THE FRAME ============ -->
 <section class="bay dark stage">
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
     <div class="split">
-      <figure class="frame-img" style="border-color:rgba(215,206,192,.16)" data-lit>
-        <img src="assets/media/stage-frame-panelist.jpg" width="1400" height="788" alt="A branded Own Your Stage Studio panelist frame with a name plate reading Panelist, Your Name Here.">
-      </figure>
+      <div data-lit>
+        <figure class="build" id="panelist-build" tabindex="0" role="img"
+                aria-label="A panelist frame assembling: the backdrop, then the key light, then the gold stage lip and the studio mark, then the name plate, then the on-air marker.">
+          <img src="assets/media/panelist-one.jpg" width="900" height="506" alt="">
+          <span class="build__key" aria-hidden="true"></span>
+          <span class="build__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
+          <span class="build__live" aria-hidden="true">On air</span>
+          <span class="build__lip" aria-hidden="true"></span>
+          <span class="build__plate" aria-hidden="true">
+            <span class="build__role">Panelist</span>
+            <span class="build__name">Your name here</span>
+            <span class="build__sub">Your subject</span>
+          </span>
+        </figure>
+        <div class="build__steps" aria-hidden="true">
+          <span class="build__step" data-step="1">The light</span>
+          <span class="build__step" data-step="2">Frame and mark</span>
+          <span class="build__step" data-step="3">Your name plate</span>
+          <span class="build__step" data-step="4">On air</span>
+        </div>
+      </div>
       <div data-lit data-cue="2">
         <p class="eyebrow">How it looks</p>
         <h2>You are presented, not squeezed in.</h2>
@@ -253,6 +278,12 @@ body { background: #F7F2E8; }
 
 <footer class="footer">
   <div class="wrap">
+    <p class="footer__lines">
+      <span>We build the stage.</span>
+      <span class="footer__lines--gold">You steal the show.</span>
+    </p>
+  </div>
+  <div class="wrap">
     <div class="footer__grid">
       <div>
         <a href="index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
@@ -273,8 +304,7 @@ body { background: #F7F2E8; }
         <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
       </span>
     </a>
-        <p class="footer__promise">We build the stage. You steal the show.</p>
-        <p class="caption" style="margin-top:1rem;max-width:34ch">
+        <p class="caption" style="margin-top:1.1rem;max-width:34ch">
           A premium authority building studio for established experts ready to become
           more visible, more credible and easier to remember.
         </p>
@@ -301,13 +331,21 @@ body { background: #F7F2E8; }
     </div>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span>ownyourstagestudio.com</span>
+      <span class="footer__note">The room is already looking for you.</span>
     </div>
   </div>
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=d6857755"></script>
-
+<script src="assets/oyss.js?v=7ddd365f"></script>
+<script>OYSS.prompts({
+  after: '.flood, .figure__value, .bay--half',
+  barTitle: 'Find out where you stand first.',
+  barMeta: 'Eight questions, three minutes, no email required.',
+  barCta: 'Take the assessment', barHref: 'assessment.html',
+  exitTitle: 'One question before you go.',
+  exitBody: 'Would the people in your industry name a subject when they describe you? Eight questions tells you, in about three minutes.'
+});</script>
+<script>OYSS.buildFrame();</script>
 </body>
 </html>

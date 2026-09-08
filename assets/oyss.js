@@ -180,17 +180,46 @@
         return;
       }
 
-      var cueObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          e.target.classList.add('lit');
-          if (marker) {
-            marker.style.top = (e.target.offsetTop + e.target.offsetHeight / 2 - 3) + 'px';
-          }
-        });
-      }, { rootMargin: '-42% 0px -42% 0px' });
+      /* 4b. THE RAIL IS A DIMMER TRACK.
+         The old behaviour was three generic scroll effects on one
+         component: a drawn rail, a sliding bead, and a fade-up per
+         row. What replaces it is one idea instead of three, and it
+         is the brand's own: each cue is a LIGHTING STATE.
 
-      rows.forEach(function (r) { cueObs.observe(r); });
+         The row the reader is level with goes to full, the rows
+         behind it hold at a readable half, the rows ahead sit at a
+         quarter. Passing a row hands the light on rather than
+         merely revealing it, and the rail fills to wherever the
+         light has reached.
+
+         Driven from one scroll handler rather than an observer per
+         row, because the states are relative to each other: which
+         row is live depends on where every other row is, and an
+         observer only ever knows about the row it fired for. */
+      sheet.classList.add('cuesheet--dimmer');
+      if (marker) marker.style.display = 'none';
+
+      var raf = null;
+      function cueScan() {
+        raf = null;
+        var mid = window.innerHeight * 0.42;
+        var live = -1;
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].getBoundingClientRect().top <= mid) live = i;
+        }
+        for (var j = 0; j < rows.length; j++) {
+          rows[j].classList.add('lit');
+          rows[j].classList.toggle('live', j === live);
+          rows[j].classList.toggle('passed', j < live);
+        }
+        var pct = live < 0 ? 0 : ((live + 1) / rows.length) * 100;
+        sheet.style.setProperty('--cue-fill', pct.toFixed(1) + '%');
+      }
+      function onCueScroll() { if (!raf) raf = requestAnimationFrame(cueScan); }
+
+      window.addEventListener('scroll', onCueScroll, { passive: true });
+      window.addEventListener('resize', onCueScroll, { passive: true });
+      cueScan();
     });
 
     /* --------------------------------------------------------
@@ -219,6 +248,37 @@
           e[0].isIntersecting ? start() : stop();
         }, { threshold: 0.25 }).observe(rigEl);
       } else { start(); }
+
+      /* 5b. THE POINTER TAKES THE DESK.
+         "On hovering each panel section should light up."
+         A producer at a vision mixer overrides the running order
+         the moment they touch it, so hovering a frame lights that
+         frame and holds the automatic cue until the pointer
+         leaves. Delegated from the rig rather than bound per
+         frame, and the timer is genuinely stopped rather than
+         merely outvoted by CSS: two lights would otherwise be on
+         at once, which is the one thing this component exists to
+         say never happens. */
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        var held = null;
+        rigEl.addEventListener('pointerover', function (ev) {
+          var f = ev.target.closest ? ev.target.closest('.frame') : null;
+          if (!f || f === held || !rigEl.contains(f)) return;
+          held = f;
+          stop();
+          rigEl.classList.add('rig--held');
+          frames.forEach(function (x) { x.classList.remove('on'); });
+          f.classList.add('on');
+        });
+        rigEl.addEventListener('pointerleave', function () {
+          if (!held) return;
+          held = null;
+          rigEl.classList.remove('rig--held');
+          /* resume from the frame that was lit, not from the top */
+          idx = Array.prototype.indexOf.call(frames, frames[0]);
+          start();
+        });
+      }
 
       document.addEventListener('visibilitychange', function () {
         document.hidden ? stop() : start();
@@ -766,9 +826,126 @@
      brand discovery: positioning, recognition, consistency,
      audience reach and readiness. Returns one of the four levels.
      ========================================================== */
+  /* ----------------------------------------------------------
+     THE STEPPER
+     "Do not create assessment as a long form, create it in a box
+     once the person select question 1 question2 pops up and then
+     next and back option."
+
+     Applied ON TOP of the full form rather than replacing it.
+     Every fieldset stays in the document, so with JS off the page
+     is the eight question form it always was and nothing is lost.
+     What this adds is: show one, advance on answer, allow back.
+
+     It advances on a 420ms delay rather than instantly, because
+     an instant jump reads as the page misbehaving; the delay is
+     long enough for the reader to see their own choice register
+     and short enough that it never feels like waiting.
+     ---------------------------------------------------------- */
+  function stepper(form) {
+    var steps = [].slice.call(form.querySelectorAll('fieldset[data-q]'));
+    var foot = form.querySelector('.sheet__foot');
+    if (steps.length < 2 || !foot) return null;
+
+    /* Each question and the section label above it move together. */
+    steps.forEach(function (fs) {
+      var wrap = document.createElement('div');
+      wrap.className = 'qstep';
+      var label = fs.previousElementSibling;
+      fs.parentNode.insertBefore(wrap, label && label.classList.contains('sheet__sec') ? label : fs);
+      if (label && label.classList.contains('sheet__sec')) wrap.appendChild(label);
+      wrap.appendChild(fs);
+    });
+    var panes = [].slice.call(form.querySelectorAll('.qstep'));
+
+    form.classList.add('quiz');
+    var stage = document.createElement('div');
+    stage.className = 'quiz__stage';
+    panes[0].parentNode.insertBefore(stage, panes[0]);
+    panes.forEach(function (pn) { stage.appendChild(pn); });
+
+    var bar = document.createElement('div');
+    bar.className = 'quiz__bar';
+    bar.innerHTML = '<span class="quiz__count"></span><span class="quiz__pips"></span>';
+    stage.parentNode.insertBefore(bar, stage);
+    var count = bar.querySelector('.quiz__count');
+    var pips = bar.querySelector('.quiz__pips');
+    panes.forEach(function () {
+      var d = document.createElement('span'); d.className = 'quiz__pip'; pips.appendChild(d);
+    });
+    var pipEls = [].slice.call(pips.children);
+
+    var nav = document.createElement('div');
+    nav.className = 'quiz__nav';
+    var back = document.createElement('button');
+    back.type = 'button'; back.className = 'quiz__back'; back.textContent = 'Back';
+    var hint = document.createElement('span');
+    hint.className = 'quiz__hint';
+    hint.textContent = 'Choose an answer to continue.';
+    nav.appendChild(back); nav.appendChild(hint);
+    stage.parentNode.insertBefore(nav, foot);
+
+    var at = 0;
+    var submitBtn = foot.querySelector('button[type=submit]');
+
+    function answered(i) { return !!panes[i].querySelector('input:checked'); }
+
+    function render() {
+      panes.forEach(function (pn, i) { pn.classList.toggle('is-current', i === at); });
+      pipEls.forEach(function (d, i) {
+        d.classList.toggle('done', answered(i));
+        d.classList.toggle('now', i === at);
+      });
+      count.textContent = 'Question ' + (at + 1) + ' of ' + panes.length;
+      back.disabled = at === 0;
+      var last = at === panes.length - 1;
+      /* The submit button only appears on the last question, so
+         nobody can submit an unfinished form and meet an error. */
+      foot.hidden = !last;
+      nav.hidden = last && answered(at);
+      hint.textContent = last ? 'That is the last one.' : 'Choose an answer to continue.';
+      if (submitBtn) submitBtn.disabled = !answered(at);
+    }
+
+    function go(i) {
+      at = Math.max(0, Math.min(panes.length - 1, i));
+      render();
+      var top = bar.getBoundingClientRect().top + window.pageYOffset - (window.innerHeight * 0.16);
+      window.scrollTo({ top: top, behavior: CALM ? 'auto' : 'smooth' });
+      var first = panes[at].querySelector('input');
+      if (first && !CALM) setTimeout(function () { first.focus({ preventScroll: true }); }, 260);
+    }
+
+    back.addEventListener('click', function () { go(at - 1); });
+
+    form.addEventListener('change', function (ev) {
+      if (!ev.target.matches('input[type=radio]')) return;
+      var pane = ev.target.closest('.qstep');
+      if (!pane) return;
+      pane.querySelectorAll('.choice').forEach(function (c) { c.classList.remove('is-picked'); });
+      var lab = ev.target.closest('.choice');
+      if (lab) lab.classList.add('is-picked');
+      render();
+      if (panes.indexOf(pane) === panes.length - 1) return;
+      form.classList.add('quiz--advancing');
+      setTimeout(function () {
+        form.classList.remove('quiz--advancing');
+        go(panes.indexOf(pane) + 1);
+      }, 420);
+    });
+
+    render();
+    return { go: go, reset: function () { go(0); } };
+  }
+
   window.OYSS.assessment = function () {
     var form = document.getElementById('assessment-form');
     if (!form) return;
+
+    /* One question at a time. Falls back to the full form if the
+       stepper cannot build itself, so a failure here costs the
+       reader nothing. */
+    var step = stepper(form);
 
     var LEVELS = [
       { key: 'hidden', name: 'Hidden Expert', min: 0,
@@ -812,8 +989,17 @@
                             (qs.length - answered) + ' remaining.';
           err.hidden = false;
         }
+        /* In stepper mode the unanswered question is not on screen,
+           so scrolling to it would scroll to a hidden element. Step
+           the reader to it instead. */
         var firstMiss = form.querySelector('fieldset[aria-invalid="true"]');
-        if (firstMiss) firstMiss.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
+        if (step && firstMiss) {
+          var pane = firstMiss.closest('.qstep');
+          var all = [].slice.call(form.querySelectorAll('.qstep'));
+          if (pane) step.go(all.indexOf(pane));
+        } else if (firstMiss) {
+          firstMiss.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
+        }
         return;
       }
       if (err) err.hidden = true;
@@ -863,6 +1049,254 @@
           JSON.stringify({ score: total, level: level.key, route: level.route }));
       } catch (_) {}
     });
+  };
+
+
+  /* ==========================================================
+     THE PROMPTS
+     A sticky bar and an exit-intent modal, per the client's
+     brief: bottom bar on desktop and tablet, top bar on a phone,
+     exit intent on all three.
+
+     The governing rule is that a prompt on a premium site has to
+     be EARNED or it costs more than it makes. So:
+
+       - the bar waits until the reader has passed the section
+         that names the price, because before that they do not
+         know what they would be applying for
+       - a page whose own job IS the action (the forms, the
+         agreements) never shows either, since the thing the
+         prompt would offer is already on screen
+       - exit intent fires once per visitor per week, and never
+         while a form on the page has anything typed in it
+       - both remember a dismissal for a week
+
+     Storage is wrapped: a browser with site data blocked throws
+     on the accessor itself rather than returning null, and an
+     uncaught throw here would take the rest of the script with
+     it.
+     ========================================================== */
+  function store(key, val) {
+    try {
+      if (val === undefined) return window.localStorage.getItem(key);
+      window.localStorage.setItem(key, val);
+    } catch (_) { return null; }
+  }
+  function recently(key, days) {
+    var t = store(key);
+    return !!t && (Date.now() - parseInt(t, 10)) < days * 864e5;
+  }
+
+  window.OYSS.prompts = function (opts) {
+    var cfg = opts || {};
+    if (cfg.off) return;
+
+    var phone = window.matchMedia('(max-width: 760px)');
+    var root = document.querySelector('.oyss');
+    if (!root) return;
+
+    /* ---------- the bar ---------- */
+    var bar = null;
+    if (!recently('oyss:bar', 7)) {
+      bar = document.createElement('aside');
+      bar.className = 'prompt';
+      bar.setAttribute('role', 'complementary');
+      bar.setAttribute('aria-label', 'Next step');
+      bar.hidden = true;
+      bar.innerHTML =
+        '<div class="prompt__inner">' +
+          '<span class="prompt__text">' +
+            '<span class="prompt__t">' + (cfg.barTitle || 'Ready to host your own panel?') + '</span>' +
+            '<span class="prompt__m">' + (cfg.barMeta || 'Eight minutes to apply. No payment at this step.') + '</span>' +
+          '</span>' +
+          '<a class="btn btn--primary" href="' + (cfg.barHref || 'apply.html') + '">' + (cfg.barCta || 'Apply to host') + '</a>' +
+          '<button class="prompt__x" type="button" aria-label="Dismiss">&times;</button>' +
+        '</div>';
+      root.appendChild(bar);
+
+      var placeBar = function () {
+        bar.classList.toggle('prompt--top', phone.matches);
+        bar.classList.toggle('prompt--bottom', !phone.matches);
+      };
+      placeBar();
+      (phone.addEventListener ? phone.addEventListener('change', placeBar)
+                              : phone.addListener(placeBar));
+
+      bar.querySelector('.prompt__x').addEventListener('click', function () {
+        bar.classList.remove('is-in');
+        store('oyss:bar', String(Date.now()));
+        setTimeout(function () { bar.hidden = true; }, 620);
+      });
+
+      /* Earned, not timed. The trigger is a real element on the
+         page rather than a scroll percentage, so it fires at the
+         same MOMENT IN THE ARGUMENT on a long page and a short
+         one. Falls back to two thirds down when the page has no
+         such element. */
+      var gate = document.querySelector(cfg.after || '.figure__value, .flood, .sheet__foot');
+      var shown = false;
+      var showBar = function () {
+        if (shown) return;
+        shown = true;
+        bar.hidden = false;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { bar.classList.add('is-in'); });
+        });
+      };
+      if (gate && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (es, o) {
+          if (es[0].isIntersecting) { showBar(); o.disconnect(); }
+        }, { rootMargin: '0px 0px -20% 0px' }).observe(gate);
+      } else {
+        var onScroll = function () {
+          var d = document.documentElement;
+          if ((window.pageYOffset + window.innerHeight) / d.scrollHeight > 0.66) {
+            showBar();
+            window.removeEventListener('scroll', onScroll);
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    }
+
+    /* ---------- exit intent ---------- */
+    if (recently('oyss:exit', 7)) return;
+
+    var exit = document.createElement('div');
+    exit.className = 'exit';
+    exit.hidden = true;
+    exit.innerHTML =
+      '<div class="exit__card" role="dialog" aria-modal="true" aria-labelledby="oyss-exit-t">' +
+        '<button class="exit__x" type="button" aria-label="Close">&times;</button>' +
+        '<p class="exit__eyebrow">' + (cfg.exitEyebrow || 'Before you go') + '</p>' +
+        '<p class="exit__t" id="oyss-exit-t">' + (cfg.exitTitle || 'Find out what the room already thinks you are known for.') + '</p>' +
+        '<p class="exit__p">' + (cfg.exitBody || 'Eight questions, about three minutes, and the result appears on the screen. No email address, nothing sent anywhere.') + '</p>' +
+        '<div class="exit__actions">' +
+          '<a class="btn btn--primary" href="' + (cfg.exitHref || 'assessment.html') + '">' + (cfg.exitCta || 'Take the assessment') + '</a>' +
+          '<button class="exit__no" type="button">No thanks</button>' +
+        '</div>' +
+      '</div>';
+    root.appendChild(exit);
+
+    var lastFocus = null;
+    var open = false;
+
+    function typedSomething() {
+      var any = false;
+      document.querySelectorAll('input, textarea, select').forEach(function (el) {
+        if (el.type === 'radio' || el.type === 'checkbox') { if (el.checked) any = true; }
+        else if (el.value && el.value.trim()) any = true;
+      });
+      return any;
+    }
+
+    function closeExit() {
+      if (!open) return;
+      open = false;
+      exit.classList.remove('is-in');
+      store('oyss:exit', String(Date.now()));
+      setTimeout(function () { exit.hidden = true; }, 380);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function openExit() {
+      /* Never interrupt somebody who is mid-form. Whatever this
+         modal offers is worth less than the application they are
+         already filling in. */
+      if (open || typedSomething() || recently('oyss:exit', 7)) return;
+      open = true;
+      lastFocus = document.activeElement;
+      exit.hidden = false;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { exit.classList.add('is-in'); });
+      });
+      var first = exit.querySelector('.btn');
+      if (first) first.focus();
+    }
+
+    exit.querySelector('.exit__x').addEventListener('click', closeExit);
+    exit.querySelector('.exit__no').addEventListener('click', closeExit);
+    exit.addEventListener('click', function (e) { if (e.target === exit) closeExit(); });
+    document.addEventListener('keydown', function (e) {
+      if (!open) return;
+      if (e.key === 'Escape') { closeExit(); return; }
+      /* Focus stays in the dialog while it is open. */
+      if (e.key !== 'Tab') return;
+      var f = exit.querySelectorAll('button, a[href]');
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    /* POINTER: the mouse leaving through the TOP of the window,
+       which is the only edge that means "going to the address bar
+       or the tab strip" rather than "reaching for the scrollbar". */
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var armed = false;
+      setTimeout(function () { armed = true; }, 6000);
+      document.addEventListener('mouseout', function (e) {
+        if (!armed || e.relatedTarget || e.clientY > 8) return;
+        openExit();
+      });
+    } else {
+      /* TOUCH: there is no exit gesture, so the honest equivalent
+         is a fast upward flick toward the address bar after the
+         reader has actually read something. Both conditions
+         matter: the flick alone is just scrolling. */
+      var readEnough = false;
+      var lastY = window.pageYOffset, lastT = Date.now();
+      window.addEventListener('scroll', function () {
+        var y = window.pageYOffset, t = Date.now();
+        var d = document.documentElement;
+        if ((y + window.innerHeight) / d.scrollHeight > 0.45) readEnough = true;
+        var dt = t - lastT;
+        if (readEnough && dt > 0 && dt < 260 && (lastY - y) / dt > 1.6 && y < 260) openExit();
+        lastY = y; lastT = t;
+      }, { passive: true });
+    }
+  };
+
+
+  /* ==========================================================
+     THE FRAME, ASSEMBLING
+     "Create a video here how it looks."
+     Four beats on the real component rather than a baked clip:
+     light, frame and mark, name plate, on air. Runs once when
+     scrolled to and replays on click or Enter. Rests ASSEMBLED,
+     so with JS off or reduced motion on, the reader simply sees
+     the finished frame, which is the useful state.
+     ========================================================== */
+  window.OYSS.buildFrame = function (id) {
+    var el = document.getElementById(id || 'panelist-build');
+    if (!el) return;
+    var steps = [].slice.call(document.querySelectorAll('.build__step'));
+    if (CALM) { steps.forEach(function (s) { s.classList.add('on'); }); return; }
+
+    var timers = [];
+    function clear() { timers.forEach(clearTimeout); timers = []; }
+    function at(n) {
+      el.setAttribute('data-build', String(n));
+      steps.forEach(function (s) { s.classList.toggle('on', +s.dataset.step <= n); });
+    }
+    function run() {
+      clear();
+      at(0);
+      [1, 2, 3, 4].forEach(function (n, i) {
+        timers.push(setTimeout(function () { at(n); }, 620 + i * 720));
+      });
+      timers.push(setTimeout(function () { el.removeAttribute('data-build'); }, 620 + 4 * 720));
+    }
+
+    el.addEventListener('click', run);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); }
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es, o) {
+        if (es[0].isIntersecting) { run(); o.disconnect(); }
+      }, { threshold: 0.4 }).observe(el);
+    } else { steps.forEach(function (s) { s.classList.add('on'); }); }
   };
 
 })();

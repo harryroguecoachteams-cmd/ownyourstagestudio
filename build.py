@@ -195,13 +195,25 @@ def masthead(current, base):
 
 
 def footer(base):
+    # THE BIG LINES.
+    # Lifted from the v2 build the client flagged as the one thing he liked in
+    # it, and it is the right call: the tagline is the strongest asset the brand
+    # owns and it was being whispered in 19px sans halfway down a column. Set at
+    # display scale it does what the deck's closing panel does on page 25, and
+    # the split colour is the deck's own: the promise in ivory, what you get in
+    # gold.
     return f"""<footer class="footer">
+  <div class="wrap">
+    <p class="footer__lines">
+      <span>We build the stage.</span>
+      <span class="footer__lines--gold">You steal the show.</span>
+    </p>
+  </div>
   <div class="wrap">
     <div class="footer__grid">
       <div>
         {lockup("fb", base)}
-        <p class="footer__promise">We build the stage. You steal the show.</p>
-        <p class="caption" style="margin-top:1rem;max-width:34ch">
+        <p class="caption" style="margin-top:1.1rem;max-width:34ch">
           A premium authority building studio for established experts ready to become
           more visible, more credible and easier to remember.
         </p>
@@ -228,7 +240,7 @@ def footer(base):
     </div>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span>ownyourstagestudio.com</span>
+      <span class="footer__note">The room is already looking for you.</span>
     </div>
   </div>
 </footer>"""
@@ -238,6 +250,29 @@ def footer(base):
 # WhatsApp, LinkedIn and iMessage because no page carried an og:image, and the
 # obvious asset was sitting unused: the holding slide is the studio's own most
 # seen artwork and it is already 16:9.
+# Per-kind prompt configuration. `home` and `guide` are pages somebody is
+# READING, so a prompt is the natural next step. `form` and `agreement` are
+# pages somebody is DOING, so both surfaces stay off: the action is already
+# in front of them and an interruption there costs a conversion rather than
+# earning one.
+PROMPTS = {
+    "home": """<script>OYSS.prompts({
+  after: '.figure__value',
+  barTitle: 'Ready to host your own panel?',
+  barMeta: 'Eight minutes to apply. No payment at this step.',
+  barCta: 'Apply to host', barHref: 'apply.html'
+});</script>""",
+    "guide": """<script>OYSS.prompts({
+  after: '.flood, .figure__value, .bay--half',
+  barTitle: 'Find out where you stand first.',
+  barMeta: 'Eight questions, three minutes, no email required.',
+  barCta: 'Take the assessment', barHref: 'assessment.html',
+  exitTitle: 'One question before you go.',
+  exitBody: 'Would the people in your industry name a subject when they describe you? Eight questions tells you, in about three minutes.'
+});</script>""",
+}
+
+
 SHELL = """<!doctype html>
 <html lang="en">
 <head>
@@ -282,6 +317,7 @@ body {{ background: #F7F2E8; }}
 
 </div>
 <script src="{base}assets/oyss.js?v={v}"></script>
+{prompts}
 {inline}
 </body>
 </html>
@@ -318,9 +354,17 @@ def build():
         # once here beats hand-tagging it across nine pages.
         body = body.replace("&trade;", '<span class="tm">&trade;</span>')
 
+        # THE PROMPTS.
+        # A page whose own job IS the action never gets a bar or an exit
+        # modal: a form page already has the thing on screen, and a contract
+        # is not a place to be interrupted. So the surfaces are declared per
+        # KIND rather than switched on globally, and there is exactly one
+        # place to change that.
+        prompts = PROMPTS.get(kind, "")
+
         out.write_text(SHELL.format(
             title=title, desc=desc, base=base, v=ASSET_V,
-            progress=progress,
+            progress=progress, prompts=prompts,
             masthead=masthead(fname, base),
             footer=footer(base),
             body=body.strip(),
