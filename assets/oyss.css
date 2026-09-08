@@ -2467,15 +2467,18 @@
    bleed right, masthead transparent over it.
 
    What changes is only the size and what is in the panel. The
-   home page gets the doorway film. Every other page gets a still
-   PLATE CUT FROM THE BRAND FILM, so the picture at the top of a
-   page is a frame of the same stage the film is shot on rather
-   than stock, and the whole site is lit by one lamp.
+   home page gets the spotlight footage. Every other page gets a
+   COMMISSIONED STILL, one per page rather than one plate reused
+   six times, chosen so the picture at the top of a page is about
+   that page:
 
-     plate-solo   one figure in the beam        about, assessment, contact
-     plate-rig    the host frame and the panel  experience, apply
-     plate-live   the same rig, on air          panelists, panelist application
-     plate-keep   the content strip afterwards  faq, both agreements
+     panel-host   the host frame, lit          apply
+     panel-room   four experts in conversation experience, panelist application
+     attendee     watching, screen on the face assessment
+     desk         a closed notebook and a pen  spotlight call
+     clips        the footage afterwards       faq
+     room-empty   an empty lit room            about
+     texture      a raked dark surface         both agreements
 
    Two sizes. A guide is something you read, so its head can take
    the room. A form or an agreement is an object you fill in, and
@@ -3622,3 +3625,256 @@
 @media (max-height: 820px) {
   .oyss .reel--short .reel__copy { padding-bottom: clamp(80px, 13vh, 140px); }
 }
+
+
+/* ============================================================
+   39. READING SIZE
+   ------------------------------------------------------------
+   "make para text bigger because the audience is going to be old
+   coaches or established personalities."
+
+   That is the whole brief and it is correct. The buyer this site
+   describes is an established expert with years behind them, so
+   the median reader is 45 to 65, and 17px body at 1.65 is a
+   young designer's number. It is also the single cheapest thing
+   on the site to get right: nobody has ever left a page because
+   the words were too easy to read.
+
+   The deck's ladder is a set of RATIOS, not a set of pixel
+   values: "Each step is roughly 1.4 times the one below it.
+   Sizes may scale, but never the relationships." (p11) So every
+   rung moves together and the ratios hold. Nothing here breaks
+   the deck; it scales it.
+
+     body     17    -> 19px      (+12%)
+     lead     18-21 -> 20-23px
+     caption  14    -> 15.5px
+     action   14    -> 14.5px
+     eyebrow  12    -> 12.5px, and tracking eased with it
+
+   Line height goes up with size rather than staying put, because
+   a longer line at a larger size needs more leading, not less.
+   And the measure comes DOWN in ch: bigger type on the same
+   column width is more characters per line, which is the thing
+   that actually tires an older reader.
+   ============================================================ */
+
+.oyss {
+  --t-eyebrow: .78125rem;                                  /* 12.5 */
+  --t-caption: .96875rem;                                  /* 15.5 */
+  --t-action:  .90625rem;                                  /* 14.5 */
+  --t-body:    1.1875rem;                                  /* 19   */
+  --t-lead:    clamp(1.25rem, 1.12rem + .5vw, 1.4375rem);  /* 20-23 */
+  line-height: 1.7;
+  /* 34rem at 19px is ~64ch, which is past the comfortable band.
+     Measured in ch so it stays right whatever the rem is. */
+  --measure: 62ch;
+}
+
+.oyss .lead { line-height: 1.5; }
+.oyss .body { line-height: 1.72; }
+.oyss .caption { line-height: 1.6; }
+
+/* The eyebrow is small caps at 12.5px; .26em tracking was set for
+   11px and opens too far once the glyphs grow. */
+.oyss .eyebrow { letter-spacing: .2em; }
+
+/* Long-form prose gets its own step up again. These are the two
+   places on the site where somebody reads more than a sentence. */
+.oyss .essay__body .p { font-size: 1.21875rem; line-height: 1.78; }   /* 19.5 */
+.oyss .creed { line-height: 1.66; }
+
+/* The manifest is a list of things you receive, so it is read
+   item by item rather than scanned. */
+.oyss .manifest__item { font-size: 1.15625rem; }                       /* 18.5 */
+.oyss .manifest__item span { font-size: 1rem; line-height: 1.6; }      /* 16   */
+
+/* The cue sheet's supporting copy was .caption, which at the old
+   14px made the most substantive paragraphs on the page the
+   smallest type in the section. */
+.oyss .cuerow .caption { font-size: 1.0625rem; line-height: 1.68; }    /* 17   */
+.oyss .terms p { font-size: 1.0625rem; line-height: 1.72; }
+.oyss .ticklist li { font-size: 1.0625rem; line-height: 1.6; }
+
+/* Form fields and their labels move with the body: a 60 year old
+   filling in a $2,997 application should not be squinting at the
+   thing that takes their money. */
+.oyss .field__input, .oyss .field__label { font-size: 1.0625rem; }
+.oyss .field__hint { font-size: .96875rem; }
+
+/* A phone is held closer, so the step up is smaller there, and
+   the measure is the viewport rather than the type. */
+@media (max-width: 620px) {
+  .oyss { --t-body: 1.125rem; --t-caption: .9375rem; }
+  .oyss .essay__body .p { font-size: 1.15625rem; }
+  .oyss .manifest__item { font-size: 1.09375rem; }
+}
+
+
+/* ============================================================
+   40. KNOWING WHERE YOU ARE, AND WHAT HAPPENS NEXT
+   ------------------------------------------------------------
+   "great copy so people know which site they are at and how to
+   perform the actions."
+
+   Two different problems wearing one sentence.
+
+   ORIENTATION. The masthead says OWN YOUR STAGE / STUDIO, and a
+   stranger cannot tell from that whether this is a theatre
+   company, a design agency or a recording studio. The one word
+   that fixes it is a descriptor, and the deck already has the
+   slot: the horizontal lockup pairs the wordmark with a
+   descriptor set beneath (p16, p19). It says STUDIO. It can say
+   what kind. No bar, no strip: the words go inside the lockup
+   that is already there, so nothing is added to the page.
+
+   ACTION. Every button on the site named a destination and none
+   of them said what happens after the click. A 60 year old
+   about to spend $2,997 wants to know how long the form is,
+   whether it takes their money now, and who reads it. That is
+   not decoration, it is the difference between clicking and
+   closing the tab. `.donext` puts that under the button, in the
+   button's own column, at reading size.
+   ============================================================ */
+
+/* ---- 40.1 THE DESCRIPTOR ------------------------------------
+   The lockup's second line becomes load-bearing. It stays the
+   deck's letterspaced sans caption under the wordmark; it just
+   carries information now instead of repeating the last word of
+   the name. Tracking eases as the string gets longer, because
+   .58em was set to make one five-letter word span a wordmark.
+   ------------------------------------------------------------ */
+
+.oyss .lockup__desc { letter-spacing: .24em; font-size: .5625rem; }
+/* Below 460px the descriptor is competing with the burger for a 390px bar, and
+   the burger has to win: it is the only way to the rest of the site. The
+   descriptor drops to the word the deck specifies, and the full line still
+   does the orienting job in the hero eyebrow one scroll down. */
+@media (max-width: 460px) {
+  .oyss .lockup__desc { letter-spacing: .3em; }
+  .oyss .lockup__desc .lockup__what { display: none; }
+}
+
+/* ---- 40.2 WHAT HAPPENS NEXT ---------------------------------
+   Sits under a primary action, never beside it, so the eye
+   finishes the button and drops straight onto the consequence.
+   ------------------------------------------------------------ */
+
+.oyss .donext {
+  margin-top: 1.05rem;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.62;
+  color: var(--slate);
+}
+.oyss .dark .donext, .oyss .stage .donext { color: rgba(247, 242, 232, .74); }
+.oyss .donext b { font-weight: 600; color: var(--navy); }
+.oyss .dark .donext b, .oyss .stage .donext b { color: var(--ivory); }
+
+/* ---- 40.3 THE STEPS -----------------------------------------
+   What actually happens between clicking apply and standing on
+   the stage. Four lines, numbered because here the order IS the
+   content, on a hairline rail rather than in cards.
+
+   This is also the least AI-shaped block on the page, and that
+   is not an accident: what makes copy read as human is knowing
+   things a stranger could not have guessed. "Annette reads it
+   herself" and "we hold the date for five working days" are
+   facts about how a two person studio actually runs. No model
+   writing generic landing copy produces those, because they are
+   not generic and they are not copy: they are operations.
+   ------------------------------------------------------------ */
+
+.oyss .steps { margin-top: clamp(30px, 4vw, 46px); max-width: 46rem; }
+.oyss .step {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: clamp(12px, 1.6vw, 22px);
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(16, 26, 49, .13);
+  align-items: baseline;
+}
+.oyss .step:last-child { border-bottom: 1px solid rgba(16, 26, 49, .13); }
+.oyss .dark .step, .oyss .stage .step { border-top-color: rgba(215, 206, 192, .16); }
+.oyss .dark .step:last-child, .oyss .stage .step:last-child { border-bottom-color: rgba(215, 206, 192, .16); }
+.oyss .step__n {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #84662A;
+  line-height: 1.4;
+}
+.oyss .dark .step__n, .oyss .stage .step__n { color: var(--gold); }
+.oyss .step__t { font-size: 1.0625rem; line-height: 1.68; color: var(--navy); }
+.oyss .dark .step__t, .oyss .stage .step__t { color: var(--ivory-70); }
+.oyss .step__t b { font-weight: 600; }
+.oyss .step__t strong { font-weight: 600; color: var(--navy); }
+.oyss .dark .step__t strong, .oyss .stage .step__t strong { color: var(--ivory); }
+
+/* ---- 40.4 THE ASIDE -----------------------------------------
+   One editorial device the whole site shares and nothing else
+   on the internet has in quite this shape: a short line hung in
+   the left margin, set in the serif, beside a section it
+   comments on. It is the voice of the studio talking about its
+   own page rather than to the customer.
+
+   It exists because every section on this site was addressing
+   the reader in the same register, and a page where nothing
+   ever changes tone is a page nobody wrote.
+   ------------------------------------------------------------ */
+
+.oyss .marginal {
+  position: relative;
+  padding-left: clamp(14px, 1.4vw, 20px);
+  border-left: 2px solid var(--gold);
+  max-width: 26rem;
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  font-style: italic;
+  line-height: 1.44;
+  color: var(--slate);
+}
+.oyss .dark .marginal, .oyss .stage .marginal { color: var(--ivory-70); }
+.oyss .marginal cite {
+  display: block;
+  margin-top: .7rem;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #84662A;
+}
+.oyss .dark .marginal cite, .oyss .stage .marginal cite { color: var(--gold); }
+
+
+/* ============================================================
+   41. BREAKING THE METRONOME
+   ------------------------------------------------------------
+   "The layout is fine but it is still giving AI design vibes."
+
+   What was left was RHYTHM, in the most literal sense. Every
+   section on the site used `--bay` for its padding, so the
+   vertical beat between one idea and the next was identical
+   eleven times running. No human lays out a long page that way:
+   they give the important section more air and push two related
+   ones together, and the reader feels the argument grouping
+   itself without ever noticing why.
+
+   So the padding is set by hand, in three sizes, by what the
+   section is doing rather than by a formula:
+
+     .bay--open   the page's two or three big moments
+     .bay         the default
+     .bay--tight  a section that belongs to the one above it
+
+   Nothing here is a new component. It is the same page, breathing
+   unevenly on purpose.
+   ============================================================ */
+
+.oyss .bay--open  { padding: clamp(104px, 14vw, 190px) 0; }
+.oyss .bay--tight { padding: clamp(44px, 5vw, 74px) 0; }
+/* A tight section following an open one needs its top seam pulled
+   in or the two read as one long pause. */
+.oyss .bay--open + .bay--tight { padding-top: clamp(30px, 3.5vw, 52px); }

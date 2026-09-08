@@ -26,14 +26,18 @@ STILLS = [
     ("panel-c",      "panel-c.png",              900, 16 / 9, 0.42),
     ("panel-d",      "panel-d.png",              900, 16 / 9, 0.42),
     ("panel-e",      "panel-e.png",              900, 16 / 9, 0.42),
-    ("panel-f",      "panel-f.png",              900, 16 / 9, 0.42),
+    # panel-f is generated but not shipped: the rig is one host plus five
+    # panelists, so the sixth face has nowhere to sit. Kept in raw/ as a
+    # spare in case a face needs replacing.
+    # ("panel-f",    "panel-f.png",              900, 16 / 9, 0.42),
     # shot 01, for the essay column: kept portrait
     ("expert",       "host-portrait.png",        860, None,   0.50),
     # shots 02 to 06
     ("panel-room",   "panel-conversation.png",  1500, 3 / 2,  0.50),
     ("attendee",     "attendee-screenlight.png", 1400, 16 / 9, 0.50),
     ("room-empty",   "empty-room.png",          1500, 16 / 9, 0.52),
-    ("notebook",     "hands-notebook.png",      1400, 16 / 9, 0.52),
+    ("desk",         "desk-still.png",          1400, 16 / 9, 0.52),
+    ("control",      "control-room.png",        1500, 16 / 9, 0.50),
     ("texture",      "texture-plate.png",       1400, 16 / 9, 0.50),
     ("clips",        "content-clips.png",       1400, 16 / 9, 0.50),
 ]

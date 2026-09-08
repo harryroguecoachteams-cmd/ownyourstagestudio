@@ -654,3 +654,128 @@ $47, the assessment captures no lead, and the domain is not connected.
 **And one thing for Annette:** her Zoom stage PNGs still carry the OLD lockup,
 the navy disc with the lamp icon, which the site replaced. The site and her
 Zoom backgrounds now disagree. Re-rendering those is her call.
+
+---
+
+# Reading size, real images and the studio's voice, 9 September 2026
+
+Three notes: `notebook.jpg` was "giving full ai vibe" with "gibberish" text on
+it, the layout still read as AI-designed, and the body copy was too small for an
+audience of established coaches.
+
+## The two things an image model always fails at
+
+`notebook.jpg` had an open ruled page held in sharp focus under a hand. That is
+the exact intersection of the two subjects this model cannot do: **writing** and
+**hands**. The page carried gibberish squiggles and the second hand had a wrong
+thumb. Both are hard to describe and unmistakable to look at.
+
+The fix is not a better prompt for the same shot. It is a shot with no failure
+surface:
+
+- the notebook is **closed**, the pen rests on it, there are **no hands**, and
+  the sharp point of the picture is the pen nib
+- `HOUSE` now bans writing explicitly and by consequence: "no handwriting, no
+  print, no signage, no labels, no numbers, no letters... any paper or screen
+  surface is blank or too far out of focus to read"
+
+**Rule for anything generated from here on: never frame legible text or hero
+hands.** Frame them out; do not prompt them away.
+
+`host-portrait` was re-shot for the same class of reason. The first version was
+a retouched, symmetrical, eyes-to-camera corporate headshot, which is the single
+most recognisable AI-stock look there is. Reprompted as reportage: caught mid
+thought, looking off camera, not smiling, visible skin texture, unretouched, the
+register of a broadsheet profile rather than a headshot. The difference is not
+subtle.
+
+## One new shot the deck could not have listed
+
+`control.jpg`: a producer at a darkened desk facing a wall of monitors showing
+the panel's speakers in their separate frames. The deck's shot list covers the
+client's world; this one is **the studio's own workplace**, and it is the most
+persuasive picture on the site because it is the only one showing the thing
+being bought actually being done. No text, no hands, nothing to fail. It carries
+stage four of the process, captioned in the studio's own voice.
+
+## Reading size
+
+The buyer this site describes is an established expert with years behind them,
+so the median reader is somewhere between 45 and 65. 17px at 1.65 is a young
+designer's number.
+
+Deck page 11 is explicit that the ladder is a set of **ratios**: "Each step is
+roughly 1.4 times the one below it. Sizes may scale, but never the
+relationships." So every rung moved together and the ratios hold.
+
+    body        17    -> 19px      (+12%)
+    lead        18-21 -> 20-23px
+    caption     14    -> 15.5px
+    eyebrow     12    -> 12.5px, tracking eased from .26em to .2em
+    essay prose 19    -> 19.5px at 1.78
+    line-height 1.65  -> 1.7
+
+The measure came **down**, from 34rem to 62ch. Bigger type on the same column
+width means more characters per line, which is the thing that actually tires an
+older reader. Form fields and labels moved with the body: a sixty year old
+filling in a $2,997 application should not be squinting at the part that takes
+their money.
+
+## Where you are, and what happens next
+
+**Orientation.** The masthead said OWN YOUR STAGE / STUDIO, from which a
+stranger cannot tell whether this is a theatre company, a design agency or a
+recording studio. The descriptor line under the wordmark, which the deck already
+specifies (p16, p19), now carries `Studio - Virtual panel events`. No bar and no
+strip was added: the words went inside the lockup that was already there. Below
+460px the descriptor drops back to `Studio` so the burger keeps its room.
+
+**Action.** Every button named a destination and none said what happens after
+the click. New `.donext` micro-copy sits under each primary action, and a four
+step block on the home page says what actually occurs between applying and
+standing on the stage.
+
+### THE FOUR STEPS ARE PROPOSED, NOT CONFIRMED
+
+This is the same method used for the run of show in the previous round: design
+the answer, put it on the page, and let Annette correct by exception rather than
+answering an open question. **These specific claims need her sign-off before
+launch:**
+
+- the application takes about eight minutes and Annette reads every one herself
+- she replies within two working days, either way
+- a no comes with what we would do instead
+- a chosen date is held for five working days while the agreement is read
+- nothing is charged until signature
+- a Spotlight Call is thirty minutes, no charge, and she offers two or three
+  times that week
+- the panelist $47 is only asked for once a place on a specific panel is offered
+
+Every one is plausible for a two person studio and none is contradicted by the
+documents, but they are operations, not marketing, and only she can confirm them.
+
+## Breaking the metronome
+
+The last structural tell was rhythm in the literal sense: all eleven sections
+used `--bay`, so the vertical beat between one idea and the next was identical
+every time. No human lays out a long page that way. Padding is now set by hand
+in three sizes by what the section is doing: `.bay--open` for the page's big
+moments, `.bay` for the default, `.bay--tight` for a section that belongs to the
+one above it.
+
+And one device that is only this client's: `.marginal`, a short line hung in the
+left margin in the serif, in **the studio's voice rather than the sales voice**,
+the producer talking about the page while the page is running. Used once, on the
+division of responsibilities: "The second column is the one clients argue with.
+We put it on the sales page anyway, because finding it in the agreement three
+weeks later is how engagements go wrong."
+
+## Housekeeping
+
+Removed: `notebook.jpg`, the four `plate-*.jpg` stills cut from the retired
+brand film, `hero-portal-loop.mp4`, `stage-frame-host.jpg`, and the 25 second
+brand film itself, which has not been on a page since the human pass.
+`assets/media/` is 2.5MB total. `panel-f` is generated and kept in `_art/raw/`
+as a spare face but not shipped: the rig is one host plus five panelists.
+
+55 probes, 0 findings, at the new type size.

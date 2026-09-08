@@ -41,21 +41,32 @@ HOUSE = (
     "amber key light, soft falloff into darkness, clean negative space, subtle "
     "grain and shallow depth of field. Premium corporate production still, the "
     "restraint of a Financial Times or Monocle portrait. Colour is limited to "
-    "deep navy, warm amber gold and skin tones. No text, no lettering, no logos, "
-    "no watermark, no captions, no user interface. No stage curtains, no "
-    "microphone stands, no podium, no lectern, no visible lamps or light fixtures "
-    "in shot, no audience, no confetti. "
+    "deep navy, warm amber gold and skin tones. "
+    # The two things this model reliably fails at are WRITING and HANDS, and both
+    # failures are unmistakable to a viewer even when they cannot name them. The
+    # notebook shot came back with gibberish squiggles on a page held in focus by
+    # a hand with a wrong thumb. So neither is prompted away: they are framed out.
+    "Absolutely no writing anywhere in the frame: no handwriting, no print, no "
+    "signage, no labels, no numbers, no letters, no logos, no watermark, no "
+    "captions, no user interface. Any paper or screen surface is blank or too "
+    "far out of focus to read. "
+    "No stage curtains, no microphone stands, no podium, no lectern, no visible "
+    "lamps or light fixtures in shot, no audience, no confetti. "
 )
 
 SHOTS = [
     # --- 01 host portrait, shoulders up, warm key, navy background -----------
+    # The first version came back as a glossy corporate headshot: retouched,
+    # symmetrical, eyes to camera, the single most recognisable AI-stock look
+    # there is. A real editorial portrait is caught rather than posed.
     ("host-portrait", "1024x1536", "high",
-     "A confident woman in her late forties, business attire, shoulders up "
-     "portrait, three quarter turn with eyes to camera, calm and authoritative "
-     "expression. Single warm key light at 45 degrees from camera left, gentle "
-     "rim light separating her from a deep navy background that falls off to "
-     "black. Headroom at the top of the frame. Sharp on the eyes, background "
-     "softly out of focus."),
+     "Reportage portrait of a woman in her fifties in a dark jacket, caught mid "
+     "thought and looking slightly off camera, not smiling, weight on one arm. "
+     "Visible skin texture and fine lines, unretouched, no makeup sheen. A "
+     "single warm key at 45 degrees from camera left, hard falloff into a deep "
+     "navy wall behind her. Shot on a 85mm lens wide open, sharp on the near "
+     "eye. Available light documentary feel, the register of a broadsheet "
+     "newspaper profile rather than a corporate headshot."),
 
     # --- 02 panel of four in conversation, mid shot, no podium --------------
     ("panel-conversation", "1536x1024", "high",
@@ -81,13 +92,30 @@ SHOTS = [
      "the frame is dark and empty with nothing in it. Architectural, still, no "
      "furniture."),
 
-    # --- 05 hands and notebook, shallow depth, warm desk lamp ---------------
-    ("hands-notebook", "1536x1024", "low",
-     "Close overhead crop of a pair of hands writing in an open notebook on a "
-     "dark walnut desk, a warm pool of amber light falling across the page from "
-     "the upper left, the rest of the desk falling into deep navy shadow. Very "
-     "shallow depth of field, the pen nib sharp and the far edge of the desk "
-     "soft. Quiet, expensive, unstyled."),
+    # --- 05 the deck's "hands and notebook, shallow depth, warm desk lamp" ---
+    # Reframed, not re-rolled. The first attempt put an open ruled page in sharp
+    # focus under a hand, which is the exact intersection of the model's two
+    # worst subjects. Here the book is CLOSED, the hand is a soft shape at the
+    # edge, and the sharp point is the pen. Same beat, no failure surface.
+    ("desk-still", "1536x1024", "high",
+     "Still life on a dark walnut desk: a closed leather notebook with a slim "
+     "black fountain pen resting across it, a heavy ceramic cup to one side, "
+     "seen from a low three quarter angle. A warm pool of amber light falls "
+     "across the desk from the upper left and the rest of the room is deep navy "
+     "shadow. Very shallow depth of field, sharp on the pen, everything else "
+     "soft. No hands, no paper, nothing open. Quiet, expensive, unstyled."),
+
+    # The control room. This is the shot the site actually needed and the deck
+    # could not have listed, because it is the studio's own workplace: a
+    # producer switching a live panel. Concrete, specific to this business, and
+    # nothing in it is a stock idea.
+    ("control-room", "1536x1024", "high",
+     "Over the shoulder of a producer at a darkened production desk, silhouetted "
+     "in the foreground and out of focus, facing a wall of monitors showing an "
+     "indistinct grid of people talking in separate video frames. The monitor "
+     "glow is the main light, warm amber from a small source at the desk edge. "
+     "Deep navy room, everything beyond the desk falling away to black. The "
+     "screens are soft and unreadable. Documentary, unposed, shallow focus."),
 
     # --- 06 texture plate, dark surface with a single light shaft -----------
     ("texture-plate", "1536x1024", "low",

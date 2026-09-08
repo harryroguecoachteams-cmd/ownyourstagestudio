@@ -172,7 +172,7 @@ def lockup(gid, base):  # gid kept: the callers name their instances
       {LOGO_SVG}
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
-        <span class="lockup__desc">Studio</span>
+        <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
       </span>
     </a>"""
 
