@@ -517,6 +517,38 @@
       }, { threshold: 0.12 }).observe(clip);
     }
 
+    /* THE BAND CLIPS.
+       These are ambient: haze moving behind a headline, with the poster
+       carrying the same frame. So on a phone they must not load at all,
+       and `preload="none"` cannot express that on its own, because the
+       autoplay attribute overrides it: the browser fetches enough to
+       start playing whatever preload says. Measured, not assumed - all
+       three mp4s were being pulled on a 390px viewport.
+
+       So the band clips carry no autoplay and no <source> until this
+       decides. Under 760px, or under reduced motion, or on a metered
+       connection, the src is never set and the CSS poster is the
+       section. */
+    document.querySelectorAll('.band__media video').forEach(function (clip) {
+      var wide = window.matchMedia('(min-width: 761px)').matches;
+      if (!wide || CALM || METERED) return;
+      var src = clip.getAttribute('data-src');
+      if (!src) return;
+      var armed = false;
+      var arm = function () {
+        if (armed) return;
+        armed = true;
+        clip.src = src;
+        clip.load();
+        playSafely(clip);
+      };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es, obs) {
+          if (es[0].isIntersecting) { arm(); obs.disconnect(); }
+        }, { rootMargin: '200px 0px' }).observe(clip);
+      } else { arm(); }
+    });
+
     document.querySelectorAll('.reel__media video').forEach(function (clip) {
       if (CALM || METERED) {
         clip.removeAttribute('autoplay');

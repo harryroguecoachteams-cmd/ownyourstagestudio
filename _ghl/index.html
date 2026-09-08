@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=afa76e93">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=7db6a91b">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -24,8 +24,16 @@
   <div class="wrap masthead__inner">
     <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -97,7 +105,7 @@
      offset column of running prose, because a page where every
      section is built from the same kit reads as machine made
      however good each section is. -->
-<section class="essay">
+<section class="essay essay--faced">
   <div class="essay__inner">
     <div class="essay__body" data-lit>
       <p class="essay__open">Most experts are not short of expertise.</p>
@@ -112,7 +120,11 @@
         work are two different jobs, and only one of them is the one you trained for.
       </p>
     </div>
-    <p class="essay__note" data-lit data-cue="2">
+    <figure class="essay__portrait" data-lit data-cue="2">
+      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/expert.jpg" width="860" height="1290"
+           alt="An expert photographed shoulders up under a single warm key light against a deep navy ground.">
+    </figure>
+    <p class="essay__note" data-lit data-cue="3">
       Who this is not for: anyone new to their field, still building a first offer, or hoping
       an event will stand in for experience they have not had yet. The host carries the room.
       That only works when there is something behind it.
@@ -122,57 +134,52 @@
 
 
 <!-- ============ 3. THE STAGE, SHOWN ============
-     The evidence. A studio selling production has to show
-     production, and the branded stage frames are the only
-     produced artefacts that exist yet. They had never been on
-     the site.
+     The evidence, and the section that came back rejected as
+     flat. Deck page 22 explains why it was: the branded frames
+     keep their centre two thirds empty BECAUSE THAT IS WHERE THE
+     PERSON SITS. Shown empty they are a backdrop, not a product.
 
-     Composed as plates, not cards: unequal widths, unequal
-     baselines, the big one running off the left edge. -->
-<section class="bay dark stage showcase" id="stage">
+     So the stage is shown lit and occupied. Photography to the
+     deck's own page 21 commission list; the frames, the plates,
+     the stage lip and the mark stay live vector and live text
+     over the top. -->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="oyss-mark" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="32" fill="#F7F2E8"/>
+    <path d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="#1D2947"/>
+    <ellipse cx="32" cy="50.3" rx="17.8" ry="4.8" fill="#101A31"/>
+  </symbol>
+</svg>
+
+<section class="band band--build dark" id="stage">
+  <div class="band__media" aria-hidden="true">
+    <video muted playsinline preload="none" loop
+           data-src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-build.mp4"
+           poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-build-poster.jpg"></video>
+  </div>
+  <div class="wrap band__copy" data-lit>
+    <h2 class="display" style="font-size:clamp(2rem,1.4rem+2.4vw,3.3rem);max-width:16ch">
+      What the room actually looks like.
+    </h2>
+    <span class="pool" aria-hidden="true"></span>
+    <p class="lead" style="margin-top:1.6rem;max-width:36rem">
+      Every event runs on the studio's own stage. A holding slide while people arrive, a
+      framed nameplate for the host and one for each panelist, a gold rule along the floor
+      of every frame. The audience should not be able to tell it was a video call.
+    </p>
+  </div>
+</section>
+
+<section class="bay dark stage showcase">
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="showcase__lead" data-lit>
-      <h2>What the room actually looks like.</h2>
-      <p class="lead" style="margin-top:1.3rem">
-        Every event runs on the studio's own stage. A holding slide while people arrive, a
-        framed nameplate for the host and one for each panelist. The audience should not be
-        able to tell it was a video call.
-      </p>
-    </div>
 
-    <div class="showcase__set">
-      <figure class="plate plate--wide" data-lit data-cue="2">
-        <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-frame-host.jpg" width="1400" height="788"
-             alt="The host frame: a branded backdrop with a nameplate reading Host, Annette Knecht Seier, Founder, Own Your Stage Studio.">
-        <figcaption>
-          <b>Host frame</b>
-          The nameplate carries whoever is hosting, bottom right, over a gold rule along the
-          floor. This one is Annette's, from the studio's own stage.
-        </figcaption>
-      </figure>
-
-      <figure class="plate plate--tall" data-lit data-cue="3">
-        <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-holding-slide.jpg" width="1600" height="900"
-             alt="The Own Your Stage Studio holding slide: the wordmark and the line We build the stage. You steal the show., lit by a single beam on a dark ground.">
-        <figcaption>
-          <b>Holding slide</b>
-          On screen while the room fills, and again at the close. The most seen asset in the
-          brand, which is why the middle of the frame stays empty.
-        </figcaption>
-      </figure>
-
-      <div class="showcase__aside" data-lit data-cue="4">
-        <p class="body">
-          Panelist frames match it, each with their own name and title. All of it is built and
-          checked before the rehearsal, so nothing is being decided on the night.
-        </p>
-      </div>
-    </div>
-
-    <div style="margin-top:clamp(44px,6vw,80px)" data-lit data-cue="2">
-      <div class="rig rig--art" role="img" aria-label="A six frame panel rig: one large host frame and five panelist frames on the studio's branded backdrop, with the key light moving between them the way a producer switches cameras.">
+    <div data-lit>
+      <div class="rig rig--live" role="img" aria-label="A produced six frame panel: one large host frame and five panelist frames on the studio's branded stage, with the key light moving between the speakers the way a producer switches cameras.">
         <div class="frame frame--host on">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-host.jpg" width="1200" height="675" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg><b>Own Your Stage</b></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate">
             <div class="frame__role">Host</div>
@@ -180,31 +187,68 @@
             <div class="frame__sub">Your subject, your authority</div>
           </div>
         </div>
+
         <div class="frame">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-a.jpg" width="900" height="506" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-b.jpg" width="900" height="506" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-c.jpg" width="900" height="506" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-d.jpg" width="900" height="506" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
         <div class="frame">
+          <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-e.jpg" width="900" height="506" alt="">
+          <span class="frame__mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#oyss-mark"></use></svg></span>
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate"><div class="frame__role">Panelist</div><div class="frame__name" style="font-size:.9rem">Featured expert</div></div>
         </div>
       </div>
       <p class="rig__note">
         One host, five featured experts, and a key light that moves to whoever is speaking.
-        Names and titles go in once the panel is confirmed.
+        The frames are the studio's own. The faces are stand-ins until your panel is cast.
       </p>
+    </div>
+
+    <div class="showcase__set" style="margin-top:clamp(52px,7vw,96px)">
+      <figure class="plate plate--wide" data-lit data-cue="2">
+        <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-holding-slide.jpg" width="1600" height="900"
+             alt="The Own Your Stage Studio holding slide: the wordmark and the line We build the stage. You steal the show., lit by a single beam on a dark ground.">
+        <figcaption>
+          <b>Holding slide</b>
+          On screen while the room fills, and again at the close. The most seen asset in the
+          brand, and the reason the middle of every frame stays empty.
+        </figcaption>
+      </figure>
+
+      <div class="showcase__aside" data-lit data-cue="3" style="margin-top:clamp(60px,9vw,140px)">
+        <p class="body">
+          Panelist frames match the host's, each with their own name and title. A lower third
+          carries the speaker's name into the recording and every clip cut from it.
+        </p>
+        <p class="body" style="margin-top:1.1rem">
+          All of it is built and checked at the technical rehearsal, so nothing is being
+          decided on the night.
+        </p>
+        <div class="actions" style="margin-top:1.8rem">
+          <a class="cue" href="/experience">What a production includes</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -218,16 +262,26 @@
      six trademarks were doing no work on a sales page and made
      one service read as twelve products; they still carry their
      full names on the Experience page and in the agreement. -->
+<section class="band band--drift dark">
+  <div class="band__media" aria-hidden="true">
+    <video muted playsinline preload="none" loop
+           data-src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-drift.mp4"
+           poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-drift-poster.jpg"></video>
+  </div>
+  <div class="wrap band__copy" data-lit>
+    <p class="eyebrow">Three months, one event</p>
+    <h2 class="display" style="font-size:clamp(1.9rem,1.35rem+2.2vw,3.1rem);max-width:18ch">
+      What happens over three months.
+    </h2>
+    <p class="lead" style="margin-top:1.5rem;max-width:34rem">
+      Four stages. The strategy, the panel and the production are ours. The expertise and
+      the promotion are yours.
+    </p>
+  </div>
+</section>
+
 <section class="bay light">
   <div class="wrap">
-    <div style="max-width:44rem" data-lit>
-      <p class="eyebrow eyebrow--gold">Three months, one event</p>
-      <h2>What happens over three months.</h2>
-      <p class="lead" style="margin-top:1.3rem">
-        Four stages. The strategy, the panel and the production are ours. The expertise and
-        the promotion are yours.
-      </p>
-    </div>
 
     <div class="cuesheet">
       <div class="cuesheet__rail" aria-hidden="true"><span class="cuesheet__marker"></span></div>
@@ -282,6 +336,15 @@
         </div>
       </div>
     </div>
+
+    <figure class="figure-wide" data-lit data-cue="3" style="max-width:62rem">
+      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/notebook.jpg" width="1400" height="788"
+           alt="Hands writing in an open notebook under a warm desk light, the rest of the desk in shadow.">
+      <figcaption>
+        Stage one is a conversation, not a form. What comes out of it is the subject you will
+        be known for, and everything after it is built on that.
+      </figcaption>
+    </figure>
 
     <div class="actions" style="margin-top:2.6rem" data-lit>
       <a class="cue" href="/experience">The full running order</a>
@@ -359,6 +422,15 @@
       <span>Delivered as the ninety day content package.</span>
       <span>Exact deliverables are confirmed in the schedule attached to the Host Services Agreement.</span>
     </p>
+
+    <figure class="figure-wide" data-lit data-cue="4">
+      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/clips.jpg" width="1400" height="788"
+           alt="Short-form clips cut from a produced panel, shown running on three phones in a dark room.">
+      <figcaption>
+        The event runs once. The clips cut from it are still working ninety days later, which
+        is the half of this that most people underestimate.
+      </figcaption>
+    </figure>
   </div>
 </section>
 
@@ -428,8 +500,13 @@
      A new company with no client list has one piece of proof
      that it is run by a person, and that is the person. The
      quotation is Annette's own, verbatim from the completed
-     brand discovery questionnaire; nothing here is invented. -->
-<section class="bay paper">
+     brand discovery questionnaire; nothing here is invented.
+
+     This is also the site's one gold field. The palette allows
+     exactly that: "SPOTLIGHT HIGHLIGHT. Rare. A single panel, a
+     pull quote, a moment of emphasis." (deck p13) One pull
+     quote, once, and nowhere else on the site. -->
+<section class="bay goldfield">
   <div class="wrap">
     <div class="byline">
       <figure class="portrait" data-lit>
@@ -519,8 +596,16 @@
       <div>
         <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -561,5 +646,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=afa76e93"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=7db6a91b"></script>
 

@@ -2503,32 +2503,35 @@
 .oyss .reel .caption { color: var(--ivory-46); margin-top: 1.1rem; max-width: 32rem; }
 .oyss .reel .draft-flag { margin-top: 1.5rem; }
 
-/* Plates are stills. On a desktop the panel is portrait and the crop is
-   horizontal, so this does nothing; on a phone the panel is a wide slot and
-   the crop is vertical, and a centred crop cuts the host frame off the top of
-   the rig and the figure off the bottom of the solo. So each plate is centred
-   on the band its subject actually occupies. Measured off the plates, not
-   guessed. */
-/* Written against `.reel__media img` and not against the plate class alone:
-   the base rule that sets the doorway clip's framing is .oyss .reel__media img,
-   which outranks a bare .oyss .reel__plate--rig and silently wins. */
-/* On a desktop the panel is near square and the plates are 1.23:1, so the
-   crop is almost entirely horizontal and these barely bite. */
-.oyss .reel__media img.reel__plate--rig  { object-position: center 42%; }
-.oyss .reel__media img.reel__plate--live { object-position: center 50%; }
-.oyss .reel__media img.reel__plate--solo { object-position: center 62%; }
-.oyss .reel__media img.reel__plate--keep { object-position: center 32%; }
+/* Plates are stills, and every one of them is now a commissioned photograph
+   rather than a frame lifted out of the retired brand film. Each page carries
+   the shot that belongs to it, so the framing is per subject, not per class.
 
-/* Narrow: the panel becomes a wide short slot that cannot hold what a tall one
-   can, so each plate re-centres on the one thing it still has room for. These
-   have to sit AFTER the rules above and not merely inside a media query: the
-   selectors are identical, a media query adds no specificity, and source order
-   is the only thing deciding which of them wins. */
+   Written against `.reel__media img` and not the plate class alone: the base
+   rule that sets the hero clip's framing is .oyss .reel__media img, which
+   outranks a bare .oyss .reel__plate and silently wins. That bug has been paid
+   for twice on this project.
+
+   On a desktop the panel is near square and these barely bite. Narrow, it
+   becomes a wide short slot that cannot hold a whole portrait, so the second
+   block re-centres on the one thing each frame still has room for: a face.
+   Those rules must sit AFTER these and not merely inside a media query, since
+   the selectors are identical and source order is what decides. */
+.oyss .reel__media img[src$="panel-host.jpg"] { object-position: center 38%; }
+.oyss .reel__media img[src$="panel-room.jpg"] { object-position: center 44%; }
+.oyss .reel__media img[src$="attendee.jpg"]   { object-position: center 46%; }
+.oyss .reel__media img[src$="notebook.jpg"]   { object-position: center 52%; }
+.oyss .reel__media img[src$="clips.jpg"]      { object-position: center 54%; }
+.oyss .reel__media img[src$="texture.jpg"]    { object-position: center 50%; }
+.oyss .reel__media img[src$="room-empty.jpg"] { object-position: center 58%; }
+
 @media (max-width: 1040px) {
-  .oyss .reel__media img.reel__plate--rig  { object-position: center 55%; }
-  .oyss .reel__media img.reel__plate--live { object-position: center 62%; }
-  .oyss .reel__media img.reel__plate--solo { object-position: center 81%; }
-  .oyss .reel__media img.reel__plate--keep { object-position: center 25%; }
+  .oyss .reel__media img[src$="panel-host.jpg"] { object-position: center 30%; }
+  .oyss .reel__media img[src$="panel-room.jpg"] { object-position: center 34%; }
+  .oyss .reel__media img[src$="attendee.jpg"]   { object-position: center 38%; }
+  .oyss .reel__media img[src$="notebook.jpg"]   { object-position: center 56%; }
+  .oyss .reel__media img[src$="clips.jpg"]      { object-position: center 58%; }
+  .oyss .reel__media img[src$="room-empty.jpg"] { object-position: center 70%; }
 }
 
 @media (min-width: 1041px) and (max-height: 780px) {
@@ -3191,4 +3194,431 @@
 }
 @media (max-width: 620px) {
   .oyss .reel--spot .reel__media { height: clamp(250px, 32svh, 360px); }
+}
+
+
+/* ============================================================
+   37. THE BRAND DECK PASS
+   ------------------------------------------------------------
+   A second reader went back to OYSS_Brand_Deck_v3 and said the
+   site had drifted from it. They were right on five counts, and
+   every one is a sentence in the deck rather than a matter of
+   taste. Each fix below cites its page.
+   ============================================================ */
+
+/* ---- 37.1 THE MARK IS A COMPLETE CIRCLE (deck p17, p19) -----
+   "The icon is always a complete circle or a complete square. It
+   is never bled off an edge or half shown." There are five
+   approved colourways and a bare beam is not one of them.
+
+   The disc was dropped in an earlier pass because a navy circle
+   on a navy bar is invisible. The deck's own website mock, page
+   24, answers that by flipping the colourway rather than
+   deleting the shape: an ivory disc carrying a navy beam. So
+   that is the default here, because both places this mark
+   appears (masthead, footer) are dark grounds, and the primary
+   gold-on-navy is kept for light grounds.
+   ------------------------------------------------------------ */
+
+.oyss .lockup__icon .disc    { fill: var(--ivory); }
+.oyss .lockup__icon .beam-a  { stop-color: #2A3654; }
+.oyss .lockup__icon .beam-b  { stop-color: #17223D; }
+.oyss .lockup__icon .beam-c  { stop-color: #101A31; stop-opacity: .22; }
+.oyss .lockup__icon .pooltop { fill: var(--navy); }
+
+/* The primary, for any light ground. */
+.oyss .lockup--navy .lockup__icon .disc    { fill: var(--navy); }
+.oyss .lockup--navy .lockup__icon .beam-a  { stop-color: #EBC276; }
+.oyss .lockup--navy .lockup__icon .beam-b  { stop-color: #B98B40; }
+.oyss .lockup--navy .lockup__icon .beam-c  { stop-color: #6B5127; stop-opacity: .18; }
+.oyss .lockup--navy .lockup__icon .pooltop { fill: var(--gold); }
+
+/* The strike now starts at the apex the measured path actually
+   has, not the one the old bare beam had. */
+@media (prefers-reduced-motion: no-preference) {
+  .oyss .lockup--motion .ray { transform-origin: 32px 9.2px; }
+  .oyss .lockup--motion .pooltop { transform-origin: 32px 50.3px; }
+  /* the disc is the field the light happens in; it does not strike */
+  .oyss .lockup--motion .disc { animation: none; }
+}
+
+/* ---- 37.2 THE EYEBROW IS CRIMSON ON LIGHT (deck p11) --------
+   The type hierarchy page sets the eyebrow in Stage Crimson on
+   ivory and in Spotlight Gold on navy, and it is captioned
+   "Six levels, and no more. Every page in every medium is built
+   from this ladder." The site had slate on light, which is the
+   one level of the ladder that was not being followed.
+
+   #C92E38 on #F7F2E8 measures 5.19:1, so this is also the
+   accessible choice, not a trade against it.
+   ------------------------------------------------------------ */
+
+.oyss .eyebrow { color: var(--crimson); }
+.oyss .dark .eyebrow, .oyss .stage .eyebrow { color: var(--gold); }
+/* .eyebrow--gold survives for the places gold is carrying a
+   quantity rather than labelling a section. */
+
+/* ---- 37.3 THE POOL IS THE ONLY ORNAMENT (deck p16) ----------
+   "One flat gold ellipse. It is the light the brand is named
+   for, and the only ornament the identity is allowed." The hero
+   was drawing a rectangle. The card on deck page 11 draws the
+   pool, so the hero draws the pool.
+   ------------------------------------------------------------ */
+
+.oyss .reel__rule {
+  width: 74px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ---- 37.4 THE GOLD FIELD (deck p13, p19) --------------------
+   "SPOTLIGHT HIGHLIGHT. Rare. A single panel, a pull quote, a
+   moment of emphasis." It is an approved surface in the palette
+   and it appeared nowhere on the site. One panel, once, on the
+   founder's quotation, which is the only moment on the page that
+   is a pull quote.
+
+   Navy on gold measures 8.9:1. On this field the lockup, the
+   rules and the type all go navy: "Everything navy, including
+   the pool." (p19)
+   ------------------------------------------------------------ */
+
+.oyss .goldfield {
+  background: var(--gold);
+  color: var(--navy);
+}
+.oyss .goldfield .eyebrow { color: #5E4517; }
+.oyss .goldfield .byline__quote,
+.oyss .goldfield .byline__attrib b,
+.oyss .goldfield h2 { color: var(--navy); }
+.oyss .goldfield .byline__attrib,
+.oyss .goldfield .body,
+.oyss .goldfield .caption { color: #4A3915; }
+.oyss .goldfield .cue { border-bottom-color: rgba(16, 26, 49, .38); color: var(--navy); }
+.oyss .goldfield .cue:hover { border-bottom-color: var(--navy); }
+.oyss .goldfield .portrait { border-color: rgba(16, 26, 49, .28); }
+/* The pull quote closes on the pool, the way the deck's own closing panel does
+   (p25). Navy, because on a gold field everything goes navy including the pool
+   (p19). */
+.oyss .goldfield .byline__quote::after {
+  content: '';
+  display: block;
+  width: 64px; height: 8px;
+  border-radius: 50%;
+  background: var(--navy);
+  margin-top: 1.5rem;
+  opacity: .8;
+}
+
+/* ---- 37.5 THE TAGLINE IS SET, NOT TYPED (deck p25) ----------
+   The signature line closes the deck in gold italic serif with
+   the pool under it. In the footer it was plain sans.
+   ------------------------------------------------------------ */
+
+.oyss .footer__promise {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.22rem;
+  line-height: 1.3;
+  color: var(--gold);
+  margin-top: 1.15rem;
+}
+.oyss .footer__promise::after {
+  content: '';
+  display: block;
+  width: 58px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-top: .85rem;
+}
+
+
+/* ============================================================
+   38. THE STAGE, WITH PEOPLE IN IT
+   ------------------------------------------------------------
+   The note that came back was that the third section looked
+   flat and cheap. It did, and deck page 22 says why in one
+   sentence:
+
+     "The center two thirds of the frame stays empty. That is
+      where the person sits, and it is the only reason this
+      background exists."
+
+   The site was showing those frames empty. An empty backdrop is
+   not the product, it is the thing the product happens in front
+   of, and at 700px wide it reads as a flat gradient with a
+   banded edge, because that is exactly what it is.
+
+   So the frames now hold people, shot to the specification on
+   deck page 21, which does not describe a mood but hands over a
+   six item list "to commission or license":
+
+     01 host portrait, shoulders up, warm key, navy background
+     02 panel of four in conversation, mid shot, no podium
+     03 attendee watching intently, screen light on the face
+     04 empty lit room, negative space for headline overlay
+     05 hands and notebook, shallow depth, warm desk lamp
+     06 texture plate, dark surface with a single light shaft
+
+   None of the six existed. They do now, commissioned against
+   that brief. The brand furniture over the top stays live text
+   and vector, so nameplates edit in seconds and stay crisp:
+   photography does the photography, code does the code.
+   ============================================================ */
+
+/* ---- 38.1 THE BAND -----------------------------------------
+   A full bleed piece of footage with the section's own words
+   over it. The scrim is built rather than hoped for: navy at
+   60 percent minimum wherever type or the mark sits, which is
+   the floor deck page 19 sets for anything over an image.
+   ------------------------------------------------------------ */
+
+.oyss .band {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  display: grid;
+  align-items: end;
+  min-height: clamp(380px, 58svh, 620px);
+}
+.oyss .band__media { position: absolute; inset: 0; }
+.oyss .band__media video,
+.oyss .band__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 46%;
+}
+.oyss .band__media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(7, 11, 22, .58) 0%, rgba(7, 11, 22, .16) 26%,
+      rgba(7, 11, 22, .42) 66%, rgba(7, 11, 22, .90) 100%),
+    linear-gradient(90deg,
+      rgba(7, 11, 22, .74) 0%, rgba(7, 11, 22, .30) 42%, rgba(7, 11, 22, 0) 78%);
+}
+.oyss .band__copy {
+  position: relative;
+  z-index: 1;
+  padding: clamp(56px, 9vw, 110px) 0 clamp(38px, 5.5vw, 66px);
+}
+.oyss .band__copy .lead { color: rgba(247, 242, 232, .86); }
+.oyss .band--tall { min-height: clamp(440px, 72svh, 760px); }
+
+/* Under 760px the band clips do not load at all: the poster is the same frame,
+   the copy is what the section is for, and 730KB of ambient footage is not a
+   thing to spend a phone's data on to move some haze behind a headline. The
+   markup keeps preload="none" so nothing is fetched before this decides. */
+@media (max-width: 760px) {
+  .oyss .band__media video { display: none; }
+  /* the poster goes on the media box itself, which sits UNDER its own ::after
+     scrim, so the type keeps the ground it was measured against */
+  .oyss .band__media { background-size: cover; background-position: 50% 46%; }
+  .oyss .band--build .band__media { background-image: url('media/stage-build-poster.jpg'); }
+  .oyss .band--drift .band__media { background-image: url('media/panel-drift-poster.jpg'); }
+}
+
+/* ---- 38.2 THE RIG, WITH PEOPLE ------------------------------
+   Same six frame grid and the same producer switching between
+   them, but each frame now carries a photograph instead of a
+   gradient, and the brand furniture is dressed to deck page 22:
+
+     host frame       horizontal lockup top left, name plate
+                      bottom right, gold stage lip along the floor
+     panelist frame   icon only, lighter navy, smaller plate
+     the key light    moves to whoever is speaking
+
+   Everything except the photograph is live: change a name and
+   it is changed, at any resolution.
+   ------------------------------------------------------------ */
+
+.oyss .rig--live .frame {
+  background: #0A1120;
+  padding: 0;
+  display: block;
+  border-color: rgba(215, 206, 192, .10);
+}
+.oyss .rig--live .frame img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 34%;
+  /* Unlit is not hidden: a panel where five faces are invisible
+     is not a panel. It is the light that moves, not the people. */
+  filter: brightness(.52) saturate(.72);
+  transition: filter 620ms var(--settle);
+}
+.oyss .rig--live .frame.on img { filter: brightness(1) saturate(1); }
+
+/* the key, over the photograph rather than under it */
+.oyss .rig--live .frame::before {
+  top: -52%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 226, 170, .20) 0%, transparent 62%);
+  mix-blend-mode: screen;
+}
+
+/* the stage lip: the gold rule along the floor of every frame */
+.oyss .rig--live .frame::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(221, 170, 82, 0) 0%, rgba(221, 170, 82, .70) 22%,
+    rgba(221, 170, 82, .70) 78%, rgba(221, 170, 82, 0) 100%);
+  opacity: .45;
+  transition: opacity 620ms var(--settle);
+}
+.oyss .rig--live .frame.on::after { opacity: 1; }
+
+/* the name plate, bottom right, the way the real frames set it */
+.oyss .rig--live .frame__plate {
+  position: absolute;
+  right: 0; bottom: 0;
+  max-width: 84%;
+  padding: .55rem .8rem .7rem 1rem;
+  text-align: right;
+  background: linear-gradient(270deg, rgba(7, 11, 22, .88) 0%, rgba(7, 11, 22, .78) 62%, rgba(7, 11, 22, 0) 100%);
+  border: 0;
+  backdrop-filter: none;
+}
+.oyss .rig--live .frame__role { color: rgba(247, 242, 232, .62); letter-spacing: .3em; }
+.oyss .rig--live .frame--host .frame__role { color: var(--gold); }
+.oyss .rig--live .frame__sub { color: var(--gold); font-size: .6875rem; }
+
+/* the mark, per the deck: full lockup on the host, icon only on a panelist */
+.oyss .rig--live .frame__mark {
+  position: absolute; left: 12px; top: 11px;
+  display: flex; align-items: center; gap: .5rem;
+  z-index: 2;
+}
+.oyss .rig--live .frame__mark svg { width: 22px; height: 22px; flex: none; }
+.oyss .rig--live .frame__mark b {
+  font-family: var(--serif); font-weight: 600;
+  font-size: .66rem; letter-spacing: .17em; text-transform: uppercase;
+  color: var(--ivory); line-height: 1;
+}
+.oyss .rig--live .frame:not(.frame--host) .frame__mark b { display: none; }
+.oyss .rig--live .frame:not(.frame--host) .frame__mark svg { width: 17px; height: 17px; }
+
+.oyss .rig--live .frame__live {
+  left: auto; right: 12px; top: 11px;
+  z-index: 2;
+}
+
+@media (max-width: 760px) {
+  .oyss .rig--live .frame__mark { left: 9px; top: 8px; }
+  .oyss .rig--live .frame__plate { padding: .4rem .6rem .5rem .8rem; }
+}
+
+/* ---- 38.3 THE ESSAY GETS A FACE -----------------------------
+   The problem section was deliberately imageless, on the theory
+   that a page of pure prose is the strongest possible break from
+   a grid of cards. It is, and it also spent the reader's second
+   screen on nothing. The prose keeps the left, off centre, and a
+   portrait takes the right at full height. Still no grid, still
+   no card, and now a person.
+   ------------------------------------------------------------ */
+
+.oyss .essay--faced .essay__inner {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  align-items: start;
+  gap: clamp(28px, 5vw, 84px);
+}
+.oyss .essay__portrait {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(340px, 44vw, 560px);
+  overflow: hidden;
+  background: var(--navy);
+}
+.oyss .essay__portrait img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+/* Warm White is what lifts things off Ivory (deck p12), so the
+   plate sits on the picture rather than around it. */
+.oyss .essay__portrait::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7, 11, 22, 0) 58%, rgba(7, 11, 22, .34) 100%);
+}
+.oyss .essay--faced .essay__note {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  margin-top: 2.6rem;
+  max-width: 30rem;
+}
+@media (max-width: 900px) {
+  .oyss .essay--faced .essay__inner { grid-template-columns: 1fr; }
+  .oyss .essay__portrait {
+    grid-column: 1; grid-row: 2;
+    min-height: 0; aspect-ratio: 5 / 4;
+    margin-top: 2.4rem;
+  }
+  .oyss .essay--faced .essay__note { grid-row: 3; }
+}
+
+/* ---- 38.4 A PLATE THAT IS A PICTURE, NOT A DIAGRAM ----------
+   The remaining two commissioned shots carry the sections they
+   belong to: hands and notebook for the stage where the strategy
+   is set, the attendee for the one about what keeps working
+   after the room closes.
+   ------------------------------------------------------------ */
+
+.oyss .figure-wide {
+  position: relative;
+  margin-top: clamp(34px, 4.5vw, 60px);
+  border: 1px solid rgba(16, 26, 49, .14);
+  overflow: hidden;
+  background: var(--navy);
+}
+.oyss .dark .figure-wide, .oyss .stage .figure-wide { border-color: rgba(215, 206, 192, .16); }
+.oyss .figure-wide img { width: 100%; height: auto; display: block; }
+.oyss .figure-wide figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 1.6rem clamp(18px, 2.4vw, 32px) 1.15rem;
+  background: linear-gradient(180deg, rgba(7, 11, 22, 0) 0%, rgba(7, 11, 22, .82) 62%);
+  color: rgba(247, 242, 232, .82);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+}
+
+/* The founder plate sits on a photograph inside the gold field, so it keeps
+   its own dark-context colours. Without this the label goes brown on black. */
+.oyss .goldfield .portrait__plate .eyebrow { color: var(--gold); }
+.oyss .goldfield .portrait__plate .name { color: var(--ivory); }
+
+/* ---- 38.5 THE SHEET WAS EATING THE HERO ---------------------
+   Pre-existing, and only visible once the plates behind these
+   heroes became photographs with something in them. The sheet
+   lifts out of the dark hero with a negative top margin of up to
+   84px, and `.reel--short` sizes itself on min-height, not on
+   its content. On apply.html the lead runs to three lines and
+   the last of them was 40px UNDER the sheet: the sentence "This
+   application tells us whether the timing is right" simply was
+   not on the page at 1366 or 1440.
+
+   Nothing was overflowing and no contrast test could see it,
+   because the text was present, painted, and covered. Measured
+   with getBoundingClientRect on the lead against the sheet.
+
+   The fix is padding on the hero rather than a smaller lift: the
+   lift is the component's whole idea, so the hero has to leave
+   room for it instead of the sheet giving it up.
+   ------------------------------------------------------------ */
+
+.oyss .reel--short .reel__copy { padding-bottom: clamp(70px, 11vh, 132px); }
+
+/* .reel--short's min-height clamp bottoms out at 48svh, and on a 768px tall
+   viewport that is 369px: shorter than the copy column now needs, so the copy
+   sets the height and the padding is what has to absorb the lift. Verified
+   across the four form pages at five widths, worst case 0px. */
+@media (max-height: 820px) {
+  .oyss .reel--short .reel__copy { padding-bottom: clamp(80px, 13vh, 140px); }
 }

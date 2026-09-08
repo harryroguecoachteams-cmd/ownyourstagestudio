@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=afa76e93">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=7db6a91b">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -24,8 +24,16 @@
   <div class="wrap masthead__inner">
     <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -47,9 +55,10 @@
 <!-- ---------- page ---------- -->
 <main>
 <!-- ============ HEAD ============
-     The same component as the home page: type column left, a
-     plate cut from the brand film full bleed right, masthead
-     transparent over it. See section 35 of oyss.css. -->
+     Type column left, media panel full bleed right, masthead
+     transparent over it. The plate is shot 04 of the deck's own
+     commission list, "empty lit room, negative space for
+     headline overlay", which is exactly the job it does here. -->
 <section class="reel reel--page dark" data-over>
   <div class="reel__copy" data-lit>
     <p class="eyebrow eyebrow--keyed">About the studio</p>
@@ -59,7 +68,7 @@
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate reel__plate--solo" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/plate-solo.jpg" alt="A single figure standing alone in a spotlight on an otherwise dark stage.">
+    <img class="reel__plate" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/room-empty.jpg" alt="An empty room in deep navy darkness with a single shaft of warm light landing as a pool on the floor.">
   </div>
 </section>
 
@@ -215,8 +224,16 @@
       <div>
         <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -257,5 +274,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=afa76e93"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=7db6a91b"></script>
 

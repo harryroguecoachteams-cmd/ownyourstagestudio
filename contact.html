@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=afa76e93">
+<link rel="stylesheet" href="assets/oyss.css?v=7db6a91b">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -36,8 +36,16 @@ body { background: #F7F2E8; }
   <div class="wrap masthead__inner">
     <a href="index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -71,7 +79,7 @@ body { background: #F7F2E8; }
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate reel__plate--solo" src="assets/media/plate-solo.jpg" alt="A single figure standing alone in a spotlight on an otherwise dark stage.">
+    <img class="reel__plate" src="assets/media/notebook.jpg" alt="Hands writing in an open notebook under a warm desk light.">
   </div>
 </section>
 
@@ -197,8 +205,16 @@ body { background: #F7F2E8; }
       <div>
         <a href="index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -239,7 +255,7 @@ body { background: #F7F2E8; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=afa76e93"></script>
+<script src="assets/oyss.js?v=7db6a91b"></script>
 <script>
 (function () {
   var CONFIG = { endpoint: null, tag: 'spotlight-call-request' };

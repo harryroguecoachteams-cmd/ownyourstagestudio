@@ -134,19 +134,36 @@ def for_ghl(markup):
         markup = markup.replace(f'href="../{f}"', f'href="{SLUGS[f]}"')
     return markup
 
-# THE MARK, CLEANED UP.
-# It used to be a navy disc carrying two thin rays, a radial glow and a pool.
-# On a navy masthead the disc is invisible, so what was actually on screen at
-# 34px was two gold slivers and a dash with a haze behind them: three faint
-# things instead of one clear one.
+# THE MARK.
 #
-# The identity is a beam and the pool it lands in. So that is all this draws
-# now, in one flat gold, with nothing behind it. One shape reads at 24px; three
-# never did. The two-ray split was only ever there because a solid wedge domed
-# against the inside of the disc, and there is no disc any more.
+# An earlier pass deleted the disc, on the reasoning that a navy circle on a
+# navy masthead is invisible. The reasoning was right and the conclusion was
+# wrong, and deck page 17 says so in a sentence: "The icon is always a complete
+# circle or a complete square. It is never bled off an edge or half shown."
+# There are five approved colourways and a bare beam is not one of them.
+#
+# The deck's own website mock (page 24) answers the invisibility problem the way
+# the identity intends: on a dark bar you flip the colourway to NAVY ON IVORY,
+# an ivory disc carrying a navy beam, rather than dropping the disc. On a light
+# ground it is the primary, a navy disc carrying a gold beam. Both are complete
+# circles, so the mark survives the one rule it has.
+#
+# Geometry is measured off the horizontal lockup on page 19 and normalised to a
+# 64 unit circle: apex 9.2 units below the top of the disc, base at 45.1, pool
+# centred at 50.3 with rx 17.8. The beam carries the falloff, because light
+# does. The pool never does: "The pool is never a gradient. One flat gold is
+# what makes the mark portable." (page 16)
 LOGO_SVG = """<svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>"""
 
 

@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 _build/shots/
+_art/raw/
+_art/*.log

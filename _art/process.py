@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Turn the raw commissions in _art/raw into the web assets the site loads.
+
+Photography stays photography and code stays code, so nothing here paints:
+it crops to the aspect the component needs, grades a little toward the
+palette, strips metadata and compresses. The brand furniture (nameplates,
+the stage lip, the mark) is drawn live in CSS over the top.
+
+    python _art/process.py
+"""
+import pathlib, subprocess, sys, io
+from PIL import Image, ImageEnhance
+
+HERE = pathlib.Path(__file__).parent
+RAW = HERE / "raw"
+OUT = HERE.parent / "assets" / "media"
+
+# name, source, target width, aspect (w/h) or None to keep, vertical focus 0..1
+STILLS = [
+    # the six frames of the rig: 16:9, cropped to hold head and shoulders
+    ("panel-host",   "host-onstage.png",        1200, 16 / 9, 0.46),
+    ("panel-a",      "panel-a.png",              900, 16 / 9, 0.42),
+    ("panel-b",      "panel-b.png",              900, 16 / 9, 0.42),
+    ("panel-c",      "panel-c.png",              900, 16 / 9, 0.42),
+    ("panel-d",      "panel-d.png",              900, 16 / 9, 0.42),
+    ("panel-e",      "panel-e.png",              900, 16 / 9, 0.42),
+    ("panel-f",      "panel-f.png",              900, 16 / 9, 0.42),
+    # shot 01, for the essay column: kept portrait
+    ("expert",       "host-portrait.png",        860, None,   0.50),
+    # shots 02 to 06
+    ("panel-room",   "panel-conversation.png",  1500, 3 / 2,  0.50),
+    ("attendee",     "attendee-screenlight.png", 1400, 16 / 9, 0.50),
+    ("room-empty",   "empty-room.png",          1500, 16 / 9, 0.52),
+    ("notebook",     "hands-notebook.png",      1400, 16 / 9, 0.52),
+    ("texture",      "texture-plate.png",       1400, 16 / 9, 0.50),
+    ("clips",        "content-clips.png",       1400, 16 / 9, 0.50),
+]
+
+# name, source, seconds to keep, poster frame
+CLIPS = [
+    ("stage-build", "stage-build.mp4", None),
+    ("panel-drift", "panel-room.mp4",  None),
+]
+
+
+def still(name, src, width, aspect, focus):
+    p = RAW / src
+    if not p.exists():
+        print("  miss  %s" % src); return
+    im = Image.open(p).convert("RGB")
+    if aspect:
+        w, h = im.size
+        th = round(w / aspect)
+        if th <= h:
+            top = max(0, min(h - th, round(h * focus - th / 2)))
+            im = im.crop((0, top, w, top + th))
+        else:                                    # source is wider than the target
+            tw = round(h * aspect)
+            left = max(0, (w - tw) // 2)
+            im = im.crop((left, 0, left + tw, h))
+    im = im.resize((width, round(width * im.size[1] / im.size[0])), Image.LANCZOS)
+    # A whisper toward the palette: the deck's ground is Authority Navy, not
+    # neutral black, and generated shadows land slightly green.
+    im = ImageEnhance.Color(im).enhance(0.96)
+    im = ImageEnhance.Contrast(im).enhance(1.03)
+    out = OUT / (name + ".jpg")
+    im.save(out, quality=84, optimize=True, progressive=True)   # no exif carried
+    print("  %-14s %s  %.0f KB" % (name, im.size, out.stat().st_size / 1024))
+
+
+def clip(name, src, _):
+    p = RAW / src
+    if not p.exists():
+        print("  miss  %s" % src); return
+    out = OUT / (name + ".mp4")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(p), "-an",
+                    "-movflags", "+faststart", "-c:v", "libx264", "-preset", "veryslow",
+                    "-crf", "29", "-pix_fmt", "yuv420p",
+                    "-x264-params", "aq-mode=3:aq-strength=1.15",
+                    "-vf", "scale=1280:-2", str(out)], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(out),
+                    "-vf", "select=eq(n\\,0)", "-frames:v", "1", "-q:v", "5",
+                    str(OUT / (name + "-poster.jpg"))], check=True)
+    print("  %-14s %.0f KB  (+poster)" % (name, out.stat().st_size / 1024))
+
+
+if __name__ == "__main__":
+    OUT.mkdir(parents=True, exist_ok=True)
+    print("stills")
+    for a in STILLS:
+        still(*a)
+    print("clips")
+    for c in CLIPS:
+        clip(*c)

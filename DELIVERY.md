@@ -492,3 +492,165 @@ connected. Those are the launch blockers and they are unchanged.
 The 25 second brand film is still in the repo at `assets/media/oyss-how-it-works.mp4`
 with its renderer in `_film/`. It is no longer on any page. Nothing else was
 deleted.
+
+---
+
+# Art direction and the deck pass, 9 September 2026
+
+Two notes came back on the human pass. The client's: the third section was
+"very badly done", the previous version was better, and the fix is real
+commissioned imagery rather than a flat 2D approximation. The partner's: the
+site had drifted from the brand deck.
+
+Both were right, and they turn out to be one problem. The third section was
+showing the studio's branded stage frames **empty**, and deck page 22 says
+in a single sentence why that could never work:
+
+> The center two thirds of the frame stays empty. That is where the person
+> sits, and it is the only reason this background exists.
+
+An empty frame is not the product. It is the thing the product happens in
+front of. At 700px wide it reads as a flat gradient with a banded edge,
+because that is exactly what it is.
+
+## The deck was handing over a shot list nobody had shot
+
+Page 21 is not a mood board. It is a specification and a commission:
+
+    PEOPLE & PANELS   Confident experts in warm, polished environments.
+                      Shoulders up, shallow depth of field, one warm key at
+                      45 degrees, eyes to camera. Virtual panels should look
+                      like produced media, never a screen grab.
+    ENVIRONMENT       Deep navy, soft amber light, clean negative space and
+                      subtle texture. One light source, always from above or
+                      behind. No props that turn the room into a set.
+    ALWAYS AVOID      Curtains, microphones on stands, spotlights as objects,
+                      applauding crowds, podiums, confetti, casual screen grabs.
+
+    SHOT LIST TO COMMISSION OR LICENSE
+    01 host portrait, shoulders up, warm key, navy background
+    02 panel of four in conversation, mid shot, no podium
+    03 attendee watching intently, screen light on the face
+    04 empty lit room, negative space for headline overlay
+    05 hands and notebook, shallow depth, warm desk lamp
+    06 texture plate, dark surface with a single light shaft
+
+None of the six existed. All six exist now, plus seven broadcast-framed
+portraits for the panel rig and one product still, commissioned against that
+brief with Azure `gpt-image-2`. Two Sora 2 clips carry the ambient bands.
+
+**The pipeline is in the repo and re-runnable:**
+
+    python _art/azure_art.py            everything not yet on disk
+    python _art/azure_art.py panel      just the panel portraits
+    python _art/azure_art.py --force    regenerate
+    python _art/sora.py probe           does the deployment route today
+    python _art/sora.py                 the ambient clips
+    python _art/process.py              crop, grade, compress into assets/media
+
+`_art/raw/` is gitignored: 26MB of masters that the processed assets are
+derived from. Re-run `azure_art.py` to rebuild it. The Azure key is read out
+of `E:\atreya\Azure AI keys.docx` at run time and is never written into any
+file here.
+
+**Sora note:** memory recorded the swedencentral `sora-2` deployment as a dead
+end after it 404'd for over an hour in July. It routes now. `sora.py probe`
+proves routing with a real 200 rather than assuming, because a 400 does not
+prove it: body validation happens before deployment resolution.
+
+**One prompt needed a second pass.** The "what you keep" still first came back
+with sunsets and mountains on the phone screens, which is travel photography,
+not panel footage. The fix was naming the subject explicitly rather than
+describing it abstractly: "a vertical video still of a different person talking
+to camera in a dark navy room". Prompt kept in the script with the note.
+
+## The rig, with people in it
+
+The six frame rig is the centrepiece and it now holds seven commissioned
+portraits shot to one lighting setup: one host frame, five panelists, all in
+deep navy with a warm key at 45 degrees, so the grid reads as one production
+rather than seven stock photos.
+
+Everything over the photography stays **live**:
+
+- the horizontal lockup, top left of the host frame, icon only on a panelist
+- the nameplate, bottom right, over a gold stage lip along the floor
+- the ON AIR marker
+- the key light, which still moves frame to frame the way a producer switches
+  cameras
+
+So a name is a text edit, not a re-render, and nothing is soft on a retina
+screen. Unlit frames are dimmed to 52% brightness rather than hidden, because a
+panel where five faces are invisible is not a panel: it is the light that
+moves, not the people.
+
+## Five things the site had drifted from
+
+Every one of these is a sentence in the deck, not a matter of taste.
+
+**1. The mark had lost its circle (p17, p19).** "The icon is always a complete
+circle or a complete square. It is never bled off an edge or half shown." An
+earlier pass deleted the disc because a navy circle on a navy bar is invisible.
+The observation was right and the conclusion was wrong: the deck's own website
+mock on page 24 solves it by **flipping the colourway**, an ivory disc carrying
+a navy beam, not by deleting the shape. Both approved colourways are now in the
+stylesheet; the geometry is measured off the page 19 lockup and normalised to a
+64 unit circle. The beam carries the falloff, the pool never does: "The pool is
+never a gradient. One flat gold is what makes the mark portable." (p16)
+
+**2. The eyebrow was the wrong colour (p11).** The type hierarchy sets the
+eyebrow in Stage Crimson on light and Spotlight Gold on dark. The site had
+slate: the one rung of a six rung ladder that was not being followed. #C92E38
+on #F7F2E8 measures 5.19:1, so this is also the accessible choice.
+
+**3. The gold field did not exist anywhere (p13).** "SPOTLIGHT HIGHLIGHT. Rare.
+A single panel, a pull quote, a moment of emphasis." An approved surface in the
+palette, unused on eleven pages. It is now the founder's pull quote on the home
+page. Once, and nowhere else, which is what "rare" means. Navy on gold measures
+8.9:1, and on that field everything goes navy including the pool (p19).
+
+**4. The hero rule was a rectangle (p16).** "One flat gold ellipse. It is the
+light the brand is named for, and the only ornament the identity is allowed."
+It is the pool now, on every hero.
+
+**5. The tagline was set in plain sans.** The deck closes on it in gold italic
+serif with the pool beneath (p25). The footer now does the same.
+
+## A pre-existing bug the new photography exposed
+
+The `.sheet` component lifts out of the dark hero with a negative top margin of
+up to 84px, and `.reel--short` sizes itself on min-height rather than on its
+content. On `apply.html` the lead ran to three lines and the last of them sat
+**40px underneath the sheet** at 1366 and 1440. The sentence "This application
+tells us whether the timing is right" was simply not on the page.
+
+Nothing overflowed and no contrast probe could see it, because the text was
+present, painted, and covered. Found by measuring the lead's rect against the
+sheet's, and confirmed pre-existing by stashing the day's work and re-measuring
+against the previous commit: 35px there too.
+
+Fixed with padding on the hero rather than a smaller lift, because the lift is
+the component's whole idea. Verified across four form pages at eight
+viewport sizes: worst case is now a 15px gap.
+
+## Weight
+
+The home page references about 2.3MB, and a phone loads far less than that:
+
+- the two ambient band clips (730KB) do not load at all under 760px, or under
+  reduced motion, or on a metered connection. The poster is the same frame.
+- **`preload="none"` cannot express that on its own.** The `autoplay` attribute
+  overrides it and the browser fetches enough to start playing regardless.
+  Measured: all three mp4s were being pulled on a 390px viewport. The band
+  clips now carry no `autoplay` and no `src` until `oyss.js` decides, which
+  takes a phone down to one video, the hero.
+
+## Still not done
+
+Unchanged from the previous pass and still the launch blockers: every form has
+`CONFIG.endpoint = null`, there is no payment path for either the $2,997 or the
+$47, the assessment captures no lead, and the domain is not connected.
+
+**And one thing for Annette:** her Zoom stage PNGs still carry the OLD lockup,
+the navy disc with the lamp icon, which the site replaced. The site and her
+Zoom backgrounds now disagree. Re-rendering those is her call.

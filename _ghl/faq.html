@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=afa76e93">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=7db6a91b">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -24,8 +24,16 @@
   <div class="wrap masthead__inner">
     <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -59,7 +67,7 @@
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate reel__plate--keep" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/plate-keep.jpg" alt="Six frames laid out as a strip and labelled replay, clips, quotes, audio, posts and proof.">
+    <img class="reel__plate" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/clips.jpg" alt="Short-form clips cut from a produced panel, running on three phones in a dark room.">
   </div>
 </section>
 
@@ -280,8 +288,16 @@
       <div>
         <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
       <svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="ray" d="M28.4 8 H35.6 L48 44 H16 Z" fill="#DDAA52"/>
-        <ellipse class="pooltop" cx="32" cy="50.5" rx="17" ry="3.6" fill="#DDAA52"/>
+        <defs>
+          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   class="beam-a"/>
+            <stop offset="62%"  class="beam-b"/>
+            <stop offset="100%" class="beam-c"/>
+          </linearGradient>
+        </defs>
+        <circle class="disc" cx="32" cy="32" r="32"/>
+        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
+        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
       </svg>
       <span class="lockup__type">
         <span class="lockup__name">Own Your Stage</span>
@@ -322,5 +338,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=afa76e93"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=7db6a91b"></script>
 
