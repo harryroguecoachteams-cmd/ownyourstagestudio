@@ -570,11 +570,17 @@
 .oyss .cuerow__n {
   font-family: var(--serif); font-size: 2.5rem; font-weight: 300;
   font-style: italic; line-height: .9;
-  color: rgba(132, 102, 42, .45);
+  /* The resting state used to be .45 alpha, which measures 1.85:1
+     on ivory. A number the light has not reached yet is still a
+     number on the screen, and this is the one numbered sequence
+     left on the site, so it is content. .80 measures 3.30:1,
+     clears the large-text floor, and the row still visibly
+     brightens when the light arrives. */
+  color: rgba(132, 102, 42, .80);
   transition: color 600ms var(--settle);
 }
 .oyss .cuerow.lit .cuerow__n { color: #84662A; }
-.oyss .dark .cuerow__n, .oyss .stage .cuerow__n { color: rgba(221, 170, 82, .42); }
+.oyss .dark .cuerow__n, .oyss .stage .cuerow__n { color: rgba(221, 170, 82, .60); }
 .oyss .dark .cuerow.lit .cuerow__n,
 .oyss .stage .cuerow.lit .cuerow__n { color: var(--gold); }
 .oyss .cuerow__label {
@@ -2544,4 +2550,645 @@
   .oyss .reel--short .reel__media { height: clamp(160px, 22svh, 240px); }
   .oyss .reel--page .display  { font-size: clamp(1.85rem, 1.3rem + 2.4vw, 2.5rem); }
   .oyss .reel--short .display { font-size: clamp(1.7rem, 1.25rem + 2vw, 2.2rem); }
+}
+
+
+/* ============================================================
+   36. THE HUMAN PASS
+   ------------------------------------------------------------
+   Two reviews arrived together. One said the page looked
+   machine-made; the other said it had twelve ideas and no
+   spine. They are the same complaint from two directions, and
+   the fix is structural rather than cosmetic.
+
+   The tell was never a colour or a typeface. It was the RHYTHM:
+   every section built from the same kit (kicker, clever
+   headline, one supporting line, a grid of equal cards), 01/02/03
+   printed in four unrelated places, and a clever line in every
+   slot so none of them landed. A human designer gets bored
+   around section four and does something else.
+
+   So this section carries the components that are deliberately
+   built WRONG for that kit:
+
+     .facts     a line of plain numbers instead of a proof band
+     .essay     one offset column of running prose, no grid at all
+     .showcase  overlapping plates at unequal widths and baselines
+     .manifest  an itemised list with a quantity column, like a
+                delivery note rather than a feature grid
+
+   Plus the hero retune for the client's own footage and the
+   masthead blend it needs.
+   ============================================================ */
+
+/* ---- 36.1 THE HERO, ON ANNETTE'S FOOTAGE --------------------
+   The clip she supplied is 1080x1920. A 9:16 frame is the one
+   shape the split hero was already the right answer for: the
+   media panel is roughly 0.77:1, so cover crops the height by
+   about a fifth and nothing that matters leaves the frame. The
+   figure sits between 40% and 73% of the source height and the
+   pool at 74%, which is what object-position is protecting.
+
+   Trimmed to start at 3.5s: the stage is already lit when the
+   page loads, the figure resolves 1.4s later and then holds.
+   The original cut spent five seconds on an empty room, which
+   is longer than anybody looks at a hero.
+   ------------------------------------------------------------ */
+
+.oyss .reel--spot .reel__media video,
+.oyss .reel--spot .reel__media img {
+  object-position: 50% 58%;
+}
+/* The room is darker than --ink at the edges, so the panel needs
+   its own ground or the seam shows before the poster arrives. */
+.oyss .reel--spot .reel__media { background: #05070E; }
+
+/* The right-hand feather is tighter for this clip than it was
+   for the doorway: the beam is centred, so eating 22% of the
+   panel width takes the light itself rather than a dark margin. */
+.oyss .reel--spot .reel__media::after {
+  background:
+    linear-gradient(to right,
+      var(--ink) 0%, rgba(7, 11, 22, .80) 5%, rgba(7, 11, 22, .26) 16%, rgba(7, 11, 22, 0) 34%),
+    linear-gradient(to bottom,
+      rgba(7, 11, 22, 0) 62%, rgba(7, 11, 22, .42) 88%, rgba(7, 11, 22, .78) 100%);
+}
+
+/* ---- 36.2 THE MASTHEAD BLEND --------------------------------
+   The bar is transparent over the hero, which was fine over a
+   dark doorway and is not fine over a beam: the cone is the
+   brightest thing in the frame and it arrives exactly where the
+   navigation sits.
+
+   A text-shadow was doing that job. A shadow behind ivory type
+   is a crutch, and it still leaves the bar looking stuck ON the
+   picture. This is a real scrim instead, in Authority Navy
+   rather than ink, so the bar dissolves into the top of the
+   room and the beam appears to come from behind it. It spans
+   the whole hero, not just the media panel, so the two columns
+   share one ceiling.
+
+   It goes on EVERY hero, not only the home page. Measuring real
+   pixels behind the bar rather than walking DOM colours turned
+   up the same failure on four interior pages, against the light
+   in the plates: "FAQ" at 3.8:1 and the Apply button at 3.6:1
+   on apply.html, where a colour walk had reported the page
+   background and seen nothing wrong.
+   ------------------------------------------------------------ */
+
+.oyss .reel[data-over]::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: clamp(150px, 26vh, 260px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(16, 26, 49, .94) 0%,
+    rgba(16, 26, 49, .78) 22%,
+    rgba(13, 21, 40, .44) 52%,
+    rgba(10, 16, 31, .16) 78%,
+    rgba(7, 11, 22, 0) 100%);
+}
+/* Copy sits above the scrim; the media panel sits under it. */
+.oyss .reel[data-over] .reel__copy { z-index: 2; }
+
+/* Below 1040px the bar takes its own ground back and the panel
+   starts underneath it, so a scrim there is a dark band for no
+   reason, on top of the one the panel already draws. */
+@media (max-width: 1040px) {
+  .oyss .reel[data-over]::before { display: none; }
+}
+
+/* With a scrim doing the work the shadow goes back to being a
+   whisper, which is what keeps the type looking set rather than
+   pasted on. */
+.oyss .masthead--over .lockup,
+.oyss .masthead--over nav a { text-shadow: 0 1px 10px rgba(5, 8, 15, .55); }
+
+/* ---- 36.3 THE FACTS -----------------------------------------
+   The proof line the review asked for, as one line of plain
+   numbers rather than a band of three tiles. The numbers are
+   the only thing on this page that could not be written by
+   something with no access to the business.
+   ------------------------------------------------------------ */
+
+.oyss .facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .55rem 1.05rem;
+  margin-top: 2.4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(215, 206, 192, .18);
+  font-size: var(--t-caption);
+  letter-spacing: .06em;
+  color: rgba(247, 242, 232, .72);
+}
+.oyss .facts b {
+  font-weight: 600;
+  color: var(--ivory);
+  letter-spacing: .02em;
+}
+.oyss .facts span { display: inline-flex; align-items: baseline; gap: .45rem; }
+.oyss .facts span + span::before {
+  content: '';
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold);
+  transform: translateY(-.25em);
+  margin-right: .6rem;
+  flex: none;
+}
+
+/* ---- 36.4 THE ESSAY -----------------------------------------
+   The structural break. No eyebrow, no headline in the section
+   ladder, no grid, no picture, no cards, nothing to hover. One
+   column of running prose set off-centre, with the opening
+   sentence at display size and the rest at reading size.
+
+   It is deliberately the quietest thing on the site. A page
+   where every section shouts equally is a page with no
+   hierarchy, and that flatness is most of what reads as
+   generated.
+   ------------------------------------------------------------ */
+
+.oyss .essay { background: var(--white); padding: clamp(88px, 12vw, 168px) 0; }
+.oyss .essay__inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(28px, 5vw, 76px);
+}
+.oyss .essay__body { grid-column: 1; max-width: 40rem; }
+.oyss .essay__open {
+  font-family: var(--serif);
+  font-size: clamp(1.85rem, 1.25rem + 2.1vw, 2.9rem);
+  line-height: 1.13;
+  letter-spacing: -.014em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+.oyss .essay__body p + p { margin-top: 1.45rem; }
+.oyss .essay__body .p {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--slate);
+}
+.oyss .essay__body .p em { font-style: normal; color: var(--navy); }
+/* The right column holds one short line, low, so the block is
+   weighted left and the page stops being symmetrical for a
+   screen. */
+.oyss .essay__note {
+  grid-column: 2;
+  align-self: end;
+  padding-bottom: .4rem;
+  border-left: 2px solid var(--gold);
+  padding-left: clamp(16px, 1.6vw, 24px);
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 22rem;
+}
+@media (max-width: 900px) {
+  .oyss .essay__inner { grid-template-columns: 1fr; }
+  .oyss .essay__note { grid-column: 1; margin-top: 2.4rem; align-self: start; }
+}
+
+/* ---- 36.5 THE SHOWCASE --------------------------------------
+   The evidence. A studio that sells production has to show
+   production, and the only produced artefacts that exist yet
+   are the branded stage frames, which no visitor had ever seen.
+
+   Composed as plates rather than cards: unequal widths, unequal
+   baselines, one of them running off the left edge of the page,
+   the second hanging lower than the first. Nothing here is a
+   grid of three, and that is the point.
+   ------------------------------------------------------------ */
+
+.oyss .showcase { position: relative; overflow: hidden; }
+.oyss .showcase__lead { max-width: 40rem; }
+
+.oyss .showcase__set {
+  margin-top: clamp(38px, 5vw, 66px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  column-gap: clamp(24px, 3.4vw, 54px);
+}
+
+.oyss .plate {
+  position: relative;
+  border: 1px solid rgba(215, 206, 192, .18);
+  background: #060A14;
+  overflow: hidden;
+}
+.oyss .plate img { width: 100%; height: auto; }
+.oyss .plate figcaption {
+  padding: .95rem 1.1rem 1.05rem;
+  border-top: 1px solid rgba(215, 206, 192, .13);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ivory-46);
+}
+.oyss .plate figcaption b {
+  display: block;
+  font-weight: 600;
+  font-size: var(--t-eyebrow);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .4rem;
+}
+
+/* The big one runs off the left edge of the viewport. The same
+   expression .reel__copy uses for its left padding, negated: the
+   wrap is capped at 1180 and centred, so the distance from the
+   viewport edge to the content edge is (100vw - 1180) / 2 plus
+   the gutter, and anything less than that leaves the plate
+   sitting in a margin looking like it missed. */
+.oyss .plate--wide {
+  grid-column: 1;
+  margin-left: calc(-1 * max(var(--gutter), (100vw - 1180px) / 2 + var(--gutter)));
+  border-left: 0;
+}
+.oyss .plate--wide figcaption {
+  padding-left: max(1.1rem, calc(max(var(--gutter), (100vw - 1180px) / 2 + var(--gutter))));
+}
+.oyss .plate--tall {
+  grid-column: 2;
+  margin-top: clamp(40px, 7vw, 110px);
+  max-width: 30rem;
+}
+.oyss .showcase__aside {
+  grid-column: 2;
+  margin-top: clamp(22px, 3vw, 40px);
+  max-width: 30rem;
+}
+
+@media (max-width: 860px) {
+  .oyss .showcase__set { grid-template-columns: 1fr; row-gap: clamp(26px, 5vw, 40px); }
+  .oyss .plate--wide { grid-column: 1; margin-left: calc(-1 * var(--gutter)); }
+  .oyss .plate--tall, .oyss .showcase__aside { grid-column: 1; margin-top: 0; max-width: none; }
+}
+
+/* ---- 36.6 THE MANIFEST --------------------------------------
+   The strongest concrete thing in the whole offer, and it was
+   nowhere on the site: the content package has real quantities
+   attached to it. Three host highlight videos. One per panelist.
+   About twenty short-form cuts. A ninety day calendar.
+
+   Set as a delivery note, not a feature grid: a quantity column,
+   an item column, hairline rules, no boxes and no icons. It
+   reads as something a production company would actually hand
+   over, which is the whole argument.
+   ------------------------------------------------------------ */
+
+.oyss .manifest { margin-top: clamp(34px, 4vw, 52px); max-width: 62rem; border-top: 1px solid rgba(16, 26, 49, .16); }
+.oyss .manifest__row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: clamp(14px, 2vw, 30px);
+  align-items: baseline;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(16, 26, 49, .11);
+}
+.oyss .manifest__n {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--navy);
+  letter-spacing: -.01em;
+}
+.oyss .manifest__n small {
+  display: block;
+  font-family: var(--sans);
+  font-size: var(--t-eyebrow);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #84662A;
+  margin-top: .4rem;
+}
+.oyss .manifest__item { color: var(--navy); }
+.oyss .manifest__item span {
+  display: block;
+  font-size: var(--t-caption);
+  line-height: 1.55;
+  color: var(--slate);
+  margin-top: .28rem;
+}
+.oyss .manifest__foot {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; max-width: 62rem;
+  margin-top: 1.5rem;
+  font-size: var(--t-caption);
+  color: var(--slate);
+}
+.oyss .manifest__foot b { color: var(--navy); font-weight: 600; }
+
+@media (max-width: 560px) {
+  .oyss .manifest__row { grid-template-columns: 4.2rem minmax(0, 1fr); }
+  .oyss .manifest__n { font-size: 1.3rem; }
+}
+
+/* ---- 36.7 THE TERMS -----------------------------------------
+   The honest half of the offer, kept next to the price where a
+   real studio puts it, instead of occupying a section of its
+   own halfway up the page.
+   ------------------------------------------------------------ */
+
+.oyss .terms {
+  margin-top: clamp(30px, 3.6vw, 46px);
+  padding-top: clamp(24px, 3vw, 34px);
+  border-top: 1px solid rgba(16, 26, 49, .16);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3.4vw, 52px);
+}
+.oyss .terms h3 {
+  font-size: var(--t-eyebrow);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #84662A;
+  margin-bottom: .85rem;
+}
+.oyss .terms p { font-size: .96875rem; line-height: 1.66; color: var(--slate); }
+@media (max-width: 720px) { .oyss .terms { grid-template-columns: 1fr; } }
+
+/* ---- 36.8 THE BYLINE ----------------------------------------
+   Annette on the home page, not only on About. A new company
+   with no client list has one piece of proof that it is run by
+   a person, and that is the person.
+   ------------------------------------------------------------ */
+
+.oyss .byline {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: clamp(28px, 4.4vw, 68px);
+  align-items: center;
+}
+.oyss .byline .portrait { max-width: 320px; }
+.oyss .byline__quote {
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 1.05rem + 1.25vw, 1.95rem);
+  line-height: 1.28;
+  letter-spacing: -.01em;
+  color: var(--navy);
+  text-wrap: pretty;
+}
+.oyss .byline__attrib {
+  margin-top: 1.4rem;
+  font-size: var(--t-caption);
+  letter-spacing: .04em;
+  color: var(--slate);
+}
+.oyss .byline__attrib b { color: var(--navy); font-weight: 600; }
+@media (max-width: 780px) {
+  .oyss .byline { grid-template-columns: 1fr; }
+  .oyss .byline .portrait { max-width: 260px; }
+}
+
+/* ---- 36.9 THE SIDE DOOR, AS ONE LINE ------------------------
+   The panelist route used to be a full section with the same
+   visual weight as the flagship, on a page where the two offers
+   are $2,997 and $47. Every host read the cheap number and every
+   panelist bounced off the expensive one. It is one line now,
+   near the end, pointing at its own page.
+   ------------------------------------------------------------ */
+
+.oyss .sidedoor {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.1rem;
+  padding: 1.2rem 0 0;
+  font-size: .96875rem;
+  color: rgba(247, 242, 232, .74);
+}
+.oyss .sidedoor a {
+  border-bottom: 1px solid var(--gold-40);
+  padding-bottom: .15rem;
+  color: var(--ivory);
+  transition: border-color 220ms var(--settle);
+}
+.oyss .sidedoor a:hover { border-color: var(--gold); }
+
+/* ---- 36.10 THE CLOSING PLATE --------------------------------
+   The last section was pure CSS light: a measured cone of conic
+   gradients with a rAF ignition. It is a good piece of work and
+   it is still on the About page, but on a page whose brief is
+   "show the real thing" the last image should be a photograph.
+
+   So the close now stands on a frame from the client's own clip,
+   at the moment the stage is lit and nobody is in it yet. The
+   CSS lamp is removed from this one section rather than layered
+   under it: two beams at different angles is two lamps, and the
+   deck allows one.
+
+   The plate is cropped to roughly the aspect the section renders
+   at, so `cover` barely crops and the pool stays where it was
+   composed. The scrim over it is what the type reads against.
+   ------------------------------------------------------------ */
+
+.oyss .stage--plate::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('media/plate-stage.jpg');
+  background-size: cover;
+  background-position: 50% 8%;
+  z-index: 0;
+  pointer-events: none;
+}
+/* The room is real, so the legibility has to be built rather than
+   assumed: navy at the top where the headline sits, opening up
+   over the pool, closing again into the flood. */
+.oyss .stage--plate::after {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      rgba(7, 11, 22, .74) 0%, rgba(7, 11, 22, .52) 30%,
+      rgba(7, 11, 22, .48) 56%, rgba(7, 11, 22, .70) 82%, rgba(7, 11, 22, .88) 100%),
+    linear-gradient(90deg,
+      rgba(7, 11, 22, .46) 0%, rgba(7, 11, 22, 0) 28%,
+      rgba(7, 11, 22, 0) 72%, rgba(7, 11, 22, .46) 100%);
+}
+.oyss .stage--plate > * { position: relative; z-index: 1; }
+/* the pool the section draws itself would be a second one */
+.oyss .stage--plate .stage__pool { display: none; }
+
+/* ---- 36.11 THE RIG, ON THE REAL ARTWORK ---------------------
+   The rig used to draw its own frames with a CSS gradient, which
+   is a diagram of the product rather than the product. The
+   backdrop is now a crop of the studio's actual panelist frame,
+   taken from between the badge and the baked nameplate so the
+   six frames can carry live names instead of the same "Your Name
+   Here" printed six times.
+
+   Nameplates sit bottom right here, because that is where they
+   sit on the real frames.
+   ------------------------------------------------------------ */
+
+.oyss .rig--art .frame {
+  background-image: url('media/rig-frame.jpg');
+  background-size: cover;
+  background-position: 50% 42%;
+  justify-content: flex-end;
+}
+.oyss .rig--art .frame__plate {
+  border-left: 0;
+  border-right: 2px solid var(--gold);
+  text-align: right;
+  background: rgba(7, 11, 22, .62);
+}
+/* The host frame is twice the size, so it carries the warmer key
+   the host frame actually has rather than the panelist navy. */
+.oyss .rig--art .frame--host { background-position: 50% 46%; }
+.oyss .rig--art .frame--host::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(58% 78% at 50% 0%, rgba(221, 170, 82, .16) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* The note now runs to two lines, so the gold dash has to hang
+   at the first line rather than centre against the whole block. */
+.oyss .rig__note { align-items: flex-start; line-height: 1.6; max-width: 46rem; }
+.oyss .rig__note::before { margin-top: .58em; }
+
+/* ---- 36.12 CORRECTIONS THE NEW SECTIONS NEED ----------------
+   Small things that only show up once the page is built.
+   ------------------------------------------------------------ */
+
+/* .paper is --white, and the manifest rules were drawn for it.
+   The section above the manifest is dark, so the seam needs the
+   rules to start under the heading rather than at the section
+   edge. Handled in markup; this is only the top rule weight. */
+.oyss .manifest { border-top-color: rgba(16, 26, 49, .22); }
+
+/* The showcase heading column sits against a plate that bleeds
+   left, so it must not run the full 1180px or the two collide
+   on a mid-width screen. */
+
+
+/* The closing section holds a photographic plate, the CSS spot
+   and the flood. The flood has to sit above the plate or the
+   crimson wash comes up behind a photograph. */
+.oyss .stage--plate .flood { position: relative; z-index: 2; }
+
+/* ---- 36.13 THE CREED ----------------------------------------
+   The five brand words used to be a numbered cue stack on a
+   rail, 01 to 05. The order of the five is not the content, so
+   the numbers were decoration, and a rail is the third place on
+   the site drawing the same picture. One paragraph, with the
+   words themselves stepped up into the serif.
+   ------------------------------------------------------------ */
+
+.oyss .creed {
+  margin-top: 1.7rem;
+  font-size: var(--t-lead);
+  line-height: 1.62;
+  font-weight: 300;
+  color: var(--slate);
+  max-width: 46rem;
+}
+.oyss .creed b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.16em;
+  letter-spacing: -.005em;
+  color: var(--navy);
+}
+.oyss .dark .creed, .oyss .stage .creed { color: var(--ivory-70); }
+.oyss .dark .creed b, .oyss .stage .creed b { color: var(--ivory); }
+
+/* ---- 36.14 THE DRAFT FLAG ON A DARK HERO --------------------
+   Measured, not guessed: #84662A is the darkest gold that passes
+   on ivory, and it is 3.31:1 on the near-black hero the two
+   agreements now open with. On a dark ground the flag takes the
+   full Spotlight Gold, which measures 8.8:1 there.
+   ------------------------------------------------------------ */
+.oyss .dark .draft-flag, .oyss .stage .draft-flag {
+  color: var(--gold);
+  background: rgba(221, 170, 82, .10);
+  border-color: rgba(221, 170, 82, .46);
+}
+
+/* ---- 36.15 THE HOME HERO ON A LANDSCAPE TABLET --------------
+   Every other hero on the site can stack below 1040px, because a
+   plate cut from the film is landscape and a short wide panel is
+   the shape it was cut for.
+
+   The home hero cannot. Its clip is 1080x1920. Stack it at
+   1024x768 and the panel becomes 1024 wide by 400 tall, which
+   with `cover` shows 12% of the frame height: a horizontal band
+   across the subject's chest, no beam, no pool, no floor. The
+   primary action also lands at y=938 on a 768px viewport, which
+   is a hero with its button off the screen.
+
+   So this one keeps the split down to 861px, the same width the
+   rest of the site drops its two-column layouts at. Below that
+   it stacks like the others, and by then the viewport is narrow
+   enough that a full-width panel is portrait-ish again.
+   ------------------------------------------------------------ */
+
+@media (min-width: 861px) and (max-width: 1040px) {
+  .oyss .reel--spot {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    min-height: clamp(520px, 100svh, 940px);
+    margin-top: calc(-1 * var(--oyss-mh, 78px));
+  }
+  .oyss .reel--spot .reel__media {
+    order: 0;
+    height: auto;
+    align-self: stretch;
+  }
+  /* the desktop feather, not the stacked one */
+  .oyss .reel--spot .reel__media::after {
+    background:
+      linear-gradient(to right,
+        var(--ink) 0%, rgba(7, 11, 22, .80) 5%, rgba(7, 11, 22, .26) 16%, rgba(7, 11, 22, 0) 34%),
+      linear-gradient(to bottom,
+        rgba(7, 11, 22, 0) 62%, rgba(7, 11, 22, .42) 88%, rgba(7, 11, 22, .78) 100%);
+  }
+  .oyss .reel--spot .reel__copy {
+    justify-self: end;
+    margin: 0;
+    max-width: 32rem;
+    padding: calc(var(--oyss-mh, 78px) + clamp(18px, 3vh, 40px)) clamp(22px, 2.6vw, 36px)
+             clamp(28px, 5vh, 56px) var(--gutter);
+  }
+  /* 429px of measure will not hold a 55px headline. */
+  .oyss .reel--spot .display { font-size: clamp(1.95rem, 1.1rem + 2.4vw, 2.75rem); }
+  .oyss .reel--spot .eyebrow--keyed { margin-bottom: 1.05rem; }
+  .oyss .reel--spot .reel__rule { margin-top: 1.25rem; }
+  .oyss .reel--spot .lead { margin-top: 1.25rem; font-size: 1.0625rem; }
+  .oyss .reel--spot .actions { margin-top: 1.7rem; }
+  .oyss .reel--spot .facts { margin-top: 1.6rem; padding-top: 1.1rem; }
+  /* The bar has the film under it again here, so it gives its
+     ground back. Scoped with :has() because the masthead is a
+     sibling of main, and this must not reach the ten interior
+     pages, whose heroes really do stack at this width. Without
+     :has() support the bar simply keeps its navy, which is the
+     behaviour that shipped before this rule. */
+  .oyss:has(.reel--spot) .masthead--over {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+  /* has to out-specify .reel[data-over]::before { display:none } */
+  .oyss .reel--spot[data-over]::before { display: block; }
+}
+
+/* Below 861 the home hero stacks, and the panel is sized by two
+   numbers that fight: tall enough that a 9:16 frame still reads
+   as a room, short enough that the primary action is not pushed
+   off the bottom of the screen. Measured at 390x844, where the
+   button now clears the fold by about 50px. */
+@media (max-width: 860px) {
+  .oyss .reel--spot .reel__media { height: clamp(260px, 34svh, 420px); }
+}
+@media (max-width: 620px) {
+  .oyss .reel--spot .reel__media { height: clamp(250px, 32svh, 360px); }
 }

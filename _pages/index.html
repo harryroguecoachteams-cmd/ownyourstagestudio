@@ -1,308 +1,129 @@
-<!-- ============ 1. THE REEL ============
-     Type column left, full-bleed film right, the way all three
-     of the client's reference sites open. The clip is the one
-     she chose: a person standing at the base of a doorway of
-     light. In a panel this shape almost none of it is cropped. -->
-<section class="reel dark" data-over>
+<!-- ============ 1. THE HERO ============
+     Type left, the client's own footage full bleed right. The
+     clip is 1080x1920, which is why the split composition is
+     right and a full-width letterbox would not be: a 9:16 frame
+     in a near-square panel loses almost nothing.
+
+     Trimmed to open on a lit but empty stage; the figure
+     resolves 1.4s in, then holds. It plays once. The light
+     arrives and stays, which is the sentence the business uses
+     about itself, so it should not loop back to darkness.
+
+     The eyebrow carries the literal category, the headline
+     carries the belief and the lead carries the mechanics, so a
+     stranger has the whole offer before scrolling. -->
+<section class="reel reel--spot dark" data-over>
   <div class="reel__copy" data-lit>
-    <p class="eyebrow eyebrow--keyed">Virtual event production and management</p>
+    <p class="eyebrow eyebrow--keyed">Virtual panel events, produced end to end</p>
     <h1 class="display">Become known for the work you are here to lead.</h1>
     <span class="reel__rule" aria-hidden="true"></span>
     <p class="lead">
-      We produce one virtual panel event, built around your subject, with you
-      hosting it. You bring the expertise. We build the room, cast it, brand it
-      and run it.
+      We produce one virtual panel event, built around your subject, with you hosting
+      it. You bring the expertise. We build the room, cast it and run it.
     </p>
     <div class="actions">
       <a class="btn btn--primary" href="apply.html">Apply to host a panel</a>
-      <a class="cue" href="#how">See how it works</a>
+      <a class="cue" href="#stage">See what we produce</a>
     </div>
+    <p class="facts">
+      <span><b>1</b> host</span>
+      <span>up to <b>5</b> featured experts</span>
+      <span><b>3</b> months</span>
+      <span><b>$2,997</b></span>
+    </p>
   </div>
 
   <div class="reel__media" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata"
-           poster="assets/media/hero-portal-poster.jpg">
-      <source src="assets/media/hero-portal-loop.mp4" type="video/mp4">
+    <video autoplay muted playsinline preload="metadata" data-once
+           poster="assets/media/hero-spotlight-poster.jpg">
+      <source src="assets/media/hero-spotlight.mp4" type="video/mp4">
     </video>
-    <img class="reel__still" src="assets/media/hero-portal-poster.jpg" alt="">
+    <img class="reel__still" src="assets/media/hero-spotlight-still.jpg" alt="">
   </div>
-
 </section>
 
-<!-- ============ 2. THE FILM ============
-     The motion graphic the feedback asked for, twice: once as a
-     graphic after the header, once as an explainer video. It is
-     one film, made for this site, and every beat in it is also
-     written out underneath so the page works without it. -->
-<section class="bay film dark" id="how">
-  <div class="wrap">
-    <div class="film__head" data-lit>
-      <p class="eyebrow eyebrow--keyed">How it works</p>
-      <h2>Twenty five seconds on what we actually do.</h2>
-      <p class="lead" style="margin-top:1.2rem">
-        No sound needed. It is the whole engagement, start to finish.
+
+<!-- ============ 2. THE PROBLEM ============
+     The structural break, and the quietest thing on the site.
+     No eyebrow, no grid, no picture, nothing to point at. One
+     offset column of running prose, because a page where every
+     section is built from the same kit reads as machine made
+     however good each section is. -->
+<section class="essay">
+  <div class="essay__inner">
+    <div class="essay__body" data-lit>
+      <p class="essay__open">Most experts are not short of expertise.</p>
+      <p class="p">
+        They have years of it. Client results behind them, a reputation that holds inside
+        their own network, referrals that keep arriving. The calendar stays full enough.
+        And outside that circle, almost nobody has heard of them.
+      </p>
+      <p class="p">
+        That is not a credibility problem. <em>It is a distribution problem</em>, and it does
+        not get solved by posting more often. Being good at the work and being known for the
+        work are two different jobs, and only one of them is the one you trained for.
       </p>
     </div>
-
-    <figure class="film__stage" data-lit data-cue="2">
-      <video id="film" muted loop playsinline preload="none"
-             poster="assets/media/oyss-how-it-works-poster.jpg"
-             aria-label="A twenty five second silent film showing the five stages of the Own Your Stage Experience: a hidden expert, the stage we build, the panel we cast, the live show, and the content that stays afterwards.">
-        <source src="assets/media/oyss-how-it-works.mp4" type="video/mp4">
-      </video>
-      <button class="film__toggle" type="button" data-state="playing" aria-controls="film">Pause</button>
-    </figure>
-
-    <div class="beats" data-lit data-cue="3">
-      <div class="beat">
-        <div class="beat__n">01</div>
-        <p class="beat__t">You are a secret</p>
-        <p>Respected by the people who already know you. Unknown to everyone else.</p>
-      </div>
-      <div class="beat">
-        <div class="beat__n">02</div>
-        <p class="beat__t">We build the stage</p>
-        <p>One virtual panel event, produced properly, built around your subject.</p>
-      </div>
-      <div class="beat">
-        <div class="beat__n">03</div>
-        <p class="beat__t">We cast the room</p>
-        <p>Up to five vetted experts, chosen to make your topic land harder.</p>
-      </div>
-      <div class="beat">
-        <div class="beat__n">04</div>
-        <p class="beat__t">We run the show</p>
-        <p>Branded, produced, live. You lead the conversation. We handle the rest.</p>
-      </div>
-      <div class="beat">
-        <div class="beat__n">05</div>
-        <p class="beat__t">It keeps working</p>
-        <p>The recording becomes content that keeps you visible for months.</p>
-      </div>
-    </div>
+    <p class="essay__note" data-lit data-cue="2">
+      Who this is not for: anyone new to their field, still building a first offer, or hoping
+      an event will stand in for experience they have not had yet. The host carries the room.
+      That only works when there is something behind it.
+    </p>
   </div>
 </section>
 
-<!-- ============ 3. WHAT YOU GET ============
-     Three cards. Point at one and the panel comes up and takes
-     the whole card, which is where the contents live. -->
-<section class="bay light">
-  <div class="wrap">
-    <div style="max-width:44rem" data-lit>
-      <p class="eyebrow eyebrow--gold">What you get</p>
-      <h2>An event is the vehicle. What you keep is the point.</h2>
-      <p class="lead" style="margin-top:1.2rem">
-        Three things come out of one panel. Point at a card to see what is in it.
-      </p>
-    </div>
 
-    <div class="covers" style="margin-top:2.8rem" data-lit data-cue="2">
-      <a class="cover" href="experience.html">
-        <span class="cover__n">01 &middot; Platform</span>
-        <span class="cover__t">A position you can be known for</span>
-        <span class="cover__p">One subject, stated clearly, with a produced event putting you at the middle of it.</span>
-        <ul class="cover__more">
-          <li>Authority Blueprint strategy session</li>
-          <li>Your topic, angle and central message</li>
-          <li>Event branding and a registration page</li>
-          <li>Promotional graphics and swipe copy</li>
-        </ul>
-      </a>
-      <a class="cover" href="experience.html">
-        <span class="cover__n">02 &middot; Network</span>
-        <span class="cover__t">A room of people worth knowing</span>
-        <span class="cover__p">We find, screen and manage the panel, so the people beside you strengthen your standing.</span>
-        <ul class="cover__more">
-          <li>Up to five panelists recruited and vetted</li>
-          <li>Outreach, screening and scheduling handled</li>
-          <li>Speaker prep and run-of-show briefing</li>
-          <li>Their audiences invited alongside yours</li>
-        </ul>
-      </a>
-      <a class="cover" href="experience.html">
-        <span class="cover__n">03 &middot; Content</span>
-        <span class="cover__t">Proof that outlives the night</span>
-        <span class="cover__p">The event is recorded and cut into material that keeps working long after the room closes.</span>
-        <ul class="cover__more">
-          <li>Full event recording, edited</li>
-          <li>Short clips built for social</li>
-          <li>Pull quotes and audio</li>
-          <li>Sixty minute Momentum Session afterwards</li>
-        </ul>
-      </a>
-    </div>
-  </div>
-</section>
+<!-- ============ 3. THE STAGE, SHOWN ============
+     The evidence. A studio selling production has to show
+     production, and the branded stage frames are the only
+     produced artefacts that exist yet. They had never been on
+     the site.
 
-<!-- ============ 4. THE RED ============
-     The client's red, sampled off her own reference and used
-     once, on the section that names the cost of staying hidden.
-     The deck allows crimson for action. This is the action. -->
-<section class="bay redstage">
-  <div class="wrap">
-    <div style="max-width:46rem" data-lit>
-      <p class="eyebrow">Where you are now</p>
-      <h2 class="display" style="font-size:clamp(2rem,1.4rem+2.4vw,3.2rem)">
-        Visibility is not a switch. It is a dimmer.
-      </h2>
-      <span class="pool" aria-hidden="true"></span>
-      <p class="lead" style="margin-top:1.8rem">
-        Every expert sits somewhere on this ladder. Knowing which rung you are on
-        tells you what to do next, and what would waste a year.
-      </p>
-    </div>
-
-    <div class="rungs" style="margin-top:2.6rem" data-lit data-cue="2">
-      <div class="rung">
-        <div class="rung__n">Level 01</div>
-        <div class="rung__t">Hidden</div>
-        <p>Trusted inside a small circle. Invisible outside it.</p>
-      </div>
-      <div class="rung">
-        <div class="rung__n">Level 02</div>
-        <div class="rung__t">Emerging</div>
-        <p>Known for something, by some people, inconsistently.</p>
-      </div>
-      <div class="rung">
-        <div class="rung__n">Level 03</div>
-        <div class="rung__t">Expanding</div>
-        <p>Found without an introduction. No platform built for it yet.</p>
-      </div>
-      <div class="rung">
-        <div class="rung__n">Level 04</div>
-        <div class="rung__t">Visible</div>
-        <p>Your name carries the subject. The job is repetition.</p>
-      </div>
-    </div>
-
-    <div class="actions" style="margin-top:2.4rem" data-lit data-cue="3">
-      <a class="btn btn--primary" href="assessment.html">Find your level</a>
-      <span class="caption">Eight questions. Three minutes. No email needed to see the result.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. THE CUE SHEET ============
-     The client journey run the way a production actually runs:
-     a numbered cue stack with the light travelling down it. -->
-<section class="bay light">
-  <div class="wrap">
-    <div style="max-width:44rem" data-lit>
-      <p class="eyebrow eyebrow--gold">The Own Your Stage Experience&trade;</p>
-      <h2>Six cues, three months, one room with your name on it.</h2>
-      <p class="lead" style="margin-top:1.4rem">
-        Concept, panel, production and promotional assets are ours. The expertise is
-        yours. Here is the running order.
-      </p>
-    </div>
-
-    <div class="cuesheet">
-      <div class="cuesheet__rail" aria-hidden="true"><span class="cuesheet__marker"></span></div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">01</div>
-        <div>
-          <p class="cuerow__claim">We define the strategy</p>
-          <h3 class="cuerow__label">Authority Blueprint&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            We clarify your expertise, your positioning, your ideal audience, the event
-            topic and talking point, the central message and the outcome you want the
-            room to leave with.
-          </p>
-        </div>
-      </div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">02</div>
-        <div>
-          <p class="cuerow__claim">We assemble the right experts</p>
-          <h3 class="cuerow__label">Expert Network&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            We identify, recruit, screen, coordinate and manage qualified panelists whose
-            expertise supports your topic and strengthens your standing as host.
-          </p>
-        </div>
-      </div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">03</div>
-        <div>
-          <p class="cuerow__claim">We prepare the launch assets</p>
-          <h3 class="cuerow__label">Spotlight Launch Kit&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            Event branding, the registration page, promotional graphics, speaker
-            information and swipe copy, ready for you and your panelists to send.
-          </p>
-        </div>
-      </div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">04</div>
-        <div>
-          <p class="cuerow__claim">We build the stage</p>
-          <h3 class="cuerow__label">Showtime Experience&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            We coordinate and professionally produce the live virtual panel so you can
-            focus on leading the conversation and serving the room.
-          </p>
-        </div>
-      </div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">05</div>
-        <div>
-          <p class="cuerow__claim">We keep you visible afterwards</p>
-          <h3 class="cuerow__label">Visibility Accelerator&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            The event becomes authority building content that continues working for your
-            business once the live room has closed.
-          </p>
-        </div>
-      </div>
-
-      <div class="cuerow">
-        <div class="cuerow__n">06</div>
-        <div>
-          <p class="cuerow__claim">We turn one event into the next</p>
-          <h3 class="cuerow__label">Momentum Session&trade;</h3>
-          <p class="caption" style="max-width:40rem">
-            A sixty minute strategy session to review the event, identify your strongest
-            content and decide where the momentum goes next.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="actions" style="margin-top:3rem" data-lit>
-      <a class="cue" href="experience.html">See everything included</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 6. THE PANEL RIG ============
-     The deliverable, shown working. One light, six frames, the
-     producer switching between them. -->
-<section class="bay dark stage">
+     Composed as plates, not cards: unequal widths, unequal
+     baselines, the big one running off the left edge. -->
+<section class="bay dark stage showcase" id="stage">
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="split">
-      <div data-lit>
-        <p class="eyebrow">Produced, not improvised</p>
-        <h2>Your expertise deserves a room that looks built on purpose.</h2>
-        <p class="lead" style="margin-top:1.4rem">
-          Branded frames, name plates, a holding slide, lower thirds for the recording.
-          The audience should never be able to tell it was a video call.
-        </p>
-        <div class="rule" style="margin:2rem 0"></div>
-        <p class="caption">
-          Controlled light. Deep navy. Clean negative space. One source, one direction,
-          always intentional. Never a curtain, a podium or a microphone on a stand.
+    <div class="showcase__lead" data-lit>
+      <h2>What the room actually looks like.</h2>
+      <p class="lead" style="margin-top:1.3rem">
+        Every event runs on the studio's own stage. A holding slide while people arrive, a
+        framed nameplate for the host and one for each panelist. The audience should not be
+        able to tell it was a video call.
+      </p>
+    </div>
+
+    <div class="showcase__set">
+      <figure class="plate plate--wide" data-lit data-cue="2">
+        <img src="assets/media/stage-frame-host.jpg" width="1400" height="788"
+             alt="The host frame: a branded backdrop with a nameplate reading Host, Annette Knecht Seier, Founder, Own Your Stage Studio.">
+        <figcaption>
+          <b>Host frame</b>
+          The nameplate carries whoever is hosting, bottom right, over a gold rule along the
+          floor. This one is Annette's, from the studio's own stage.
+        </figcaption>
+      </figure>
+
+      <figure class="plate plate--tall" data-lit data-cue="3">
+        <img src="assets/media/stage-holding-slide.jpg" width="1600" height="900"
+             alt="The Own Your Stage Studio holding slide: the wordmark and the line We build the stage. You steal the show., lit by a single beam on a dark ground.">
+        <figcaption>
+          <b>Holding slide</b>
+          On screen while the room fills, and again at the close. The most seen asset in the
+          brand, which is why the middle of the frame stays empty.
+        </figcaption>
+      </figure>
+
+      <div class="showcase__aside" data-lit data-cue="4">
+        <p class="body">
+          Panelist frames match it, each with their own name and title. All of it is built and
+          checked before the rehearsal, so nothing is being decided on the night.
         </p>
       </div>
+    </div>
 
-      <div data-lit data-cue="2">
-      <p class="eyebrow" style="margin-bottom:.9rem">The rig, live</p>
-      <div class="rig" role="img" aria-label="A six frame virtual panel rig. One large host frame and five panelist frames, with the key light switching between them the way a producer switches cameras.">
+    <div style="margin-top:clamp(44px,6vw,80px)" data-lit data-cue="2">
+      <div class="rig rig--art" role="img" aria-label="A six frame panel rig: one large host frame and five panelist frames on the studio's branded backdrop, with the key light moving between them the way a producer switches cameras.">
         <div class="frame frame--host on">
           <span class="frame__live" aria-hidden="true">On air</span>
           <div class="frame__plate">
@@ -333,94 +154,188 @@
         </div>
       </div>
       <p class="rig__note">
-        One host, five featured experts. The key light moves between them the way a
-        producer switches cameras, so the person speaking is always the person lit.
+        One host, five featured experts, and a key light that moves to whoever is speaking.
+        Names and titles go in once the panel is confirmed.
       </p>
-      </div>
     </div>
-
-    <figure class="frame-img" style="margin-top:3.4rem;border-color:rgba(215,206,192,.16)" data-lit data-cue="3">
-      <img src="assets/virtual-stage.png" alt="The Own Your Stage Studio branded virtual stage, shown as the holding slide displayed before an event begins.">
-    </figure>
-    <figcaption class="caption" style="margin-top:.9rem">
-      The holding slide. The most seen asset in the brand, and the reason the center of
-      the frame stays empty.
-    </figcaption>
   </div>
 </section>
 
-<!-- ============ 7. THE LEDGER ============
-     Stated plainly, on the sales page rather than in the small
-     print. Credibility is one of the five brand essence words. -->
-<section class="bay paper">
+
+<!-- ============ 4. WHAT HAPPENS ============
+     The only numbered sequence on the page. Numbers are
+     decoration unless the order is the content; here it is.
+
+     Cut from six named frameworks to four stages. Three of the
+     six trademarks were doing no work on a sales page and made
+     one service read as twelve products; they still carry their
+     full names on the Experience page and in the agreement. -->
+<section class="bay light">
   <div class="wrap">
     <div style="max-width:44rem" data-lit>
-      <p class="eyebrow eyebrow--gold">Division of responsibilities</p>
-      <h2>What we hold, and what stays with you.</h2>
-      <p class="lead" style="margin-top:1.4rem">
-        We would rather you read this now than discover it later. We build and produce
-        everything. Promotion is yours, because it is your audience that makes the room.
+      <p class="eyebrow eyebrow--gold">Three months, one event</p>
+      <h2>What happens over three months.</h2>
+      <p class="lead" style="margin-top:1.3rem">
+        Four stages. The strategy, the panel and the production are ours. The expertise and
+        the promotion are yours.
       </p>
     </div>
 
-    <div class="ledger" style="margin-top:2.8rem" data-lit data-cue="2">
-      <div class="ledger__col ledger__col--us">
-        <p class="ledger__head">Own Your Stage Studio handles</p>
-        <ul class="ticklist">
-          <li>Event strategy and authority positioning</li>
-          <li>Topic and talking point development</li>
-          <li>Panelist recruitment, screening and management</li>
-          <li>Speaker preparation and coordination</li>
-          <li>Complete event branding</li>
-          <li>Promotional graphics, swipe copy and the registration page</li>
-          <li>Technology and live production</li>
-          <li>Event recording and authority building content</li>
-          <li>Post-event visibility strategy</li>
-        </ul>
+    <div class="cuesheet">
+      <div class="cuesheet__rail" aria-hidden="true"><span class="cuesheet__marker"></span></div>
+
+      <div class="cuerow">
+        <div class="cuerow__n">01</div>
+        <div>
+          <p class="cuerow__claim">We decide what you should be known for</p>
+          <h3 class="cuerow__label">Authority Blueprint&trade;</h3>
+          <p class="caption" style="max-width:40rem">
+            Together we set your positioning, the audience you want in the room, the event
+            topic and talking point, and the one message you want people to leave with.
+            Everything after this is built on it.
+          </p>
+        </div>
       </div>
-      <div class="ledger__col ledger__col--them">
-        <p class="ledger__head">You handle</p>
-        <ul class="ticklist ticklist--none">
-          <li>Completing the intake materials on time</li>
-          <li>Participating in strategy and preparation sessions</li>
-          <li>Reviewing and approving event materials</li>
-          <li>Promoting the event consistently to your audience</li>
-          <li>Sharing the promotional materials we provide</li>
-          <li>Personally inviting relevant contacts</li>
-          <li>Generating registrations</li>
-          <li>Showing up prepared to lead the room</li>
-        </ul>
+
+      <div class="cuerow">
+        <div class="cuerow__n">02</div>
+        <div>
+          <p class="cuerow__claim">We cast the panel</p>
+          <h3 class="cuerow__label">Up to five other experts</h3>
+          <p class="caption" style="max-width:40rem">
+            We identify, recruit, screen and manage qualified experts whose work supports your
+            topic and whose presence strengthens your standing as host. Their audiences are
+            invited alongside yours.
+          </p>
+        </div>
+      </div>
+
+      <div class="cuerow">
+        <div class="cuerow__n">03</div>
+        <div>
+          <p class="cuerow__claim">We build everything you need to fill the room</p>
+          <h3 class="cuerow__label">The launch kit</h3>
+          <p class="caption" style="max-width:40rem">
+            Event branding, a registration page, graphics for you and for every panelist,
+            swipe copy for LinkedIn, Facebook and email, and the attendee email sequence.
+          </p>
+        </div>
+      </div>
+
+      <div class="cuerow">
+        <div class="cuerow__n">04</div>
+        <div>
+          <p class="cuerow__claim">We run the show</p>
+          <h3 class="cuerow__label">Showtime&trade;</h3>
+          <p class="caption" style="max-width:40rem">
+            Technical rehearsal, panelist tech checks, green room, live production, speaker
+            transitions, chat moderation and the recording. You lead the conversation.
+          </p>
+        </div>
       </div>
     </div>
 
-    <p class="notice" style="margin-top:1.8rem;max-width:56rem" data-lit data-cue="3">
-      We create the promotional materials. We do not advertise the event, post on your
-      behalf, email your list or guarantee registration or attendance numbers. Those
-      results come from your audience and your panelists, which is why we make the
-      assets easy to send.
+    <div class="actions" style="margin-top:2.6rem" data-lit>
+      <a class="cue" href="experience.html">The full running order</a>
+      <span class="caption">
+        Then a sixty minute Momentum Session&trade; to review the event and decide where the
+        momentum goes next.
+      </span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ 5. WHAT YOU KEEP ============
+     The strongest concrete content in the whole offer, and it
+     was on no page of the site: the content package has real
+     quantities attached to it.
+
+     Set as a delivery note rather than a feature grid. Quantity
+     column, item column, hairline rules, no boxes and no icons. -->
+<section class="bay paper">
+  <div class="wrap">
+    <div style="max-width:42rem" data-lit>
+      <h2>What you keep afterwards.</h2>
+      <p class="lead" style="margin-top:1.2rem">
+        The event is one night. This is the part that keeps working.
+      </p>
+    </div>
+
+    <div class="manifest" data-lit data-cue="2">
+      <div class="manifest__row">
+        <div class="manifest__n">1</div>
+        <div class="manifest__item">
+          Full event replay
+          <span>Professionally recorded and edited. Yours to use however you want.</span>
+        </div>
+      </div>
+      <div class="manifest__row">
+        <div class="manifest__n">1</div>
+        <div class="manifest__item">
+          Attendee registration export
+          <span>Everyone who registered, with their details, handed to you.</span>
+        </div>
+      </div>
+      <div class="manifest__row">
+        <div class="manifest__n">3</div>
+        <div class="manifest__item">
+          Featured host highlight videos
+          <span>Cut from your own strongest moments in the conversation.</span>
+        </div>
+      </div>
+      <div class="manifest__row">
+        <div class="manifest__n">5<small>one each</small></div>
+        <div class="manifest__item">
+          Panelist highlight videos
+          <span>One for every expert on your panel, which is also why they keep sharing it.</span>
+        </div>
+      </div>
+      <div class="manifest__row">
+        <div class="manifest__n">20<small>about</small></div>
+        <div class="manifest__item">
+          Short-form videos for the host
+          <span>Professionally edited and sized for LinkedIn, Facebook, Instagram Reels, YouTube Shorts and TikTok.</span>
+        </div>
+      </div>
+      <div class="manifest__row">
+        <div class="manifest__n">90<small>days</small></div>
+        <div class="manifest__item">
+          Content calendar, with captions
+          <span>A suggested caption for every clip and a schedule telling you what to post and when.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="manifest__foot" data-lit data-cue="3">
+      <span>Delivered as the ninety day content package.</span>
+      <span>Exact deliverables are confirmed in the schedule attached to the Host Services Agreement.</span>
     </p>
   </div>
 </section>
 
-<!-- ============ 8. INVESTMENT ============ -->
+
+<!-- ============ 6. WHAT IT COSTS ============
+     The division of responsibilities used to be a section of its
+     own, halfway up the page, phrased as a promise. It belongs
+     next to the price, where a studio would actually put it. -->
 <section class="bay light">
   <div class="wrap">
     <div class="split">
       <div data-lit>
-        <p class="eyebrow eyebrow--gold">The flagship</p>
-        <h2>One professionally produced panel. A complete authority experience.</h2>
-        <p class="lead" style="margin-top:1.4rem">
-          Three months from concept to produced event to continued visibility, with the
-          strategy, the panel and the production handled.
+        <p class="eyebrow eyebrow--gold">Launch investment</p>
+        <h2>What it costs, and what we need from you.</h2>
+        <p class="lead" style="margin-top:1.3rem">
+          One price, paid on signature, before a date is reserved. Minimum eight week cycle,
+          because the date is set by how much runway the promotion needs.
         </p>
         <div class="actions" style="margin-top:2.4rem">
           <a class="btn btn--primary" href="apply.html">Apply for the Host Package</a>
-          <a class="cue" href="experience.html">What is included</a>
+          <a class="cue" href="experience.html">Everything included</a>
         </div>
       </div>
 
       <div class="card" style="padding:clamp(30px,3.4vw,46px)" data-lit data-cue="2">
-        <p class="eyebrow">Launch investment</p>
         <div class="figure__value">$2,997</div>
         <p class="figure__label" style="max-width:26ch">
           The Own Your Stage Experience&trade;, a three month done-for-you engagement.
@@ -429,61 +344,85 @@
         <ul class="ticklist">
           <li>One professionally produced virtual panel event</li>
           <li>Up to five qualified panelists recruited and managed</li>
-          <li>Complete event branding and promotional kit</li>
-          <li>Event recording and authority building content</li>
+          <li>Complete event branding and the full launch kit</li>
+          <li>Live production, recording and the ninety day content package</li>
           <li>Sixty minute Momentum Session&trade;</li>
         </ul>
-        <p class="caption" style="margin-top:1.6rem">
-          Minimum eight week planning and production cycle. Payment is due on signature,
-          before an event date is reserved.
+      </div>
+    </div>
+
+    <div class="terms" data-lit data-cue="3">
+      <div>
+        <h3>We handle</h3>
+        <p>
+          Strategy and positioning, topic development, panelist recruitment and management,
+          speaker preparation, all event branding, the registration page, promotional graphics
+          and swipe copy, the technology, the live production, the recording, and the content
+          that comes out of it.
+        </p>
+      </div>
+      <div>
+        <h3>You handle</h3>
+        <p>
+          Completing the intake on time, showing up to the strategy and preparation sessions,
+          approving materials, and promoting the event to your own audience. We create the
+          promotional assets. We do not advertise the event, post on your behalf, email your
+          list, or guarantee registration or attendance numbers. The room comes from your
+          audience and your panelists, which is exactly why we make the assets easy to send.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 9. THE SIDE DOOR ============ -->
+
+<!-- ============ 7. THE FOUNDER ============
+     A new company with no client list has one piece of proof
+     that it is run by a person, and that is the person. The
+     quotation is Annette's own, verbatim from the completed
+     brand discovery questionnaire; nothing here is invented. -->
 <section class="bay paper">
   <div class="wrap">
-    <div class="split">
-      <figure class="frame-img" data-lit>
-        <img src="assets/stage-panelist.png" alt="A branded panelist frame from an Own Your Stage Studio virtual panel event.">
+    <div class="byline">
+      <figure class="portrait" data-lit>
+        <img src="assets/annette-knecht-seier.jpg" width="900" height="1125"
+             alt="Annette Knecht Seier, founder of Own Your Stage Studio, seated with an open notebook.">
+        <figcaption class="portrait__plate">
+          <p class="eyebrow">Founder</p>
+          <p class="name">Annette Knecht Seier</p>
+        </figcaption>
       </figure>
       <div data-lit data-cue="2">
-        <p class="eyebrow eyebrow--gold">The side door</p>
-        <h2>Not ready to host. Ready to be seen.</h2>
-        <p class="lead" style="margin-top:1.4rem">
-          Join a produced panel as a featured expert. You get a spotlight, professional
-          footage, exposure to the combined audience and credibility by association,
-          for a $47 administrative fee.
+        <p class="byline__quote">
+          &ldquo;Own Your Stage Studio should feel like the moment a highly qualified expert
+          finally steps forward and is presented at the level their expertise deserves.&rdquo;
         </p>
-        <p class="body" style="margin-top:1.2rem">
-          It is also the honest way to evaluate us. You see the production from the
-          inside before you ever consider hosting one of your own.
+        <p class="byline__attrib">
+          <b>Annette Knecht Seier</b>, founder. Own Your Stage Studio, LLC, Florida.
         </p>
-        <div class="actions" style="margin-top:2.2rem">
-          <a class="cue" href="panelists.html">See the Panelist Program</a>
+        <p class="body" style="margin-top:1.6rem">
+          The studio is founder-led while it is new, with Annette as its visible face, and it
+          is deliberately built to grow past that.
+        </p>
+        <div class="actions" style="margin-top:1.8rem">
+          <a class="cue" href="about.html">About the studio</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 10. THE CLOSE ============
-     The last thing on the page is one edge-to-edge cue. Pointing
-     at it brings the crimson wash up from the floor and takes the
-     whole block, which is the one moment on this site the field
-     is allowed to go red. -->
-<section class="dark stage" style="padding:clamp(90px,12vh,140px) 0 0;overflow:hidden">
-  <span class="spot" aria-hidden="true">
-    <span class="spot__haze"></span>
-    <span class="spot__rays spot__rays--c"></span>
-    <span class="spot__rays spot__rays--b"></span>
-    <span class="spot__rays spot__rays--a"></span>
-    <span class="spot__source"></span>
-    <span class="spot__floor"></span>
-  </span>
-  <span class="stage__pool" aria-hidden="true"></span>
+
+<!-- ============ 8. THE CLOSE ============
+     The one crimson moment on the page, and the one place the
+     field is allowed to flood. The floor under the beam is now
+     a still from the client's own second clip rather than a
+     gradient: an empty pool, before anybody is standing in it.
+
+     The panelist route and the assessment are one line each.
+     They used to be a full section and a full section, on a
+     page whose job is to sell one thing to one person. -->
+<section class="dark stage stage--plate" style="padding:clamp(90px,12vh,140px) 0 0;overflow:hidden;position:relative">
   <div class="wrap center">
     <div data-lit>
       <h2 class="display" style="font-size:clamp(2.1rem,1.4rem+3vw,3.8rem);max-width:20ch;margin:0 auto">
@@ -508,7 +447,18 @@
     </span>
   </a>
 
-  <div class="wrap center" style="padding-top:clamp(34px,4.5vh,54px);padding-bottom:clamp(66px,9vh,110px)">
-    <a class="cue" href="contact.html">Book a Spotlight Call</a>
+  <div class="wrap" style="padding-top:clamp(30px,4vh,48px);padding-bottom:clamp(66px,9vh,110px)">
+    <p class="sidedoor">
+      <span>Not hosting yet? Sit on someone else&rsquo;s panel as a featured expert for $47.</span>
+      <a href="panelists.html">The Panelist Program</a>
+    </p>
+    <p class="sidedoor">
+      <span>Not sure where you stand? Eight questions, three minutes, no email to see the result.</span>
+      <a href="assessment.html">Readiness assessment</a>
+    </p>
+    <p class="sidedoor">
+      <span>Rather talk first?</span>
+      <a href="contact.html">Book a Spotlight Call</a>
+    </p>
   </div>
 </section>

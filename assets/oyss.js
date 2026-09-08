@@ -498,6 +498,25 @@
       }, { threshold: 0.12 }).observe(v);
     }
 
+    /* A clip marked data-once is a title sequence, not a loop: the
+       stage lights, the figure resolves, and then it holds. Two
+       things follow from that. It must not restart every time the
+       reader scrolls back to the top, because play() on an ended
+       video seeks to zero and re-ignites the room. And once it has
+       ended there is nothing left to pause, so the observer can
+       stop touching it. */
+    function playOnce(clip) {
+      var done = false;
+      clip.addEventListener('ended', function () { done = true; });
+      if (!('IntersectionObserver' in window)) { playSafely(clip); return; }
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (done) return;
+          if (e.isIntersecting) playSafely(clip); else clip.pause();
+        });
+      }, { threshold: 0.12 }).observe(clip);
+    }
+
     document.querySelectorAll('.reel__media video').forEach(function (clip) {
       if (CALM || METERED) {
         clip.removeAttribute('autoplay');
@@ -507,7 +526,7 @@
         if (still) still.style.display = 'block';
         return;
       }
-      whileVisible(clip);
+      if (clip.hasAttribute('data-once')) playOnce(clip); else whileVisible(clip);
     });
 
     /* --------------------------------------------------------

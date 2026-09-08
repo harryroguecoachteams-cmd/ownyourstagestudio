@@ -121,8 +121,11 @@ SLUGS = {
 
 def for_ghl(markup):
     """Rewrite a page body so it works pasted inside a GHL funnel step."""
-    # assets -> absolute
-    markup = re.sub(r'(src|href)="(?:\.\./)*assets/', rf'\1="{ASSET_HOST}/assets/', markup)
+    # assets -> absolute.
+    # `poster` has to be in this list. It was not, so the hero's poster frame
+    # stayed a relative path inside a GHL funnel, resolved against the funnel's
+    # own domain and 404'd: a black rectangle until the video finished decoding.
+    markup = re.sub(r'(src|href|poster)="(?:\.\./)*assets/', rf'\1="{ASSET_HOST}/assets/', markup)
 
     # internal page links -> funnel slugs. Longest paths first so
     # "agreements/host.html" is matched before "host.html" could be.
@@ -214,6 +217,10 @@ def footer(base):
 </footer>"""
 
 
+# The share card. Every link to this site rendered as a blank rectangle in
+# WhatsApp, LinkedIn and iMessage because no page carried an og:image, and the
+# obvious asset was sitting unused: the holding slide is the studio's own most
+# seen artwork and it is already 16:9.
 SHELL = """<!doctype html>
 <html lang="en">
 <head>
@@ -224,6 +231,10 @@ SHELL = """<!doctype html>
 <meta property="og:title" content="{title} | Own Your Stage Studio">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-holding-slide.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{base}assets/oyss.css?v={v}">
 <style>
