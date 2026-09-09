@@ -1,5 +1,12 @@
 # The brand film
 
+> **STALE AS OF SEPTEMBER 2026.** This renders the OLD identity: Crimson
+> Pro and Work Sans, Authority Navy and Spotlight Gold. The brand sheet that
+> replaced them is Montserrat and Lato on Charcoal with Signature Red, and
+> the site has been rebuilt to it. The film is not shipped on the site, so
+> nothing live is out of date, but re-render this only after porting the
+> palette and the two fonts. See the top of DELIVERY.md for the mapping.
+
 `render_film.py` renders `assets/media/oyss-how-it-works.mp4`: 1600x900, 25
 seconds, silent, about 940KB.
 

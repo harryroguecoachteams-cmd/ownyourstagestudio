@@ -11,6 +11,7 @@ the stage lip, the mark) is drawn live in CSS over the top.
     python _art/process.py
 """
 import pathlib, subprocess, sys, io
+import numpy as np
 from PIL import Image, ImageEnhance
 
 HERE = pathlib.Path(__file__).parent
@@ -54,6 +55,30 @@ CLIPS = [
 ]
 
 
+def warm_shadows(im, amt_r=8.0, amt_b=11.0, knee=118.0, gamma=1.45):
+    """Pull the blue out of the shadows.
+
+    Every one of these commissions came back with a cool shadow: measured on
+    the darkest 30% of each frame, blue ran 7 to 33 points ahead of red. That
+    was right for the old identity, whose ground was Authority Navy. The
+    September brand sheet's dark is Charcoal, a warm near-black, so a cool
+    shadow now reads as a blue rectangle sitting on a brown page and it is
+    the loudest thing left on the site that says the pictures and the palette
+    were chosen by different people.
+
+    The shift is masked by luminance, so it lands on the shadows and the
+    lower mid-tones and leaves the key light alone. Faces sit in the key, so
+    skin is untouched -- this warms the ROOM, not the people in it.
+    """
+    a = np.asarray(im).astype(np.float32)
+    lum = .2126 * a[:, :, 0] + .7152 * a[:, :, 1] + .0722 * a[:, :, 2]
+    w = np.clip((knee - lum) / knee, 0, 1) ** gamma
+    a[:, :, 0] = np.clip(a[:, :, 0] + w * amt_r, 0, 255)
+    a[:, :, 1] = np.clip(a[:, :, 1] - w * amt_b * .28, 0, 255)
+    a[:, :, 2] = np.clip(a[:, :, 2] - w * amt_b, 0, 255)
+    return Image.fromarray(a.astype(np.uint8))
+
+
 def still(name, src, width, aspect, focus):
     p = RAW / src
     if not p.exists():
@@ -70,8 +95,9 @@ def still(name, src, width, aspect, focus):
             left = max(0, (w - tw) // 2)
             im = im.crop((left, 0, left + tw, h))
     im = im.resize((width, round(width * im.size[1] / im.size[0])), Image.LANCZOS)
-    # A whisper toward the palette: the deck's ground is Authority Navy, not
-    # neutral black, and generated shadows land slightly green.
+    # A whisper toward the palette. The ground is Charcoal, not neutral
+    # black and no longer Authority Navy, so the shadows come warm.
+    im = warm_shadows(im)
     im = ImageEnhance.Color(im).enhance(0.96)
     im = ImageEnhance.Contrast(im).enhance(1.03)
     out = OUT / (name + ".jpg")
@@ -92,7 +118,10 @@ def clip(name, src, _):
                     "-movflags", "+faststart", "-c:v", "libx264", "-preset", "veryslow",
                     "-crf", "23", "-pix_fmt", "yuv420p",
                     "-x264-params", "aq-mode=3:aq-strength=1.0:deblock=-1,-1:psy-rd=1.0,0.15",
-                    "-vf", "scale=1280:-2", str(out)], check=True)
+                    # the same warm-shadow move the stills get, so a poster
+                    # frame and the clip it came from are one picture
+                    "-vf", "colorbalance=rs=0.055:gs=-0.016:bs=-0.075,scale=1280:-2",
+                    str(out)], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(out),
                     "-vf", "select=eq(n\\,0)", "-frames:v", "1", "-q:v", "5",
                     str(OUT / (name + "-poster.jpg"))], check=True)

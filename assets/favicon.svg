@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- 16px variant: the beam thickens and the pool deepens, per the deck. -->
-  <defs><clipPath id="c"><rect width="64" height="64" rx="10"/></clipPath></defs>
-  <g clip-path="url(#c)">
-    <rect width="64" height="64" fill="#101A31"/>
-    <path d="M22 0 H42 L52 43 H12 Z" fill="#DDAA52" opacity=".55"/>
+  <!-- The mark, on Warm Neutral. At 16px the arch is the first thing to go
+       muddy, so it is set a shade wider here than in the lockup. -->
+  <rect width="64" height="64" rx="10" fill="#F8F5F2"/>
+  <g transform="translate(0,3.5)">
+    <path d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z" fill="#B91C1C"/>
+    <path d="M27 47 Q25.8 47 25.8 45.8 V42.4 a6.2 6.2 0 0 1 12.4 0 V45.8 Q38.2 47 37 47 Z" fill="#B91C1C"/>
   </g>
-  <ellipse cx="32" cy="47" rx="16" ry="4.2" fill="#DDAA52"/>
 </svg>

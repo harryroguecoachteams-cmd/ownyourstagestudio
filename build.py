@@ -137,41 +137,41 @@ def for_ghl(markup):
 # THE MARK.
 #
 # An earlier pass deleted the disc, on the reasoning that a navy circle on a
-# navy masthead is invisible. The reasoning was right and the conclusion was
-# wrong, and deck page 17 says so in a sentence: "The icon is always a complete
-# circle or a complete square. It is never bled off an edge or half shown."
-# There are five approved colourways and a bare beam is not one of them.
+# navy masthead is invisible. The conclusion was that the mark had to keep
+# its disc, because deck page 17 said "The icon is always a complete circle
+# or a complete square."
 #
-# The deck's own website mock (page 24) answers the invisibility problem the way
-# the identity intends: on a dark bar you flip the colourway to NAVY ON IVORY,
-# an ivory disc carrying a navy beam, rather than dropping the disc. On a light
-# ground it is the primary, a navy disc carrying a gold beam. Both are complete
-# circles, so the mark survives the one rule it has.
+# THE SEPTEMBER BRAND SHEET REPLACES ALL OF THAT. There is no disc, no beam
+# and no pool. The mark is the A of STAGE: two parallel strokes at a 2:1
+# rise with a flat apex, and an arch in the counter where an A has a
+# crossbar. It has no field to reverse, which is why it survives being put
+# on a dark bar by changing one fill rather than by flipping a colourway.
 #
-# Geometry is measured off the horizontal lockup on page 19 and normalised to a
-# 64 unit circle: apex 9.2 units below the top of the disc, base at 45.1, pool
-# centred at 50.3 with rx 17.8. The beam carries the falloff, because light
-# does. The pool never does: "The pool is never a gradient. One flat gold is
-# what makes the mark portable." (page 16)
-LOGO_SVG = """<svg class="lockup__icon" viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="oyssBeam" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   class="beam-a"/>
-            <stop offset="62%"  class="beam-b"/>
-            <stop offset="100%" class="beam-c"/>
-          </linearGradient>
-        </defs>
-        <circle class="disc" cx="32" cy="32" r="32"/>
-        <path class="ray" d="M27.4 9.2 H36.6 L48.4 45.1 H15.6 Z" fill="url(#oyssBeam)"/>
-        <ellipse class="pooltop" cx="32" cy="50.3" rx="17.8" ry="4.8"/>
-      </svg>"""
+# Geometry measured off the sheet's ICON / MARK panel and normalised to a
+# 64 x 58 box. Read off the artwork rather than eyeballed:
+#   outer feet     x 0 and x 64, baseline y 58
+#   stroke         11 wide measured horizontally, both edges at dx/dy .5
+#   apex           cut flat 6 wide, where the extended edges would meet
+#                  5.5 above the box
+#   inner void     closes at y 16
+#   the arch       11 wide on a 5.5 radius, sitting from y 37 to y 46.4,
+#                  centred in a void 30 wide at that height
+#
+# The A is set as a mark inside live text rather than as a picture of the
+# whole wordmark, so the lockup stays selectable, scales with the type and
+# needs no second file at 2x.
+MARK_SVG = """<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
+          <path class="mark__a" d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>
+          <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
+        </svg>"""
 
 
 def lockup(gid, base):  # gid kept: the callers name their instances
+    # The anchor carries the accessible name, so the mark standing in for
+    # the A never has to be read as "St ge" by anything.
     return f"""<a href="{base}index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
-      {LOGO_SVG}
       <span class="lockup__type">
-        <span class="lockup__name">Own Your Stage</span>
+        <span class="lockup__name"><span class="lockup__own">Own Your</span><span class="lockup__stage">St{MARK_SVG}ge</span></span>
         <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
       </span>
     </a>"""
@@ -202,7 +202,7 @@ def footer(base):
     # display scale it does what the deck's closing panel does on page 25, and
     # the split colour is the deck's own: the promise in ivory, what you get in
     # gold.
-    return f"""<footer class="footer">
+    return f"""<footer class="footer silked">
   <div class="wrap">
     <p class="footer__lines">
       <span>We build the stage.</span>
@@ -299,7 +299,7 @@ SHELL = """<!doctype html>
    page shell's job to remove it, not the brand system's, so it lives here
    and never reaches the GHL block. */
 html, body {{ margin: 0; padding: 0; }}
-body {{ background: #F7F2E8; }}
+body {{ background: #F8F5F2; }}
 </style>
 </head>
 <body>

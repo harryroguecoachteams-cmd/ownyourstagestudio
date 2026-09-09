@@ -161,7 +161,7 @@ HERO = """<!-- ============ HERO ============ -->
       <h1 class="display" style="font-size:clamp(1.9rem,1.4rem+2.2vw,3rem)">{title}</h1>
       <span class="pool" aria-hidden="true"></span>
       <p class="lead" style="margin-top:1.8rem;max-width:36rem">{blurb}</p>
-      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(221,170,82,.08)">
+      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(224, 90, 90, .08)">
         Draft for review &middot; not yet legally executed
       </p>
     </div>
@@ -300,7 +300,7 @@ def sign_section(kind):
     if kind == "host":
         specs = """
           <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Event specifications</p>
-          <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(215,206,192,.2)"></div>
+          <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
           <p class="caption" style="color:var(--ivory-46);margin-bottom:1.6rem">
             Completed together on the Authority Blueprint call. Leave blank if not yet decided.
           </p>
@@ -358,7 +358,7 @@ def sign_section(kind):
           Florida&rsquo;s Uniform Electronic Transaction Act, Fla. Stat. &sect; 668.50.
         </p>
 
-        <p id="gate-msg" class="notice" style="margin-top:2rem;background:rgba(221,170,82,.09);border-left-color:var(--gold);color:var(--ivory-70)">
+        <p id="gate-msg" class="notice" style="margin-top:2rem;background:rgba(224, 90, 90, .09);border-left-color:var(--gold);color:var(--ivory-70)">
           Read to the end of the agreement above to unlock the signature block.
         </p>
 
@@ -366,7 +366,7 @@ def sign_section(kind):
           <form id="agreement-form" novalidate>
 {fee}
             <p class="eyebrow" style="color:var(--gold)">Your details</p>
-            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(215,206,192,.2)"></div>
+            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 
             <div class="cols-2" style="gap:1.5rem">
               <label class="field" style="margin:0">
@@ -389,11 +389,11 @@ def sign_section(kind):
 {extra_id}{specs}
 
             <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Acknowledgments</p>
-            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(215,206,192,.2)"></div>
+            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 {ack_html}
 
             <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Signature</p>
-            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(215,206,192,.2)"></div>
+            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 
             <label class="field" style="margin:0">
               <span class="field__label">Type your full legal name to sign</span>
@@ -426,7 +426,7 @@ def sign_section(kind):
           Signed <span id="done-date" style="color:var(--gold)"></span>
         </p>
         <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">{confirm}</p>
-        <div class="notice" style="margin-top:2rem;background:rgba(221,170,82,.09);border-left-color:var(--gold);color:var(--ivory-70)">
+        <div class="notice" style="margin-top:2rem;background:rgba(224, 90, 90, .09);border-left-color:var(--gold);color:var(--ivory-70)">
           <strong style="color:var(--ivory)">Demonstration build.</strong>
           This signature is recorded in the browser only. Before launch, connect the
           signing endpoint and the payment processor, or replace this block with the

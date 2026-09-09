@@ -1,8 +1,64 @@
 # Own Your Stage Studio — website draft
 
-A working draft of the company site, built to the approved **OYSS Brand Deck v3**.
-Not a template with the colors swapped: every value traces to a page of that deck,
-and the notes below say which.
+A working draft of the company site.
+
+---
+
+## THE IDENTITY CHANGED (September 2026) — read this before the rest
+
+The site was built to the **OYSS Brand Deck v3**: Authority Navy, Spotlight
+Gold, Stage Crimson, Crimson Pro and Work Sans, with light as the only motif.
+A new brand sheet has replaced all of it, and the site has been rebuilt to
+the new one. **Everything below this section still describes the old deck's
+reasoning.** It is kept because most of it explains WHY a component exists,
+and that reasoning survived the recolour — but wherever it names a colour or
+a typeface, read this table instead.
+
+| | Brand Deck v3 (old) | Brand sheet, Sep 2026 (current) |
+|---|---|---|
+| Identity colour | Spotlight Gold `#DDAA52` | **Signature Red `#B91C1C`** |
+| Accent on dark | gold | **Rose Red `#E05A5A`** — Signature Red measures 2.1:1 on the dark ground and cannot be used there |
+| Tint field | one gold panel | **Soft Blush `#F9E9E7`** |
+| Ground | Spotlight Ivory `#F7F2E8` | **Warm Neutral `#F8F5F2`** |
+| Dark | Authority Navy `#101A31` | **Charcoal `#2E2E2E`**, taken to `#1F1E1D` as a surface so Rose Red clears 4.5:1 on it |
+| Action | Stage Crimson `#C92E38` | **Signature Red `#B91C1C`** |
+| Display type | Crimson Pro, a serif | **Montserrat**, 700 for headings and 800 for the wordmark |
+| Reading type | Work Sans | **Lato** |
+| Signature | gold italic serif | **Sacramento**, the brand sheet's own hand, used once (the agreement signature) |
+| The mark | a navy disc carrying a gold beam and a pool | **the A of STAGE**: two strokes at a 2:1 rise, flat apex, an arch in the counter |
+| The ornament | one flat gold pool | **a short red rule** — the sheet draws one under every label stack and draws no pool |
+| The motif | light: beams, falloff, pools | **the silk**, a red chiffon ribbon. Light survives as what the silk is lit by. |
+
+### What that meant in practice
+
+- **317 colour values migrated by RGB triple**, so a value moved whether it was
+  written as a hex or inside an `rgba()`, and the alphas came through untouched.
+  The old token NAMES are kept (`--navy`, `--gold`) and repointed, because
+  renaming ninety-five call sites is how one gets missed. Section 1 of
+  `oyss.css` maps the two sets against each other.
+- **The mark is set inside live text**, not placed as a picture of a wordmark:
+  the lockup is `Own Your St` + the mark + `ge`, so it stays selectable, scales
+  with the type and needs no 2x file. `build.py` carries the measured geometry.
+- **The silk runs in exactly three places** — the footer, the field a form
+  sheet lands on, and the pull quote. `assets/silk.svg` is generated art: 17
+  tapered ribbons over a left-to-right dissolve.
+- **Every photograph was regraded warm.** Measured on the darkest 30% of each
+  frame, blue ran 7 to 33 points ahead of red in every commission, which was
+  right for a navy ground and wrong for a charcoal one. `_art/process.py` now
+  carries a luminance-masked warm-shadow pass, and the two clips get the same
+  move through ffmpeg's `colorbalance` so a poster frame and its clip stay one
+  picture. Faces sit in the key light, so the grade warms the room, not the
+  people in it.
+- **The plates with the logo baked in are now rendered from the site's own
+  stylesheet.** `python _art/plates.py` writes the holding slide and Annette's
+  three Zoom backgrounds through Chrome, using the same CSS and the same
+  lockup, so they cannot go stale again without the site going stale too.
+  (Needs the site served on :8899 first.)
+- **`_film/render_film.py` has NOT been rebranded.** It renders the 25 second
+  brand film in Crimson Pro and Work Sans on navy and gold. That film is not
+  shipped on the site, so nothing on the live pages is stale — but the file
+  will render the old identity if anyone runs it.
+- The rendered audit is back to **55 probes, 0 findings** at five widths.
 
 ---
 

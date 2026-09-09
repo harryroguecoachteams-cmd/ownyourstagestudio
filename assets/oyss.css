@@ -1,8 +1,17 @@
 /* ============================================================
    OWN YOUR STAGE STUDIO: Brand System
-   Built to OYSS_Brand_Deck_v3. Every value below traces to a page
-   of that deck. Do not introduce a color, typeface or motion that
-   is not specified there.
+   Built to the Own Your Stage Studio brand sheet (Sep 2026):
+   Signature Red, Rose Red, Soft Blush, Warm Neutral, Charcoal,
+   Montserrat for headings and emphasis, Lato for body.
+   Do not introduce a color, typeface or motion that is not there.
+
+   THE MOTIF IS THE SILK.
+   The old system's motif was light -- beams, falloff, pools. The
+   brand sheet replaces it with a warm room and a red silk ribbon
+   running through it. Both survive here and they are not the same
+   device: the silk carries the brand, and light is what the silk
+   is lit by. Section 2 (light primitives) is now warm rather than
+   amber; section 2b is the silk.
 
    ARCHITECTURE NOTE (GoHighLevel):
    Every selector is scoped under .oyss so this file can be pasted
@@ -10,33 +19,59 @@
    There is no global reset and no bare element styling.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Work+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Sacramento&display=swap');
 
 .oyss {
-  /* --- CORE / CARRIES THE BRAND (deck p12) --- */
-  --navy:    #101A31;   /* Authority Navy,  depth and credibility  */
-  --ivory:   #F7F2E8;   /* Spotlight Ivory, keeps the brand bright */
-  --gold:    #DDAA52;   /* Spotlight Gold,  light, line, highlight */
-  --crimson: #C92E38;   /* Stage Crimson,   action only, never mood*/
+  /* --- THE FIVE THE BRAND SHEET NAMES ---------------------------------
+     Signature Red is the identity and the action. Rose Red is the same
+     red with the lights up: it is what carries on a dark ground, where
+     Signature Red measures 2.1:1 and cannot. Charcoal is the wordmark. */
+  --red:      #B91C1C;   /* Signature Red   5.96:1 on the ground          */
+  --rose:     #E05A5A;   /* Rose Red        4.58:1 on --navy              */
+  --blush:    #F9E9E7;   /* Soft Blush      the tint field                */
+  --neutral:  #F8F5F2;   /* Warm Neutral    the ground                    */
+  --charcoal: #2E2E2E;   /* Charcoal        the wordmark                  */
+
+  /* --- THE SAME FIVE UNDER THE NAMES 4,600 LINES ALREADY USE ----------
+     This file was written against the old deck. Rather than rename
+     ninety-five call sites and risk missing one, the old names are
+     repointed. The role each one plays is unchanged; only the hue moved.
+     navy: the dark ground, and the hard type on a light one.
+     gold: whatever used to be a line, a rule or a highlight.        */
+  --navy:    #1F1E1D;   /* Charcoal taken down until Rose Red clears 4.5:1 */
+  --ivory:   #F8F5F2;   /* = Warm Neutral                                  */
+  --gold:    #E05A5A;   /* = Rose Red                                      */
+  --crimson: #B91C1C;   /* = Signature Red                                 */
 
   /* --- SUPPORT / STRUCTURE, NEVER IDENTITY --- */
-  --ink:     #070B16;
-  --slate:   #4E586B;
-  --ash:     #D7CEC0;
-  --white:   #FFFDF8;
+  --ink:     #131211;   /* the floor under the dark ground                 */
+  --slate:   #6A625E;   /* warm grey, 5.49:1 on Warm Neutral               */
+  --ash:     #E4DAD6;   /* the hairline, warmed off Soft Blush             */
+  --white:   #FFFFFF;   /* cards lift off Warm Neutral                     */
 
   /* Derived. Kept as tokens so the ratios stay honest. */
-  --navy-80: rgba(16, 26, 49, .80);
-  --navy-60: rgba(16, 26, 49, .60);   /* the scrim minimum, deck p19 */
-  --gold-40: rgba(221, 170, 82, .40);
-  --gold-18: rgba(221, 170, 82, .18);
-  --gold-08: rgba(221, 170, 82, .08);
-  --ivory-70: rgba(247, 242, 232, .70);
-  --ivory-46: rgba(247, 242, 232, .52);  /* .46 measured 4.22:1 on navy, under the deck's 4.5 floor */
+  --navy-80: rgba(31, 30, 29, .80);
+  --navy-60: rgba(31, 30, 29, .60);   /* the scrim minimum */
+  --gold-40: rgba(224, 90, 90, .40);
+  --gold-18: rgba(224, 90, 90, .18);
+  --gold-08: rgba(224, 90, 90, .08);
+  --ivory-70: rgba(248, 245, 242, .70);
+  --ivory-46: rgba(248, 245, 242, .52);  /* .46 measures 4.39:1, under the 4.5 floor */
+  --blush-40: rgba(249, 233, 231, .40);
 
-  /* --- TYPE (deck p10) --- */
-  --serif: 'Crimson Pro', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
-  --sans:  'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Focus is Rose Red, not Signature Red: it is the one accent that
+     clears 3:1 as a ring on BOTH the ground and the dark ground. */
+  --focus:   #E05A5A;
+
+  /* --- TYPE ------------------------------------------------------------
+     Montserrat headings, Lato body. The old system split the voice serif
+     against sans; this one has no serif, so the split is carried by
+     family and weight instead. --serif is the display voice and --sans is
+     the reading voice, and the names are kept for the same reason the
+     colour names were. */
+  --serif: 'Montserrat', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --sans:  'Lato', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --script: 'Sacramento', 'Segoe Script', cursive;   /* the signature line, once */
 
   /* --- LADDER (deck p11). Each step ~1.4x the one below. --- */
   --t-eyebrow: .6875rem;
@@ -87,7 +122,7 @@
   color: var(--slate);
   margin-bottom: 1.15rem;
 }
-.oyss .eyebrow--gold { color: #84662A; }  /* the deck notes gold on ivory fails 4.5:1;
+.oyss .eyebrow--gold { color: #B91C1C; }  /* the deck notes gold on ivory fails 4.5:1;
                                              this is the darkest step that still reads gold
                                              and measures 4.81:1 */
 .oyss .dark .eyebrow, .oyss .stage .eyebrow { color: var(--gold); }
@@ -95,7 +130,7 @@
 .oyss .display {
   font-family: var(--serif);
   font-size: var(--t-display);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: -.018em;
   text-wrap: balance;
@@ -103,7 +138,7 @@
 .oyss h1, .oyss h2 {
   font-family: var(--serif);
   font-size: var(--t-heading);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.14;
   letter-spacing: -.012em;
   text-wrap: balance;
@@ -118,7 +153,7 @@
 .oyss .lead {
   font-size: var(--t-lead);
   line-height: 1.56;
-  font-weight: 300;
+  font-weight: 400;   /* Lato 300 is a stop lighter than Work Sans 300 was */
   color: var(--slate);
   max-width: var(--measure);
 }
@@ -132,7 +167,7 @@
 .oyss .dark .caption, .oyss .stage .caption { color: var(--ivory-46); }
 
 /* The serif states the belief. The sans delivers the instruction. */
-.oyss .belief { font-family: var(--serif); font-weight: 400; }
+.oyss .belief { font-family: var(--serif); font-weight: 700; }
 
 /* ============================================================
    2. LIGHT PRIMITIVES
@@ -140,23 +175,31 @@
    a curtain, a microphone or a proscenium. (deck p14)
    ============================================================ */
 
-/* --- THE POOL ---------------------------------------------
-   One flat gold ellipse. The only ornament the identity is
-   allowed. Used as the display underline everywhere. */
+/* --- THE RED RULE -----------------------------------------
+   Kept as .pool because the class is in eleven pages, but the
+   shape changed with the identity. The old deck's ornament was a
+   flat gold ellipse, a pool of light. The brand sheet draws a
+   short Signature Red rule under every label stack it sets --
+   under BOLDER VOICES, under REAL EXPERTISE, under the STUDIO in
+   the lockup -- and draws no pool anywhere. So this is a rule.
+
+   Signature Red on a light ground, Rose Red on a dark one, for
+   the same reason the mark flips. */
 .oyss .pool {
   display: block;
-  width: 74px; height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
+  width: 74px; height: 3px;
+  border-radius: 2px;
+  background: var(--red);
   margin-top: 1.6rem;
-  transform-origin: center;
+  transform-origin: left center;
 }
-.oyss .pool--sm { width: 46px; height: 5px; margin-top: 1.1rem; }
+.oyss .dark .pool, .oyss .stage .pool, .oyss .footer .pool { background: var(--rose); }
+.oyss .pool--sm { width: 46px; height: 3px; margin-top: 1.1rem; }
 
 /* --- THE RULE ---------------------------------------------
    Ash Gold divides. It never carries a headline or a logo. */
 .oyss .rule { height: 1px; background: var(--ash); border: 0; }
-.oyss .dark .rule, .oyss .stage .rule { background: rgba(215, 206, 192, .18); }
+.oyss .dark .rule, .oyss .stage .rule { background: rgba(228, 218, 214, .18); }
 
 /* --- THE FALLOFF ------------------------------------------
    A dark section never has a flat background. It always has a
@@ -172,7 +215,7 @@
   position: absolute; inset: 0;
   background:
     radial-gradient(115% 78% at 50% -14%, var(--gold-08) 0%, transparent 62%),
-    linear-gradient(180deg, transparent 0%, rgba(7, 11, 22, .55) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(19, 18, 17, .55) 100%);
   pointer-events: none;
   z-index: -1;
 }
@@ -192,9 +235,9 @@
      falloff. A beam built from flat gold at low alpha composites to brown over
      navy and stops reading as light, which is why the top stop is warm white. */
   background: linear-gradient(180deg,
-    rgba(255, 240, 210, .26) 0%,
-    rgba(238, 198, 128, .15) 28%,
-    rgba(221, 170, 82,  .06) 60%,
+    rgba(255, 236, 230, .26) 0%,
+    rgba(239, 134, 134, .15) 28%,
+    rgba(224, 90, 90, .06) 60%,
     transparent 88%);
   mix-blend-mode: screen;
   clip-path: polygon(43% 0%, 57% 0%, 100% 100%, 0% 100%);
@@ -221,7 +264,7 @@
   left: 50%; bottom: 0;
   width: min(72vw, 900px); height: 190px;
   transform: translate(-50%, 46%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 236, 200, .16) 0%, rgba(221, 170, 82, .05) 45%, transparent 72%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 232, 226, .16) 0%, rgba(224, 90, 90, .05) 45%, transparent 72%);
   mix-blend-mode: screen;
   opacity: 0;
   pointer-events: none;
@@ -247,6 +290,63 @@
   z-index: -1;
 }
 .oyss .stage:hover .stage__pool { opacity: 1; }
+
+/* ============================================================
+   2b. THE SILK
+   ------------------------------------------------------------
+   The brand sheet's own motif. A red chiffon ribbon enters at
+   the left, opens as it travels, and dissolves before it reaches
+   the right edge. It is the one thing on the board that is not
+   type, a photograph or a rule, so it is the thing that has to
+   be here or the site is only a recolour of the old one.
+
+   It is decoration, so it is a background image and never
+   markup, it never sits over reading type, and it runs in three
+   places and no more: the closing footer, the field a form sheet
+   lands on, and the pull quote. A device used everywhere stops
+   being a device.
+
+   silk.svg (beside this file) is generated art, not a photograph: 17 tapered
+   ribbons over a left-to-right dissolve, drawn once at 1200x620
+   and scaled. Anchored xMinYMax, so it stays pinned to the lower
+   left however the box is shaped.
+   ============================================================ */
+
+.oyss .silked { position: relative; isolation: isolate; }
+.oyss .silked > * { position: relative; z-index: 1; }
+.oyss .silked::before {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;   /* never over 100: the section is already full bleed */
+  height: clamp(240px, 62%, 620px);
+  background: url('silk.svg') left bottom / 100% 100% no-repeat;
+  opacity: .5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* On the dark ground the ribbon is the only warmth in the frame,
+   so it burns in rather than sitting on top. */
+.oyss .dark.silked::before,
+.oyss .footer.silked::before { opacity: .42; mix-blend-mode: screen; }
+
+/* Inside the pull quote the panel is already Soft Blush, so the
+   ribbon only has the deep end of its own gradient left to say, and
+   it stays under the reading block rather than crossing it. */
+.oyss .goldfield.silked::before { opacity: .6; height: clamp(170px, 52%, 360px); }
+
+@media (max-width: 620px) {
+  /* A phone is a column of text. The ribbon reads as noise behind
+     it at that width, so it drops to a wash at the very bottom. */
+  .oyss .silked::before { height: clamp(150px, 40%, 300px); opacity: .34; }
+  .oyss .goldfield.silked::before { opacity: .5; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .oyss .silked::before { transition: opacity 700ms var(--settle); }
+}
+@media print { .oyss .silked::before { display: none; } }
+
 
 /* ============================================================
    3. THE REVEAL
@@ -347,11 +447,11 @@
 
 /* The single thing on the page that must be noticed. */
 .oyss .btn--primary { background: var(--crimson); color: var(--white); }
-.oyss .btn--primary:hover { background: #B0242D; transform: translateY(-1px); }
+.oyss .btn--primary:hover { background: #A81919; transform: translateY(-1px); }
 
 .oyss .btn--ghost { border-color: var(--navy); color: var(--navy); }
 .oyss .btn--ghost:hover { background: var(--navy); color: var(--ivory); }
-.oyss .dark .btn--ghost, .oyss .stage .btn--ghost { border-color: rgba(247, 242, 232, .34); color: var(--ivory); }
+.oyss .dark .btn--ghost, .oyss .stage .btn--ghost { border-color: rgba(248, 245, 242, .34); color: var(--ivory); }
 .oyss .dark .btn--ghost:hover, .oyss .stage .btn--ghost:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }
 
 /* A text action that is not a button. Gold as a line, not a fill. */
@@ -376,10 +476,16 @@
 
 .oyss .masthead {
   position: sticky; top: 0; z-index: 90;
-  background: rgba(16, 26, 49, .90);
+  /* The bar is translucent, so the 9px STUDIO in Rose Red is measured
+     against what the bar COMPOSITES to, not against the token. Over the
+     Warm Neutral ground, --navy at .90 landed on #2C2A29 and the STUDIO
+     measured 3.93:1. Ink at .96 lands on #1C1B1A and it measures 4.73:1.
+     The same sum is repeated in the tablet override at the foot of
+     section 27, which is a separate rule and was a separate bug. */
+  background: rgba(19, 18, 17, .96);
   backdrop-filter: saturate(140%) blur(14px);
   -webkit-backdrop-filter: saturate(140%) blur(14px);
-  border-bottom: 1px solid rgba(215, 206, 192, .13);
+  border-bottom: 1px solid rgba(228, 218, 214, .13);
   transition: background 300ms var(--settle);
 }
 .oyss .masthead__inner {
@@ -403,7 +509,7 @@
 
 .oyss .burger {
   display: none;
-  background: none; border: 1px solid rgba(247, 242, 232, .3);
+  background: none; border: 1px solid rgba(248, 245, 242, .3);
   border-radius: 2px; padding: .55rem .8rem;
   color: var(--ivory); cursor: pointer;
   font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
@@ -416,42 +522,79 @@
     flex-direction: column; align-items: stretch;
     gap: 0;
     background: var(--navy);
-    border-bottom: 1px solid rgba(215, 206, 192, .16);
+    border-bottom: 1px solid rgba(228, 218, 214, .16);
     padding: .5rem var(--gutter) 1.6rem;
     display: none;
   }
   .oyss .masthead nav.open { display: flex; }
-  .oyss .masthead nav a { padding: .95rem 0; border-bottom: 1px solid rgba(215, 206, 192, .1); }
+  .oyss .masthead nav a { padding: .95rem 0; border-bottom: 1px solid rgba(228, 218, 214, .1); }
   .oyss .masthead nav .btn { margin-top: 1.1rem; justify-content: center; }
 }
 
 /* ============================================================
    7. THE LOGO
-   Artwork, not live text, but rendered as inline SVG so it stays
-   crisp at every size and can be lit. Proportions are locked to
-   the deck: pool width = wordmark width, gap fixed.
+   The brand sheet's lockup, set rather than placed. OWN YOUR in
+   Montserrat 500, STAGE in 800, the A of STAGE replaced by the
+   mark, and STUDIO tracked out under it.
+
+   The A is drawn because in this identity it IS the mark: two
+   parallel strokes at a 2:1 rise with a flat apex, and an arch
+   in the counter where an A has a crossbar. Geometry measured
+   off the sheet's ICON / MARK panel and normalised to a 64 x 58
+   box -- outer feet at 0 and 64, stroke 11 wide measured
+   horizontally, the void closing at y16, and the arch 11 wide on
+   a 5.5 radius sitting at y37.
+
+   It is wider and lighter than the bold letters either side of
+   it. That is what the sheet draws, and it is the reason the A
+   reads as a mark rather than as a glyph in the wrong weight.
+
+   Two colourways, and only two. Rose Red on the dark ground,
+   because Signature Red measures 2.1:1 there and disappears.
+   Signature Red with a Charcoal wordmark on a light one, which
+   is the primary as the sheet prints it.
    ============================================================ */
 
-.oyss .lockup { display: flex; align-items: center; gap: .78rem; }
-.oyss .lockup__icon { width: 34px; height: 34px; flex: none; }
+.oyss .lockup { display: inline-flex; align-items: center; }
 .oyss .lockup__type { display: block; }
 .oyss .lockup__name {
   font-family: var(--serif);
-  font-size: 1.06rem; font-weight: 600;
-  letter-spacing: .16em;              /* tracked to +6, never condensed */
+  font-size: 1.04rem;
   text-transform: uppercase;
   line-height: 1;
+  white-space: nowrap;
   color: var(--ivory);
 }
+.oyss .lockup__own   { font-weight: 500; letter-spacing: .085em; }
+.oyss .lockup__stage { font-weight: 800; letter-spacing: .03em; margin-left: .28em; }
+
+/* The mark stands where the A does, on the baseline, with its apex
+   level with the caps beside it. Montserrat's caps are .70em; the
+   mark carries a hair more so the flat apex reads as a point, and
+   it is 64:58, so the width follows. */
+.oyss .lockup .mark {
+  display: inline-block;
+  width: .789em; height: .715em;
+  vertical-align: baseline;
+  margin: 0 .045em 0 .025em;
+}
+.oyss .mark__a, .oyss .mark__arch { fill: var(--rose); }
+
 .oyss .lockup__desc {
-  font-family: var(--sans);
-  font-size: .5rem; font-weight: 500;
+  font-family: var(--serif);
+  font-size: .5rem; font-weight: 600;
   letter-spacing: .58em;              /* to the full width of the wordmark */
   text-transform: uppercase;
-  color: var(--gold);
-  margin-top: .3rem;
+  color: var(--rose);
+  margin-top: .34rem;
 }
-.oyss .lockup--navy .lockup__name { color: var(--navy); }
+.oyss .lockup__what { color: var(--ivory-46); }
+/* The primary, for any light ground. */
+.oyss .lockup--navy .lockup__name { color: var(--charcoal); }
+.oyss .lockup--navy .lockup__what { color: var(--slate); }
+.oyss .lockup--navy .lockup__desc { color: var(--red); }
+.oyss .lockup--navy .mark__a,
+.oyss .lockup--navy .mark__arch { fill: var(--red); }
 
 /* ============================================================
    8. CARDS & PANELS
@@ -469,14 +612,19 @@
 .oyss .card:hover { border-color: var(--gold-40); transform: translateY(-3px); }
 .oyss .card__index {
   font-family: var(--serif);
-  font-size: 1.9rem; font-weight: 300; font-style: italic;
-  color: #84662A; line-height: 1;          /* light context is the default */
+  font-size: 1.75rem; font-weight: 700; letter-spacing: .02em;
+  color: #B91C1C; line-height: 1;          /* light context is the default */
   margin-bottom: 1.25rem;
 }
 .oyss .dark .card__index, .oyss .stage .card__index { color: var(--gold); }
+/* The card on a dark ground used to be a LIFT: 3.5% Warm Neutral over the
+   section, which put it at #262524 and dropped every Rose Red accent inside
+   it to 4.18:1. A panel does not have to be brighter than the wall to read
+   as a panel -- recessed reads as one just as well, and it buys back the
+   headroom, taking the same eyebrow to 4.87:1. */
 .oyss .dark .card, .oyss .stage .card {
-  background: rgba(247, 242, 232, .035);
-  border-color: rgba(215, 206, 192, .15);
+  background: rgba(19, 18, 17, .55);
+  border-color: rgba(228, 218, 214, .15);
 }
 .oyss .dark .card:hover, .oyss .stage .card:hover { border-color: var(--gold-40); }
 
@@ -492,17 +640,17 @@
   position: relative;
   padding: clamp(22px, 2.4vw, 34px) clamp(16px, 1.8vw, 24px) clamp(26px, 2.8vw, 38px);
   background: var(--ink);
-  border-top: 2px solid rgba(215, 206, 192, .16);
+  border-top: 2px solid rgba(228, 218, 214, .16);
   text-align: left;
   cursor: default;
   overflow: hidden;
   transition: background 420ms var(--settle), border-color 420ms var(--settle);
 }
 /* Baseline luminance climbs across the ladder. */
-.oyss .dimmer__cell:nth-child(1) { background: #05080F; }
-.oyss .dimmer__cell:nth-child(2) { background: #0A1020; }
-.oyss .dimmer__cell:nth-child(3) { background: #101A31; }
-.oyss .dimmer__cell:nth-child(4) { background: #1A2947; border-top-color: var(--gold); }
+.oyss .dimmer__cell:nth-child(1) { background: #0D0C0C; }
+.oyss .dimmer__cell:nth-child(2) { background: #161514; }
+.oyss .dimmer__cell:nth-child(3) { background: #1F1E1D; }
+.oyss .dimmer__cell:nth-child(4) { background: #322F2D; border-top-color: var(--gold); }
 
 .oyss .dimmer__cell::after {   /* the pool that lands on this cell */
   content: '';
@@ -528,13 +676,13 @@
 .oyss .dimmer__cell:nth-child(4) .dimmer__n { color: var(--gold); }
 .oyss .dimmer__cell:hover .dimmer__n { color: var(--gold); }
 .oyss .dimmer__name {
-  font-family: var(--serif); font-size: 1.55rem; font-weight: 400;
+  font-family: var(--serif); font-size: 1.55rem; font-weight: 700;
   line-height: 1.1; margin: .85rem 0 .7rem;
-  color: rgba(247, 242, 232, .38);
+  color: rgba(248, 245, 242, .38);
   transition: color 420ms var(--settle);
 }
-.oyss .dimmer__cell:nth-child(2) .dimmer__name { color: rgba(247, 242, 232, .55); }
-.oyss .dimmer__cell:nth-child(3) .dimmer__name { color: rgba(247, 242, 232, .74); }
+.oyss .dimmer__cell:nth-child(2) .dimmer__name { color: rgba(248, 245, 242, .55); }
+.oyss .dimmer__cell:nth-child(3) .dimmer__name { color: rgba(248, 245, 242, .74); }
 .oyss .dimmer__cell:nth-child(4) .dimmer__name { color: var(--ivory); }
 .oyss .dimmer__cell:hover .dimmer__name,
 .oyss .dimmer__cell:focus-within .dimmer__name { color: var(--ivory); }
@@ -551,46 +699,46 @@
 .oyss .cuesheet { position: relative; margin-top: 3.4rem; }
 .oyss .cuesheet__rail {
   position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
-  background: rgba(215, 206, 192, .18);
+  background: rgba(228, 218, 214, .18);
 }
 .oyss .cuesheet__marker {
   position: absolute; left: -3px; width: 7px; height: 7px;
   border-radius: 50%; background: var(--gold);
   transition: top 240ms var(--settle);
-  box-shadow: 0 0 0 5px rgba(221, 170, 82, .13);
+  box-shadow: 0 0 0 5px rgba(224, 90, 90, .13);
 }
 .oyss .cuerow {
   display: grid;
   grid-template-columns: 92px 1fr;
   gap: clamp(18px, 3vw, 48px);
   padding: clamp(26px, 3vw, 40px) 0 clamp(26px, 3vw, 40px) clamp(24px, 3vw, 44px);
-  border-bottom: 1px solid rgba(215, 206, 192, .13);
+  border-bottom: 1px solid rgba(228, 218, 214, .13);
 }
 .oyss .cuerow:last-child { border-bottom: 0; }
 .oyss .cuerow__n {
-  font-family: var(--serif); font-size: 2.5rem; font-weight: 300;
-  font-style: italic; line-height: .9;
+  font-family: var(--serif); font-size: 2.3rem; font-weight: 700;
+  letter-spacing: .01em; line-height: .95;
   /* The resting state used to be .45 alpha, which measures 1.85:1
      on ivory. A number the light has not reached yet is still a
      number on the screen, and this is the one numbered sequence
      left on the site, so it is content. .80 measures 3.30:1,
      clears the large-text floor, and the row still visibly
      brightens when the light arrives. */
-  color: rgba(132, 102, 42, .80);
+  color: rgba(185, 28, 28, .80);
   transition: color 600ms var(--settle);
 }
-.oyss .cuerow.lit .cuerow__n { color: #84662A; }
-.oyss .dark .cuerow__n, .oyss .stage .cuerow__n { color: rgba(221, 170, 82, .60); }
+.oyss .cuerow.lit .cuerow__n { color: #B91C1C; }
+.oyss .dark .cuerow__n, .oyss .stage .cuerow__n { color: rgba(224, 90, 90, .60); }
 .oyss .dark .cuerow.lit .cuerow__n,
 .oyss .stage .cuerow.lit .cuerow__n { color: var(--gold); }
 .oyss .cuerow__label {
-  font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
   line-height: 1.15; margin-bottom: .3rem;
 }
 .oyss .cuerow__claim {
   font-family: var(--sans); font-size: var(--t-eyebrow); font-weight: 600;
   letter-spacing: .26em; text-transform: uppercase;
-  color: #84662A; margin-bottom: 1rem;     /* 11px text: needs the full 4.5:1 */
+  color: #B91C1C; margin-bottom: 1rem;     /* 11px text: needs the full 4.5:1 */
 }
 .oyss .dark .cuerow__claim, .oyss .stage .cuerow__claim { color: var(--gold); }
 @media (max-width: 700px) {
@@ -608,8 +756,8 @@
 .oyss .frame {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: linear-gradient(168deg, #16233F 0%, #0A1120 100%);
-  border: 1px solid rgba(215, 206, 192, .13);
+  background: linear-gradient(168deg, #2B2928 0%, #161514 100%);
+  border: 1px solid rgba(228, 218, 214, .13);
   border-radius: 2px;
   overflow: hidden;
   display: flex; align-items: flex-end;
@@ -621,7 +769,7 @@
   position: absolute; left: 50%; top: -46%;
   width: 118%; aspect-ratio: 1 / 1;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(221, 170, 82, .22) 0%, transparent 64%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(224, 90, 90, .22) 0%, transparent 64%);
   opacity: 0;
   transition: opacity 620ms var(--settle);
 }
@@ -630,7 +778,7 @@
 .oyss .frame--host { grid-column: span 2; grid-row: span 2; }
 .oyss .frame__plate {
   position: relative;
-  background: rgba(7, 11, 22, .72);
+  background: rgba(19, 18, 17, .72);
   border-left: 2px solid var(--gold);
   padding: .5rem .75rem;
   backdrop-filter: blur(4px);
@@ -640,7 +788,7 @@
   text-transform: uppercase; color: var(--gold); line-height: 1;
 }
 .oyss .frame__name {
-  font-family: var(--serif); font-size: 1rem; line-height: 1.2;
+  font-family: var(--serif); font-weight: 700; font-size: 1rem; line-height: 1.2;
   color: var(--ivory); margin-top: .2rem;
 }
 .oyss .frame--host .frame__name { font-size: 1.4rem; }
@@ -665,16 +813,19 @@
   padding-bottom: 1rem; margin-bottom: 1.6rem;
   border-bottom: 1px solid var(--ash);
 }
-.oyss .ledger__col--us .ledger__head { color: #84662A; }
+.oyss .ledger__col--us .ledger__head { color: #B91C1C; }
 .oyss .ticklist li {
   position: relative; padding-left: 1.7rem; font-size: var(--t-caption);
   line-height: 1.5; color: var(--slate);
 }
 .oyss .ticklist li + li { margin-top: .85rem; }
-.oyss .ticklist li::before {   /* a pool, not a checkmark */
-  content: ''; position: absolute; left: 0; top: .52em;
-  width: 11px; height: 4px; border-radius: 50%; background: var(--gold);
+.oyss .ticklist li::before {   /* the rule, not a checkmark */
+  content: ''; position: absolute; left: 0; top: .58em;
+  width: 11px; height: 3px; border-radius: 2px; background: var(--red);
 }
+.oyss .dark .ticklist li::before,
+.oyss .stage .ticklist li::before,
+.oyss .footer .ticklist li::before { background: var(--rose); }
 .oyss .ticklist--none li::before { background: var(--ash); }
 .oyss .dark .ticklist li, .oyss .stage .ticklist li { color: var(--ivory-70); }
 @media (max-width: 760px) { .oyss .ledger { grid-template-columns: 1fr; } }
@@ -685,7 +836,7 @@
 
 .oyss .figure__value {
   font-family: var(--serif); font-size: clamp(2.6rem, 1.8rem + 3vw, 4rem);
-  font-weight: 300; line-height: .95; letter-spacing: -.02em;
+  font-weight: 600; line-height: .95; letter-spacing: -.02em;
 }
 .oyss .figure__label {
   font-size: var(--t-caption); color: var(--slate); margin-top: .7rem; max-width: 22ch;
@@ -753,14 +904,14 @@
   transition: background 200ms var(--settle), width 200ms var(--settle);
 }
 .oyss .choice:hover .choice__box { border-color: var(--gold-40); }
-.oyss .choice input:checked + .choice__box { border-color: var(--gold); background: #FFFCF4; }
+.oyss .choice input:checked + .choice__box { border-color: var(--gold); background: #FFFDFC; }
 .oyss .choice input:checked + .choice__box .choice__dot { background: var(--gold); width: 22px; }
 .oyss .choice input:focus-visible + .choice__box { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 /* ============================================================
    15. THE DOCUMENT
    Agreements. Editorial legal setting: a real measure, numbered
-   sections, gold rules. A contract people can actually read.
+   sections, red rules. A contract people can actually read.
    ============================================================ */
 
 .oyss .doc { max-width: 42rem; }
@@ -772,19 +923,19 @@
   border-top: 1px solid var(--ash);
 }
 .oyss .doc h2:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
-.oyss .doc h2 .doc__n { color: #84662A; margin-right: .7rem; }  /* 14px on ivory: gold measured 1.89:1 */
+.oyss .doc h2 .doc__n { color: #B91C1C; margin-right: .7rem; }  /* 14px on ivory: gold measured 1.89:1 */
 .oyss .doc h3 {
   font-size: var(--t-body); font-weight: 600; margin-top: 1.8rem; color: var(--navy);
 }
-.oyss .doc p { margin-top: 1.05rem; font-size: .9875rem; line-height: 1.72; color: #2C3547; }
+.oyss .doc p { margin-top: 1.05rem; font-size: .9875rem; line-height: 1.72; color: #3C3937; }
 .oyss .doc ul { margin-top: 1rem; }
 .oyss .doc ul li {
   position: relative; padding-left: 1.5rem; margin-top: .6rem;
-  font-size: .9375rem; line-height: 1.62; color: #2C3547;
+  font-size: .9375rem; line-height: 1.62; color: #3C3937;
 }
 .oyss .doc ul li::before {
-  content: ''; position: absolute; left: 0; top: .62em;
-  width: 9px; height: 3px; border-radius: 50%; background: var(--gold);
+  content: ''; position: absolute; left: 0; top: .66em;
+  width: 9px; height: 3px; border-radius: 2px; background: var(--red);
 }
 .oyss .doc strong { font-weight: 600; color: var(--navy); }
 
@@ -825,18 +976,18 @@
   border-radius: 3px;
   position: relative; overflow: hidden;
 }
-.oyss .signblock .field__input { background: rgba(247, 242, 232, .07); border-color: rgba(215, 206, 192, .26); color: var(--ivory); }
-.oyss .signblock .field__input::placeholder { color: rgba(247, 242, 232, .3); }
+.oyss .signblock .field__input { background: rgba(248, 245, 242, .07); border-color: rgba(228, 218, 214, .26); color: var(--ivory); }
+.oyss .signblock .field__input::placeholder { color: rgba(248, 245, 242, .3); }
 .oyss .signblock .check { color: var(--ivory-70); }
 .oyss .sig {
-  font-family: var(--serif); font-style: italic; font-size: 1.7rem;
-  letter-spacing: .01em; color: var(--gold);
+  font-family: var(--script); font-weight: 400; font-size: 2.4rem;
+  letter-spacing: .01em; line-height: 1; color: var(--rose);
 }
 .oyss .sig-preview {
   min-height: 78px; display: flex; align-items: center;
   padding: .5rem 1.05rem;
   border-bottom: 1px solid var(--gold-40);
-  background: rgba(247, 242, 232, .04);
+  background: rgba(248, 245, 242, .04);
 }
 .oyss .locked { opacity: .42; pointer-events: none; transition: opacity 500ms var(--settle); }
 .oyss .locked.unlocked { opacity: 1; pointer-events: auto; }
@@ -845,7 +996,7 @@
   display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
   padding: 1.5rem 0; border-top: 1px solid var(--gold-40); border-bottom: 1px solid var(--gold-40);
 }
-.oyss .fee__amt { font-family: var(--serif); font-size: 2.6rem; font-weight: 300; line-height: 1; color: var(--gold); }
+.oyss .fee__amt { font-family: var(--serif); font-size: 2.6rem; font-weight: 600; line-height: 1; color: var(--gold); }
 
 /* ============================================================
    16. NOTICES
@@ -857,14 +1008,14 @@
   background: var(--gold-08);
   font-size: var(--t-caption); line-height: 1.6; color: var(--slate);
 }
-.oyss .notice--action { border-left-color: var(--crimson); background: rgba(201, 46, 56, .05); }
-.oyss .dark .notice, .oyss .stage .notice { color: var(--ivory-70); background: rgba(221, 170, 82, .07); }
+.oyss .notice--action { border-left-color: var(--crimson); background: rgba(185, 28, 28, .05); }
+.oyss .dark .notice, .oyss .stage .notice { color: var(--ivory-70); background: rgba(224, 90, 90, .07); }
 
 .oyss .draft-flag {
   display: inline-flex; align-items: center; gap: .6rem;
   padding: .38rem .8rem;
   font-size: .625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-  color: #84662A; background: var(--gold-08); border: 1px solid var(--gold-40); border-radius: 2px;
+  color: #B91C1C; background: var(--gold-08); border: 1px solid var(--gold-40); border-radius: 2px;
 }
 
 /* ============================================================
@@ -883,10 +1034,10 @@
 .oyss .footer__base {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
   margin-top: 3.6rem; padding-top: 1.7rem;
-  border-top: 1px solid rgba(215, 206, 192, .12);
+  border-top: 1px solid rgba(228, 218, 214, .12);
   font-size: var(--t-caption); color: var(--ivory-46);
 }
-.oyss .footer__promise { font-family: var(--serif); font-size: 1.25rem; color: var(--ivory); margin-top: 1.5rem; }
+.oyss .footer__promise { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; color: var(--ivory); margin-top: 1.5rem; }
 @media (max-width: 760px) { .oyss .footer__grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
@@ -992,7 +1143,7 @@
     max-height: calc(100svh - 96px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    box-shadow: 0 22px 44px rgba(7, 11, 22, .5);
+    box-shadow: 0 22px 44px rgba(19, 18, 17, .5);
   }
   .oyss .masthead nav a { min-height: 48px; display: flex; align-items: center; }
   .oyss .burger {
@@ -1031,7 +1182,7 @@
   .oyss .masthead .btn, .oyss .masthead nav .btn { width: 100%; }
 
   .oyss .footer__base { flex-direction: column; gap: .6rem; }
-  .oyss .footer__promise { font-size: 1.12rem; }
+  .oyss .footer__promise { font-size: 1.8rem; }
 
   .oyss .cuerow { padding-left: 0; }
   .oyss .cuesheet__rail, .oyss .cuesheet__marker { display: none; }
@@ -1097,11 +1248,10 @@
    The lockup is artwork. Its proportions are locked in the deck,
    so they are locked here.                                      */
 .oyss .lockup,
-.oyss .footer .lockup { display: inline-flex; align-items: center; gap: .78rem; }
+.oyss .footer .lockup { display: inline-flex; align-items: center; }
 .oyss .lockup__type { flex: 0 1 auto; min-width: 0; }
 .oyss .lockup__name,
 .oyss .lockup__desc { display: block; white-space: nowrap; }
-.oyss .lockup__icon { flex: none; }
 
 /* ---- 21.2 THE BEAM WAS NOT OVER THE HEADLINE ----------------
    `left: 62%` is a fixed number on a page whose headline column
@@ -1173,7 +1323,7 @@
      high and the masthead painted over its own page name. The light
      engine measures the masthead and publishes it as --oyss-mh. */
   position: sticky; top: var(--oyss-mh, 78px); z-index: 89;
-  border-bottom: 1px solid rgba(215, 206, 192, .16);
+  border-bottom: 1px solid rgba(228, 218, 214, .16);
   background: var(--navy);
 }
 .oyss .pagemark__inner {
@@ -1200,7 +1350,7 @@
 }
 
 /* guide: the reading pages stay in the dark. */
-.oyss .pagemark--guide { background: #0A1020; }
+.oyss .pagemark--guide { background: #161514; }
 .oyss .pagemark--guide .pagemark__kind { color: var(--gold); }
 .oyss .pagemark--guide .pagemark__name { color: var(--ivory-70); }
 
@@ -1213,11 +1363,11 @@
   box-shadow: 0 1px 0 var(--gold);
 }
 .oyss .pagemark--form .pagemark__kind,
-.oyss .pagemark--agreement .pagemark__kind { color: #84662A; background: var(--gold-08); }
+.oyss .pagemark--agreement .pagemark__kind { color: #B91C1C; background: var(--gold-08); }
 .oyss .pagemark--form .pagemark__name,
 .oyss .pagemark--agreement .pagemark__name { color: var(--navy); }
 .oyss .pagemark--form .pagemark__dot,
-.oyss .pagemark--agreement .pagemark__dot { background: #84662A; }
+.oyss .pagemark--agreement .pagemark__dot { background: #B91C1C; }
 
 .oyss .pagemark__spacer { margin-left: auto; }
 .oyss .pagemark__meta {
@@ -1235,8 +1385,8 @@
    together still leave more than three quarters of the screen. */
 @media (max-width: 700px) {
   .oyss .masthead__inner { height: 64px; }
-  .oyss .lockup__icon { width: 30px; height: 30px; }
-  .oyss .lockup__name { font-size: .95rem; letter-spacing: .14em; }
+  .oyss .lockup__name { font-size: .92rem; }
+  .oyss .lockup__own  { letter-spacing: .07em; }
   .oyss .lockup__desc { font-size: .46rem; letter-spacing: .5em; }
   .oyss .pagemark__inner { min-height: 34px; }
 }
@@ -1252,8 +1402,8 @@
   border-radius: 3px;
   margin-top: calc(-1 * clamp(40px, 6vw, 84px));
   padding: clamp(26px, 3.6vw, 54px);
-  box-shadow: 0 30px 70px -46px rgba(7, 11, 22, .75),
-              0 2px 0 rgba(16, 26, 49, .03);
+  box-shadow: 0 30px 70px -46px rgba(19, 18, 17, .75),
+              0 2px 0 rgba(31, 30, 29, .03);
   counter-reset: fsec;
 }
 .oyss .sheet::before {
@@ -1272,11 +1422,11 @@
 }
 .oyss .sheet__title {
   font-family: var(--serif); font-size: clamp(1.4rem, 1.15rem + 1vw, 1.9rem);
-  font-weight: 400; line-height: 1.15; color: var(--navy);
+  font-weight: 700; line-height: 1.15; color: var(--navy);
 }
 .oyss .sheet__kicker {
   font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .22em;
-  text-transform: uppercase; color: #84662A; margin-bottom: .55rem;
+  text-transform: uppercase; color: #B91C1C; margin-bottom: .55rem;
 }
 .oyss .sheet__meta {
   font-size: var(--t-caption); color: var(--slate);
@@ -1300,9 +1450,9 @@
 .oyss .sheet__sec:first-child { margin-top: 0; }
 .oyss .sheet__sec::before {
   content: counter(fsec, decimal-leading-zero);
-  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.35rem; letter-spacing: 0; text-transform: none;
-  color: #84662A; line-height: 1;
+  color: #B91C1C; line-height: 1;
 }
 
 /* The action bar. A form ends in a decision, so it gets its own
@@ -1369,7 +1519,7 @@
 .oyss .parties > div { background: var(--white); padding: 1rem 1.2rem; }
 .oyss .parties dt {
   font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
-  text-transform: uppercase; color: #84662A; margin-bottom: .4rem;
+  text-transform: uppercase; color: #B91C1C; margin-bottom: .4rem;
 }
 .oyss .parties dd { margin: 0; font-size: var(--t-caption); line-height: 1.5; color: var(--navy); }
 @media (max-width: 620px) { .oyss .parties { grid-template-columns: 1fr; } }
@@ -1406,7 +1556,7 @@
   display: grid; grid-template-columns: 1fr auto; gap: 1.2rem;
   align-items: center;
   padding: 1.35rem 0;
-  font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 700;
   line-height: 1.3; color: var(--slate);
   transition: color 300ms var(--settle);
 }
@@ -1467,7 +1617,7 @@
    markup rather than in a pseudo-element, because it is content. */
 .oyss .dimmer--result .dimmer__cell::before {
   content: ''; position: absolute; inset: 0;
-  background: rgba(5, 8, 15, .62);
+  background: rgba(13, 12, 12, .62);
   transition: opacity 500ms var(--settle);
   pointer-events: none;
 }
@@ -1496,7 +1646,7 @@
   display: inline-flex; align-items: center; gap: .38rem;
   padding: .22rem .48rem;
   font-size: .5625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--gold); background: rgba(7, 11, 22, .62);
+  color: var(--gold); background: rgba(19, 18, 17, .62);
   border: 1px solid var(--gold-40); border-radius: 2px;
   opacity: 0; transition: opacity 500ms var(--settle);
 }
@@ -1511,7 +1661,7 @@
   font-size: var(--t-caption); color: var(--ivory-46);
 }
 .oyss .rig__note::before {
-  content: ''; width: 16px; height: 4px; border-radius: 50%; background: var(--gold); flex: none;
+  content: ''; width: 16px; height: 3px; border-radius: 2px; background: var(--rose); flex: none;
 }
 
 @media (max-width: 760px) {
@@ -1531,43 +1681,34 @@
 /* ============================================================
    26. THE HEADER LOGO, LIT
    The review asked whether the header logo could be a motion
-   logo. It can, on the identity's own terms: the mark is a beam
-   and a pool, so it does what a beam does. The rays strike, the
-   pool blooms under them, once on load and again on hover. It
-   does not loop, because a light cue that repeats forever stops
-   being a cue and becomes a decoration.
+   logo. It can, on the identity's own terms. The mark is an A
+   standing on two feet with an arch under it, so it does what a
+   thing that stands does: it rises off the baseline, and the
+   arch opens under it a beat later. Once on load. It does not
+   loop, because a cue that repeats forever stops being a cue and
+   becomes a decoration.
    ============================================================ */
 
-.oyss .lockup__icon { transition: filter 320ms var(--settle); }
+.oyss .lockup .mark { transition: filter 320ms var(--settle); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .oyss .lockup--motion .ray {
-    transform-origin: 32px 8px;
-    animation: ray-strike 820ms var(--fade-up) both;
+  .oyss .lockup--motion .mark__a {
+    animation: mark-rise 760ms var(--fade-up) both;
   }
-  .oyss .lockup--motion .ray--b { animation-delay: 90ms; }
-  .oyss .lockup--motion .pooltop {
-    transform-origin: 32px 50.5px;
-    animation: pool-bloom 700ms var(--fade-up) 300ms both;
+  .oyss .lockup--motion .mark__arch {
+    animation: arch-bloom 620ms var(--fade-up) 280ms both;
   }
-  .oyss .lockup--motion .glow { animation: mark-glow 1050ms var(--settle) 220ms both; }
-
-  @keyframes ray-strike {
-    0%   { opacity: 0; transform: scaleY(.05); }
-    55%  { opacity: 1; }
+  @keyframes mark-rise {
+    0%   { opacity: 0; transform: scaleY(.12); }
+    58%  { opacity: 1; }
     100% { opacity: 1; transform: scaleY(1); }
   }
-  @keyframes pool-bloom {
-    0%   { opacity: 0; transform: scaleX(.1); }
-    100% { opacity: 1; transform: scaleX(1); }
+  @keyframes arch-bloom {
+    0%   { opacity: 0; transform: scale(.2); }
+    100% { opacity: 1; transform: scale(1); }
   }
-  @keyframes mark-glow {
-    0%   { opacity: 0; }
-    42%  { opacity: .8; }
-    100% { opacity: .26; }
-  }
-  .oyss .lockup:hover .lockup__icon,
-  .oyss .lockup:focus-visible .lockup__icon { filter: brightness(1.14); }
+  .oyss .lockup:hover .mark,
+  .oyss .lockup:focus-visible .mark { filter: brightness(1.12); }
 }
 
 /* ============================================================
@@ -1587,17 +1728,17 @@
 .oyss .portrait::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(76% 56% at 50% -6%, rgba(255, 240, 210, .18) 0%, transparent 58%),
-    linear-gradient(180deg, transparent 44%, rgba(7, 11, 22, .30) 100%);
+    radial-gradient(76% 56% at 50% -6%, rgba(255, 236, 230, .18) 0%, transparent 58%),
+    linear-gradient(180deg, transparent 44%, rgba(19, 18, 17, .30) 100%);
 }
 .oyss .portrait__plate {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 1.15rem 1.25rem 1.1rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(7, 11, 22, .86) 58%);
+  background: linear-gradient(180deg, transparent 0%, rgba(19, 18, 17, .86) 58%);
   color: var(--ivory);
 }
 .oyss .portrait__plate .eyebrow { color: var(--gold); margin-bottom: .3rem; }
-.oyss .portrait__plate .name { font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }
+.oyss .portrait__plate .name { font-family: var(--serif); font-weight: 700; font-size: 1.35rem; line-height: 1.15; }
 
 /* ============================================================
    28. THE SPOTLIGHT
@@ -1681,59 +1822,59 @@
   background: conic-gradient(from 136.0deg at 50% 0%,
     transparent 0deg,
     transparent 4.65deg,
-    rgba(255, 246, 232, 0.064) 5.40deg,
+    rgba(255, 242, 238, 0.064) 5.40deg,
     transparent 6.15deg,
     transparent 7.77deg,
-    rgba(255, 246, 232, 0.0855) 8.30deg,
+    rgba(255, 242, 238, 0.0855) 8.30deg,
     transparent 8.82deg,
     transparent 10.19deg,
-    rgba(255, 246, 232, 0.1352) 11.70deg,
+    rgba(255, 242, 238, 0.1352) 11.70deg,
     transparent 13.22deg,
     transparent 17.00deg,
-    rgba(255, 246, 232, 0.185) 20.00deg,
+    rgba(255, 242, 238, 0.185) 20.00deg,
     transparent 23.00deg,
     transparent 25.05deg,
-    rgba(255, 246, 232, 0.1537) 25.60deg,
+    rgba(255, 242, 238, 0.1537) 25.60deg,
     transparent 26.16deg,
     transparent 28.55deg,
-    rgba(255, 246, 232, 0.1423) 29.00deg,
+    rgba(255, 242, 238, 0.1423) 29.00deg,
     transparent 29.45deg,
     transparent 31.25deg,
-    rgba(255, 246, 232, 0.1523) 32.90deg,
+    rgba(255, 242, 238, 0.1523) 32.90deg,
     transparent 34.55deg,
     transparent 36.67deg,
-    rgba(255, 246, 232, 0.1735) 37.50deg,
+    rgba(255, 242, 238, 0.1735) 37.50deg,
     transparent 38.33deg,
-    rgba(255, 246, 232, 0.175) 41.00deg,
+    rgba(255, 242, 238, 0.175) 41.00deg,
     transparent 44.12deg,
     transparent 44.62deg,
-    rgba(255, 246, 232, 0.1722) 46.30deg,
+    rgba(255, 242, 238, 0.1722) 46.30deg,
     transparent 47.97deg,
     transparent 53.55deg,
-    rgba(255, 246, 232, 0.1565) 54.10deg,
+    rgba(255, 242, 238, 0.1565) 54.10deg,
     transparent 54.65deg,
-    rgba(255, 246, 232, 0.165) 56.30deg,
+    rgba(255, 242, 238, 0.165) 56.30deg,
     transparent 58.12deg,
     transparent 59.23deg,
-    rgba(255, 246, 232, 0.1323) 59.70deg,
+    rgba(255, 242, 238, 0.1323) 59.70deg,
     transparent 60.17deg,
     transparent 62.10deg,
-    rgba(255, 246, 232, 0.1708) 62.90deg,
+    rgba(255, 242, 238, 0.1708) 62.90deg,
     transparent 63.70deg,
     transparent 65.95deg,
-    rgba(255, 246, 232, 0.1167) 66.40deg,
+    rgba(255, 242, 238, 0.1167) 66.40deg,
     transparent 66.85deg,
     transparent 67.78deg,
-    rgba(255, 246, 232, 0.1267) 68.60deg,
+    rgba(255, 242, 238, 0.1267) 68.60deg,
     transparent 69.41deg,
     transparent 70.30deg,
-    rgba(255, 246, 232, 0.118) 70.80deg,
+    rgba(255, 242, 238, 0.118) 70.80deg,
     transparent 71.30deg,
     transparent 73.15deg,
-    rgba(255, 246, 232, 0.1167) 73.60deg,
+    rgba(255, 242, 238, 0.1167) 73.60deg,
     transparent 74.05deg,
     transparent 75.74deg,
-    rgba(255, 246, 232, 0.1608) 76.90deg,
+    rgba(255, 242, 238, 0.1608) 76.90deg,
     transparent 78.06deg,
     transparent 88.00deg);
   filter: blur(7px);
@@ -1745,33 +1886,33 @@
   background: conic-gradient(from 136.0deg at 50% 0%,
     transparent 0deg,
     transparent 12.78deg,
-    rgba(255, 236, 200, 0.0484) 13.90deg,
+    rgba(255, 232, 226, 0.0484) 13.90deg,
     transparent 15.03deg,
     transparent 17.05deg,
-    rgba(255, 236, 200, 0.1023) 19.32deg,
+    rgba(255, 232, 226, 0.1023) 19.32deg,
     transparent 21.59deg,
     transparent 30.44deg,
-    rgba(255, 236, 200, 0.1163) 31.28deg,
+    rgba(255, 232, 226, 0.1163) 31.28deg,
     transparent 32.11deg,
     transparent 35.08deg,
-    rgba(255, 236, 200, 0.1152) 37.55deg,
+    rgba(255, 232, 226, 0.1152) 37.55deg,
     transparent 40.03deg,
-    rgba(255, 236, 200, 0.1324) 44.52deg,
+    rgba(255, 232, 226, 0.1324) 44.52deg,
     transparent 49.21deg,
     transparent 54.96deg,
-    rgba(255, 236, 200, 0.1184) 55.79deg,
+    rgba(255, 232, 226, 0.1184) 55.79deg,
     transparent 56.61deg,
     transparent 59.90deg,
-    rgba(255, 236, 200, 0.1001) 60.60deg,
+    rgba(255, 232, 226, 0.1001) 60.60deg,
     transparent 61.30deg,
     transparent 65.69deg,
-    rgba(255, 236, 200, 0.0883) 66.36deg,
+    rgba(255, 232, 226, 0.0883) 66.36deg,
     transparent 67.04deg,
     transparent 69.40deg,
-    rgba(255, 236, 200, 0.0893) 70.15deg,
+    rgba(255, 232, 226, 0.0893) 70.15deg,
     transparent 70.90deg,
     transparent 73.65deg,
-    rgba(255, 236, 200, 0.1217) 75.39deg,
+    rgba(255, 232, 226, 0.1217) 75.39deg,
     transparent 77.13deg,
     transparent 88.00deg);
   filter: blur(15px);
@@ -1784,31 +1925,31 @@
   background: conic-gradient(from 136.0deg at 50% 0%,
     transparent 0deg,
     transparent 0.98deg,
-    rgba(236, 200, 138, 0.0462) 1.40deg,
+    rgba(239, 134, 134, 0.0462) 1.40deg,
     transparent 1.82deg,
     transparent 11.52deg,
-    rgba(236, 200, 138, 0.1) 13.92deg,
+    rgba(239, 134, 134, 0.1) 13.92deg,
     transparent 16.32deg,
     transparent 23.19deg,
-    rgba(236, 200, 138, 0.0769) 23.55deg,
+    rgba(239, 134, 134, 0.0769) 23.55deg,
     transparent 23.91deg,
     transparent 31.98deg,
-    rgba(236, 200, 138, 0.0938) 32.64deg,
+    rgba(239, 134, 134, 0.0938) 32.64deg,
     transparent 33.30deg,
     transparent 40.72deg,
-    rgba(236, 200, 138, 0.0931) 42.06deg,
+    rgba(239, 134, 134, 0.0931) 42.06deg,
     transparent 43.40deg,
     transparent 51.30deg,
-    rgba(236, 200, 138, 0.0892) 52.76deg,
+    rgba(239, 134, 134, 0.0892) 52.76deg,
     transparent 54.22deg,
     transparent 59.18deg,
-    rgba(236, 200, 138, 0.0923) 59.82deg,
+    rgba(239, 134, 134, 0.0923) 59.82deg,
     transparent 60.46deg,
     transparent 65.27deg,
-    rgba(236, 200, 138, 0.0685) 65.92deg,
+    rgba(239, 134, 134, 0.0685) 65.92deg,
     transparent 66.57deg,
     transparent 70.91deg,
-    rgba(236, 200, 138, 0.0631) 71.27deg,
+    rgba(239, 134, 134, 0.0631) 71.27deg,
     transparent 71.63deg,
     transparent 88.00deg);
   filter: blur(24px);
@@ -1839,10 +1980,10 @@
      the cone look cast rather than painted. */
   transform: translate(-50%, -34%);
   background: radial-gradient(50% 50% at 50% 50%,
-    rgba(255, 253, 247, .72) 0%,
-    rgba(255, 244, 220, .34) 26%,
-    rgba(255, 232, 190, .13) 46%,
-    rgba(221, 170, 82, .05) 64%,
+    rgba(255, 255, 255, .72) 0%,
+    rgba(255, 240, 234, .34) 26%,
+    rgba(255, 228, 222, .13) 46%,
+    rgba(224, 90, 90, .05) 64%,
     transparent 80%);
   mix-blend-mode: screen;
   filter: blur(7px);
@@ -1857,9 +1998,9 @@
   position: absolute; inset: 0;
   background: conic-gradient(from 136.0deg at 50% 0%,
     transparent 0deg,
-    rgba(255, 244, 226, .085) 30deg,
-    rgba(255, 240, 214, .115) 44deg,
-    rgba(255, 244, 226, .085) 58deg,
+    rgba(255, 240, 234, .085) 30deg,
+    rgba(255, 236, 230, .115) 44deg,
+    rgba(255, 240, 234, .085) 58deg,
     transparent 88.0deg);
   mix-blend-mode: screen;
   filter: blur(34px);
@@ -1875,8 +2016,8 @@
   width: 78%; height: 34%;
   transform: translate(-50%, 30%);
   background: radial-gradient(50% 50% at 50% 50%,
-    rgba(255, 240, 214, .17) 0%,
-    rgba(221, 170, 82, .07) 42%,
+    rgba(255, 236, 230, .17) 0%,
+    rgba(224, 90, 90, .07) 42%,
     transparent 72%);
   mix-blend-mode: screen;
   filter: blur(30px);
@@ -1894,8 +2035,8 @@
    a hero that holds a spot, the pool gets the glow it implies. */
 .oyss .stage:has(.spot) .pool,
 .oyss .dark:has(.spot) .pool {
-  box-shadow: 0 0 22px 7px rgba(221, 170, 82, .16),
-              0 0 60px 20px rgba(255, 236, 196, .07);
+  box-shadow: 0 0 22px 7px rgba(224, 90, 90, .16),
+              0 0 60px 20px rgba(255, 232, 226, .07);
 }
 
 /* Reduced motion: the lamp is on, it simply does not breathe. */
@@ -1996,7 +2137,7 @@
 .oyss [data-lit].lit .reel__rule { transform: scaleX(1); }
 
 .oyss .reel .lead {
-  color: rgba(247, 242, 232, .82);
+  color: rgba(248, 245, 242, .82);
   margin-top: 1.7rem;
   max-width: 30rem;
 }
@@ -2025,10 +2166,10 @@
   position: absolute; inset: 0;
   background:
     linear-gradient(to right,
-      var(--ink) 0%, rgba(7, 11, 22, .86) 8%, rgba(7, 11, 22, .34) 22%, rgba(7, 11, 22, 0) 44%),
+      var(--ink) 0%, rgba(19, 18, 17, .86) 8%, rgba(19, 18, 17, .34) 22%, rgba(19, 18, 17, 0) 44%),
     linear-gradient(to bottom,
-      rgba(7, 11, 22, .72) 0%, rgba(7, 11, 22, 0) 22%,
-      rgba(7, 11, 22, 0) 78%, rgba(7, 11, 22, .55) 100%);
+      rgba(19, 18, 17, .72) 0%, rgba(19, 18, 17, 0) 22%,
+      rgba(19, 18, 17, 0) 78%, rgba(19, 18, 17, .55) 100%);
 }
 .oyss .reel__still { display: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -2047,7 +2188,7 @@
   border-bottom-color: transparent;
 }
 .oyss .masthead--over .lockup,
-.oyss .masthead--over nav a { text-shadow: 0 1px 22px rgba(5, 8, 15, .9); }
+.oyss .masthead--over nav a { text-shadow: 0 1px 22px rgba(13, 12, 12, .9); }
 
 /* --- tablet: the panel goes under the copy ------------------ */
 @media (max-width: 1040px) {
@@ -2063,8 +2204,8 @@
   .oyss .reel__media::after {
     background:
       linear-gradient(to bottom,
-        rgba(7, 11, 22, .66) 0%, rgba(7, 11, 22, .06) 26%,
-        rgba(7, 11, 22, .30) 68%, rgba(7, 11, 22, .88) 92%, var(--ink) 100%);
+        rgba(19, 18, 17, .66) 0%, rgba(19, 18, 17, .06) 26%,
+        rgba(19, 18, 17, .30) 68%, rgba(19, 18, 17, .88) 92%, var(--ink) 100%);
   }
   .oyss .reel__copy {
     justify-self: stretch;
@@ -2079,10 +2220,12 @@
      its ground back and the panel starts underneath it. */
   .oyss .reel { margin-top: 0; }
   .oyss .masthead--over {
-    background: rgba(16, 26, 49, .94);
+    /* same sum as section 6: ink, not the dark ground, or the STUDIO
+       under it drops back to 3.93:1 */
+    background: rgba(19, 18, 17, .97);
     backdrop-filter: saturate(140%) blur(14px);
     -webkit-backdrop-filter: saturate(140%) blur(14px);
-    border-bottom-color: rgba(215, 206, 192, .13);
+    border-bottom-color: rgba(228, 218, 214, .13);
   }
 
 }
@@ -2133,11 +2276,11 @@
 .oyss .film__stage {
   position: relative;
   margin-top: clamp(30px, 4vw, 50px);
-  border: 1px solid rgba(221, 170, 82, .22);
-  background: #05080F;
+  border: 1px solid rgba(224, 90, 90, .22);
+  background: #0D0C0C;
   overflow: hidden;
   /* the light the frame is standing in */
-  box-shadow: 0 0 0 1px rgba(7, 11, 22, .8),
+  box-shadow: 0 0 0 1px rgba(19, 18, 17, .8),
               0 60px 120px -60px rgba(0, 0, 0, .9);
 }
 .oyss .film__stage video { display: block; width: 100%; height: auto; }
@@ -2149,16 +2292,16 @@
   position: absolute; left: clamp(12px, 1.6vw, 20px); bottom: clamp(12px, 1.6vw, 20px);
   display: inline-flex; align-items: center; gap: .6rem;
   padding: .58rem 1rem;
-  background: rgba(7, 11, 22, .72);
+  background: rgba(19, 18, 17, .72);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(247, 242, 232, .26);
+  border: 1px solid rgba(248, 245, 242, .26);
   border-radius: 2px;
   color: var(--ivory);
   font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
   cursor: pointer;
   transition: background 220ms var(--settle), border-color 220ms var(--settle);
 }
-.oyss .film__toggle:hover { background: rgba(7, 11, 22, .92); border-color: var(--gold); }
+.oyss .film__toggle:hover { background: rgba(19, 18, 17, .92); border-color: var(--gold); }
 .oyss .film__toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .oyss .film__toggle::before {
   content: ''; width: 8px; height: 9px; flex: none;
@@ -2176,8 +2319,8 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 1px;
   margin-top: clamp(26px, 3.4vw, 42px);
-  background: rgba(215, 206, 192, .14);
-  border: 1px solid rgba(215, 206, 192, .14);
+  background: rgba(228, 218, 214, .14);
+  border: 1px solid rgba(228, 218, 214, .14);
 }
 .oyss .beat { background: var(--ink); padding: clamp(16px, 1.7vw, 24px); }
 .oyss .beat__n {
@@ -2185,7 +2328,7 @@
   color: var(--gold); margin-bottom: .7rem;
 }
 .oyss .beat__t {
-  font-family: var(--serif); font-size: 1.28rem; line-height: 1.2;
+  font-family: var(--serif); font-weight: 700; font-size: 1.28rem; line-height: 1.2;
   color: var(--ivory); margin-bottom: .5rem;
 }
 .oyss .beat p { font-size: var(--t-caption); line-height: 1.5; color: var(--ivory-46); }
@@ -2240,11 +2383,11 @@
 
 .oyss .cover__n {
   font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .22em;
-  text-transform: uppercase; color: #84662A;
+  text-transform: uppercase; color: #B91C1C;
   transition: color 500ms var(--settle);
 }
 .oyss .cover__t {
-  font-family: var(--serif); font-weight: 400;
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(1.45rem, 1.15rem + .8vw, 1.85rem); line-height: 1.15;
   margin-top: 1rem;
   transition: color 500ms var(--settle);
@@ -2265,7 +2408,7 @@
   color: var(--ivory-70);
   padding: .42rem 0 .42rem 1.15rem;
   position: relative;
-  border-top: 1px solid rgba(215, 206, 192, .14);
+  border-top: 1px solid rgba(228, 218, 214, .14);
 }
 .oyss .cover__more li::before {
   content: ''; position: absolute; left: 0; top: 1.05em;
@@ -2292,7 +2435,7 @@
    340px of height for content it will only reveal on hover is 340px of
    nothing on any narrow window, whatever the device claims about pointers. */
 @media (hover: none), (max-width: 900px) {
-  .oyss .cover { min-height: 0; background: var(--navy); border-color: rgba(221,170,82,.2); }
+  .oyss .cover { min-height: 0; background: var(--navy); border-color: rgba(224, 90, 90, .2); }
   .oyss .cover::before { transform: translateY(0); }
   .oyss .cover__n { color: var(--gold); }
   .oyss .cover__t { color: var(--ivory); }
@@ -2309,12 +2452,12 @@
 
    The red the client pointed at is not a flat swatch. It is a
    lit one: measured off her own reference frame it runs from
-   #7A0011 in the shadow to #EC2938 where the key light hits.
+   #6E1010 in the shadow to #D93030 where the key light hits.
    Sampled, not guessed.
 
    The deck says crimson is for action and never for mood, so it
    gets exactly one field on the page and that field is the ask.
-   Stage Crimson #C92E38 sits between the two sampled values, so
+   Stage Crimson #B91C1C sits between the two sampled values, so
    the deck's own colour is the middle of the client's gradient,
    and the button that has always been crimson now sits inside a
    room made of the same light.
@@ -2325,7 +2468,7 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    radial-gradient(120% 90% at 78% 8%, #EC2938 0%, #C92E38 26%, #97101D 58%, #7A0011 100%);
+    radial-gradient(120% 90% at 78% 8%, #D93030 0%, #B91C1C 26%, #8C1616 58%, #6E1010 100%);
   color: var(--white);
 }
 /* the falloff, so it reads as a lit wall and not as a paint chip */
@@ -2333,40 +2476,40 @@
   content: '';
   position: absolute; inset: 0; z-index: -1;
   background:
-    radial-gradient(52% 40% at 76% 4%, rgba(255, 236, 220, .30) 0%, transparent 62%),
-    linear-gradient(190deg, transparent 42%, rgba(58, 0, 8, .55) 100%);
+    radial-gradient(52% 40% at 76% 4%, rgba(255, 234, 230, .30) 0%, transparent 62%),
+    linear-gradient(190deg, transparent 42%, rgba(40, 8, 8, .55) 100%);
 }
-.oyss .redstage .eyebrow { color: rgba(255, 242, 236, .94); }
+.oyss .redstage .eyebrow { color: rgba(255, 242, 238, .94); }
 .oyss .redstage h2, .oyss .redstage .display { color: var(--white); }
-.oyss .redstage .lead { color: rgba(255, 240, 234, .88); }
-.oyss .redstage .caption { color: rgba(255, 240, 234, .88); }
-.oyss .redstage .rule { background: rgba(255, 236, 228, .3); }
+.oyss .redstage .lead { color: rgba(255, 240, 236, .88); }
+.oyss .redstage .caption { color: rgba(255, 240, 236, .88); }
+.oyss .redstage .rule { background: rgba(255, 236, 232, .3); }
 .oyss .redstage .pool { background: var(--white); }
 
 /* On red, the button inverts: ivory fill, crimson type. */
-.oyss .redstage .btn--primary { background: var(--white); color: #A81322; }
-.oyss .redstage .btn--primary:hover { background: var(--ivory); color: #7A0011; }
-.oyss .redstage .cue { color: var(--white); border-bottom-color: rgba(255, 236, 228, .45); }
+.oyss .redstage .btn--primary { background: var(--white); color: #9E1616; }
+.oyss .redstage .btn--primary:hover { background: var(--ivory); color: #6E1010; }
+.oyss .redstage .cue { color: var(--white); border-bottom-color: rgba(255, 236, 232, .45); }
 .oyss .redstage .cue:hover { border-bottom-color: var(--white); }
 
 /* the ladder, restated on red */
 .oyss .rungs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-               background: rgba(255, 236, 228, .22); border: 1px solid rgba(255, 236, 228, .22); }
+               background: rgba(255, 236, 232, .22); border: 1px solid rgba(255, 236, 232, .22); }
 .oyss .rung {
-  background: rgba(122, 0, 17, .34);
+  background: rgba(110, 16, 16, .34);
   padding: clamp(18px, 2vw, 26px);
   transition: background 420ms var(--settle);
 }
-.oyss .rung:nth-child(2) { background: rgba(122, 0, 17, .26); }
-.oyss .rung:nth-child(3) { background: rgba(122, 0, 17, .22); }
-.oyss .rung:nth-child(4) { background: rgba(122, 0, 17, .12); }
+.oyss .rung:nth-child(2) { background: rgba(110, 16, 16, .26); }
+.oyss .rung:nth-child(3) { background: rgba(110, 16, 16, .22); }
+.oyss .rung:nth-child(4) { background: rgba(110, 16, 16, .12); }
 .oyss .rung:hover { background: rgba(255, 255, 255, .12); }
 .oyss .rung__n { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
-                 color: rgba(255, 240, 234, .86); }
-.oyss .rung__t { font-family: var(--serif); font-size: 1.5rem; line-height: 1.1;
+                 color: rgba(255, 240, 236, .86); }
+.oyss .rung__t { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; line-height: 1.1;
                  margin-top: .7rem; color: var(--white); }
 .oyss .rung p { font-size: var(--t-caption); line-height: 1.45; margin-top: .55rem;
-                color: rgba(255, 240, 234, .88); }
+                color: rgba(255, 240, 236, .88); }
 @media (max-width: 860px) { .oyss .rungs { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 460px) { .oyss .rungs { grid-template-columns: 1fr; } }
 
@@ -2383,15 +2526,15 @@
 
 .oyss .flood {
   position: relative; display: block; overflow: hidden; isolation: isolate;
-  background: rgba(16, 26, 49, .38);
-  border-top: 1px solid rgba(221, 170, 82, .22);
-  border-bottom: 1px solid rgba(221, 170, 82, .22);
+  background: rgba(31, 30, 29, .38);
+  border-top: 1px solid rgba(224, 90, 90, .22);
+  border-bottom: 1px solid rgba(224, 90, 90, .22);
   padding: clamp(46px, 6.5vw, 84px) 0;
   cursor: pointer;
 }
 .oyss .flood::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background: radial-gradient(120% 140% at 76% 100%, #EC2938 0%, #C92E38 30%, #97101D 66%, #7A0011 100%);
+  background: radial-gradient(120% 140% at 76% 100%, #D93030 0%, #B91C1C 30%, #8C1616 66%, #6E1010 100%);
   transform: scaleY(0); transform-origin: 50% 100%;
   transition: transform 620ms cubic-bezier(.16, .84, .28, 1);
 }
@@ -2404,7 +2547,7 @@
 .oyss .flood__eyebrow { display: block; font-size: var(--t-eyebrow); font-weight: 600;
                         letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
                         transition: color 420ms var(--settle); }
-.oyss .flood__label { display: block; font-family: var(--serif);
+.oyss .flood__label { display: block; font-family: var(--serif); font-weight: 700;
                       font-size: clamp(1.8rem, 1.15rem + 2.5vw, 3.2rem); line-height: 1.06;
                       letter-spacing: -.018em; color: var(--ivory); margin-top: .65rem;
                       text-wrap: balance; }
@@ -2414,19 +2557,19 @@
 .oyss .flood__arrow {
   flex: none; display: grid; place-items: center;
   width: clamp(54px, 6vw, 78px); aspect-ratio: 1;
-  border: 1px solid rgba(247, 242, 232, .3); border-radius: 50%;
+  border: 1px solid rgba(248, 245, 242, .3); border-radius: 50%;
   color: var(--ivory); font-size: clamp(1.1rem, .9rem + .9vw, 1.6rem); line-height: 1;
   transition: transform 520ms cubic-bezier(.16, .84, .28, 1), border-color 420ms var(--settle),
               background 420ms var(--settle), color 420ms var(--settle);
 }
 .oyss .flood:hover .flood__arrow,
 .oyss .flood:focus-visible .flood__arrow {
-  transform: translateX(12px); background: var(--ivory); border-color: var(--ivory); color: #A81322;
+  transform: translateX(12px); background: var(--ivory); border-color: var(--ivory); color: #9E1616;
 }
 .oyss .flood:hover .flood__eyebrow,
-.oyss .flood:focus-visible .flood__eyebrow { color: rgba(255, 253, 248, .94); }
+.oyss .flood:focus-visible .flood__eyebrow { color: rgba(255, 255, 255, .94); }
 .oyss .flood:hover .flood__meta,
-.oyss .flood:focus-visible .flood__meta { color: rgba(255, 253, 248, .82); }
+.oyss .flood:focus-visible .flood__meta { color: rgba(255, 255, 255, .82); }
 
 @media (max-width: 700px) {
   .oyss .flood__inner { flex-direction: column; align-items: flex-start; }
@@ -2434,9 +2577,9 @@
 }
 @media (hover: none), (max-width: 900px) {
   .oyss .flood::before { transform: scaleY(1); }
-  .oyss .flood__eyebrow { color: rgba(255, 253, 248, .94); }
-  .oyss .flood__meta { color: rgba(255, 253, 248, .82); }
-  .oyss .flood__arrow { background: var(--ivory); border-color: var(--ivory); color: #A81322; }
+  .oyss .flood__eyebrow { color: rgba(255, 255, 255, .94); }
+  .oyss .flood__meta { color: rgba(255, 255, 255, .82); }
+  .oyss .flood__arrow { background: var(--ivory); border-color: var(--ivory); color: #9E1616; }
 }
 
 
@@ -2450,9 +2593,9 @@
 
 .oyss .plainrow { display: grid; grid-template-columns: 14rem 1fr; gap: clamp(18px, 3vw, 48px);
                   padding: clamp(22px, 2.6vw, 34px) 0; border-top: 1px solid var(--ash); }
-.oyss .dark .plainrow, .oyss .stage .plainrow { border-top-color: rgba(215, 206, 192, .16); }
+.oyss .dark .plainrow, .oyss .stage .plainrow { border-top-color: rgba(228, 218, 214, .16); }
 .oyss .plainrow__k { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
-                     text-transform: uppercase; color: #84662A; padding-top: .28rem; }
+                     text-transform: uppercase; color: #B91C1C; padding-top: .28rem; }
 .oyss .dark .plainrow__k, .oyss .stage .plainrow__k { color: var(--gold); }
 .oyss .plainrow__v { max-width: 46rem; }
 .oyss .plainrow__v .caption { margin-top: .5rem; }
@@ -2607,7 +2750,7 @@
 }
 /* The room is darker than --ink at the edges, so the panel needs
    its own ground or the seam shows before the poster arrives. */
-.oyss .reel--spot .reel__media { background: #05070E; }
+.oyss .reel--spot .reel__media { background: #0D0C0C; }
 
 /* The right-hand feather is tighter for this clip than it was
    for the doorway: the beam is centred, so eating 22% of the
@@ -2615,9 +2758,9 @@
 .oyss .reel--spot .reel__media::after {
   background:
     linear-gradient(to right,
-      var(--ink) 0%, rgba(7, 11, 22, .80) 5%, rgba(7, 11, 22, .26) 16%, rgba(7, 11, 22, 0) 34%),
+      var(--ink) 0%, rgba(19, 18, 17, .80) 5%, rgba(19, 18, 17, .26) 16%, rgba(19, 18, 17, 0) 34%),
     linear-gradient(to bottom,
-      rgba(7, 11, 22, 0) 62%, rgba(7, 11, 22, .42) 88%, rgba(7, 11, 22, .78) 100%);
+      rgba(19, 18, 17, 0) 62%, rgba(19, 18, 17, .42) 88%, rgba(19, 18, 17, .78) 100%);
 }
 
 /* ---- 36.2 THE MASTHEAD BLEND --------------------------------
@@ -2650,11 +2793,11 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(180deg,
-    rgba(16, 26, 49, .94) 0%,
-    rgba(16, 26, 49, .78) 22%,
-    rgba(13, 21, 40, .44) 52%,
+    rgba(31, 30, 29, .94) 0%,
+    rgba(31, 30, 29, .78) 22%,
+    rgba(21, 20, 19, .44) 52%,
     rgba(10, 16, 31, .16) 78%,
-    rgba(7, 11, 22, 0) 100%);
+    rgba(19, 18, 17, 0) 100%);
 }
 /* Copy sits above the scrim; the media panel sits under it. */
 .oyss .reel[data-over] .reel__copy { z-index: 2; }
@@ -2670,7 +2813,7 @@
    whisper, which is what keeps the type looking set rather than
    pasted on. */
 .oyss .masthead--over .lockup,
-.oyss .masthead--over nav a { text-shadow: 0 1px 10px rgba(5, 8, 15, .55); }
+.oyss .masthead--over nav a { text-shadow: 0 1px 10px rgba(13, 12, 12, .55); }
 
 /* ---- 36.3 THE FACTS -----------------------------------------
    The proof line the review asked for, as one line of plain
@@ -2686,10 +2829,10 @@
   gap: .55rem 1.05rem;
   margin-top: 2.4rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(215, 206, 192, .18);
+  border-top: 1px solid rgba(228, 218, 214, .18);
   font-size: var(--t-caption);
   letter-spacing: .06em;
-  color: rgba(247, 242, 232, .72);
+  color: rgba(248, 245, 242, .72);
 }
 .oyss .facts b {
   font-weight: 600;
@@ -2730,7 +2873,7 @@
 }
 .oyss .essay__body { grid-column: 1; max-width: 40rem; }
 .oyss .essay__open {
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(1.85rem, 1.25rem + 2.1vw, 2.9rem);
   line-height: 1.13;
   letter-spacing: -.014em;
@@ -2787,14 +2930,14 @@
 
 .oyss .plate {
   position: relative;
-  border: 1px solid rgba(215, 206, 192, .18);
-  background: #060A14;
+  border: 1px solid rgba(228, 218, 214, .18);
+  background: #0F0E0E;
   overflow: hidden;
 }
 .oyss .plate img { width: 100%; height: auto; }
 .oyss .plate figcaption {
   padding: .95rem 1.1rem 1.05rem;
-  border-top: 1px solid rgba(215, 206, 192, .13);
+  border-top: 1px solid rgba(228, 218, 214, .13);
   font-size: var(--t-caption);
   line-height: 1.5;
   color: var(--ivory-46);
@@ -2852,17 +2995,17 @@
    over, which is the whole argument.
    ------------------------------------------------------------ */
 
-.oyss .manifest { margin-top: clamp(34px, 4vw, 52px); max-width: 62rem; border-top: 1px solid rgba(16, 26, 49, .16); }
+.oyss .manifest { margin-top: clamp(34px, 4vw, 52px); max-width: 62rem; border-top: 1px solid rgba(31, 30, 29, .16); }
 .oyss .manifest__row {
   display: grid;
   grid-template-columns: 5.5rem minmax(0, 1fr);
   gap: clamp(14px, 2vw, 30px);
   align-items: baseline;
   padding: 1.15rem 0;
-  border-bottom: 1px solid rgba(16, 26, 49, .11);
+  border-bottom: 1px solid rgba(31, 30, 29, .11);
 }
 .oyss .manifest__n {
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.5rem;
   line-height: 1;
   color: var(--navy);
@@ -2874,7 +3017,7 @@
   font-size: var(--t-eyebrow);
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #84662A;
+  color: #B91C1C;
   margin-top: .4rem;
 }
 .oyss .manifest__item { color: var(--navy); }
@@ -2907,7 +3050,7 @@
 .oyss .terms {
   margin-top: clamp(30px, 3.6vw, 46px);
   padding-top: clamp(24px, 3vw, 34px);
-  border-top: 1px solid rgba(16, 26, 49, .16);
+  border-top: 1px solid rgba(31, 30, 29, .16);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(24px, 3.4vw, 52px);
@@ -2916,7 +3059,7 @@
   font-size: var(--t-eyebrow);
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #84662A;
+  color: #B91C1C;
   margin-bottom: .85rem;
 }
 .oyss .terms p { font-size: .96875rem; line-height: 1.66; color: var(--slate); }
@@ -2936,7 +3079,7 @@
 }
 .oyss .byline .portrait { max-width: 320px; }
 .oyss .byline__quote {
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(1.35rem, 1.05rem + 1.25vw, 1.95rem);
   line-height: 1.28;
   letter-spacing: -.01em;
@@ -2967,7 +3110,7 @@
   display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.1rem;
   padding: 1.2rem 0 0;
   font-size: .96875rem;
-  color: rgba(247, 242, 232, .74);
+  color: rgba(248, 245, 242, .74);
 }
 .oyss .sidedoor a {
   border-bottom: 1px solid var(--gold-40);
@@ -3013,11 +3156,11 @@
   pointer-events: none;
   background:
     linear-gradient(180deg,
-      rgba(7, 11, 22, .74) 0%, rgba(7, 11, 22, .52) 30%,
-      rgba(7, 11, 22, .48) 56%, rgba(7, 11, 22, .70) 82%, rgba(7, 11, 22, .88) 100%),
+      rgba(19, 18, 17, .74) 0%, rgba(19, 18, 17, .52) 30%,
+      rgba(19, 18, 17, .48) 56%, rgba(19, 18, 17, .70) 82%, rgba(19, 18, 17, .88) 100%),
     linear-gradient(90deg,
-      rgba(7, 11, 22, .46) 0%, rgba(7, 11, 22, 0) 28%,
-      rgba(7, 11, 22, 0) 72%, rgba(7, 11, 22, .46) 100%);
+      rgba(19, 18, 17, .46) 0%, rgba(19, 18, 17, 0) 28%,
+      rgba(19, 18, 17, 0) 72%, rgba(19, 18, 17, .46) 100%);
 }
 .oyss .stage--plate > * { position: relative; z-index: 1; }
 /* the pool the section draws itself would be a second one */
@@ -3045,7 +3188,7 @@
   border-left: 0;
   border-right: 2px solid var(--gold);
   text-align: right;
-  background: rgba(7, 11, 22, .62);
+  background: rgba(19, 18, 17, .62);
 }
 /* The host frame is twice the size, so it carries the warmer key
    the host frame actually has rather than the panelist navy. */
@@ -3053,7 +3196,7 @@
 .oyss .rig--art .frame--host::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(58% 78% at 50% 0%, rgba(221, 170, 82, .16) 0%, transparent 70%);
+  background: radial-gradient(58% 78% at 50% 0%, rgba(224, 90, 90, .16) 0%, transparent 70%);
   pointer-events: none;
 }
 /* The note now runs to two lines, so the gold dash has to hang
@@ -3069,7 +3212,7 @@
    The section above the manifest is dark, so the seam needs the
    rules to start under the heading rather than at the section
    edge. Handled in markup; this is only the top rule weight. */
-.oyss .manifest { border-top-color: rgba(16, 26, 49, .22); }
+.oyss .manifest { border-top-color: rgba(31, 30, 29, .22); }
 
 /* The showcase heading column sits against a plate that bleeds
    left, so it must not run the full 1180px or the two collide
@@ -3099,7 +3242,7 @@
 }
 .oyss .creed b {
   font-family: var(--serif);
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1.16em;
   letter-spacing: -.005em;
   color: var(--navy);
@@ -3108,15 +3251,15 @@
 .oyss .dark .creed b, .oyss .stage .creed b { color: var(--ivory); }
 
 /* ---- 36.14 THE DRAFT FLAG ON A DARK HERO --------------------
-   Measured, not guessed: #84662A is the darkest gold that passes
+   Measured, not guessed: #B91C1C is the darkest gold that passes
    on ivory, and it is 3.31:1 on the near-black hero the two
    agreements now open with. On a dark ground the flag takes the
    full Spotlight Gold, which measures 8.8:1 there.
    ------------------------------------------------------------ */
 .oyss .dark .draft-flag, .oyss .stage .draft-flag {
   color: var(--gold);
-  background: rgba(221, 170, 82, .10);
-  border-color: rgba(221, 170, 82, .46);
+  background: rgba(224, 90, 90, .10);
+  border-color: rgba(224, 90, 90, .46);
 }
 
 /* ---- 36.15 THE HOME HERO ON A LANDSCAPE TABLET --------------
@@ -3153,9 +3296,9 @@
   .oyss .reel--spot .reel__media::after {
     background:
       linear-gradient(to right,
-        var(--ink) 0%, rgba(7, 11, 22, .80) 5%, rgba(7, 11, 22, .26) 16%, rgba(7, 11, 22, 0) 34%),
+        var(--ink) 0%, rgba(19, 18, 17, .80) 5%, rgba(19, 18, 17, .26) 16%, rgba(19, 18, 17, 0) 34%),
       linear-gradient(to bottom,
-        rgba(7, 11, 22, 0) 62%, rgba(7, 11, 22, .42) 88%, rgba(7, 11, 22, .78) 100%);
+        rgba(19, 18, 17, 0) 62%, rgba(19, 18, 17, .42) 88%, rgba(19, 18, 17, .78) 100%);
   }
   .oyss .reel--spot .reel__copy {
     justify-self: end;
@@ -3217,32 +3360,17 @@
    The disc was dropped in an earlier pass because a navy circle
    on a navy bar is invisible. The deck's own website mock, page
    24, answers that by flipping the colourway rather than
-   deleting the shape: an ivory disc carrying a navy beam. So
-   that is the default here, because both places this mark
-   appears (masthead, footer) are dark grounds, and the primary
-   gold-on-navy is kept for light grounds.
+   deleting the shape. The mark that replaced it has no disc to
+   delete: it is the A itself, so it survives being reversed by
+   changing one fill. Both colourways live in section 7 with the
+   rest of the lockup, and this section now only owns where the
+   strike starts.
    ------------------------------------------------------------ */
 
-.oyss .lockup__icon .disc    { fill: var(--ivory); }
-.oyss .lockup__icon .beam-a  { stop-color: #2A3654; }
-.oyss .lockup__icon .beam-b  { stop-color: #17223D; }
-.oyss .lockup__icon .beam-c  { stop-color: #101A31; stop-opacity: .22; }
-.oyss .lockup__icon .pooltop { fill: var(--navy); }
-
-/* The primary, for any light ground. */
-.oyss .lockup--navy .lockup__icon .disc    { fill: var(--navy); }
-.oyss .lockup--navy .lockup__icon .beam-a  { stop-color: #EBC276; }
-.oyss .lockup--navy .lockup__icon .beam-b  { stop-color: #B98B40; }
-.oyss .lockup--navy .lockup__icon .beam-c  { stop-color: #6B5127; stop-opacity: .18; }
-.oyss .lockup--navy .lockup__icon .pooltop { fill: var(--gold); }
-
-/* The strike now starts at the apex the measured path actually
-   has, not the one the old bare beam had. */
 @media (prefers-reduced-motion: no-preference) {
-  .oyss .lockup--motion .ray { transform-origin: 32px 9.2px; }
-  .oyss .lockup--motion .pooltop { transform-origin: 32px 50.3px; }
-  /* the disc is the field the light happens in; it does not strike */
-  .oyss .lockup--motion .disc { animation: none; }
+  /* The A rises off its own feet; the arch blooms from its base. */
+  .oyss .lockup--motion .mark__a    { transform-origin: 32px 58px; }
+  .oyss .lockup--motion .mark__arch { transform-origin: 32px 46px; }
 }
 
 /* ---- 37.2 THE EYEBROW IS CRIMSON ON LIGHT (deck p11) --------
@@ -3252,7 +3380,7 @@
    from this ladder." The site had slate on light, which is the
    one level of the ladder that was not being followed.
 
-   #C92E38 on #F7F2E8 measures 5.19:1, so this is also the
+   #B91C1C on #F8F5F2 measures 5.19:1, so this is also the
    accessible choice, not a trade against it.
    ------------------------------------------------------------ */
 
@@ -3261,17 +3389,18 @@
 /* .eyebrow--gold survives for the places gold is carrying a
    quantity rather than labelling a section. */
 
-/* ---- 37.3 THE POOL IS THE ONLY ORNAMENT (deck p16) ----------
-   "One flat gold ellipse. It is the light the brand is named
-   for, and the only ornament the identity is allowed." The hero
-   was drawing a rectangle. The card on deck page 11 draws the
-   pool, so the hero draws the pool.
+/* ---- 37.3 THE RULE IS THE ONLY ORNAMENT --------------------
+   The old deck allowed exactly one ornament, a flat gold pool,
+   and this rule was drawn as one. The brand sheet allows exactly
+   one too and it is a short red rule: it sits under BOLDER
+   VOICES on one board and under REAL EXPERTISE on the other, and
+   there is no pool on either. Same discipline, different shape.
    ------------------------------------------------------------ */
 
 .oyss .reel__rule {
-  width: 74px; height: 9px;
-  border-radius: 50%;
-  background: var(--gold);
+  width: 74px; height: 3px;
+  border-radius: 2px;
+  background: var(--rose);
 }
 
 /* ---- 37.4 THE GOLD FIELD (deck p13, p19) --------------------
@@ -3287,30 +3416,28 @@
    ------------------------------------------------------------ */
 
 .oyss .goldfield {
-  background: var(--gold);
+  background: var(--blush);
   color: var(--navy);
 }
-.oyss .goldfield .eyebrow { color: #5E4517; }
+.oyss .goldfield .eyebrow { color: var(--red); }
 .oyss .goldfield .byline__quote,
 .oyss .goldfield .byline__attrib b,
 .oyss .goldfield h2 { color: var(--navy); }
 .oyss .goldfield .byline__attrib,
 .oyss .goldfield .body,
-.oyss .goldfield .caption { color: #4A3915; }
-.oyss .goldfield .cue { border-bottom-color: rgba(16, 26, 49, .38); color: var(--navy); }
-.oyss .goldfield .cue:hover { border-bottom-color: var(--navy); }
-.oyss .goldfield .portrait { border-color: rgba(16, 26, 49, .28); }
-/* The pull quote closes on the pool, the way the deck's own closing panel does
-   (p25). Navy, because on a gold field everything goes navy including the pool
-   (p19). */
+.oyss .goldfield .caption { color: #6A5F5C; }
+.oyss .goldfield .cue { border-bottom-color: rgba(31, 30, 29, .34); color: var(--navy); }
+.oyss .goldfield .cue:hover { border-bottom-color: var(--red); color: var(--red); }
+.oyss .goldfield .portrait { border-color: rgba(31, 30, 29, .18); }
+/* The pull quote closes on a Signature Red rule rather than the old pool:
+   on Soft Blush the pool was the same family as its own ground. */
 .oyss .goldfield .byline__quote::after {
   content: '';
   display: block;
-  width: 64px; height: 8px;
-  border-radius: 50%;
-  background: var(--navy);
+  width: 64px; height: 3px;
+  border-radius: 2px;
+  background: var(--red);
   margin-top: 1.5rem;
-  opacity: .8;
 }
 
 /* ---- 37.5 THE TAGLINE IS SET, NOT TYPED (deck p25) ----------
@@ -3319,20 +3446,19 @@
    ------------------------------------------------------------ */
 
 .oyss .footer__promise {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.22rem;
-  line-height: 1.3;
-  color: var(--gold);
+  font-family: var(--script); font-weight: 400;
+  font-size: 2.05rem;
+  line-height: 1.12;
+  color: var(--rose);
   margin-top: 1.15rem;
 }
 .oyss .footer__promise::after {
   content: '';
   display: block;
-  width: 58px; height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
-  margin-top: .85rem;
+  width: 58px; height: 3px;
+  border-radius: 2px;
+  background: var(--rose);
+  margin-top: .95rem;
 }
 
 
@@ -3396,18 +3522,18 @@
   position: absolute; inset: 0;
   background:
     linear-gradient(180deg,
-      rgba(7, 11, 22, .46) 0%, rgba(7, 11, 22, .06) 30%,
-      rgba(7, 11, 22, .28) 70%, rgba(7, 11, 22, .82) 100%),
+      rgba(19, 18, 17, .46) 0%, rgba(19, 18, 17, .06) 30%,
+      rgba(19, 18, 17, .28) 70%, rgba(19, 18, 17, .82) 100%),
     linear-gradient(90deg,
-      rgba(7, 11, 22, .80) 0%, rgba(7, 11, 22, .58) 26%,
-      rgba(7, 11, 22, .10) 52%, rgba(7, 11, 22, 0) 66%);
+      rgba(19, 18, 17, .80) 0%, rgba(19, 18, 17, .58) 26%,
+      rgba(19, 18, 17, .10) 52%, rgba(19, 18, 17, 0) 66%);
 }
 .oyss .band__copy {
   position: relative;
   z-index: 1;
   padding: clamp(56px, 9vw, 110px) 0 clamp(38px, 5.5vw, 66px);
 }
-.oyss .band__copy .lead { color: rgba(247, 242, 232, .86); }
+.oyss .band__copy .lead { color: rgba(248, 245, 242, .86); }
 .oyss .band--tall { min-height: clamp(440px, 72svh, 760px); }
 
 /* Under 760px the band clips do not load at all: the poster is the same frame,
@@ -3429,7 +3555,7 @@
    gradient, and the brand furniture is dressed to deck page 22:
 
      host frame       horizontal lockup top left, name plate
-                      bottom right, gold stage lip along the floor
+                      bottom right, red stage lip along the floor
      panelist frame   icon only, lighter navy, smaller plate
      the key light    moves to whoever is speaking
 
@@ -3438,10 +3564,10 @@
    ------------------------------------------------------------ */
 
 .oyss .rig--live .frame {
-  background: #0A1120;
+  background: #161514;
   padding: 0;
   display: block;
-  border-color: rgba(215, 206, 192, .10);
+  border-color: rgba(228, 218, 214, .10);
 }
 .oyss .rig--live .frame img {
   position: absolute; inset: 0;
@@ -3458,18 +3584,18 @@
 /* the key, over the photograph rather than under it */
 .oyss .rig--live .frame::before {
   top: -52%;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 226, 170, .20) 0%, transparent 62%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 222, 216, .20) 0%, transparent 62%);
   mix-blend-mode: screen;
 }
 
-/* the stage lip: the gold rule along the floor of every frame */
+/* the stage lip: the red rule along the floor of every frame */
 .oyss .rig--live .frame::after {
   content: '';
   position: absolute; left: 0; right: 0; bottom: 0;
   height: 2px;
   background: linear-gradient(90deg,
-    rgba(221, 170, 82, 0) 0%, rgba(221, 170, 82, .70) 22%,
-    rgba(221, 170, 82, .70) 78%, rgba(221, 170, 82, 0) 100%);
+    rgba(224, 90, 90, 0) 0%, rgba(224, 90, 90, .70) 22%,
+    rgba(224, 90, 90, .70) 78%, rgba(224, 90, 90, 0) 100%);
   opacity: .45;
   transition: opacity 620ms var(--settle);
 }
@@ -3482,11 +3608,11 @@
   max-width: 84%;
   padding: .55rem .8rem .7rem 1rem;
   text-align: right;
-  background: linear-gradient(270deg, rgba(7, 11, 22, .88) 0%, rgba(7, 11, 22, .78) 62%, rgba(7, 11, 22, 0) 100%);
+  background: linear-gradient(270deg, rgba(19, 18, 17, .88) 0%, rgba(19, 18, 17, .78) 62%, rgba(19, 18, 17, 0) 100%);
   border: 0;
   backdrop-filter: none;
 }
-.oyss .rig--live .frame__role { color: rgba(247, 242, 232, .62); letter-spacing: .3em; }
+.oyss .rig--live .frame__role { color: rgba(248, 245, 242, .62); letter-spacing: .3em; }
 .oyss .rig--live .frame--host .frame__role { color: var(--gold); }
 .oyss .rig--live .frame__sub { color: var(--gold); font-size: .6875rem; }
 
@@ -3498,7 +3624,7 @@
 }
 .oyss .rig--live .frame__mark svg { width: 22px; height: 22px; flex: none; }
 .oyss .rig--live .frame__mark b {
-  font-family: var(--serif); font-weight: 600;
+  font-family: var(--serif); font-weight: 700;
   font-size: .66rem; letter-spacing: .17em; text-transform: uppercase;
   color: var(--ivory); line-height: 1;
 }
@@ -3549,7 +3675,7 @@
 .oyss .essay__portrait::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(7, 11, 22, 0) 58%, rgba(7, 11, 22, .34) 100%);
+  background: linear-gradient(180deg, rgba(19, 18, 17, 0) 58%, rgba(19, 18, 17, .34) 100%);
 }
 .oyss .essay--faced .essay__note {
   grid-column: 1;
@@ -3578,17 +3704,17 @@
 .oyss .figure-wide {
   position: relative;
   margin-top: clamp(34px, 4.5vw, 60px);
-  border: 1px solid rgba(16, 26, 49, .14);
+  border: 1px solid rgba(31, 30, 29, .14);
   overflow: hidden;
   background: var(--navy);
 }
-.oyss .dark .figure-wide, .oyss .stage .figure-wide { border-color: rgba(215, 206, 192, .16); }
+.oyss .dark .figure-wide, .oyss .stage .figure-wide { border-color: rgba(228, 218, 214, .16); }
 .oyss .figure-wide img { width: 100%; height: auto; display: block; }
 .oyss .figure-wide figcaption {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 1.6rem clamp(18px, 2.4vw, 32px) 1.15rem;
-  background: linear-gradient(180deg, rgba(7, 11, 22, 0) 0%, rgba(7, 11, 22, .82) 62%);
-  color: rgba(247, 242, 232, .82);
+  background: linear-gradient(180deg, rgba(19, 18, 17, 0) 0%, rgba(19, 18, 17, .82) 62%);
+  color: rgba(248, 245, 242, .82);
   font-size: var(--t-caption);
   line-height: 1.5;
 }
@@ -3768,7 +3894,7 @@
   line-height: 1.62;
   color: var(--slate);
 }
-.oyss .dark .donext, .oyss .stage .donext { color: rgba(247, 242, 232, .74); }
+.oyss .dark .donext, .oyss .stage .donext { color: rgba(248, 245, 242, .74); }
 .oyss .donext b { font-weight: 600; color: var(--navy); }
 .oyss .dark .donext b, .oyss .stage .donext b { color: var(--ivory); }
 
@@ -3792,17 +3918,17 @@
   grid-template-columns: 2.4rem minmax(0, 1fr);
   gap: clamp(12px, 1.6vw, 22px);
   padding: 1.15rem 0;
-  border-top: 1px solid rgba(16, 26, 49, .13);
+  border-top: 1px solid rgba(31, 30, 29, .13);
   align-items: baseline;
 }
-.oyss .step:last-child { border-bottom: 1px solid rgba(16, 26, 49, .13); }
-.oyss .dark .step, .oyss .stage .step { border-top-color: rgba(215, 206, 192, .16); }
-.oyss .dark .step:last-child, .oyss .stage .step:last-child { border-bottom-color: rgba(215, 206, 192, .16); }
+.oyss .step:last-child { border-bottom: 1px solid rgba(31, 30, 29, .13); }
+.oyss .dark .step, .oyss .stage .step { border-top-color: rgba(228, 218, 214, .16); }
+.oyss .dark .step:last-child, .oyss .stage .step:last-child { border-bottom-color: rgba(228, 218, 214, .16); }
 .oyss .step__n {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-style: italic;
-  color: #84662A;
+  font-family: var(--serif); font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  color: #B91C1C;
   line-height: 1.4;
 }
 .oyss .dark .step__n, .oyss .stage .step__n { color: var(--gold); }
@@ -3829,10 +3955,10 @@
   padding-left: clamp(14px, 1.4vw, 20px);
   border-left: 2px solid var(--gold);
   max-width: 26rem;
-  font-family: var(--serif);
+  font-family: var(--sans); font-weight: 400;
   font-size: 1.1875rem;
   font-style: italic;
-  line-height: 1.44;
+  line-height: 1.5;
   color: var(--slate);
 }
 .oyss .dark .marginal, .oyss .stage .marginal { color: var(--ivory-70); }
@@ -3845,7 +3971,7 @@
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #84662A;
+  color: #B91C1C;
 }
 .oyss .dark .marginal cite, .oyss .stage .marginal cite { color: var(--gold); }
 
@@ -3902,21 +4028,21 @@
    ------------------------------------------------------------ */
 
 .oyss .footer__lines {
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(2.1rem, 1.2rem + 4vw, 4.6rem);
   line-height: 1.02;
   letter-spacing: -.02em;
   color: var(--ivory);
   padding: clamp(20px, 3vw, 40px) 0 clamp(30px, 4vw, 54px);
   margin-bottom: clamp(28px, 3.5vw, 48px);
-  border-bottom: 1px solid rgba(215, 206, 192, .14);
+  border-bottom: 1px solid rgba(228, 218, 214, .14);
 }
 .oyss .footer__lines span { display: block; }
 .oyss .footer__lines--gold { color: var(--gold); }
 
 /* The closing thought, where the domain used to sit. */
 .oyss .footer__note {
-  font-family: var(--serif);
+  font-family: var(--sans); font-weight: 400;
   font-style: italic;
   font-size: 1.0625rem;
   color: var(--gold);
@@ -3928,10 +4054,10 @@
 
    The mark struck once on load and then sat still, which is a
    cue rather than a sign of life. It runs now, but on the
-   brand's terms: a lamp that is ON does not flash, it BREATHES.
-   So the beam's opacity and the pool's width drift on a slow
-   nine second cycle, a few percent either side of full, out of
-   phase with each other so the pair never pulses in unison.
+   brand's terms: silk that is moving does not flash, it BREATHES.
+   So the A's opacity and the arch's width drift on a slow nine
+   second cycle, a few percent either side of full, out of phase
+   with each other so the pair never pulses in unison.
    Nothing moves position, nothing scales enough to read as an
    animation, and at 34px what a reader perceives is that the
    light is live rather than drawn.
@@ -3944,26 +4070,26 @@
 @media (prefers-reduced-motion: no-preference) {
   /* The strike still runs first; the breath takes over after it,
      which is what the delay is buying. */
-  .oyss .lockup--motion .ray {
-    animation: ray-strike 820ms var(--fade-up) both,
-               ray-breathe 9s ease-in-out 1.1s infinite;
+  .oyss .lockup--motion .mark__a {
+    animation: mark-rise 760ms var(--fade-up) both,
+               mark-breathe 9s ease-in-out 1.1s infinite;
   }
-  .oyss .lockup--motion .pooltop {
-    animation: pool-bloom 700ms var(--fade-up) 300ms both,
-               pool-breathe 9s ease-in-out 1.4s infinite;
+  .oyss .lockup--motion .mark__arch {
+    animation: arch-bloom 620ms var(--fade-up) 280ms both,
+               arch-breathe 9s ease-in-out 1.4s infinite;
   }
-  @keyframes ray-breathe {
+  @keyframes mark-breathe {
     0%, 100% { opacity: 1; }
-    46%      { opacity: .84; }
+    46%      { opacity: .88; }
   }
-  @keyframes pool-breathe {
-    0%, 100% { transform: scaleX(1); opacity: 1; }
-    38%      { transform: scaleX(.93); opacity: .88; }
+  @keyframes arch-breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    38%      { transform: scale(.9); opacity: .84; }
   }
   /* Hovering still brightens it, and while the pointer is down
      the breath holds so the mark feels answerable. */
-  .oyss .lockup:active .ray,
-  .oyss .lockup:active .pooltop { animation-play-state: paused; }
+  .oyss .lockup:active .mark__a,
+  .oyss .lockup:active .mark__arch { animation-play-state: paused; }
 }
 
 /* ---- 42.3 THE RIG LIGHTS UNDER THE POINTER ------------------
@@ -4025,7 +4151,7 @@
   position: relative;
   transition: color 500ms var(--settle), transform 620ms var(--fade-up);
 }
-.oyss .cuesheet--dimmer .cuerow.live .cuerow__n { color: #84662A; transform: translateX(2px); }
+.oyss .cuesheet--dimmer .cuerow.live .cuerow__n { color: #B91C1C; transform: translateX(2px); }
 .oyss .dark .cuesheet--dimmer .cuerow.live .cuerow__n,
 .oyss .stage .cuesheet--dimmer .cuerow.live .cuerow__n { color: var(--gold); }
 
@@ -4092,11 +4218,11 @@
 .oyss .quiz__pips { display: flex; gap: 7px; align-items: center; }
 .oyss .quiz__pip {
   width: 26px; height: 4px; border-radius: 2px;
-  background: rgba(16, 26, 49, .16);
+  background: rgba(31, 30, 29, .16);
   transition: background 380ms var(--settle), transform 380ms var(--fade-up);
 }
 .oyss .quiz__pip.done { background: var(--gold); }
-.oyss .quiz__pip.now  { background: #84662A; transform: scaleY(1.9); }
+.oyss .quiz__pip.now  { background: #B91C1C; transform: scaleY(1.9); }
 
 .oyss .quiz__bar {
   display: flex; align-items: center; justify-content: space-between;
@@ -4175,7 +4301,7 @@
   position: fixed;
   left: 0; right: 0;
   z-index: 60;
-  background: rgba(11, 17, 32, .96);
+  background: rgba(22, 21, 20, .96);
   backdrop-filter: saturate(140%) blur(16px);
   -webkit-backdrop-filter: saturate(140%) blur(16px);
   color: var(--ivory);
@@ -4209,7 +4335,7 @@
    is inline, whatever the class name implies. */
 .oyss .prompt__t {
   display: block;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(1.05rem, .95rem + .5vw, 1.4rem);
   line-height: 1.2;
   color: var(--ivory);
@@ -4217,7 +4343,7 @@
 .oyss .prompt__m {
   display: block;
   font-size: var(--t-caption);
-  color: rgba(247, 242, 232, .7);
+  color: rgba(248, 245, 242, .7);
   margin-top: .3rem;
 }
 .oyss .prompt .btn { flex: none; padding: .82rem 1.5rem; }
@@ -4225,12 +4351,12 @@
   flex: none;
   width: 42px; height: 42px;
   border: 0; background: none; cursor: pointer;
-  color: rgba(247, 242, 232, .55);
+  color: rgba(248, 245, 242, .55);
   font-size: 1.4rem; line-height: 1;
   border-radius: 50%;
   transition: color 200ms var(--settle), background 200ms var(--settle);
 }
-.oyss .prompt__x:hover { color: var(--ivory); background: rgba(247, 242, 232, .08); }
+.oyss .prompt__x:hover { color: var(--ivory); background: rgba(248, 245, 242, .08); }
 .oyss .prompt__x:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 @media (max-width: 760px) {
@@ -4257,7 +4383,7 @@
   position: fixed; inset: 0; z-index: 80;
   display: grid; place-items: center;
   padding: var(--gutter);
-  background: rgba(5, 8, 15, .74);
+  background: rgba(13, 12, 12, .74);
   opacity: 0;
   transition: opacity 380ms var(--settle);
 }
@@ -4281,7 +4407,7 @@
   position: absolute; left: 50%; top: -46%;
   width: 128%; aspect-ratio: 1 / 1;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(221, 170, 82, .16) 0%, transparent 62%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(224, 90, 90, .16) 0%, transparent 62%);
   pointer-events: none;
 }
 .oyss .exit__card > * { position: relative; }
@@ -4292,14 +4418,14 @@
   color: var(--gold); margin-bottom: 1rem;
 }
 .oyss .exit__t {
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
   line-height: 1.12; color: var(--ivory);
   text-wrap: balance;
 }
 .oyss .exit__p {
   margin-top: 1.2rem;
-  color: rgba(247, 242, 232, .78);
+  color: rgba(248, 245, 242, .78);
   font-size: 1.0625rem; line-height: 1.6;
   max-width: 36ch;
 }
@@ -4308,13 +4434,13 @@
   background: none; border: 0; cursor: pointer; padding: .6rem 0;
   font-size: var(--t-action); font-weight: 600;
   letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(247, 242, 232, .6);
+  color: rgba(248, 245, 242, .6);
 }
 .oyss .exit__no:hover { color: var(--ivory); }
 .oyss .exit__x {
   position: absolute; top: 10px; right: 10px;
   width: 44px; height: 44px; border: 0; background: none; cursor: pointer;
-  color: rgba(247, 242, 232, .5); font-size: 1.5rem; line-height: 1;
+  color: rgba(248, 245, 242, .5); font-size: 1.5rem; line-height: 1;
 }
 .oyss .exit__x:hover { color: var(--ivory); }
 .oyss .exit__x:focus-visible, .oyss .exit__no:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
@@ -4344,8 +4470,8 @@
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: #0A1120;
-  border: 1px solid rgba(215, 206, 192, .16);
+  background: #161514;
+  border: 1px solid rgba(228, 218, 214, .16);
   cursor: pointer;
 }
 .oyss .build img {
@@ -4357,14 +4483,14 @@
   position: absolute; left: 50%; top: -52%;
   width: 118%; aspect-ratio: 1 / 1;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 226, 170, .22) 0%, transparent 62%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 222, 216, .22) 0%, transparent 62%);
   mix-blend-mode: screen;
   pointer-events: none;
 }
 .oyss .build__lip {
   position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-  background: linear-gradient(90deg, rgba(221,170,82,0) 0%, rgba(221,170,82,.85) 22%,
-                                     rgba(221,170,82,.85) 78%, rgba(221,170,82,0) 100%);
+  background: linear-gradient(90deg, rgba(224, 90, 90, 0) 0%, rgba(224, 90, 90, .85) 22%,
+                                     rgba(224, 90, 90, .85) 78%, rgba(224, 90, 90, 0) 100%);
   transform-origin: center;
 }
 .oyss .build__mark {
@@ -4377,13 +4503,13 @@
   max-width: 84%;
   padding: .6rem .9rem .75rem 1.1rem;
   text-align: right;
-  background: linear-gradient(270deg, rgba(7,11,22,.9) 0%, rgba(7,11,22,.78) 62%, rgba(7,11,22,0) 100%);
+  background: linear-gradient(270deg, rgba(19, 18, 17, .9) 0%, rgba(19, 18, 17, .78) 62%, rgba(19, 18, 17, 0) 100%);
 }
 .oyss .build__role {
   font-size: .5625rem; font-weight: 600; letter-spacing: .3em;
-  text-transform: uppercase; color: rgba(247,242,232,.62); line-height: 1;
+  text-transform: uppercase; color: rgba(248, 245, 242, .62); line-height: 1;
 }
-.oyss .build__name { font-family: var(--serif); font-size: 1.15rem; color: var(--ivory); margin-top: .22rem; }
+.oyss .build__name { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; color: var(--ivory); margin-top: .22rem; }
 .oyss .build__sub { font-size: .6875rem; color: var(--gold); margin-top: .12rem; }
 .oyss .build__live {
   position: absolute; right: 12px; top: 11px;
@@ -4392,7 +4518,7 @@
   border: 1px solid var(--gold-40);
   font-size: .5625rem; font-weight: 600; letter-spacing: .22em;
   text-transform: uppercase; color: var(--gold);
-  background: rgba(7, 11, 22, .6);
+  background: rgba(19, 18, 17, .6);
 }
 .oyss .build__live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
 
@@ -4406,7 +4532,7 @@
 }
 .oyss .build__step::before {
   content: ''; width: 14px; height: 3px; border-radius: 2px;
-  background: rgba(215, 206, 192, .28);
+  background: rgba(228, 218, 214, .28);
   transition: background 400ms var(--settle);
 }
 .oyss .build__step.on { color: var(--ivory); }
@@ -4463,7 +4589,7 @@
   margin-top: 2rem;
   padding-left: 2.2rem;
   max-width: 40rem;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.56;
   color: var(--slate);
@@ -4472,10 +4598,10 @@
 .oyss .aside-note::before {
   content: attr(data-n);
   position: absolute; left: 0; top: .1em;
-  font-family: var(--serif);
-  font-size: .9rem;
-  font-style: italic;
-  color: #84662A;
+  font-family: var(--serif); font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .05em;
+  color: #B91C1C;
 }
 .oyss .dark .aside-note, .oyss .stage .aside-note { color: var(--ivory-70); }
 .oyss .dark .aside-note::before, .oyss .stage .aside-note::before { color: var(--gold); }
@@ -4487,7 +4613,7 @@
   margin-top: 1.6rem;
   padding-left: 2.2rem;
   max-width: 44rem;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.56;
   color: var(--ivory-70);
@@ -4503,7 +4629,7 @@
   border-left: 0;
   padding-left: 2.2rem;
   position: relative;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.56;
   max-width: 30rem;
@@ -4511,7 +4637,7 @@
 .oyss .essay__note::before {
   content: '2';
   position: absolute; left: 0; top: .1em;
-  font-size: .9rem; font-style: italic; color: #84662A;
+  font-size: .9rem; font-style: italic; color: #B91C1C;
 }
 
 /* ---- 42.8 THE SPEC ------------------------------------------
@@ -4525,12 +4651,12 @@
 .oyss .spec { margin-top: 1.8rem; }
 .oyss .spec li {
   padding: .85rem 0;
-  border-top: 1px solid rgba(215, 206, 192, .16);
+  border-top: 1px solid rgba(228, 218, 214, .16);
 }
-.oyss .spec li:last-child { border-bottom: 1px solid rgba(215, 206, 192, .16); }
+.oyss .spec li:last-child { border-bottom: 1px solid rgba(228, 218, 214, .16); }
 .oyss .spec b {
   display: block;
-  font-family: var(--serif); font-weight: 400;
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.2rem; color: var(--ivory);
   letter-spacing: -.005em;
 }
@@ -4562,7 +4688,7 @@
 
 .oyss .exec__witness {
   margin-top: 3rem;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.55;
   color: var(--ivory-70);
@@ -4598,7 +4724,7 @@
   border: 0;
   padding: 0 0 .2rem;
   min-height: 3.4rem;
-  font-family: var(--serif);
+  font-family: var(--serif); font-weight: 700;
   font-size: 1.8rem;
   color: transparent;
   caret-color: var(--gold);
@@ -4617,7 +4743,7 @@
 
 .oyss .exec__rule {
   height: 1px;
-  background: rgba(215, 206, 192, .42);
+  background: rgba(228, 218, 214, .42);
   margin: 0 0 .9rem;
   transition: background 240ms var(--settle);
 }
