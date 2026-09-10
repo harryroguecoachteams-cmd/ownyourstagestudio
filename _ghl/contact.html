@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=d9a3866a">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=6df35b7d">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -46,9 +46,10 @@
 <!-- ---------- page ---------- -->
 <main>
 <!-- ============ HEAD ============
-     The same component as the home page: type column left, a
-     plate cut from the brand film full bleed right, masthead
-     transparent over it. See section 35 of oyss.css. -->
+     Type column left, one photograph full bleed right. The plate
+     was a closed notebook and a pen on a desk, which is the
+     picture on every consultancy site there has ever been. This
+     page sells a conversation, so the shot is a conversation. -->
 <section class="reel reel--short dark" data-over>
   <div class="reel__copy" data-lit>
     <h1 class="display">Book a Spotlight Call.</h1>
@@ -61,7 +62,8 @@
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/desk.jpg" alt="A closed notebook and a fountain pen on a dark desk under a single warm light.">
+    <img class="reel__plate" src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/talking.jpg" width="1500" height="1000"
+         alt="Two women in a dark room mid conversation, one listening closely while the other speaks.">
   </div>
 </section>
 
@@ -83,7 +85,7 @@
         <ul class="ticklist">
           <li>The subject you think you should be known for</li>
           <li>A rough sense of who you could invite</li>
-          <li>Any date you are working towards</li>
+          <li>Any date you are working toward</li>
         </ul>
         <div class="rule" style="margin:2.2rem 0"></div>
         <p class="caption">
@@ -92,13 +94,18 @@
           takes about three minutes and needs no email.
         </p>
 
-        <!-- Calendar embed slot. -->
-        <div class="notice" style="margin-top:2.2rem">
-          <strong style="color:var(--navy)">Calendar embed goes here.</strong><br>
-          Replace this block with the GoHighLevel calendar iframe for the Spotlight Call
-          booking calendar. The form beside it stays as the fallback for anyone who
-          would rather write than book.
-        </div>
+        <!-- CALENDAR SLOT.
+             A marked placeholder was live here in production: a
+             pale box reading "Calendar embed goes here", visible
+             to anybody who opened this page. That is the third
+             time a working note has shipped on this site, so it
+             is not replaced with another note. The form beside it
+             already books the call, and it is the fallback the
+             calendar was going to need anyway.
+
+             To add the calendar, paste the GoHighLevel booking
+             iframe in place of this comment and delete nothing
+             else; the form is the no-JavaScript path and stays. -->
       </div>
 
       <div data-lit data-cue="2">
@@ -141,10 +148,10 @@
               <span class="field__label">Where are you now</span>
               <select class="field__input" name="level" required>
                 <option value="">Select</option>
-                <option>Hidden Expert &mdash; trusted inside a small circle</option>
-                <option>Emerging Expert &mdash; known inconsistently</option>
-                <option>Expanding Expert &mdash; found without an introduction</option>
-                <option>Visible Expert &mdash; my name carries the subject</option>
+                <option>Hidden Expert: trusted inside a small circle</option>
+                <option>Emerging Expert: known inconsistently</option>
+                <option>Expanding Expert: found without an introduction</option>
+                <option>Visible Expert: my name carries the subject</option>
                 <option>Not sure yet</option>
               </select>
             </label>
@@ -226,6 +233,21 @@
         </div>
       </div>
     </div>
+    <!-- FEEDBACK 3.0: "We need to make sure we do not over promise
+         on the website (USA!)". The substance of that sits on the
+         Experience page as an extract from the agreement's own
+         clauses 5, 6, 7, 8 and 21, in the agreement's own words.
+         This is the one line version, on every page, where a
+         reader who never reaches that section still meets it. It
+         restates clause 21 and nothing more. -->
+    <p class="footer__legal">
+      Own Your Stage Studio provides event planning, coordination, production and
+      creative services. It does not guarantee registration or attendance numbers,
+      audience size, leads, clients, revenue, media coverage or any other business
+      result. The <a href="/host-agreement">Host Services Agreement</a> and the
+      <a href="/panelist-agreement">Featured Panelist Agreement</a> govern every
+      engagement and are published here in full.
+    </p>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
       <span class="footer__note">The room is already looking for you.</span>
@@ -234,7 +256,7 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=d9a3866a"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=6df35b7d"></script>
 <script>
 (function () {
   var CONFIG = { endpoint: null, tag: 'spotlight-call-request' };

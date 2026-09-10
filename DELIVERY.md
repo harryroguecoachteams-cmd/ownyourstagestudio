@@ -1,23 +1,23 @@
-# Own Your Stage Studio — website draft
+# Own Your Stage Studio - website draft
 
 A working draft of the company site.
 
 ---
 
-## THE IDENTITY CHANGED (September 2026) — read this before the rest
+## THE IDENTITY CHANGED (September 2026) - read this before the rest
 
 The site was built to the **OYSS Brand Deck v3**: Authority Navy, Spotlight
 Gold, Stage Crimson, Crimson Pro and Work Sans, with light as the only motif.
 A new brand sheet has replaced all of it, and the site has been rebuilt to
 the new one. **Everything below this section still describes the old deck's
 reasoning.** It is kept because most of it explains WHY a component exists,
-and that reasoning survived the recolour — but wherever it names a colour or
+and that reasoning survived the recolor - but wherever it names a color or
 a typeface, read this table instead.
 
 | | Brand Deck v3 (old) | Brand sheet, Sep 2026 (current) |
 |---|---|---|
-| Identity colour | Spotlight Gold `#DDAA52` | **Signature Red `#B91C1C`** |
-| Accent on dark | gold | **Rose Red `#E05A5A`** — Signature Red measures 2.1:1 on the dark ground and cannot be used there |
+| Identity color | Spotlight Gold `#DDAA52` | **Signature Red `#B91C1C`** |
+| Accent on dark | gold | **Rose Red `#E05A5A`** - Signature Red measures 2.1:1 on the dark ground and cannot be used there |
 | Tint field | one gold panel | **Soft Blush `#F9E9E7`** |
 | Ground | Spotlight Ivory `#F7F2E8` | **Warm Neutral `#F8F5F2`** |
 | Dark | Authority Navy `#101A31` | **Charcoal `#2E2E2E`**, taken to `#1F1E1D` as a surface so Rose Red clears 4.5:1 on it |
@@ -26,12 +26,12 @@ a typeface, read this table instead.
 | Reading type | Work Sans | **Lato** |
 | Signature | gold italic serif | **Sacramento**, the brand sheet's own hand, used once (the agreement signature) |
 | The mark | a navy disc carrying a gold beam and a pool | **the A of STAGE**: two strokes at a 2:1 rise, flat apex, an arch in the counter |
-| The ornament | one flat gold pool | **a short red rule** — the sheet draws one under every label stack and draws no pool |
+| The ornament | one flat gold pool | **a short red rule** - the sheet draws one under every label stack and draws no pool |
 | The motif | light: beams, falloff, pools | **the silk**, a red chiffon ribbon. Light survives as what the silk is lit by. |
 
 ### What that meant in practice
 
-- **317 colour values migrated by RGB triple**, so a value moved whether it was
+- **317 color values migrated by RGB triple**, so a value moved whether it was
   written as a hex or inside an `rgba()`, and the alphas came through untouched.
   The old token NAMES are kept (`--navy`, `--gold`) and repointed, because
   renaming ninety-five call sites is how one gets missed. Section 1 of
@@ -39,7 +39,7 @@ a typeface, read this table instead.
 - **The mark is set inside live text**, not placed as a picture of a wordmark:
   the lockup is `Own Your St` + the mark + `ge`, so it stays selectable, scales
   with the type and needs no 2x file. `build.py` carries the measured geometry.
-- **The silk runs in exactly three places** — the footer, the field a form
+- **The silk runs in exactly three places** - the footer, the field a form
   sheet lands on, and the pull quote. `assets/silk.svg` is generated art: 17
   tapered ribbons over a left-to-right dissolve.
 - **Every photograph was regraded warm.** Measured on the darkest 30% of each
@@ -56,7 +56,7 @@ a typeface, read this table instead.
   (Needs the site served on :8899 first.)
 - **`_film/render_film.py` has NOT been rebranded.** It renders the 25 second
   brand film in Crimson Pro and Work Sans on navy and gold. That film is not
-  shipped on the site, so nothing on the live pages is stale — but the file
+  shipped on the site, so nothing on the live pages is stale - but the file
   will render the old identity if anyone runs it.
 - The rendered audit is back to **55 probes, 0 findings** at five widths.
 
@@ -71,7 +71,7 @@ The brand has exactly one motif. The deck is unusually strict about it:
 
 So the site has exactly one motion system, and it is not decoration. **Nothing
 slides in, nothing bounces, nothing fades from nowhere. Things become visible
-because they are lit** — which is the same sentence the business uses to describe
+because they are lit** - which is the same sentence the business uses to describe
 what it sells. The motion *is* the positioning:
 
 | Element | What it is | Why it earns its place |
@@ -85,9 +85,9 @@ what it sells. The motion *is* the positioning:
 | **The reel** | The home hero: type column left, and the film running full bleed to the right edge. A person standing at the base of a tall doorway of light, boomeranged into a seamless 20 second loop. | The client's brief for the header, and the composition all three of her reference sites open with. |
 | **The film** | A 25 second brand film under the hero. Six beats on one stage: a hidden expert, the stage we build, the panel we cast, the live show, and the content that stays. | Two of her notes asked for the same thing, a motion graphic after the header and an animated explainer. This is one answer to both. |
 | **The cover card** | Three cards. Point at one and a navy panel comes up and takes the whole card, carrying the list of what is actually included. | "The end CTA showing up to full screen when hovering." On her reference that is a card whose hidden panel covers it. |
-| **The red** | One stage-lit crimson field for the visibility ladder, and the same wash on the closing cue. | The red she picked, sampled off her own reference frame: #7A0011 in shadow to #EC2938 in the key light. Stage Crimson sits between them, so the deck's colour is the middle of hers. |
+| **The red** | One stage-lit crimson field for the visibility ladder, and the same wash on the closing cue. | The red she picked, sampled off her own reference frame: #7A0011 in shadow to #EC2938 in the key light. Stage Crimson sits between them, so the deck's color is the middle of hers. |
 | **The searchlight** | The film opens with the lamp coming up and hunting: it sweeps, misses twice, closes in, and lands on somebody who has been standing there the whole time. | The client's own reference, adjusted as she asked: "instead of a person falling I want the light to search for the person here and there and then find the person standing." |
-| **The flood** | The closing block. Pointing at it brings the red up from the floor across the whole field. | The only moment on the site where the entire field goes red, which is what the deck's action colour is for. |
+| **The flood** | The closing block. Pointing at it brings the red up from the floor across the whole field. | The only moment on the site where the entire field goes red, which is what the deck's action color is for. |
 
 Everything switches itself off under `prefers-reduced-motion`, and the whole site
 is fully readable with JavaScript blocked.
@@ -180,13 +180,13 @@ a doorway worth showing.
 |---|---|
 | `index.html` | Home |
 | `experience.html` | The Own Your Stage Experience™, $2,997 |
-| `assessment.html` | Readiness Assessment — **working**, scored, returns one of the four levels |
+| `assessment.html` | Readiness Assessment - **working**, scored, returns one of the four levels |
 | `panelists.html` | Featured Panelist Program, $47 |
 | `about.html` | The studio and the founder |
 | `faq.html` | The questions worth asking before committing |
-| `apply.html` | Host Package application — **working** |
-| `contact.html` | Spotlight Call request — **working** |
-| `apply-panelist.html` | Panelist application, built to your DRAFT form — **working** |
+| `apply.html` | Host Package application - **working** |
+| `contact.html` | Spotlight Call request - **working** |
+| `apply-panelist.html` | Panelist application, built to your DRAFT form - **working** |
 | `agreements/host.html` | Host Services Agreement, all 41 sections, **signable** |
 | `agreements/panelist.html` | Featured Panelist Agreement, all 26 sections, **signable** |
 
@@ -211,7 +211,7 @@ command away, not a retyping job. Each page gives you:
 Putting the contracts on the public site is a deliberate choice, not an
 oversight. Both pages say "read this before you pay" and point at the clauses
 people most often miss. It costs nothing and it is the single most credible thing
-on the site — "Credible" being brand essence word 03.
+on the site - "Credible" being brand essence word 03.
 
 ---
 
@@ -245,7 +245,7 @@ both agreements actually say ("confirmed only after this Agreement is signed
 ## Answering the GoHighLevel question
 
 **The site cannot be created inside GHL programmatically.** GoHighLevel's public
-API is read-only for funnels and pages — there is no page or funnel builder
+API is read-only for funnels and pages - there is no page or funnel builder
 endpoint, and the builder itself cannot be driven reliably. So it is a paste job,
 and the work has been done to make it one paste per page.
 
@@ -273,7 +273,7 @@ could be pushed there.
 
 ---
 
-## Open items — these need Annette
+## Open items - these need Annette
 
 1. **Founder biography and portrait.** The About page has a visibly marked
    placeholder. Nothing has been invented. Needs her background, the experience
@@ -324,7 +324,7 @@ python build.py                # regenerate all pages + the _ghl/ blocks
 
 Edit page bodies in `_pages/`. The masthead, footer and navigation live in
 `build.py` so they stay byte-identical everywhere. Do not edit the generated
-`.html` files at the root — they are overwritten.
+`.html` files at the root - they are overwritten.
 
 ```
 oyss-site/
@@ -412,9 +412,9 @@ spanning the whole hero rather than just the media panel, so the two columns
 share one ceiling and the beam appears to come from behind the bar.
 
 It went on **every** hero, not only the home page. `_build/audit.py` measures
-this from real pixels instead of walking DOM colours, and that turned up the same
+this from real pixels instead of walking DOM colors, and that turned up the same
 failure on four interior pages against the light in their plates: "FAQ" at 3.8:1
-and the Apply button at 3.6:1 on `apply.html`, where a colour walk had reported
+and the Apply button at 3.6:1 on `apply.html`, where a color walk had reported
 the page background and seen nothing wrong.
 
 ## What changed on the home page
@@ -457,7 +457,7 @@ survive and they are both Annette's.
 
 The single biggest note in both reviews was that a studio selling production was
 showing no production. The branded stage frames existed and had never been on the
-site. They are now the centre of the page: the host frame carrying Annette's own
+site. They are now the center of the page: the host frame carrying Annette's own
 nameplate bleeding off the left edge, the holding slide beside it, and the six
 frame rig rebuilt on a crop of the real panelist artwork instead of a CSS
 gradient.
@@ -478,7 +478,7 @@ export, three host highlight videos, one for every panelist, about twenty edited
 short-form videos, captions, a ninety day calendar. None of it was on any page of
 the site. It is the most concrete thing in the whole offer, and no generic
 template has "one featured highlight video for each panelist" in it. It is now
-the manifest on the home page and again, itemised, on the Experience page.
+the manifest on the home page and again, itemized, on the Experience page.
 
 ## The About page
 
@@ -507,7 +507,7 @@ pages at 5 widths:
     python _build/audit.py --shots    probe and screenshot
 
 It checks horizontal overflow, WCAG AA contrast on every rendered text node
-against the colour actually behind it, the masthead against **real pixels** where
+against the color actually behind it, the masthead against **real pixels** where
 the ground is a moving picture, tap target size, and where the hero's primary
 action lands against the fold.
 
@@ -622,7 +622,7 @@ to camera in a dark navy room". Prompt kept in the script with the note.
 
 ## The rig, with people in it
 
-The six frame rig is the centrepiece and it now holds seven commissioned
+The six frame rig is the centerpiece and it now holds seven commissioned
 portraits shot to one lighting setup: one host frame, five panelists, all in
 deep navy with a warm key at 45 degrees, so the grid reads as one production
 rather than seven stock photos.
@@ -648,13 +648,13 @@ Every one of these is a sentence in the deck, not a matter of taste.
 circle or a complete square. It is never bled off an edge or half shown." An
 earlier pass deleted the disc because a navy circle on a navy bar is invisible.
 The observation was right and the conclusion was wrong: the deck's own website
-mock on page 24 solves it by **flipping the colourway**, an ivory disc carrying
-a navy beam, not by deleting the shape. Both approved colourways are now in the
+mock on page 24 solves it by **flipping the colorway**, an ivory disc carrying
+a navy beam, not by deleting the shape. Both approved colorways are now in the
 stylesheet; the geometry is measured off the page 19 lockup and normalised to a
 64 unit circle. The beam carries the falloff, the pool never does: "The pool is
 never a gradient. One flat gold is what makes the mark portable." (p16)
 
-**2. The eyebrow was the wrong colour (p11).** The type hierarchy sets the
+**2. The eyebrow was the wrong color (p11).** The type hierarchy sets the
 eyebrow in Stage Crimson on light and Spotlight Gold on dark. The site had
 slate: the one rung of a six rung ladder that was not being followed. #C92E38
 on #F7F2E8 measures 5.19:1, so this is also the accessible choice.
@@ -740,7 +740,7 @@ hands.** Frame them out; do not prompt them away.
 
 `host-portrait` was re-shot for the same class of reason. The first version was
 a retouched, symmetrical, eyes-to-camera corporate headshot, which is the single
-most recognisable AI-stock look there is. Reprompted as reportage: caught mid
+most recognizable AI-stock look there is. Reprompted as reportage: caught mid
 thought, looking off camera, not smiling, visible skin texture, unretouched, the
 register of a broadsheet profile rather than a headshot. The difference is not
 subtle.
@@ -780,7 +780,7 @@ their money.
 ## Where you are, and what happens next
 
 **Orientation.** The masthead said OWN YOUR STAGE / STUDIO, from which a
-stranger cannot tell whether this is a theatre company, a design agency or a
+stranger cannot tell whether this is a theater company, a design agency or a
 recording studio. The descriptor line under the wordmark, which the deck already
 specifies (p16, p19), now carries `Studio - Virtual panel events`. No bar and no
 strip was added: the words went inside the lockup that was already there. Below
@@ -858,7 +858,7 @@ is that the light is live rather than drawn. Held while the pointer is down, and
 silent under reduced motion.
 
 **3, 6. "This is an ai style, change it to something more humanize."** Twice, on
-two components that were the same idea: small grey text beside a gold marker.
+two components that were the same idea: small gray text beside a gold marker.
 That is the generated-UI pattern. Both are now editorial footnotes rather than
 UI callouts: serif, reading size, indented, marked by a small raised italic
 numeral, the way a note sits in the margin of a printed proof.
@@ -950,7 +950,7 @@ copyright line above. Replaced with: *The room is already looking for you.*
 **22. "Lets use this big lines in the footer I really liked."** Taken from the
 v2 build, and the right call: the tagline is the strongest thing the brand owns
 and it was set in 19px sans halfway down a column. It is now at display scale
-above the normal footer, split in the deck's own colours — the promise in ivory,
+above the normal footer, split in the deck's own colors - the promise in ivory,
 the payoff in gold.
 
 ## The prompts
@@ -1002,3 +1002,267 @@ One bug worth recording because it is now the third time on this project: **a
 `<span>` with no `display` is inline, whatever its class name implies.** The
 prompt bar's title and meta ran together as one sentence, and the panelist name
 plate set its three lines horizontally. Both invisible in source.
+
+---
+
+# Feedback 3.0, and the interior pages, 10 September 2026
+
+Six notes in `new changes/feedback 3.0.docx`, plus Annette's covering message:
+
+> Hi AJ, I do like it a lot. Love the color combination, the spotlight on the
+> landing page is a cool feature (love it) but I absolutely dislike the
+> artificial person stepping into the spotlight. Any chance your team could
+> make him/her more natural and human looking? Also, some adjustments to
+> various text will be needed down the road. We need to make sure we do not
+> over promise on the website (USA!)
+
+1. Use both header clips, looping one after the other, with a very smooth
+   transition.
+2. A random number 2 is showing up.
+3. The artificial person stepping into the spotlight.
+4. Remove number 3.
+5. Only the home page is looking; the rest need an upgrade in design and copy.
+6. Make sure the images look really genuine.
+
+All six are done. Nothing on the home page was restructured - she likes it, and
+notes 2 and 4 were the only two that touched it.
+
+## The person in the spotlight
+
+The figure in both of her clips is not disliked for being small. It is disliked
+because it **materialises out of empty air** inside the beam, which is a thing
+that cannot happen, and because at forty feet the generator gave it no
+shoulders, no face and legs a head too long. Neither fault is fixable by
+prompting the same shot again: both come from asking a generator for a
+full-length human at that distance.
+
+So the shot changed rather than the prompt. `_art/round8.py` commissions the
+figure at the distance a photographer would actually stand at for a portrait in
+a beam - knee up, weight on one leg, the key rimming the hair and shoulders,
+eyes in soft shadow - which is the framing this model renders convincingly and
+the framing the six panel portraits on the home page already proved it can.
+
+**Then the clips are used for the thing they are genuinely good at, the light.**
+`_art/hero_loop.py` builds one file with three beats:
+
+| | source | what it is |
+|---|---|---|
+| A | `illuminating_person`, 1.1s to 4.8s | the beam ignites and blooms |
+| B | `searching_person`, 1.2s to 4.4s | a narrower beam, different haze |
+| C | `spot-figure.png`, 4.3s | a real person standing in it, slow push in |
+
+Both clips are cut **before** their figure appears, so nothing in this loop
+dissolves into existence. A joins B on a 0.85s cross fade - same composition, so
+the eye reads it as the light changing rather than as a cut. B joins C on a
+0.55s dissolve, and it is the one transition where the shot size changes: a wide
+room becomes a portrait, so the beam appears to come toward the camera rather
+than a person appearing inside it. **A white flash was tried there and thrown
+out**; a hero that strobes is a hero somebody has to look away from.
+
+The loop **closes on itself**: the tail of C dissolves into the head of A, so
+the browser's own loop point is invisible. Measured, first frame against last:
+mean absolute difference 3.76 of 255, which is the haze moving and nothing else.
+`loop` on the element is now the whole mechanism, and `playOnce()` in oyss.js is
+gone with the `data-once` attribute it guarded.
+
+9.9 seconds, 1.54 MB, 1080x1920, CRF 26. It replaces a 4.5s 818 KB clip, so the
+hero costs about 700 KB more than it did. That is the price of the note.
+
+**Where the person sits in the frame** is not a taste decision. The panel is
+`object-fit: cover` at `object-position: 50% 58%`, and its aspect runs from 0.48
+at a 900px viewport to 1.44 on a phone, where the hero stacks into a band.
+Solving cover at both ends leaves one strip that is on screen at every width,
+y 740 to 1488 of 1920. The head goes just inside the top of it. Below the hip
+the frame falls to black, which is also where the generator put a hand it could
+not draw: **the hand is framed out, not prompted away**, same rule as the
+notebook in round 6.
+
+`room-figure.jpg` on the About page had the identical fault at an even smaller
+scale and was re-shot the same way.
+
+## The two random numbers
+
+Notes 2 and 4, and they were the same bug. Three editorial asides carried a
+raised numeral - `1` on the rig note, `2` on the essay note, `3` on the showcase
+aside - and a footnote marker is only legible when something earlier in the text
+carries the matching reference. Nothing did. They were numbered by where they
+sat on the page.
+
+The numerals are gone. What made those notes read as written by a person was
+never the marker: it was the setting, the serif at reading size, held in from
+the column it comments on, on a shorter measure than the prose above it. That is
+what an aside looks like in print and it needs no marker at all.
+
+While looking for the second one, a third turned up on the assessment: the
+stepper builds its own "Question 1 of 8" bar and the section label it moves into
+the pane said the same thing again, two lines apart. The label is the
+no-JavaScript path, so it stays in the markup and is hidden once `.quiz` exists.
+
+## "Only the homepage is looking"
+
+The diagnosis was countable before it was aesthetic.
+
+| | pictures | sections built from the shared kit |
+|---|---|---|
+| home | 12 | 0 |
+| experience | 1 | 5 |
+| panelists | 1 | 5 |
+| about | 1 | 2 |
+
+Every interior page repeated the same three objects in the same order: a row of
+bordered cards with a numeral, a two-column tick list, and a pair of bordered
+columns, then the same centerd close with the same two buttons. Three pages
+built from the same kit in the same sequence read as one template however good
+the words in them are - which is exactly the note.
+
+Section 44 of `oyss.css` is mostly **subtraction**, plus one device per page
+that belongs only to that page. Nothing in it introduces a color, a typeface or
+a motion rule that was not already in the deck.
+
+**Experience.** The three cards became `.premise`, one statement at display size
+and the argument in two unequal columns. The sixteen-item tick grid and the
+manifest under it became `.contents`, the same facts set as the contents page of
+the schedule they actually belong to: item, leader, quantity. The division of
+responsibilities became `.clause` (see below). The boxed price card is gone. Two
+photographs at unequal widths (`.pair`) break the column once.
+
+**Panelists.** Same cards, same treatment. Its own device is `.runorder`, the
+running order of a produced panel with the reader's own ten minutes lit - it
+answers the two questions that page kept being asked, how long am I on and what
+happens either side of me, and neither was answered anywhere on the site. The
+times are deliberately not clock times: the agreement gives the studio sole
+discretion over the format, so the only fixed numbers in it are the three the
+agreement states. The frame-assembly animation is unchanged and moved onto
+paper, so two dark bands do not sit next to each other.
+
+**About.** The prose was already right. It gained two photographs and lost one
+outcome claim.
+
+**FAQ.** Fourteen accordions in a column is a support page; the same fourteen
+beside a standing index is a document, and the index is the only thing that
+tells a reader how long the page is before they start opening things. Module 18
+of `oyss.js` opens the target `<details>` on an anchor hit - recent Chrome does
+this by itself, Safari and Firefox scroll to a closed summary and leave it shut,
+which reads as a broken link rather than a browser difference.
+
+**Every close is different now.** `.close` is a rule, one line naming what
+happens next **on that page**, and one action. The right next step is not the
+same on a page about panelists as it is on a page about a three thousand dollar
+engagement. The home page keeps its flood; nothing else does.
+
+## "We need to make sure we do not over promise (USA!)"
+
+The substance of this was already written, in the agreements, and the site was
+paraphrasing it into a sales object. The Experience page had two bordered
+columns headed "We handle" and "We do not handle", which is a comparison table.
+
+It is now `.clause`: an extract from the Host Services Agreement, carrying that
+agreement's own clause numbers, in the agreement's own terms.
+
+| clause | what it says |
+|---|---|
+| 5 | Scope of Services - what the studio provides |
+| 6 | Excluded Services - no paid advertising, no guaranteed audience, registrations, attendance, leads, clients, revenue or media |
+| 7 | Audience Generation - the room comes from your audience and your panelists, and the studio makes no representation about numbers |
+| 8 | Client Responsibilities - intake, sessions, approvals, promotion on the agreed schedule |
+| 21 | **No Business-Outcome Guarantee** |
+
+Site and contract cannot now drift apart, because the site is quoting the
+contract. **The one-line version of clause 21 is in the footer of every page**,
+at caption size and full contrast, not collapsed and not set in gray fine print:
+a no-guarantee statement in 10px gray is worse than none, because it reads as
+something the studio hoped nobody would find.
+
+Four outcome claims were rewritten in the body copy, each one a sentence that
+predicted a result rather than describing the work:
+
+- "which is also why they keep sharing it" - a prediction about what five other
+  people will do with their own footage
+- "the clips cut from it are still working ninety days later" - a caption cannot
+  know that
+- "someone else becomes known for the work you should be leading"
+- "what they gain is visibility, credibility, professional connection"
+
+Nothing was softened into vagueness. Where a number was real it stayed.
+
+**Still needing Annette, unchanged from round 6:** the four process steps are
+PROPOSED, not confirmed - "we reply within two working days", "we hold the date
+five working days", "eight minutes to apply", the Spotlight Call being thirty
+minutes. They are service promises she controls rather than results claims, so
+they were left in place, but she has now been asked twice and they are the
+obvious next thing to cut if she does not want to be held to them.
+
+## The images
+
+`_art/round8.py` commissions eight new shots. Every interior hero was a version
+of the same picture, a group of people in a dark room talking, which is a large
+part of why the pages read as one template. Each page now gets the shot that
+belongs to its own subject: a late planning session for the Experience page, a
+corridor before you go on for Panelists, one person deciding for the FAQ, a dark
+house seen from the back for the Assessment, two people mid conversation for the
+Spotlight Call. The notebook and pen on a dark desk is gone; it is the picture on
+every consultancy site there has ever been.
+
+**Three shots were re-rolled with hands framed out.** The first `prep-session`
+put both of a man's hands in the middle of the frame gesturing and the generator
+fused the fingers on one of them. The first `back-of-room` put a grand piano on
+the stage, which is a concert hall and the wrong association entirely. Same rule
+as always: reframe, never prompt it away.
+
+## The working note that was live in production
+
+`contact.html` carried a pale box reading **"Calendar embed goes here. Replace
+this block with the GoHighLevel calendar iframe"**, visible to anybody who
+opened the page. That is the third time a marked placeholder has shipped on this
+site, so it was not replaced with another note. It is an HTML comment now, and
+the form beside it already books the call and was always going to be the
+calendar's no-JavaScript fallback.
+
+## The three minute speech
+
+`OYSS - 3-Minute Speech.docx` (new, in `own your studio/`). Read for consistency
+against the site; nothing on the site was changed from it, because it is a stage
+script and the site is not. Three things in it need Annette's decision:
+
+1. **It calls the free call a "Stop Hiding Strategy Call". The site calls it a
+   Spotlight Call.** Two names for one thing, and the speech sends people to the
+   site. One of them has to go.
+2. **"valued at $297"** and **"the first three to complete it"** are exactly the
+   kind of claim her own note is about. A stated dollar value on a free call is
+   a price representation, and a first-three scarcity claim has to be true every
+   time it is said.
+3. The speech says the assessment takes "less than five minutes"; the site says
+   about three. Consistent, no action needed.
+
+Otherwise the speech and the site agree closely, which is worth noting: the four
+ladder rungs (Hidden, Emerging, Expanding, Visible), the title ("Stop getting
+ready. Start getting recognized." is already the home page's close) and the
+tagline are the same in both.
+
+Her three shifts - decide what you want to be known for, stop waiting to be
+invited onto someone else's stage, make your visibility last - are the cleanest
+statement of the offer anywhere in the material, and they are not on the site.
+That is a real copy upgrade and it belongs on the home page, which is the one
+page she has just said she likes. **Not taken. Her call.**
+
+## Verified
+
+`python _build/audit.py` over 11 pages at 390, 768, 1024, 1366 and 1440:
+**55 probes, 0 findings**. No horizontal overflow, no contrast failure, every
+hero action above the fold at every width.
+
+## Still not done
+
+Unchanged, and every one of them is a launch blocker:
+
+- Every form still has `CONFIG.endpoint = null`.
+- No payment path for the $2,997 or the $47.
+- The assessment captures no lead.
+- **The domain is not connected.** There is no CNAME in the repo, so the site is
+  on the Pages URL while every footer says ownyourstagestudio.com.
+- The signature block on both agreements is a front-end demo. Real execution
+  belongs in GHL Payments > Documents & Contracts.
+- No testimonials, no Spotlight Call calendar embed, no legal review.
+- Annette's Zoom PNGs are on the new brand but she still has to swap them into
+  her Zoom account.
+- `_film/render_film.py` still renders the OLD identity. Not shipped anywhere.

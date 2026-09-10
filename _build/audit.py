@@ -7,7 +7,7 @@ system Chrome over the built site and measures the things that have actually
 broken on this project before:
 
   1. horizontal overflow  (documentElement.scrollWidth - clientWidth)
-  2. WCAG AA contrast on every rendered text node, against the colour that
+  2. WCAG AA contrast on every rendered text node, against the color that
      is really behind it, walking up through transparent ancestors
   3. where the hero's primary action lands against the fold
   4. tap-target size on the small widths
@@ -28,7 +28,7 @@ PAGES = ["index.html", "experience.html", "assessment.html", "panelists.html",
 WIDTHS = [(390, 844), (768, 1024), (1024, 768), (1366, 768), (1440, 900)]
 SHOT_AT = [(390, 844), (1366, 768), (1440, 900)]
 
-# The probe reads computed colour, so it needs to know what "behind" means when
+# The probe reads computed color, so it needs to know what "behind" means when
 # an element is transparent. Everything else is measured, not assumed.
 PROBE = r"""
 (() => {
@@ -80,7 +80,7 @@ PROBE = r"""
 
     // contrast, on text nodes only.
     // Type sitting on a transparent masthead over the hero footage has no
-    // DOM colour behind it, so a colour walk reports the page ground and
+    // DOM color behind it, so a color walk reports the page ground and
     // lies. Those are measured from real pixels in mastheadContrast().
     const overFilm = el.closest && el.closest('.masthead--over');
     const own = !overFilm && [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
@@ -123,8 +123,8 @@ LIGHT_ALL = ("document.querySelectorAll('[data-lit], .cuerow, .dimmer__cell')"
 # The masthead over the footage.
 #
 # On every page the bar starts transparent and the hero runs up underneath it,
-# so what is behind the navigation is a moving picture, not a CSS colour. A DOM
-# colour walk cannot see that and will happily report the page background.
+# so what is behind the navigation is a moving picture, not a CSS color. A DOM
+# color walk cannot see that and will happily report the page background.
 #
 # This measures it properly: screenshot the strip, hide the type, screenshot
 # again, and take the WORST (brightest) background pixel inside each link box.

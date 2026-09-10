@@ -3,7 +3,7 @@
 ## First, the honest answer
 
 **You cannot have this built into GHL programmatically.** GHL's public API v2 is
-**read-only for funnels and pages** — there is no create-page or create-funnel
+**read-only for funnels and pages** - there is no create-page or create-funnel
 endpoint. The builder's own internal API is also out of reach: it runs in a
 cross-origin iframe, it hangs if opened standalone because it waits on an auth
 handshake from the parent frame, and its auth token lives in Firebase IndexedDB
@@ -28,7 +28,7 @@ https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js
 ```
 
 That works today and needs no setup. For a client site you will probably want
-them on Annette's own hosting — upload both to the GHL Media Library, take the
+them on Annette's own hosting - upload both to the GHL Media Library, take the
 CDN URLs, and change `ASSET_HOST` at the top of `build.py`, then re-run
 `python build.py`. Do not hand-edit the blocks.
 
@@ -60,7 +60,7 @@ names, because the links in the blocks already point at them:
 | Panelist Agreement | `/panelist-agreement` |
 
 If you want different paths, change the `SLUGS` map in `build.py` and re-run it.
-Do not rename them only in GHL — the links inside the blocks will break.
+Do not rename them only in GHL - the links inside the blocks will break.
 
 ### 2. For each step
 
@@ -80,14 +80,14 @@ Do not rename them only in GHL — the links inside the blocks will break.
 Repeat for all eleven steps. `_ghl/agreements__host.html` is the Host Agreement
 step, `_ghl/agreements__panelist.html` is the Panelist Agreement step.
 
-> **If you skip step 4 and 5**, the design still works — every block carries a
+> **If you skip step 4 and 5**, the design still works - every block carries a
 > `.oyss--bleed` class that breaks the full-width sections out of the builder's
 > container on its own. Setting the section properly is still cleaner, and
 > avoids GHL's padding showing as a white strip above the masthead.
 
 ### 3. Optional: load the assets once instead of per page
 
-Every block includes its own `<link>` and `<script>`. That is harmless — the
+Every block includes its own `<link>` and `<script>`. That is harmless - the
 browser caches both after the first page. If you would rather load them once:
 
 - **Funnel Settings → Tracking Code → Header**: paste the `<link>` line
@@ -119,8 +119,7 @@ tag so a workflow can filter on it:
 | `/spotlight-call` | `spotlight-call-request` |
 | `/panelist-application` | `panelist-application` |
 
-For the agreement pages the call is `OYSS.signing({ agreement: "..." })` —
-add an `endpoint` key to that object:
+For the agreement pages the call is `OYSS.signing({ agreement: "..." })` - add an `endpoint` key to that object:
 
 ```js
 OYSS.signing({ agreement: "Featured Panelist Agreement",
@@ -166,8 +165,8 @@ The good structure is:
 To wire that up, replace the form's submit handler target with the send-document
 link, or simply change the button to link to the GHL document URL.
 
-**Payments:** create two products under **Payments → Products** — $2,997 for the
-Own Your Stage Experience and $47 for the Panelist Commitment fee — then either
+**Payments:** create two products under **Payments → Products** - $2,997 for the
+Own Your Stage Experience and $47 for the Panelist Commitment fee - then either
 add an Order Form step to the funnel or generate Payment Links and point the
 post-signature step at them.
 

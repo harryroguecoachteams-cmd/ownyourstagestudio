@@ -145,7 +145,7 @@ def for_ghl(markup):
 # and no pool. The mark is the A of STAGE: two parallel strokes at a 2:1
 # rise with a flat apex, and an arch in the counter where an A has a
 # crossbar. It has no field to reverse, which is why it survives being put
-# on a dark bar by changing one fill rather than by flipping a colourway.
+# on a dark bar by changing one fill rather than by flipping a colorway.
 #
 # Geometry measured off the sheet's ICON / MARK panel and normalised to a
 # 64 x 58 box. Read off the artwork rather than eyeballed:
@@ -155,7 +155,7 @@ def for_ghl(markup):
 #                  5.5 above the box
 #   inner void     closes at y 16
 #   the arch       11 wide on a 5.5 radius, sitting from y 37 to y 46.4,
-#                  centred in a void 30 wide at that height
+#                  centered in a void 30 wide at that height
 #
 # The A is set as a mark inside live text rather than as a picture of the
 # whole wordmark, so the lockup stays selectable, scales with the type and
@@ -200,7 +200,7 @@ def footer(base):
     # it, and it is the right call: the tagline is the strongest asset the brand
     # owns and it was being whispered in 19px sans halfway down a column. Set at
     # display scale it does what the deck's closing panel does on page 25, and
-    # the split colour is the deck's own: the promise in ivory, what you get in
+    # the split color is the deck's own: the promise in ivory, what you get in
     # gold.
     return f"""<footer class="footer silked">
   <div class="wrap">
@@ -238,6 +238,21 @@ def footer(base):
         </div>
       </div>
     </div>
+    <!-- FEEDBACK 3.0: "We need to make sure we do not over promise
+         on the website (USA!)". The substance of that sits on the
+         Experience page as an extract from the agreement's own
+         clauses 5, 6, 7, 8 and 21, in the agreement's own words.
+         This is the one line version, on every page, where a
+         reader who never reaches that section still meets it. It
+         restates clause 21 and nothing more. -->
+    <p class="footer__legal">
+      Own Your Stage Studio provides event planning, coordination, production and
+      creative services. It does not guarantee registration or attendance numbers,
+      audience size, leads, clients, revenue, media coverage or any other business
+      result. The <a href="{base}agreements/host.html">Host Services Agreement</a> and the
+      <a href="{base}agreements/panelist.html">Featured Panelist Agreement</a> govern every
+      engagement and are published here in full.
+    </p>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
       <span class="footer__note">The room is already looking for you.</span>

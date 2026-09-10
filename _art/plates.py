@@ -5,14 +5,14 @@ Zoom stage backgrounds.
 
 These are the only pictures on the project with the LOGO baked into them, so
 when the identity changed they were the only ones that went stale in a way no
-colour grade could fix. Rather than repaint them, they are rendered out of the
+color grade could fix. Rather than repaint them, they are rendered out of the
 site's own stylesheet through Chrome: the lockup here is the same lockup, from
 the same CSS, in the same fonts, so a plate cannot drift from the site again
 without the site drifting too.
 
 Two layouts, matching the ones the old set had:
 
-  holding    centred lockup, the tagline, STARTING SHORTLY. Nobody is on
+  holding    centered lockup, the tagline, STARTING SHORTLY. Nobody is on
              camera yet, so the middle of the frame is free.
   corner     lockup (host) or the mark alone (panelist) top left, and a name
              plate bottom right. The middle is where the person sits, so it

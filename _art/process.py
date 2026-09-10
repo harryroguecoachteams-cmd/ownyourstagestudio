@@ -37,8 +37,24 @@ STILLS = [
     ("panel-room",   "panel-conversation.png",  1500, 3 / 2,  0.50),
     ("attendee",     "attendee-screenlight.png", 1400, 16 / 9, 0.50),
     ("room-empty",   "empty-room.png",          1500, 16 / 9, 0.52),
-    # feedback 2.0: the About room was liked but empty; same room, one figure
-    ("room-figure",  "room-figure.png",         1500, 16 / 9, 0.52),
+    # feedback 2.0: the About room was liked but empty; same room, one figure.
+    # feedback 3.0 replaced the source: the first figure was generated at forty
+    # feet and came back with no face, which is the same objection she raised
+    # about the clip. Re-shot at twenty feet, so there is a person in it.
+    ("room-figure",  "room-figure-real.png",    1500, 16 / 9, 0.52),
+
+    # ---- feedback 3.0: the interior pages -------------------------------
+    # "only the homepage is looking, the rest of the pages needed an upgrade".
+    # Part of the reason is countable: the home page carries twelve pictures
+    # and every other page carried exactly one, its hero. These are the new
+    # heroes, one per page and each on its own subject, plus the second figure
+    # for the About column.
+    ("prep",         "prep-session.png",        1500, 3 / 2,  0.46),
+    ("greenroom",    "green-room.png",          1500, 3 / 2,  0.50),
+    ("deciding",     "deciding.png",            1500, 3 / 2,  0.48),
+    ("house",        "back-of-room.png",        1500, 16 / 9, 0.52),
+    ("talking",      "two-talking.png",         1500, 3 / 2,  0.44),
+    ("spot-alt",     "spot-figure-alt.png",      900, None,   0.50),
     # the panelist pages had the Experience page's pictures
     ("panelist-mid", "panelist-speaking.png",   1500, 3 / 2,  0.48),
     ("panelist-one", "panelist-framed.png",      900, 16 / 9, 0.42),

@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=d9a3866a">
+<link rel="stylesheet" href="assets/oyss.css?v=6df35b7d">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -58,14 +58,17 @@ body { background: #F8F5F2; }
 
 <main id="main">
 <!-- ============ HEAD ============
-     The same component as the home page: type column left, a
-     plate cut from the brand film full bleed right, masthead
-     transparent over it. See section 35 of oyss.css. -->
+     Type column left, one photograph full bleed right. The shot
+     changed in feedback 3.0: it was the same room of experts in
+     conversation that opened the Experience page, so the two
+     pages looked like the same page. What this one sells is ten
+     minutes on somebody else's stage, so the shot is the minute
+     before you go on. -->
 <section class="reel reel--page dark" data-over>
   <div class="reel__copy" data-lit>
     <h1 class="display">Your spotlight should last longer than the event.</h1>
     <span class="reel__rule" aria-hidden="true"></span>
-    <p class="lead">Join a produced panel as a featured expert. You get a designated spotlight, professional footage, and exposure to everyone the host and the other panelists bring.</p>
+    <p class="lead">Join a produced panel as a featured expert. A designated ten minute segment, professional footage of yourself, and a place on a panel promoted to the host&rsquo;s audience and to every other panelist&rsquo;s.</p>
     <div class="actions">
       <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
       <a class="cue" href="agreements/panelist.html">Read the agreement</a>
@@ -73,43 +76,51 @@ body { background: #F8F5F2; }
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate" src="assets/media/panelist-mid.jpg" alt="A panelist speaking, sharply lit, with the other experts listening in the darkness either side of her.">
+    <img class="reel__plate" src="assets/media/greenroom.jpg" width="1500" height="1000"
+         alt="A woman sitting alone under a single light in a dark corridor, composing herself before going on.">
   </div>
 </section>
 
 
-<!-- ============ WHAT YOU RECEIVE ============ -->
+<!-- ============ WHAT YOU RECEIVE ============
+     Was three bordered cards numbered 01 02 03, the same object
+     in the same position as on the Experience page. Prose. -->
 <section class="bay light">
   <div class="wrap">
-    <div style="max-width:44rem" data-lit>
-      <p class="eyebrow eyebrow--gold">What a featured panelist receives</p>
-      <h2>Ten minutes on a produced stage, and everything that comes with it.</h2>
-    </div>
-    <div class="cols-3" style="margin-top:3.2rem">
-      <article class="card" data-lit data-cue="1">
-        <div class="card__index">01</div>
-        <h3>A designated spotlight</h3>
-        <p class="caption" style="margin-top:.8rem">
-          Approximately ten minutes of your own, on a topic approved in advance, with
-          the room's full attention rather than a slot in a queue.
-        </p>
-      </article>
-      <article class="card" data-lit data-cue="2">
-        <div class="card__index">02</div>
-        <h3>Professional footage</h3>
-        <p class="caption" style="margin-top:.8rem">
-          Branded frames, name plates and a produced recording. Video of you speaking
-          that you would actually send to someone.
-        </p>
-      </article>
-      <article class="card" data-lit data-cue="3">
-        <div class="card__index">03</div>
-        <h3>The combined audience</h3>
-        <p class="caption" style="margin-top:.8rem">
-          Exposure to everyone the host and the other panelists bring, and one
-          complimentary resource you may offer the room.
-        </p>
-      </article>
+    <div class="premise" data-lit>
+      <p class="eyebrow eyebrow--gold">What a featured panelist gets</p>
+      <p class="premise__lead">
+        Ten minutes of a produced stage, and a recording of yourself you would actually
+        send to somebody.
+      </p>
+      <span class="pool pool--sm" aria-hidden="true"></span>
+
+      <div class="premise__cols">
+        <div>
+          <p class="body">
+            The segment is yours, on a topic agreed in advance, with the room's attention on
+            you rather than a slot in a queue. It is a teaching segment, not a pitch, which
+            is the reason an audience stays for it.
+          </p>
+          <p class="body">
+            You get a branded frame, a name plate and lower thirds in the recording, so the
+            footage that comes out of it does not look like a video call somebody screen
+            grabbed.
+          </p>
+        </div>
+        <div>
+          <p class="body">
+            The event is promoted to the host's audience and to every other panelist's, and
+            you are named in those materials. How many people that puts in the room depends
+            on all of us, and nobody here will tell you a number in advance.
+          </p>
+          <p class="body">
+            You may offer the room one complimentary resource, agreed with the studio
+            beforehand. That is the part most panels do not allow and the reason this one
+            is worth preparing for.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -123,9 +134,92 @@ body { background: #F8F5F2; }
   </symbol>
 </svg>
 
-<!-- ============ THE FRAME ============ -->
+<!-- ============ THE RUN OF SHOW ============
+     New, and the one device that belongs only to this page. Two
+     questions get asked of every panelist and neither was
+     answered anywhere on the site: how long am I actually on,
+     and what happens either side of me. Both are in the
+     agreement, so they are drawn here as a running order with
+     the reader's own ten minutes lit.
+
+     Deliberately not clock times. The agreement gives the studio
+     sole discretion over the format, so the only fixed numbers
+     here are the three it states: check in twenty minutes
+     before, about ninety minutes in total, and about ten of them
+     yours. -->
 <section class="bay dark stage">
   <span class="stage__pool" aria-hidden="true"></span>
+  <div class="wrap">
+    <div style="max-width:44rem" data-lit>
+      <p class="eyebrow">The running order</p>
+      <h2>Where your ten minutes sit.</h2>
+      <p class="lead" style="margin-top:1.4rem">
+        A produced panel runs about ninety minutes. This is the shape of one, and the row
+        that is lit is yours.
+      </p>
+    </div>
+
+    <div class="runorder" data-lit data-cue="2">
+      <div class="runrow">
+        <div class="runrow__t">20 min before</div>
+        <div class="runrow__what">Check in with the producer
+          <span>Camera, sound, light and your frame, off air, before anybody is admitted</span>
+        </div>
+      </div>
+      <div class="runrow">
+        <div class="runrow__t">Doors</div>
+        <div class="runrow__what">The room fills
+          <span>The holding slide is on screen while people arrive</span>
+        </div>
+      </div>
+      <div class="runrow">
+        <div class="runrow__t">The open</div>
+        <div class="runrow__what">The host frames the subject
+          <span>And introduces every expert on the panel by name and by what they do</span>
+        </div>
+      </div>
+      <div class="runrow runrow--you">
+        <div class="runrow__t">Ten minutes</div>
+        <div class="runrow__what">Your segment
+          <span>Your topic, agreed in advance, with the key light on you and your name plate
+            up. This is the part that becomes your highlight video.</span>
+        </div>
+      </div>
+      <div class="runrow">
+        <div class="runrow__t">The panel</div>
+        <div class="runrow__what">The other experts, then the conversation across all of you
+          <span>The light moves to whoever is speaking, the way a producer switches cameras</span>
+        </div>
+      </div>
+      <div class="runrow">
+        <div class="runrow__t">The close</div>
+        <div class="runrow__what">The host closes and the holding slide returns
+          <span>Your complimentary resource, if you are offering one, goes to the room here</span>
+        </div>
+      </div>
+      <div class="runrow">
+        <div class="runrow__t">Afterwards</div>
+        <div class="runrow__what">The recording is edited
+          <span>One highlight video is cut for every panelist, including you</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="caption" style="margin-top:1.6rem;max-width:48rem" data-lit data-cue="3">
+      A typical shape rather than a fixed schedule. The studio sets the final run of show
+      for each event. The three numbers that are fixed are in the
+      <a href="agreements/panelist.html">Featured Panelist Agreement</a>: check in twenty
+      minutes before, about ninety minutes in total, about ten of them yours.
+    </p>
+  </div>
+</section>
+
+<!-- ============ THE FRAME ============
+     Kept as it is. A four beat animation of the frame
+     assembling, and the only component on the site that shows
+     the brand furniture being applied to a person rather than
+     showing it finished. -->
+<section class="bay paper">
   <div class="wrap">
     <div class="split">
       <div data-lit>
@@ -150,7 +244,7 @@ body { background: #F8F5F2; }
         </div>
       </div>
       <div data-lit data-cue="2">
-        <p class="eyebrow">How it looks</p>
+        <p class="eyebrow eyebrow--gold">How it looks</p>
         <h2>You are presented, not squeezed in.</h2>
         <p class="lead" style="margin-top:1.4rem">
           Every panelist gets a branded frame and a name plate. The recording carries
@@ -158,110 +252,110 @@ body { background: #F8F5F2; }
         </p>
         <div class="rule" style="margin:2rem 0"></div>
         <p class="caption">
-          Approximately ninety minutes total. Check in twenty minutes before doors.
-          Live appearance, camera on, from somewhere quiet.
+          Live appearance, camera on, from somewhere quiet. Not a prerecorded video, not an
+          avatar and not a stand-in, because the other people in the room are live too.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ THE TERMS, PLAINLY ============ -->
-<section class="bay paper">
+<!-- ============ THE TERMS, PLAINLY ============
+     Was two bordered columns of ticks, the same object as the
+     one on the Experience page. Prose, on a rule, in the same
+     component the home page uses for the honest half of the
+     offer. Nothing was softened; the fee paragraph is unchanged
+     and stays the most explicit thing on the page. -->
+<section class="bay light">
   <div class="wrap">
     <div style="max-width:44rem" data-lit>
       <p class="eyebrow eyebrow--gold">The terms, stated plainly</p>
       <h2>What is asked of you in return.</h2>
       <p class="lead" style="margin-top:1.3rem">
-        A panel works because every expert in it brings a room. These are the
-        commitments, in full, before you apply.
+        A panel works because every expert in it brings a room. These are the commitments,
+        in full, before you apply.
       </p>
     </div>
 
-    <div class="ledger" style="margin-top:2.8rem" data-lit data-cue="2">
-      <div class="ledger__col ledger__col--us">
-        <p class="ledger__head">You commit to</p>
-        <ul class="ticklist">
-          <li>A $47 non-refundable commitment and administrative fee</li>
-          <li>Completing all speaker information by the deadline</li>
-          <li>Preparing a roughly ten minute educational presentation</li>
-          <li>Promoting the event at least three times beforehand</li>
-          <li>Sharing the promotional materials we provide</li>
-          <li>Attending the preparation session and the technical check</li>
-          <li>Appearing live, on camera, from a quiet environment</li>
-        </ul>
+    <div class="terms" style="max-width:62rem" data-lit data-cue="2">
+      <div>
+        <h3>You commit to</h3>
+        <p>
+          A $47 non-refundable commitment and administrative fee. Completing your speaker
+          information by the deadline and preparing a roughly ten minute educational
+          presentation. Promoting the event to your own network at least three times
+          beforehand, using the materials we provide. Attending the preparation session and
+          the technical check. Appearing live, on camera, from somewhere quiet.
+        </p>
       </div>
-      <div class="ledger__col ledger__col--them">
-        <p class="ledger__head">The presentation is not</p>
-        <ul class="ticklist ticklist--none">
-          <li>A sales presentation or a pitch</li>
-          <li>A request for payment from attendees</li>
-          <li>Repeated promotion of paid products or services</li>
-          <li>A prerecorded video, an avatar or a stand-in</li>
-          <li>A guarantee of financial or business outcomes</li>
-        </ul>
+      <div>
+        <h3>The presentation is not</h3>
+        <p>
+          A sales presentation or a pitch. A request for payment from attendees. Repeated
+          promotion of paid products or services. A prerecorded video, an avatar or a
+          stand-in. And nothing about a place on the panel is a guarantee of a financial or
+          business outcome, for you or for anybody else in the room.
+        </p>
       </div>
     </div>
 
     <p class="notice" style="margin-top:1.8rem;max-width:56rem" data-lit data-cue="3">
-      The fee is not a speaking fee and buys nothing except a reserved position. It
-      offsets onboarding, coordination, graphics, technical setup and speaker support.
-      It is non-refundable because that work begins the moment your place is confirmed.
-      If we cancel the event without offering a rescheduled date you accept, it is
-      refunded in full.
+      The fee is not a speaking fee and buys nothing except a reserved position. It offsets
+      onboarding, coordination, graphics, technical setup and speaker support. It is
+      non-refundable because that work begins the moment your place is confirmed. If we
+      cancel the event without offering a rescheduled date you accept, it is refunded in
+      full.
     </p>
   </div>
 </section>
 
-<!-- ============ THE ACCELERATOR ============ -->
-<section class="bay light">
+<!-- ============ THE ACCELERATOR ============
+     The boxed price card is gone. Two prices on a rule. -->
+<section class="bay paper">
   <div class="wrap">
     <div class="split">
       <div data-lit>
         <p class="eyebrow eyebrow--gold">Optional, after the event</p>
         <h2>Featured Panelist Visibility Accelerator<span class="tm">&trade;</span></h2>
         <p class="lead" style="margin-top:1.4rem">
-          Sixty days of speaker content and authority building, created from your own
-          panel appearance. Most footage is never used again. This turns one evening
-          into two months of visibility.
+          Sixty days of speaker content, edited from your own panel appearance. Most
+          footage of most people speaking is never used again, and this is the part that
+          gives one evening somewhere to keep going.
         </p>
         <p class="caption" style="margin-top:1.4rem">
           Not included in the $47 fee. Purchased separately, and only if you want it.
+          Content deliverables are confirmed in a separate schedule.
         </p>
       </div>
 
-      <div class="card" style="padding:clamp(28px,3.2vw,44px)" data-lit data-cue="2">
-        <p class="eyebrow">Investment</p>
+      <div data-lit data-cue="2">
+        <div class="rule" style="margin-bottom:1.6rem"></div>
         <div class="figure__value">$1,497</div>
-        <p class="figure__label">Regular investment</p>
+        <p class="figure__label">Standard price</p>
         <div class="rule" style="margin:1.8rem 0"></div>
         <div class="figure__value" style="font-size:clamp(2rem,1.4rem+2vw,2.8rem)">$997</div>
-        <p class="figure__label">Within twenty four hours of the event</p>
-        <p class="caption" style="margin-top:1.6rem">
-          Content deliverables are confirmed in a separate schedule.
-        </p>
+        <p class="figure__label">If you decide within twenty four hours of the event</p>
+        <div class="rule" style="margin-top:1.8rem"></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ THE ROUTE ONWARD ============ -->
-<section class="bay dark stage">
+<section class="bay--half dark stage">
   <span class="stage__pool" aria-hidden="true"></span>
-  <div class="wrap center">
-    <div data-lit style="max-width:44rem;margin:0 auto">
-      <p class="eyebrow">Not a smaller client. Next year's host.</p>
-      <h2 class="display" style="font-size:clamp(1.9rem,1.4rem+2.4vw,3.1rem)">
-        Panelists see the production from the inside.
-      </h2>
-      <span class="pool" aria-hidden="true"></span>
-      <p class="lead" style="margin-top:2rem">
-        It is the honest way to evaluate us. Stand on one of our stages before you
-        decide whether you want one built around you.
-      </p>
-      <div class="actions" style="margin-top:2.6rem;justify-content:center">
+  <div class="wrap">
+    <div class="close" data-lit>
+      <div>
+        <p class="close__t">Stand on one of our stages before you decide whether you want one built around you.</p>
+        <p class="close__m">
+          Panelists see the production from the inside, which is the honest way to evaluate
+          a studio. The application is short and applications are kept on file for twelve
+          months.
+        </p>
+      </div>
+      <div class="actions">
         <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
-        <a class="cue" href="experience.html">See the Host Experience</a>
       </div>
     </div>
   </div>
@@ -312,6 +406,21 @@ body { background: #F8F5F2; }
         </div>
       </div>
     </div>
+    <!-- FEEDBACK 3.0: "We need to make sure we do not over promise
+         on the website (USA!)". The substance of that sits on the
+         Experience page as an extract from the agreement's own
+         clauses 5, 6, 7, 8 and 21, in the agreement's own words.
+         This is the one line version, on every page, where a
+         reader who never reaches that section still meets it. It
+         restates clause 21 and nothing more. -->
+    <p class="footer__legal">
+      Own Your Stage Studio provides event planning, coordination, production and
+      creative services. It does not guarantee registration or attendance numbers,
+      audience size, leads, clients, revenue, media coverage or any other business
+      result. The <a href="agreements/host.html">Host Services Agreement</a> and the
+      <a href="agreements/panelist.html">Featured Panelist Agreement</a> govern every
+      engagement and are published here in full.
+    </p>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
       <span class="footer__note">The room is already looking for you.</span>
@@ -320,7 +429,7 @@ body { background: #F8F5F2; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=d9a3866a"></script>
+<script src="assets/oyss.js?v=6df35b7d"></script>
 <script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
   barTitle: 'Find out where you stand first.',

@@ -40,7 +40,7 @@ HOUSE = (
     "Cinematic editorial photograph. Deep navy near-black environment, one warm "
     "amber key light, soft falloff into darkness, clean negative space, subtle "
     "grain and shallow depth of field. Premium corporate production still, the "
-    "restraint of a Financial Times or Monocle portrait. Colour is limited to "
+    "restraint of a Financial Times or Monocle portrait. Color is limited to "
     "deep navy, warm amber gold and skin tones. "
     # The two things this model reliably fails at are WRITING and HANDS, and both
     # failures are unmistakable to a viewer even when they cannot name them. The
@@ -57,7 +57,7 @@ HOUSE = (
 SHOTS = [
     # --- 01 host portrait, shoulders up, warm key, navy background -----------
     # The first version came back as a glossy corporate headshot: retouched,
-    # symmetrical, eyes to camera, the single most recognisable AI-stock look
+    # symmetrical, eyes to camera, the single most recognizable AI-stock look
     # there is. A real editorial portrait is caught rather than posed.
     ("host-portrait", "1024x1536", "high",
      "Reportage portrait of a woman in her fifties in a dark jacket, caught mid "
@@ -72,7 +72,7 @@ SHOTS = [
     ("panel-conversation", "1536x1024", "high",
      "Four professional adults of different ages and ethnicities seated in a "
      "loose semicircle mid conversation, one speaking with a relaxed hand "
-     "gesture and the others listening, mid shot from slightly off centre. A "
+     "gesture and the others listening, mid shot from slightly off center. A "
      "dark modern room, deep navy walls, one warm amber source from above and "
      "behind them. No table clutter. Editorial documentary feel, natural "
      "posture, nobody looking at the camera."),
@@ -125,43 +125,43 @@ SHOTS = [
      "objects, no horizon. Flat on, filling the frame."),
 
     # --- the panel itself: six webcam-framed portraits for the rig ----------
-    # The deck's virtual stage frames keep their centre two thirds empty because
+    # The deck's virtual stage frames keep their center two thirds empty because
     # that is where the person sits. Empty on a website they read as backdrops,
     # which is exactly the note that came back. These are the people who sit in
     # them, shot to the same key so the grid reads as one production.
     ("panel-a", "1024x1024", "high",
-     "A woman in her fifties with silver-grey hair, dark blazer, seated at a "
-     "desk facing the camera, head and shoulders centred with headroom above, "
+     "A woman in her fifties with silver-gray hair, dark blazer, seated at a "
+     "desk facing the camera, head and shoulders centered with headroom above, "
      "speaking. Warm amber key light at 45 degrees from camera left, deep navy "
      "background falling to black behind her. Framed as a professional video "
      "call at broadcast quality, sharp, evenly lit, no screen artefacts."),
     ("panel-b", "1024x1024", "high",
      "A Black man in his forties, close-cropped hair, open collar shirt and "
-     "jacket, seated facing the camera, head and shoulders centred with headroom "
+     "jacket, seated facing the camera, head and shoulders centered with headroom "
      "above, listening attentively. Warm amber key light at 45 degrees from "
      "camera right, deep navy background falling to black. Broadcast quality "
      "video call framing, sharp, evenly lit."),
     ("panel-c", "1024x1024", "high",
      "A South Asian woman in her thirties, dark hair tied back, tailored shirt, "
-     "seated facing the camera, head and shoulders centred with headroom above, "
+     "seated facing the camera, head and shoulders centered with headroom above, "
      "mid sentence with a slight smile. Warm amber key at 45 degrees from camera "
      "left, deep navy background falling to black. Broadcast quality video call "
      "framing, sharp, evenly lit."),
     ("panel-d", "1024x1024", "high",
      "An East Asian man in his fifties, glasses, dark knit and jacket, seated "
-     "facing the camera, head and shoulders centred with headroom above, calm "
+     "facing the camera, head and shoulders centered with headroom above, calm "
      "and considered. Warm amber key at 45 degrees from camera right, deep navy "
      "background falling to black. Broadcast quality video call framing, sharp, "
      "evenly lit."),
     ("panel-e", "1024x1024", "high",
      "A white woman in her late twenties, shoulder length blonde hair, dark "
-     "blouse, seated facing the camera, head and shoulders centred with headroom "
+     "blouse, seated facing the camera, head and shoulders centered with headroom "
      "above, engaged and mid nod. Warm amber key at 45 degrees from camera left, "
      "deep navy background falling to black. Broadcast quality video call "
      "framing, sharp, evenly lit."),
     ("panel-f", "1024x1024", "high",
      "A Latin American man in his forties, short beard, dark shirt, seated "
-     "facing the camera, head and shoulders centred with headroom above, "
+     "facing the camera, head and shoulders centered with headroom above, "
      "speaking with quiet confidence. Warm amber key at 45 degrees from camera "
      "right, deep navy background falling to black. Broadcast quality video call "
      "framing, sharp, evenly lit."),
@@ -170,7 +170,7 @@ SHOTS = [
     ("host-onstage", "1536x1024", "high",
      "A woman in her late forties, dark tailored blazer, seated at a desk facing "
      "the camera and speaking directly to it with authority and warmth. Head and "
-     "shoulders, positioned in the centre of a wide frame with generous space "
+     "shoulders, positioned in the center of a wide frame with generous space "
      "either side. One warm amber key light at 45 degrees, deep navy background "
      "receding to black. Broadcast quality, the look of a produced panel event "
      "rather than a webcam."),
@@ -213,8 +213,8 @@ SHOTS = [
 
     # The panelist frame, occupied. Replaces an empty branded backdrop.
     ("panelist-framed", "1024x1024", "high",
-     "A man in his fifties, grey at the temples, open collar shirt under a dark "
-     "jacket, seated facing the camera and speaking, head and shoulders centred "
+     "A man in his fifties, gray at the temples, open collar shirt under a dark "
+     "jacket, seated facing the camera and speaking, head and shoulders centered "
      "with headroom above. Warm amber key at 45 degrees from camera left, deep "
      "navy background falling to black. Broadcast quality video call framing, "
      "sharp, evenly lit, no screen artefacts."),

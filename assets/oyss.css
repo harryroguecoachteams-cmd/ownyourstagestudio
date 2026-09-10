@@ -45,7 +45,7 @@
 
   /* --- SUPPORT / STRUCTURE, NEVER IDENTITY --- */
   --ink:     #131211;   /* the floor under the dark ground                 */
-  --slate:   #6A625E;   /* warm grey, 5.49:1 on Warm Neutral               */
+  --slate:   #6A625E;   /* warm gray, 5.49:1 on Warm Neutral               */
   --ash:     #E4DAD6;   /* the hairline, warmed off Soft Blush             */
   --white:   #FFFFFF;   /* cards lift off Warm Neutral                     */
 
@@ -68,7 +68,7 @@
      against sans; this one has no serif, so the split is carried by
      family and weight instead. --serif is the display voice and --sans is
      the reading voice, and the names are kept for the same reason the
-     colour names were. */
+     color names were. */
   --serif: 'Montserrat', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   --sans:  'Lato', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   --script: 'Sacramento', 'Segoe Script', cursive;   /* the signature line, once */
@@ -298,7 +298,7 @@
    the left, opens as it travels, and dissolves before it reaches
    the right edge. It is the one thing on the board that is not
    type, a photograph or a rule, so it is the thing that has to
-   be here or the site is only a recolour of the old one.
+   be here or the site is only a recolor of the old one.
 
    It is decoration, so it is a background image and never
    markup, it never sits over reading type, and it runs in three
@@ -549,7 +549,7 @@
    it. That is what the sheet draws, and it is the reason the A
    reads as a mark rather than as a glyph in the wrong weight.
 
-   Two colourways, and only two. Rose Red on the dark ground,
+   Two colorways, and only two. Rose Red on the dark ground,
    because Signature Red measures 2.1:1 there and disappears.
    Signature Red with a Charcoal wordmark on a light one, which
    is the primary as the sheet prints it.
@@ -1122,7 +1122,7 @@
 
 /* ============================================================
    19. RESPONSIVE HARDENING
-   Phone, tablet and pointer-type behaviour. Every rule below is
+   Phone, tablet and pointer-type behavior. Every rule below is
    inside a query or a pointer test, so the desktop composition
    the deck specifies is untouched. Still scoped under .oyss so a
    GHL paste stays sealed.
@@ -1258,7 +1258,7 @@
    is not fixed. On a centered section it landed to the right of
    the words; on a phone it landed off the text entirely. The
    position is now a token, defaulted to the middle and set per
-   section by the light engine to the optical centre of whatever
+   section by the light engine to the optical center of whatever
    that section's headline block actually is.                    */
 .oyss .beam { left: var(--beam-x, 50%); }
 .oyss .landing { left: var(--beam-x, 50%); }
@@ -1713,7 +1713,7 @@
 
 /* ============================================================
    27. THE FOUNDER PORTRAIT
-   Real photography, lit to the brand rather than recoloured out
+   Real photography, lit to the brand rather than recolored out
    of recognition: the frame carries the falloff and the key, the
    face is left alone.
    ============================================================ */
@@ -1768,7 +1768,7 @@
    shimmer with no global movement, which is what the
    frame-difference measurement describes.
 
-   The deck still rules the colour. A gold beam over navy
+   The deck still rules the color. A gold beam over navy
    composites to brown and reads as paint, so the core is warm
    WHITE and only the outermost fan carries gold.
    ============================================================ */
@@ -1972,7 +1972,7 @@
 .oyss .spot__source {
   position: absolute; top: 0; left: 50%;
   width: min(30vw, 380px); aspect-ratio: 2.2 / 1;
-  /* Pulled DOWN into the section rather than centred on its top
+  /* Pulled DOWN into the section rather than centered on its top
      edge. The hero starts flush under the sticky masthead, so a
      source sitting on that edge is half clipped by the section's
      own overflow and the lamp reads as a gradient with no origin.
@@ -2447,7 +2447,7 @@
 /* ============================================================
    32. THE RED
    ------------------------------------------------------------
-   "Liking this red colour ... see if you can use this red colour
+   "Liking this red color ... see if you can use this red color
     along with Annette brand deck."
 
    The red the client pointed at is not a flat swatch. It is a
@@ -2458,7 +2458,7 @@
    The deck says crimson is for action and never for mood, so it
    gets exactly one field on the page and that field is the ask.
    Stage Crimson #B91C1C sits between the two sampled values, so
-   the deck's own colour is the middle of the client's gradient,
+   the deck's own color is the middle of the client's gradient,
    and the button that has always been crimson now sits inside a
    room made of the same light.
    ============================================================ */
@@ -2517,7 +2517,7 @@
 /* ============================================================
    33. THE FLOOD  (the closing cue)
    ------------------------------------------------------------
-   The same hover behaviour as the cover cards, at the scale of
+   The same hover behavior as the cover cards, at the scale of
    the page: point at the last block and the whole field comes up
    from the floor. Keyboard focus fires the same cue. A device
    with no hover gets the wash already up, because an invitation
@@ -2660,7 +2660,7 @@
 
    On a desktop the panel is near square and these barely bite. Narrow, it
    becomes a wide short slot that cannot hold a whole portrait, so the second
-   block re-centres on the one thing each frame still has room for: a face.
+   block re-centers on the one thing each frame still has room for: a face.
    Those rules must sit AFTER these and not merely inside a media query, since
    the selectors are identical and source order is what decides. */
 .oyss .reel__media img[src$="panel-host.jpg"] { object-position: center 38%; }
@@ -2710,7 +2710,7 @@
    spine. They are the same complaint from two directions, and
    the fix is structural rather than cosmetic.
 
-   The tell was never a colour or a typeface. It was the RHYTHM:
+   The tell was never a color or a typeface. It was the RHYTHM:
    every section built from the same kit (kicker, clever
    headline, one supporting line, a grid of equal cards), 01/02/03
    printed in four unrelated places, and a clever line in every
@@ -2723,7 +2723,7 @@
      .facts     a line of plain numbers instead of a proof band
      .essay     one offset column of running prose, no grid at all
      .showcase  overlapping plates at unequal widths and baselines
-     .manifest  an itemised list with a quantity column, like a
+     .manifest  an itemized list with a quantity column, like a
                 delivery note rather than a feature grid
 
    Plus the hero retune for the client's own footage and the
@@ -2753,7 +2753,7 @@
 .oyss .reel--spot .reel__media { background: #0D0C0C; }
 
 /* The right-hand feather is tighter for this clip than it was
-   for the doorway: the beam is centred, so eating 22% of the
+   for the doorway: the beam is centered, so eating 22% of the
    panel width takes the light itself rather than a dark margin. */
 .oyss .reel--spot .reel__media::after {
   background:
@@ -2778,10 +2778,10 @@
    share one ceiling.
 
    It goes on EVERY hero, not only the home page. Measuring real
-   pixels behind the bar rather than walking DOM colours turned
+   pixels behind the bar rather than walking DOM colors turned
    up the same failure on four interior pages, against the light
    in the plates: "FAQ" at 3.8:1 and the Apply button at 3.6:1
-   on apply.html, where a colour walk had reported the page
+   on apply.html, where a color walk had reported the page
    background and seen nothing wrong.
    ------------------------------------------------------------ */
 
@@ -2852,7 +2852,7 @@
 /* ---- 36.4 THE ESSAY -----------------------------------------
    The structural break. No eyebrow, no headline in the section
    ladder, no grid, no picture, no cards, nothing to hover. One
-   column of running prose set off-centre, with the opening
+   column of running prose set off-center, with the opening
    sentence at display size and the rest at reading size.
 
    It is deliberately the quietest thing on the site. A page
@@ -2954,7 +2954,7 @@
 
 /* The big one runs off the left edge of the viewport. The same
    expression .reel__copy uses for its left padding, negated: the
-   wrap is capped at 1180 and centred, so the distance from the
+   wrap is capped at 1180 and centered, so the distance from the
    viewport edge to the content edge is (100vw - 1180) / 2 plus
    the gutter, and anything less than that leaves the plate
    sitting in a margin looking like it missed. */
@@ -3200,7 +3200,7 @@
   pointer-events: none;
 }
 /* The note now runs to two lines, so the gold dash has to hang
-   at the first line rather than centre against the whole block. */
+   at the first line rather than center against the whole block. */
 .oyss .rig__note { align-items: flex-start; line-height: 1.6; max-width: 46rem; }
 .oyss .rig__note::before { margin-top: .58em; }
 
@@ -3319,7 +3319,7 @@
      sibling of main, and this must not reach the ten interior
      pages, whose heroes really do stack at this width. Without
      :has() support the bar simply keeps its navy, which is the
-     behaviour that shipped before this rule. */
+     behavior that shipped before this rule. */
   .oyss:has(.reel--spot) .masthead--over {
     background: transparent;
     backdrop-filter: none;
@@ -3355,14 +3355,14 @@
 /* ---- 37.1 THE MARK IS A COMPLETE CIRCLE (deck p17, p19) -----
    "The icon is always a complete circle or a complete square. It
    is never bled off an edge or half shown." There are five
-   approved colourways and a bare beam is not one of them.
+   approved colorways and a bare beam is not one of them.
 
    The disc was dropped in an earlier pass because a navy circle
    on a navy bar is invisible. The deck's own website mock, page
-   24, answers that by flipping the colourway rather than
+   24, answers that by flipping the colorway rather than
    deleting the shape. The mark that replaced it has no disc to
    delete: it is the A itself, so it survives being reversed by
-   changing one fill. Both colourways live in section 7 with the
+   changing one fill. Both colorways live in section 7 with the
    rest of the lockup, and this section now only owns where the
    strike starts.
    ------------------------------------------------------------ */
@@ -3645,7 +3645,7 @@
    The problem section was deliberately imageless, on the theory
    that a page of pure prose is the strongest possible break from
    a grid of cards. It is, and it also spent the reader's second
-   screen on nothing. The prose keeps the left, off centre, and a
+   screen on nothing. The prose keeps the left, off center, and a
    portrait takes the right at full height. Still no grid, still
    no card, and now a person.
    ------------------------------------------------------------ */
@@ -3720,7 +3720,7 @@
 }
 
 /* The founder plate sits on a photograph inside the gold field, so it keeps
-   its own dark-context colours. Without this the label goes brown on black. */
+   its own dark-context colors. Without this the label goes brown on black. */
 .oyss .goldfield .portrait__plate .eyebrow { color: var(--gold); }
 .oyss .goldfield .portrait__plate .name { color: var(--ivory); }
 
@@ -3847,7 +3847,7 @@
    Two different problems wearing one sentence.
 
    ORIENTATION. The masthead says OWN YOUR STAGE / STUDIO, and a
-   stranger cannot tell from that whether this is a theatre
+   stranger cannot tell from that whether this is a theater
    company, a design agency or a recording studio. The one word
    that fixes it is a descriptor, and the deck already has the
    slot: the horizontal lockup pairs the wordmark with a
@@ -4023,7 +4023,7 @@
    Right call. The tagline is the single strongest thing the
    brand owns and it was set in 19px sans halfway down a column.
    At display scale it does what the deck's closing panel does
-   (p25). Split colour is the deck's own: the promise in ivory,
+   (p25). Split color is the deck's own: the promise in ivory,
    the payoff in gold.
    ------------------------------------------------------------ */
 
@@ -4125,7 +4125,7 @@
    drawn, the marker slid down it, and each row faded up: three
    generic scroll effects layered on one component.
 
-   The new behaviour is the brand's own and it is one idea rather
+   The new behavior is the brand's own and it is one idea rather
    than three. Each cue is a LIGHTING STATE, so the rail is a
    dimmer track and the rows behave like channels on it: the row
    the reader is level with comes to full, the rows behind it
@@ -4134,7 +4134,7 @@
    it, it HANDS THE LIGHT ON, and the number strikes gold at the
    moment it takes over.
 
-   That is a real production behaviour rather than a scroll
+   That is a real production behavior rather than a scroll
    trick, it uses the one motif the deck allows, and it makes the
    list readable as a sequence in a way a uniform fade never did.
    ------------------------------------------------------------ */
@@ -4573,21 +4573,35 @@
 /* ---- 42.7 THE ANNOTATION, HUMANISED ------------------------
    "This style is an ai style please change it to something more
    of humanize design" - twice, on two components that were the
-   same idea: small grey text next to a gold marker.
+   same idea: small gray text next to a gold marker.
 
    That IS the generated-UI pattern: a decorative rule, a caption
-   colour, and a sentence that could belong to any product. The
+   color, and a sentence that could belong to any product. The
    replacement is an editorial footnote instead of a UI callout:
    set in the serif at reading size, indented like a note in a
    printed book, marked by a small raised numeral rather than a
-   coloured bar. It reads as something a person wrote in the
+   colored bar. It reads as something a person wrote in the
    margin of a proof.
    ------------------------------------------------------------ */
+
+/* Feedback 3.0, notes 2 and 4: "A random number 2 is showing up, please fix
+   it" and "Remove number 3 from here".
+
+   They were footnote markers, and that is exactly why they read as random: a
+   footnote numeral is only legible when something earlier in the text carries
+   the matching reference, and nothing here did. Three of them were live, one
+   per page section, numbered by where the note sat rather than by anything a
+   reader could follow.
+
+   The numeral goes. What made these read as written by a person was never the
+   marker, it was the setting: the serif at reading size, held in from the
+   column it comments on, on a shorter measure than the prose above it. That
+   is what an aside looks like in print, and it needs no marker at all. */
 
 .oyss .aside-note {
   position: relative;
   margin-top: 2rem;
-  padding-left: 2.2rem;
+  padding-left: 1.6rem;
   max-width: 40rem;
   font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
@@ -4595,49 +4609,28 @@
   color: var(--slate);
   border: 0;
 }
-.oyss .aside-note::before {
-  content: attr(data-n);
-  position: absolute; left: 0; top: .1em;
-  font-family: var(--serif); font-weight: 700;
-  font-size: .8rem;
-  letter-spacing: .05em;
-  color: #B91C1C;
-}
 .oyss .dark .aside-note, .oyss .stage .aside-note { color: var(--ivory-70); }
-.oyss .dark .aside-note::before, .oyss .stage .aside-note::before { color: var(--gold); }
 
 /* The two components this replaces. */
 .oyss .rig__note {
   display: block;
   position: relative;
   margin-top: 1.6rem;
-  padding-left: 2.2rem;
+  padding-left: 1.6rem;
   max-width: 44rem;
   font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.56;
   color: var(--ivory-70);
 }
-.oyss .rig__note::before {
-  content: '1';
-  position: absolute; left: 0; top: .1em;
-  width: auto; height: auto; border-radius: 0; background: none;
-  font-size: .9rem; font-style: italic; color: var(--gold);
-  margin-top: 0;
-}
 .oyss .essay__note {
   border-left: 0;
-  padding-left: 2.2rem;
+  padding-left: 1.6rem;
   position: relative;
   font-family: var(--serif); font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.56;
   max-width: 30rem;
-}
-.oyss .essay__note::before {
-  content: '2';
-  position: absolute; left: 0; top: .1em;
-  font-size: .9rem; font-style: italic; color: #B91C1C;
 }
 
 /* ---- 42.8 THE SPEC ------------------------------------------
@@ -4762,3 +4755,389 @@
   .oyss .exec { break-inside: avoid; }
   .oyss .exec__input { color: inherit; }
 }
+
+/* ============================================================
+   44. FEEDBACK 3.0 - THE INTERIOR PAGES
+   ------------------------------------------------------------
+   "And my partner is saying only the homepage is looking, the
+   rest of the pages needed an upgrade in terms of design and
+   copy."
+
+   The diagnosis was countable before it was aesthetic. The home
+   page carries twelve pictures, nine section shapes and six
+   components that exist nowhere else. Every other page carried
+   ONE picture, its hero, and then repeated the same three
+   objects in the same order on every one of them: a row of
+   bordered cards with a numeral, a two column tick list, and a
+   pair of bordered columns. Three pages built from the same kit
+   in the same sequence read as one template however good the
+   words in them are.
+
+   So this section is mostly SUBTRACTION plus one device per
+   page that belongs only to that page:
+
+     experience   a contents list with leaders, and the division
+                  of responsibilities set as what it actually is,
+                  an extract from the agreement
+     panelists    the run of show, with the reader's ten minutes
+                  marked in it
+     faq          a standing index beside the questions
+     about        nothing new; the grid at the end becomes prose
+
+   The cards, the ledger boxes and the tick grids are gone from
+   these pages. Nothing here introduces a color, a typeface or a
+   motion rule that was not already in the deck.
+   ============================================================ */
+
+/* ---- 44.1 THE PREMISE ---------------------------------------
+   A page that sells three months of work should open in prose,
+   the way the home page does, not in three boxes. One statement
+   at display size, then the argument in two unequal columns so
+   the block has a shape of its own.
+   ------------------------------------------------------------ */
+
+.oyss .premise { max-width: 62rem; }
+.oyss .premise__lead {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.5rem, 1.05rem + 1.9vw, 2.25rem);
+  line-height: 1.2; letter-spacing: -.01em;
+  max-width: 27ch;
+  color: var(--ink);
+}
+.oyss .dark .premise__lead, .oyss .stage .premise__lead { color: var(--ivory); }
+.oyss .premise__cols {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(26px, 4vw, 64px);
+  margin-top: clamp(26px, 3.4vw, 44px);
+}
+.oyss .premise__cols p + p { margin-top: 1.1rem; }
+@media (max-width: 860px) {
+  .oyss .premise__cols { grid-template-columns: 1fr; }
+}
+
+/* ---- 44.2 THE CONTENTS --------------------------------------
+   What was a sixteen item tick grid, and before that the same
+   sixteen item tick grid on two pages at once.
+
+   A tick list is a feature grid, which is the shape a product
+   page reaches for when it wants length to stand in for
+   substance. This is the same information set as the contents
+   page of a printed document: the item, a leader, the quantity.
+   It reads as a thing that was itemized rather than a thing that
+   was listed, which is what a schedule attached to a contract
+   actually is.
+   ------------------------------------------------------------ */
+
+.oyss .contents { margin-top: clamp(22px, 3vw, 36px); }
+.oyss .contents li {
+  display: flex; align-items: baseline; gap: .75rem;
+  padding: .78rem 0;
+  border-top: 1px solid rgba(31, 30, 29, .12);
+  font-size: 1.0625rem; line-height: 1.45;
+  color: var(--ink);
+}
+.oyss .contents li:last-child { border-bottom: 1px solid rgba(31, 30, 29, .12); }
+.oyss .dark .contents li, .oyss .stage .contents li {
+  color: var(--ivory); border-top-color: rgba(228, 218, 214, .15);
+}
+.oyss .dark .contents li:last-child, .oyss .stage .contents li:last-child {
+  border-bottom-color: rgba(228, 218, 214, .15);
+}
+/* The leader. A border rather than a run of full stops, because
+   a dotted border stays on the baseline at every size and a row
+   of periods is read out loud by a screen reader. */
+.oyss .contents__dot {
+  flex: 1 1 auto; min-width: 1.5rem;
+  border-bottom: 1px dotted rgba(31, 30, 29, .3);
+  transform: translateY(-.28em);
+}
+.oyss .dark .contents__dot, .oyss .stage .contents__dot {
+  border-bottom-color: rgba(228, 218, 214, .28);
+}
+.oyss .contents__qty {
+  flex: 0 0 auto;
+  font-family: var(--serif); font-weight: 700;
+  font-size: 1.0625rem; color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.oyss .dark .contents__qty, .oyss .stage .contents__qty { color: var(--gold); }
+.oyss .contents__note {
+  display: block; margin-top: .2rem;
+  font-size: var(--t-caption); line-height: 1.5; color: var(--slate);
+}
+.oyss .dark .contents__note, .oyss .stage .contents__note { color: var(--ivory-46); }
+.oyss .contents__item { flex: 0 1 auto; max-width: 36rem; }
+
+/* ---- 44.3 THE CLAUSE ----------------------------------------
+   The division of responsibilities used to be two bordered
+   columns headed "We handle" and "We do not handle", which is a
+   comparison table, and a comparison table is a sales object.
+
+   It is not a sales object. It is the most load bearing thing on
+   the page for a studio that must not over promise: it is where
+   the site says, before any money moves, that nobody here
+   guarantees an audience. So it is set as what it is, an extract
+   from the agreement the reader is going to sign, carrying that
+   agreement's own clause numbers so the two can be read against
+   each other.
+   ------------------------------------------------------------ */
+
+.oyss .clause {
+  margin-top: clamp(26px, 3.4vw, 44px);
+  max-width: 54rem;
+  border-top: 2px solid var(--red);
+}
+.oyss .clause__row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: clamp(14px, 2vw, 28px);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(31, 30, 29, .12);
+}
+.oyss .clause__n {
+  font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--red);
+  padding-top: .3em;
+  font-variant-numeric: tabular-nums;
+}
+.oyss .clause__t {
+  font-size: 1.0625rem; line-height: 1.58; color: var(--ink);
+}
+.oyss .clause__t + .clause__t { margin-top: .7rem; }
+.oyss .dark .clause__row, .oyss .stage .clause__row {
+  border-bottom-color: rgba(228, 218, 214, .15);
+}
+.oyss .dark .clause__t, .oyss .stage .clause__t { color: var(--ivory-70); }
+.oyss .dark .clause__n, .oyss .stage .clause__n { color: var(--gold); }
+@media (max-width: 640px) {
+  .oyss .clause__row { grid-template-columns: 1fr; gap: .5rem; }
+  .oyss .clause__n { padding-top: 0; }
+}
+
+/* ---- 44.4 THE RUN OF SHOW -----------------------------------
+   The panelist page sells ten minutes inside somebody else's
+   ninety, and it was selling them with the same three cards the
+   host page used. The ten minutes are the product, so they get
+   drawn: the running order of a real event with one row lit and
+   the rest of the show around it. That also answers the two
+   questions that page keeps being asked, which are how long am I
+   on and what happens either side of me.
+
+   The lit row is the only warm thing in the block. Everything
+   else sits at caption weight, because the rest of the show is
+   context and the reader is not in it.
+   ------------------------------------------------------------ */
+
+.oyss .runorder {
+  margin-top: clamp(26px, 3.4vw, 44px);
+  max-width: 48rem;
+  border-top: 1px solid rgba(228, 218, 214, .15);
+}
+.oyss .runrow {
+  display: grid;
+  grid-template-columns: 9.25rem 1fr;
+  gap: clamp(14px, 2vw, 26px);
+  padding: 1.05rem 0 1.05rem 1.1rem;
+  border-bottom: 1px solid rgba(228, 218, 214, .15);
+  position: relative;
+}
+.oyss .runrow__t {
+  font-size: var(--t-caption); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ivory-46); padding-top: .18em;
+  font-variant-numeric: tabular-nums;
+}
+.oyss .runrow__what { font-size: 1.0625rem; line-height: 1.5; color: var(--ivory-70); }
+.oyss .runrow__what span {
+  display: block; margin-top: .18rem;
+  font-size: var(--t-caption); color: var(--ivory-46);
+}
+
+/* The reader's own slot. A pool of key light down the left edge
+   rather than a filled background, because the one motif is
+   light and a filled row is a table cell. */
+.oyss .runrow--you::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--rose);
+  box-shadow: 0 0 26px 3px rgba(224, 90, 90, .34);
+}
+.oyss .runrow--you .runrow__t { color: var(--gold); }
+.oyss .runrow--you .runrow__what { color: var(--ivory); font-weight: 700; }
+.oyss .runrow--you .runrow__what span { color: var(--ivory-70); font-weight: 400; }
+@media (max-width: 560px) {
+  .oyss .runrow { grid-template-columns: 1fr; gap: .3rem; }
+}
+
+/* ---- 44.5 THE QUESTION INDEX --------------------------------
+   Fourteen accordions in a column is a support page. The same
+   fourteen with a standing index beside them is a document, and
+   the index is the only thing on that page that tells a reader
+   how long it is before they start opening things.
+   ------------------------------------------------------------ */
+
+.oyss .qadoc {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  gap: clamp(28px, 5vw, 84px);
+  align-items: start;
+}
+.oyss .qaindex { position: sticky; top: calc(var(--oyss-mh, 78px) + 28px); }
+.oyss .qaindex li { padding: .42rem 0; }
+.oyss .qaindex a {
+  font-size: var(--t-caption); line-height: 1.4; color: var(--slate);
+  border-bottom: 1px solid transparent;
+}
+.oyss .qaindex a:hover { color: var(--red); border-bottom-color: var(--red); }
+.oyss .qaindex__n {
+  display: block; margin: 1.5rem 0 .4rem;
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--red);
+}
+.oyss .qaindex li:first-child .qaindex__n { margin-top: 0; }
+.oyss .qaindex__count {
+  margin-top: 1.8rem; padding-top: 1rem;
+  border-top: 1px solid rgba(31, 30, 29, .14);
+  font-size: var(--t-caption); line-height: 1.5; color: var(--slate);
+}
+@media (max-width: 900px) {
+  .oyss .qadoc { grid-template-columns: 1fr; }
+  .oyss .qaindex { display: none; }
+}
+
+/* ---- 44.6 THE PAIR ------------------------------------------
+   One shape that is allowed to break the column on the interior
+   pages, so a reader scrolling any of them meets a change of
+   scale at least once. Two photographs at unequal widths, the
+   narrower one held down the page. It is the showcase's idea at
+   a quarter of its markup, and it is what actually answers "only
+   the homepage is looking": those pages had one picture each.
+   ------------------------------------------------------------ */
+
+.oyss .pair {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: clamp(18px, 2.4vw, 34px);
+  align-items: start;
+  margin-top: clamp(34px, 4.6vw, 64px);
+}
+.oyss .pair figure { margin: 0; }
+.oyss .pair figure:last-child { margin-top: clamp(30px, 5vw, 78px); }
+.oyss .pair img { width: 100%; height: auto; display: block; }
+.oyss .pair figcaption {
+  margin-top: .85rem;
+  font-size: var(--t-caption); line-height: 1.5; color: var(--slate);
+  max-width: 34rem;
+}
+.oyss .dark .pair figcaption, .oyss .stage .pair figcaption { color: var(--ivory-46); }
+@media (max-width: 720px) {
+  .oyss .pair { grid-template-columns: 1fr; }
+  .oyss .pair figure:last-child { margin-top: 0; }
+}
+
+/* ---- 44.7 THE PAGE CLOSE ------------------------------------
+   Every interior page ended on the same object: a centered
+   display headline, a pool and two buttons. Five pages closing
+   identically is the last place the template shows, and it is
+   also the least useful, because the right next step is not the
+   same on a page about panelists as it is on a page about a
+   three thousand dollar engagement.
+
+   So the close is a rule, one line naming what happens next on
+   THIS page, and one action. The home page keeps its flood;
+   nothing else does.
+   ------------------------------------------------------------ */
+
+.oyss .close {
+  border-top: 1px solid rgba(31, 30, 29, .14);
+  padding-top: clamp(30px, 4vw, 52px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(22px, 4vw, 60px);
+  align-items: end;
+}
+.oyss .dark .close, .oyss .stage .close { border-top-color: rgba(228, 218, 214, .16); }
+.oyss .close__t {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.05rem);
+  line-height: 1.2; letter-spacing: -.01em;
+  max-width: 22ch; color: var(--ink);
+}
+.oyss .dark .close__t, .oyss .stage .close__t { color: var(--ivory); }
+.oyss .close__m {
+  margin-top: .9rem; max-width: 42ch;
+  font-size: var(--t-caption); line-height: 1.55; color: var(--slate);
+}
+.oyss .dark .close__m, .oyss .stage .close__m { color: var(--ivory-46); }
+@media (max-width: 720px) {
+  .oyss .close { grid-template-columns: 1fr; align-items: start; }
+}
+
+/* ---- 44.8 THE FRAME DEMO ON A LIGHT GROUND ------------------
+   The panelist frame used to sit on the dark stage band. That
+   band is now the run of show, and two dark sections in a row is
+   the metronome problem again, so the demo moved onto paper.
+   Its step labels were written for ivory on charcoal and went to
+   3:1 on white. The frame itself is a photograph and stays dark;
+   only the labels under it change context.
+   ------------------------------------------------------------ */
+
+.oyss .paper .build__step, .oyss .light .build__step { color: var(--slate); }
+.oyss .paper .build__step::before,
+.oyss .light .build__step::before { background: rgba(31, 30, 29, .22); }
+.oyss .paper .build__step.on, .oyss .light .build__step.on { color: var(--ink); }
+.oyss .paper .build__step.on::before,
+.oyss .light .build__step.on::before { background: var(--red); }
+
+/* ---- 44.9 THE COUNTER THAT APPEARED TWICE -------------------
+   "A random number 2 is showing up, please fix it" was one of
+   two notes about a number nobody could place. This is the other
+   one, found while looking for it: on the assessment the stepper
+   builds its own "Question 1 of 8" bar, and the section label it
+   moves into the pane says the same thing again, two lines
+   apart.
+
+   The label's copy is the no-JavaScript path and has to stay in
+   the markup, so it is hidden once the stepper has actually
+   built itself. .quiz is set by the stepper, not by the page, so
+   with JS off both the eight questions and their numbering are
+   still there.
+   ------------------------------------------------------------ */
+
+.oyss .qnum {
+  font-size: .6875rem;
+  color: var(--slate);
+  letter-spacing: .16em;
+  margin-left: auto;
+}
+.oyss .quiz .qnum { display: none; }
+
+/* ---- 44.10 THE LEGAL LINE -----------------------------------
+   Sits above the copyright rule on every page. Deliberately not
+   styled as fine print: it is at caption size rather than
+   smaller, at the same contrast as the rest of the footer, and
+   it is not collapsed or hidden behind a link. A no-guarantee
+   statement set in 10px gray is worse than no statement, because
+   it reads as something the studio hoped nobody would find.
+   ------------------------------------------------------------ */
+
+.oyss .footer__legal {
+  margin-top: clamp(30px, 4vw, 48px);
+  padding-top: clamp(20px, 2.4vw, 28px);
+  border-top: 1px solid rgba(228, 218, 214, .14);
+  max-width: 72ch;
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  /* ivory-70, not the ivory-46 the rest of the footer captions use. This is
+     the paragraph that says nothing is guaranteed, and it sits on the silk,
+     which is the busiest ground on the site. */
+  color: var(--ivory-70);
+}
+/* `.oyss .footer a` is (0,3,1) and sets display:block, which is right for a
+   column of links and wrong for two links inside a sentence: both dropped onto
+   their own lines. Third time this selector has done this. */
+.oyss .footer__legal a {
+  display: inline;
+  color: var(--ivory-70);
+  border-bottom: 1px solid rgba(224, 90, 90, .5);
+}
+.oyss .footer__legal a:hover { color: var(--ivory); border-bottom-color: var(--rose); }

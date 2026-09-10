@@ -181,7 +181,7 @@
       }
 
       /* 4b. THE RAIL IS A DIMMER TRACK.
-         The old behaviour was three generic scroll effects on one
+         The old behavior was three generic scroll effects on one
          component: a drawn rail, a sliding bead, and a fade-up per
          row. What replaces it is one idea instead of three, and it
          is the brand's own: each cue is a LIGHTING STATE.
@@ -401,7 +401,7 @@
        whole composition is one column, it landed off the text.
 
        A beam falls on the thing it is lighting, so its position
-       is read from the thing it is lighting: the optical centre
+       is read from the thing it is lighting: the optical center
        of the section's own headline block, expressed back to the
        section as --beam-x. Recomputed on resize, because the
        block reflows and 62% was wrong for exactly that reason.
@@ -426,7 +426,7 @@
         var h = head.getBoundingClientRect();
         if (!s.width || !h.width) return;
         /* Optical, not geometric: a headline is ragged right, so
-           its true weight sits left of the box centre. */
+           its true weight sits left of the box center. */
         var x = (h.left - s.left) + h.width * 0.46;
         sec.style.setProperty('--beam-x', ((x / s.width) * 100).toFixed(2) + '%');
       });
@@ -558,24 +558,17 @@
       }, { threshold: 0.12 }).observe(v);
     }
 
-    /* A clip marked data-once is a title sequence, not a loop: the
-       stage lights, the figure resolves, and then it holds. Two
-       things follow from that. It must not restart every time the
-       reader scrolls back to the top, because play() on an ended
-       video seeks to zero and re-ignites the room. And once it has
-       ended there is nothing left to pause, so the observer can
-       stop touching it. */
-    function playOnce(clip) {
-      var done = false;
-      clip.addEventListener('ended', function () { done = true; });
-      if (!('IntersectionObserver' in window)) { playSafely(clip); return; }
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (done) return;
-          if (e.isIntersecting) playSafely(clip); else clip.pause();
-        });
-      }, { threshold: 0.12 }).observe(clip);
-    }
+    /* The hero used to be marked data-once, because the clip was a
+       title sequence: the stage lit, the figure resolved, and then
+       it held, and play() on an ended video seeks to zero, so
+       without a guard the room re-ignited every time somebody
+       scrolled back to the top.
+
+       Feedback 3.0 asked for it to loop instead, and the loop that
+       replaced it closes on itself: the last frame dissolves into
+       the first, so `loop` on the element is the whole mechanism
+       and playOnce has nothing left to guard. whileVisible still
+       pauses it off screen. */
 
     /* THE BAND CLIPS.
        These are ambient: haze moving behind a headline, with the poster
@@ -618,7 +611,7 @@
         if (still) still.style.display = 'block';
         return;
       }
-      if (clip.hasAttribute('data-once')) playOnce(clip); else whileVisible(clip);
+      whileVisible(clip);
     });
 
     /* --------------------------------------------------------
@@ -1019,7 +1012,7 @@
 
       /* Light the ladder up to the level reached.
          Not with opacity: the cells are near-black and the result now sits
-         on a white sheet, so a faded cell went pale grey and read as the
+         on a white sheet, so a faded cell went pale gray and read as the
          BRIGHTEST rung on a ladder whose whole point is that brighter means
          further along. The rungs that have been reached are lit; the rest
          stay at their own dark token, which is exactly what they mean. */
@@ -1298,5 +1291,42 @@
       }, { threshold: 0.4 }).observe(el);
     } else { steps.forEach(function (s) { s.classList.add('on'); }); }
   };
+
+  /* --------------------------------------------------------
+     18. AN INDEX THAT ACTUALLY OPENS THE ANSWER
+     The FAQ gained a standing index in feedback 3.0, and every
+     entry in it points at a <details> that is closed. Recent
+     Chrome opens a closed details when you navigate to it;
+     Safari and Firefox scroll to a summary and leave it shut,
+     which reads as a broken link rather than as a browser
+     difference.
+
+     So the page does it itself, on load and on every hash
+     change, and it also un-shuts nothing else: only an element
+     that is a details, or sits inside one, is touched.
+     -------------------------------------------------------- */
+  (function () {
+    function openTarget() {
+      var id = (location.hash || '').slice(1);
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      var d = el.tagName === 'DETAILS' ? el : el.closest && el.closest('details');
+      if (!d) return;
+      d.open = true;
+      /* Opening changes the layout under the anchor, so the
+         scroll position has to be taken again afterwards. The
+         masthead is sticky, so this uses the measured bar
+         height rather than a number. */
+      var bar = parseFloat(getComputedStyle(document.documentElement)
+                  .getPropertyValue('--oyss-mh')) || 78;
+      var y = d.getBoundingClientRect().top + window.pageYOffset - bar - 18;
+      window.scrollTo({ top: y, behavior: 'auto' });
+    }
+    window.addEventListener('hashchange', openTarget);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', openTarget);
+    } else { openTarget(); }
+  })();
 
 })();
