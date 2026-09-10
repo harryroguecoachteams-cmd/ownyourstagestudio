@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=dd9e0923">
+<link rel="stylesheet" href="assets/oyss.css?v=6259e00f">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -326,7 +326,7 @@ body { background: #F8F5F2; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=dd9e0923"></script>
+<script src="assets/oyss.js?v=6259e00f"></script>
 
 <script>
 /* Front-end only. Point CONFIG.endpoint at the GHL form webhook or the
@@ -339,6 +339,13 @@ body { background: #F8F5F2; }
   var err  = document.getElementById('apply-error');
   if (!form) return;
 
+  /* Feedback 5.0, note 2: the application steps one section at a
+     time, in the same chrome the assessment uses. It returns null
+     and changes nothing if the markup is not what it expects, so
+     the long form is always the fallback. */
+  var step = (window.OYSS && window.OYSS.formSteps)
+    ? window.OYSS.formSteps('host-application') : null;
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var missing = [];
@@ -350,7 +357,9 @@ body { background: #F8F5F2; }
     if (missing.length) {
       err.textContent = 'Complete every required field. ' + missing.length + ' remaining.';
       err.hidden = false;
-      missing[0].focus();
+      /* In stepped mode the missing field is usually not on
+         screen, so the stepper is asked to go and find it. */
+      if (!(step && step.reveal(missing[0]))) missing[0].focus();
       return;
     }
     err.hidden = true;

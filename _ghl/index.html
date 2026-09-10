@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=dd9e0923">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=6259e00f">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -412,27 +412,61 @@
       <span>Exact deliverables are confirmed in the schedule attached to the Host Services Agreement.</span>
     </p>
 
-    <!-- Feedback 4.0, note 3: "Add the video here that I will be
-         sharing it with you". Her explainer, encoded by
-         _art/explainer.py.
+  </div>
+</section>
 
-         It does not autoplay and does not preload. It runs two
-         minutes and twenty two seconds and it has a voice over,
-         so it is something a reader chooses; until they press
-         play the browser fetches the poster frame and nothing
-         else. The caption sits under it rather than over it,
-         because the overlay would land on the control bar. -->
-    <figure class="figure-wide figure-wide--video" data-lit data-cue="4">
-      <video controls playsinline preload="none"
+
+<!-- ============ 5b. THE FILM ============
+     Feedback 5.0, note 4: "This one should be a proper section
+     with headings and everything as this is one section which
+     explain what own your stage studio is about. You could
+     create a thumbnail too for the video."
+
+     It was a bare figure at the tail of the section above, which
+     made a two minute film that explains the whole business read
+     as an afterthought to a delivery note. It is its own section
+     now, with the heading it earns.
+
+     Still no autoplay and still preload="none": it runs two
+     minutes twenty two and it has a voice over, so it is
+     something a reader chooses. Until they press play the
+     browser fetches a poster and nothing else.
+
+     The poster is her own opening title card rather than
+     something drawn over the top of it. The film has its own
+     design language and putting the site's furniture on the
+     front of it would only make the two disagree. What was
+     added is the thing a poster frame actually needs, which is
+     a play control you can see: Chrome's native one is a small
+     triangle in the bottom corner and reads as a still image. -->
+<section class="bay paper" id="film">
+  <div class="wrap">
+    <div class="filmhead" data-lit>
+      <div>
+        <p class="eyebrow eyebrow--gold">The studio, in two minutes</p>
+        <h2>What Own Your Stage Studio actually does.</h2>
+      </div>
+      <p class="lead">
+        The whole thing end to end: what the problem is, what gets built, what happens on
+        the night, and what you are left holding ninety days later.
+      </p>
+    </div>
+
+    <div class="videoblock" data-lit data-cue="2">
+      <video playsinline preload="none" controls
              poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer-poster.jpg"
-             aria-label="Own Your Stage Studio explainer video, two minutes and twenty two seconds, with captions.">
+             aria-label="Own Your Stage Studio explainer film, two minutes and twenty two seconds, with captions on the picture.">
         <source src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer.mp4" type="video/mp4">
       </video>
-      <figcaption>
-        The Own Your Stage Experience, explained in a little over two minutes. Captions are on
-        the picture, so it reads with the sound off.
-      </figcaption>
-    </figure>
+      <button class="videoblock__play" type="button">
+        <span class="videoblock__ico" aria-hidden="true"></span>
+        <span class="videoblock__label">Play the film<b>2 min 22</b></span>
+      </button>
+    </div>
+
+    <p class="caption videoblock__note" data-lit data-cue="3">
+      Captions are on the picture, so it reads with the sound off.
+    </p>
   </div>
 </section>
 
@@ -680,5 +714,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=dd9e0923"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=6259e00f"></script>
 

@@ -71,6 +71,12 @@ STILLS = [
     ("panelist-one", "panelist-framed.png",      900, 16 / 9, 0.42),
     ("desk",         "desk-still.png",          1400, 16 / 9, 0.52),
     ("control",      "control-room.png",        1500, 16 / 9, 0.50),
+    # feedback 5.0 note 7: "Both the images are looking same there is not
+    # clear distinction in between them." control.jpg and panel-virtual.jpg
+    # were both a silhouetted person shot from behind facing a screen full of
+    # faces. Same subject, re-framed from the side and cropped portrait so the
+    # two pictures in that pair no longer share a shape.
+    ("operator",     "operator-side.png",        900, 4 / 5,  0.42),
     ("texture",      "texture-plate.png",       1400, 16 / 9, 0.50),
     ("clips",        "content-clips.png",       1400, 16 / 9, 0.50),
 ]

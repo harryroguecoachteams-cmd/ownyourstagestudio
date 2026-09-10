@@ -1432,3 +1432,199 @@ Unchanged, and every one of them is a launch blocker:
 - The three minute speech still calls the free call a "Stop Hiding Strategy
   Call" where the site says Spotlight Call, and still carries "valued at $297"
   and "the first three to complete it".
+
+---
+
+# Feedback 5.0, 10 September 2026
+
+Eight notes in `new changes/feedback 5.0.docx`, four on desktop and four on a
+phone, plus one from Harsh: "site feels a bit heavy on desktop please check
+that too."
+
+| | note | where |
+|---|---|---|
+| 1 | The form is overlapping the text | Assessment |
+| 2 | Make the apply form similar to the assessment form style | Apply |
+| 3 | These two images are not looking good can you change it | the rig, panel-c and panel-d |
+| 4 | This one should be a proper section with headings and everything | the explainer video |
+| 5 | The panelist section is not looking on mobile | the rig, on a phone |
+| 6 | The text is cutting on mobile | the band copy |
+| 7 | Both the images are looking same | the Experience pair |
+| 8 | The text is very sticking to the screen | the band copy again |
+| 9 | The image is cutting of the panelist one main image | mobile hero pictures |
+
+## 1. The form was overlapping the text
+
+Round 9 raised the sheet's lift and added a rule giving the section above it
+the height back. **The assessment carried an inline `padding-bottom` that beat
+that rule**, and the inline value happened to be smaller than the lift, so the
+sheet landed on the last line of the paragraph above it. The round 9
+verification missed it because it only measured text inside `.reel__copy`, and
+on this page the covered line is in a `.bay--half.dark`.
+
+Two changes. The inline style is gone. And the padding is now **derived from
+the lift** rather than being a separate number that has to be remembered:
+
+    .oyss { --sheet-lift: clamp(56px, 8vw, 118px); }
+    .sheet          { margin-top: calc(-1 * var(--sheet-lift)); }
+    :has(+ .sheetbay) { padding-bottom: calc(var(--sheet-lift) + clamp(28px, 4vw, 52px)); }
+
+Re-measured on all three form pages at 1440, 1366, 1280, 1024, 820 and 390:
+the gap between the lowest line above and the top of the sheet runs 39 to
+163px and is never negative.
+
+## 2. The application, stepped
+
+The assessment shows one question, a count, a row of pips and a Back control.
+The application was a single scroll of eighteen fields under four headings,
+which is a different object on the same site.
+
+Module 20 of `oyss.js` gives it the same chrome from the same classes. Three
+things differ, each because the content differs:
+
+- **it steps by section, not by field.** "About you" is four questions that
+  belong together; splitting them would be eighteen screens.
+- **it does not auto advance.** The assessment advances on a radio because the
+  answer IS the click. Here somebody is typing, and being moved mid sentence
+  would be hostile. There is a Continue button.
+- **it validates the current section before it will move on**, so nobody
+  reaches the end and meets a list of things they missed four screens ago. The
+  submit handler still validates everything, and when something is missing it
+  hands the field to the stepper, which goes and finds its step.
+
+The count says "Step 1 of 4" rather than "About you 1 of 4", because the
+section heading two lines below already says About you and that exact
+duplication shipped once on the assessment.
+
+With JavaScript off the form is the long scroll it always was, every field on
+the page, one submit button. `formSteps` returns null and changes nothing if
+the markup is not what it expects.
+
+## 3. The two frames that stood out
+
+Round 9 fixed six identical frames by making all six different and overshot on
+these two: `panel-c` came back with a broad open laugh against the brightest
+background in the grid, and `panel-d` came back near black and stern. Side by
+side they read as one person having a great time next to one person having a
+terrible one, which is what the box in the screenshot was around. Both are back
+toward the middle: same rooms, same lighting idea, calmer expressions, matched
+exposure.
+
+## 4. The film has a section now
+
+It was a bare figure at the tail of the delivery note above it, which made a
+two minute film explaining the whole business read as an afterthought. It is
+its own section with a heading, a standfirst and its own caption.
+
+**The thumbnail.** Her own opening title card is the poster. The film has its
+own design language and putting the site's furniture on the front of it would
+only make the two disagree. What was added is the thing a poster frame actually
+needs: **a play control you can see.** Chrome's native one on a poster is a
+small triangle in the bottom corner, so the block read as a still image with a
+toolbar. Now the whole picture is the button.
+
+The element ships **with** `controls` so a reader with no JavaScript can play
+it; the module takes them off once the overlay exists to replace them, and puts
+them back the moment it starts. Still `preload="none"`, so a reader who never
+presses play downloads a 71KB poster and nothing else.
+
+## 5. The rig, on a phone
+
+It was collapsing to two columns at 760 and to **one** at 420, so a phone got
+six full width photographs stacked down the page. That is not the component:
+the component is one host frame with five satellites, and the composition is
+what says produced multi camera panel rather than six headshots.
+
+The desktop grid is kept all the way down. What changes is everything that
+cannot survive a 110px tile: the five satellites drop the nameplate to the role
+line alone, the ON AIR marker and the mark shrink with it, and the host frame
+keeps its full plate because it is the one tile with room. On the host, the
+wordmark next to the mark is dropped too, because at 230px wide it ran under
+the ON AIR badge.
+
+## 6 and 8. The text was touching the screen edge
+
+Both notes, one bug, and it is the padding shorthand:
+
+    .band__copy { padding: clamp(56px, 9vw, 110px) 0 clamp(38px, 5.5vw, 66px); }
+
+`.band__copy` is also a `.wrap`. That shorthand set left and right to **0** and
+took the wrap's gutter with it. On a desktop the wrap is capped at 1180 and
+centered, so there was room either side anyway and nothing showed. On a phone
+the wrap is the full width and the gutter IS the padding, so the headline
+started at x=0 and ran off the right edge. `padding-block` instead of the
+shorthand. Measured after: 19.5px both sides, same as every other wrap.
+
+## 7. The two pictures that were one picture
+
+Both were a person shot from behind, in silhouette, facing a screen full of
+faces. The subjects were different; the compositions were not. Same operator,
+re-framed from the side at close range and cropped portrait, so the pair no
+longer shares a shape at any width.
+
+## 9. The mobile header pictures
+
+The per-image framing list had gone stale. Rounds 8 and 9 replaced almost every
+hero and **only two of the names in that list still existed**, so six pages were
+falling through to the base `object-position: center 58%`, which anchors low and
+takes the top of somebody's head off the moment the panel becomes a wide short
+slot. That is exactly what the panelist application hero was doing.
+
+Every current hero is named now, with a desktop value and a narrow value set
+from where each subject's head actually sits. Re-rendered all eight at 390:
+every head is complete with headroom.
+
+## "A bit heavy on desktop"
+
+Measured first, at 1440x900. The home page ran **12,303px, 13.7 screens**, with
+about 2,000px of that in section padding.
+
+The interesting number was not the total, it was the comparison. Below 1041px
+the site already set `--bay: clamp(62px, 8vw, 104px)`. Above it, the same token
+was `clamp(72px, 9vw, 132px)`. **A desktop was being given 27 percent more air
+per section than a tablet**, on a viewport that is wider and therefore already
+reads as roomier. That was never a decision, only two clamps written months
+apart, and it is the asymmetry behind the note.
+
+The whole ladder scales down and section 41's deliberate three step rhythm is
+kept intact:
+
+| | before (1440) | after | ratio to --bay |
+|---|---|---|---|
+| `.bay--open` | 190 | 152 | 1.51 to 1.51 |
+| `.bay` | 130 | 104 | 1.00 to 1.00 |
+| `.bay--tight` | 72 | 58 | .56 to .56 |
+| `.essay` | 168 | 132 | 1.29 to 1.27 |
+
+| page | before | after | saved |
+|---|---|---|---|
+| index | 12,303 | 11,901 | 402px |
+| experience | 9,108 | 8,801 | 307px |
+| panelists | 6,168 | 5,861 | 307px |
+| about | 5,213 | 4,935 | 278px |
+
+**That is a 3 percent trim and it will not on its own change how the page
+feels.** Nothing was restructured, no section removed and no type moved, because
+the home page is the one Annette has said she likes and "a bit heavy" is not a
+brief to rebuild it. If the note is about something more specific, the two
+candidates the measurements point at are the length itself (the home page is
+still 13 screens, and this round added a section to it) and the fact that 47
+percent of its height is near black. Both are structural and both need saying
+out loud before anyone touches them.
+
+## Verified
+
+`python _build/audit.py` over 11 pages at 390, 768, 1024, 1366 and 1440:
+**55 probes, 0 findings**. All 11 pages at 1440, 820 and 390 with no JavaScript
+errors and no failed requests.
+
+## Still not done
+
+Unchanged, and every one of them is a launch blocker:
+
+- Every form still has `CONFIG.endpoint = null`.
+- No payment path for the $2,997 or the $47.
+- The assessment captures no lead.
+- **The domain is not connected.**
+- The signature block on both agreements is a front-end demo.
+- No testimonials, no Spotlight Call calendar embed, no legal review.

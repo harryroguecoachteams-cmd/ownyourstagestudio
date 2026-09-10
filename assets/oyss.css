@@ -793,10 +793,7 @@
 }
 .oyss .frame--host .frame__name { font-size: 1.4rem; }
 .oyss .frame__sub { font-size: .6875rem; color: var(--ivory-46); margin-top: .1rem; }
-@media (max-width: 760px) {
-  .oyss .rig { grid-template-columns: repeat(2, 1fr); }
-  .oyss .frame--host { grid-column: span 2; grid-row: span 1; }
-}
+/* The narrow rig now lives in section 46.1, feedback 5.0. */
 
 /* ============================================================
    12. THE LEDGER
@@ -1194,8 +1191,6 @@
 
 /* ---- small phone ------------------------------------------- */
 @media (max-width: 420px) {
-  .oyss .rig { grid-template-columns: 1fr; }
-  .oyss .frame--host { grid-column: span 1; }
   .oyss .dimmer { grid-template-columns: 1fr; }
   .oyss .btn { padding: 1.02rem 1.3rem; letter-spacing: .1em; }
 }
@@ -1673,10 +1668,7 @@
   .oyss .frame__name { font-size: .95rem; }
   .oyss .frame--host .frame__name { font-size: 1.2rem; }
 }
-@media (max-width: 420px) {
-  /* One column, so the frames are wide again and 16:9 reads. */
-  .oyss .frame, .oyss .frame--host { aspect-ratio: 16 / 9; }
-}
+
 
 /* ============================================================
    26. THE HEADER LOGO, LIT
@@ -2663,21 +2655,34 @@
    block re-centers on the one thing each frame still has room for: a face.
    Those rules must sit AFTER these and not merely inside a media query, since
    the selectors are identical and source order is what decides. */
-.oyss .reel__media img[src$="panel-host.jpg"] { object-position: center 38%; }
-.oyss .reel__media img[src$="panel-room.jpg"] { object-position: center 44%; }
-.oyss .reel__media img[src$="attendee.jpg"]   { object-position: center 46%; }
-.oyss .reel__media img[src$="notebook.jpg"]   { object-position: center 52%; }
-.oyss .reel__media img[src$="clips.jpg"]      { object-position: center 54%; }
-.oyss .reel__media img[src$="texture.jpg"]    { object-position: center 50%; }
-.oyss .reel__media img[src$="room-empty.jpg"] { object-position: center 58%; }
+/* Feedback 5.0, note 9: "The image is cutting of the panelist one main
+   image. Check and fix all the header image in mobile."
+
+   This list had gone stale. Rounds 8 and 9 replaced almost every hero
+   picture and only two of the names below still existed, so six pages were
+   falling through to the base `center 58%`, which anchors low and takes the
+   top of somebody's head off the moment the panel becomes a wide short slot.
+   Every current hero is named here now, and the narrow block under it is
+   set from where each subject's head actually sits. */
+.oyss .reel__media img[src$="panel-host.jpg"]   { object-position: center 38%; }
+.oyss .reel__media img[src$="prep.jpg"]         { object-position: center 40%; }
+.oyss .reel__media img[src$="greenroom.jpg"]    { object-position: center 50%; }
+.oyss .reel__media img[src$="room-figure.jpg"]  { object-position: center 52%; }
+.oyss .reel__media img[src$="reading.jpg"]      { object-position: center 44%; }
+.oyss .reel__media img[src$="house.jpg"]        { object-position: center 46%; }
+.oyss .reel__media img[src$="talking.jpg"]      { object-position: center 42%; }
+.oyss .reel__media img[src$="panelist-mid.jpg"] { object-position: center 38%; }
+.oyss .reel__media img[src$="texture.jpg"]      { object-position: center 50%; }
 
 @media (max-width: 1040px) {
-  .oyss .reel__media img[src$="panel-host.jpg"] { object-position: center 30%; }
-  .oyss .reel__media img[src$="panel-room.jpg"] { object-position: center 34%; }
-  .oyss .reel__media img[src$="attendee.jpg"]   { object-position: center 38%; }
-  .oyss .reel__media img[src$="notebook.jpg"]   { object-position: center 56%; }
-  .oyss .reel__media img[src$="clips.jpg"]      { object-position: center 58%; }
-  .oyss .reel__media img[src$="room-empty.jpg"] { object-position: center 70%; }
+  .oyss .reel__media img[src$="panel-host.jpg"]   { object-position: center 24%; }
+  .oyss .reel__media img[src$="prep.jpg"]         { object-position: center 10%; }
+  .oyss .reel__media img[src$="greenroom.jpg"]    { object-position: center 48%; }
+  .oyss .reel__media img[src$="room-figure.jpg"]  { object-position: center 50%; }
+  .oyss .reel__media img[src$="reading.jpg"]      { object-position: center 18%; }
+  .oyss .reel__media img[src$="house.jpg"]        { object-position: center 34%; }
+  .oyss .reel__media img[src$="talking.jpg"]      { object-position: center 28%; }
+  .oyss .reel__media img[src$="panelist-mid.jpg"] { object-position: center 8%; }
 }
 
 @media (min-width: 1041px) and (max-height: 780px) {
@@ -3531,7 +3536,14 @@
 .oyss .band__copy {
   position: relative;
   z-index: 1;
-  padding: clamp(56px, 9vw, 110px) 0 clamp(38px, 5.5vw, 66px);
+  /* padding-block, NOT the shorthand. `.band__copy` is also a `.wrap`, and a
+     four value shorthand here set the left and right to 0 and took the wrap's
+     gutter with it. On a desktop the wrap is capped at 1180 and centered, so
+     there was room either side anyway and nothing showed. On a phone the wrap
+     is the full width and the gutter IS the padding, so the headline started
+     at x=0 and ran off the right edge. Feedback 5.0, notes 6 and 8: "The text
+     is cutting on mobile" and "The text is very sticking to the screen". */
+  padding-block: clamp(56px, 9vw, 110px) clamp(38px, 5.5vw, 66px);
 }
 .oyss .band__copy .lead { color: rgba(248, 245, 242, .86); }
 .oyss .band--tall { min-height: clamp(440px, 72svh, 760px); }
@@ -5145,26 +5157,31 @@
 
 .oyss .sheetbay { display: flow-root; }
 
-/* With the collapse gone the sheet is genuinely over the dark
-   band, so it needs the shadow it was always specified with to
-   read against it, and a little more lift so the overlap is
-   unmistakable rather than technically true. */
-.oyss .sheetbay .sheet { margin-top: calc(-1 * clamp(56px, 8vw, 118px)); }
-
 /* The hero above a lifted sheet has to give that height back, or
    the sheet covers its last line. This is the same bug round 5
    fixed by hand on apply.html, and raising the lift brings it
    straight back on all three form pages, so it is a rule now
-   rather than one page's padding. */
-.oyss .reel--short:has(+ .sheetbay) { padding-bottom: clamp(64px, 9vw, 128px); }
-.oyss .bay--half.dark:has(+ .sheetbay) { padding-bottom: clamp(64px, 9vw, 128px); }
+   rather than one page's padding.
+
+   Feedback 5.0, note 1: "The form is overlapping the text". It
+   was, on the assessment, because that section carried an inline
+   padding-bottom that beat this rule and happened to be smaller
+   than the lift. Two changes: the inline style is gone, and the
+   padding is now derived from the lift plus a fixed gap instead
+   of being a separate number that has to be remembered whenever
+   the lift changes. --sheet-lift is the single source. */
+.oyss { --sheet-lift: clamp(56px, 8vw, 118px); }
+.oyss .sheetbay .sheet { margin-top: calc(-1 * var(--sheet-lift)); }
+.oyss .reel--short:has(+ .sheetbay),
+.oyss .bay--half.dark:has(+ .sheetbay) {
+  padding-bottom: calc(var(--sheet-lift) + clamp(28px, 4vw, 52px));
+}
 
 @media (max-width: 720px) {
   /* On a phone the hero stacks and the picture sits under the
-     type, so there is nothing for the sheet to lift out of. */
-  .oyss .sheetbay .sheet { margin-top: calc(-1 * clamp(28px, 6vw, 48px)); }
-  .oyss .reel--short:has(+ .sheetbay),
-  .oyss .bay--half.dark:has(+ .sheetbay) { padding-bottom: clamp(34px, 7vw, 56px); }
+     type, so there is much less to lift out of. Only the one
+     number moves; the padding follows it. */
+  .oyss { --sheet-lift: clamp(28px, 6vw, 48px); }
 }
 
 /* ---- 45.2 A WIDE FIGURE THAT HOLDS A VIDEO ------------------
@@ -5193,3 +5210,253 @@
 }
 .oyss .dark .figure-wide--video figcaption,
 .oyss .stage .figure-wide--video figcaption { color: var(--ivory-46); }
+
+/* ============================================================
+   46. FEEDBACK 5.0
+   ============================================================ */
+
+/* ---- 46.1 THE RIG, ON A PHONE -------------------------------
+   note 5  "The panelist section is not looking on mobile can you
+            make it in such a way that it looks good mobile too
+            how it looking on desktop"
+
+   It was collapsing to two columns at 760 and to ONE at 420, so
+   a phone got six full width photographs stacked down the page.
+   That is not the component: the component is one host frame
+   with five satellites around it, and the composition is the
+   thing that says produced multi camera panel rather than six
+   headshots.
+
+   So the desktop grid is kept all the way down. What changes is
+   everything that cannot survive a 110px tile: the nameplate on
+   the five satellites drops to the role line alone, the ON AIR
+   marker and the mark shrink with it, and the host frame keeps
+   its full plate because it is the one tile with room.
+   ------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+  .oyss .rig { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .oyss .frame--host { grid-column: span 2; grid-row: span 2; }
+  .oyss .frame { padding: 6px; }
+  .oyss .frame--host { padding: 10px; }
+
+  /* The five satellites. At this size a two line nameplate is
+     four illegible words in a box, so the box goes and the role
+     stays, which is the part that carries the meaning. */
+  .oyss .frame:not(.frame--host) .frame__plate {
+    background: none; backdrop-filter: none;
+    border-left-width: 1px;
+    padding: .18rem .3rem;
+  }
+  .oyss .frame:not(.frame--host) .frame__role { font-size: .4375rem; letter-spacing: .16em; }
+  .oyss .frame:not(.frame--host) .frame__name,
+  .oyss .frame:not(.frame--host) .frame__sub { display: none; }
+  .oyss .frame:not(.frame--host) .frame__live {
+    top: 5px; right: 5px; padding: .1rem .26rem;
+    font-size: .4375rem; letter-spacing: .12em; gap: .22rem;
+  }
+  .oyss .frame:not(.frame--host) .frame__live::before { width: 3px; height: 3px; }
+  .oyss .frame:not(.frame--host) .frame__mark { transform: scale(.72); transform-origin: left top; }
+
+  /* The host tile is two thirds of the width and holds its plate. */
+  .oyss .frame--host .frame__name { font-size: 1rem; }
+  .oyss .frame--host .frame__role { font-size: .5rem; }
+  .oyss .frame--host .frame__sub  { font-size: .5625rem; }
+
+  /* The host tile is 230px wide on a 390px phone, and the lockup
+     plus the ON AIR marker do not both fit across it: the
+     wordmark ran under the badge. The mark keeps its glyph,
+     which is the part that brands the frame, and drops the
+     words, exactly as the five satellites already do. */
+  .oyss .rig--live .frame--host .frame__mark b { display: none; }
+  .oyss .rig--live .frame--host .frame__mark svg { width: 18px; height: 18px; }
+  .oyss .rig--live .frame--host .frame__live {
+    right: 8px; top: 7px; padding: .16rem .36rem;
+    font-size: .5rem; letter-spacing: .14em;
+  }
+}
+
+/* The 420 rule that stacked them is gone; these keep their
+   aspect ratio instead, so the composition holds on a small
+   phone rather than turning into a column. */
+@media (max-width: 420px) {
+  .oyss .rig { gap: 4px; }
+  .oyss .frame--host .frame__name { font-size: .9rem; }
+}
+
+/* ---- 46.2 THE FILM SECTION ----------------------------------
+   note 4  "This one should be a proper section with headings and
+            everything as this is one section which explain what
+            own your stage studio is about. You could create a
+            thumbnail too for the video if you wanted... Create it
+            beautifully for mobile and tablet version"
+
+   The head is a two column split on a desktop, so the heading
+   and the sentence under it sit side by side rather than in one
+   tall stack above a wide picture. It collapses at 860, which is
+   where every other split on the site collapses.
+   ------------------------------------------------------------ */
+
+.oyss .filmhead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 64px);
+  align-items: end;
+}
+.oyss .filmhead .lead { margin: 0; max-width: 38rem; }
+@media (max-width: 860px) {
+  .oyss .filmhead { grid-template-columns: 1fr; align-items: start; }
+  .oyss .filmhead .lead { margin-top: 1.1rem; }
+}
+
+/* The picture. A 16:9 box so the poster and the film are the
+   same shape and nothing jumps when it starts. */
+.oyss .videoblock {
+  position: relative;
+  margin-top: clamp(26px, 3.6vw, 48px);
+  border: 1px solid rgba(31, 30, 29, .14);
+  background: #0D0C0C;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.oyss .videoblock video {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+  background: #0D0C0C;
+}
+
+/* The play control. Chrome's native one on a poster frame is a
+   small triangle in the bottom corner, which reads as a still
+   image with a toolbar rather than as a film. This is the whole
+   picture: click anywhere. It removes itself on play and the
+   native controls take over from there. */
+.oyss .videoblock__play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  border: 0; cursor: pointer;
+  background: linear-gradient(180deg, rgba(19, 18, 17, .46) 0%, rgba(19, 18, 17, .30) 42%,
+                                      rgba(19, 18, 17, .62) 100%);
+  color: var(--ivory);
+  transition: background 320ms var(--settle);
+  padding: 0;
+}
+.oyss .videoblock__play:hover { background: rgba(19, 18, 17, .40); }
+.oyss .videoblock.is-playing .videoblock__play { display: none; }
+
+.oyss .videoblock__ico {
+  flex: none;
+  width: clamp(54px, 5.4vw, 76px); aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--red);
+  display: grid; place-items: center;
+  box-shadow: 0 18px 44px -18px rgba(185, 28, 28, .8);
+  transition: transform 320ms var(--settle);
+}
+.oyss .videoblock__play:hover .videoblock__ico { transform: scale(1.06); }
+/* The triangle, drawn rather than typed, so it is centered on
+   the optical middle of the disc and not on the glyph box. */
+.oyss .videoblock__ico::before {
+  content: '';
+  width: 0; height: 0;
+  margin-left: .18em;
+  border-left: clamp(15px, 1.5vw, 21px) solid var(--ivory);
+  border-top: clamp(10px, 1vw, 14px) solid transparent;
+  border-bottom: clamp(10px, 1vw, 14px) solid transparent;
+}
+.oyss .videoblock__label {
+  text-align: left;
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.05rem, .85rem + .7vw, 1.45rem);
+  line-height: 1.2;
+  text-shadow: 0 2px 22px rgba(19, 18, 17, .7);
+}
+/* Ivory, not gold. The poster is whatever frame the film opens
+   on, and this one is pale, so a gold caption measured 2.4:1 on
+   it. The scrim below carries both lines instead. */
+.oyss .videoblock__label b {
+  display: block;
+  margin-top: .34rem;
+  font-family: var(--sans); font-weight: 600;
+  font-size: var(--t-eyebrow); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ivory);
+  text-shadow: 0 2px 18px rgba(19, 18, 17, .9);
+}
+.oyss .videoblock__note { margin-top: .95rem; color: var(--slate); }
+
+/* Phone and tablet. The label goes under the disc so the control
+   stays inside a 16:9 box that is only 350px wide, and the disc
+   comes down with it. */
+@media (max-width: 620px) {
+  .oyss .videoblock__play { flex-direction: column; gap: .8rem; }
+  .oyss .videoblock__label { text-align: center; }
+  .oyss .videoblock__ico { width: 52px; }
+}
+
+/* ---- 46.3 THE APPLICATION, STEPPED --------------------------
+   note 2  "Make the apply.html form similar to the
+            assessment.html form style"
+
+   The chrome is the assessment's, reused class for class, so the
+   two forms are one family. What this adds is the part the
+   assessment does not need: a Continue button, because a form
+   full of text fields cannot auto advance on a click the way a
+   form full of radios can.
+   ------------------------------------------------------------ */
+
+.oyss .quiz--form .qstep .sheet__sec { margin-top: 0; }
+.oyss .quiz__nav--form {
+  display: flex; align-items: center; gap: clamp(14px, 2vw, 24px);
+  flex-wrap: wrap;
+  margin-top: clamp(22px, 3vw, 34px);
+}
+/* Back sits to the LEFT of Continue and stays quiet, because the
+   forward action is the one being offered. */
+.oyss .quiz__nav--form .quiz__back { order: 0; }
+.oyss .quiz__next { order: 1; }
+.oyss .quiz__nav--form .quiz__hint { order: 2; color: #B91C1C; }
+
+@media (max-width: 520px) {
+  .oyss .quiz__nav--form { gap: .9rem; }
+  .oyss .quiz__next { width: 100%; order: 0; justify-content: center; }
+  .oyss .quiz__nav--form .quiz__back { order: 1; }
+  .oyss .quiz__nav--form .quiz__hint { order: 2; width: 100%; }
+}
+
+/* ---- 46.4 THE DESKTOP RHYTHM, TIGHTENED ---------------------
+   "site feels a bit heavy on desktop"
+
+   Measured before touching anything, at 1440x900: the home page
+   ran 12,303px, which is 13.7 screens, and about 2,000px of that
+   is section padding.
+
+   The interesting number was not the total, it was the
+   comparison. Below 1041px the site already sets
+   --bay: clamp(62px, 8vw, 104px), and above it the same token is
+   clamp(72px, 9vw, 132px). A desktop was being given 27 percent
+   MORE air per section than a tablet, on a viewport that is
+   wider and therefore already reads as roomier. That is the
+   asymmetry behind "heavy on desktop" and it was never a
+   decision, only two clamps written months apart.
+
+   So the whole ladder scales down and the ratios that section 41
+   set on purpose are kept intact:
+
+                  before (1440)   after   ratio to --bay
+     .bay--open       190          152         1.51 -> 1.51
+     .bay             130          104         1.00 -> 1.00
+     .bay--tight       72           58          .56 ->  .56
+     .essay           168          132         1.29 -> 1.27
+
+   Nothing is restructured, no section is removed, no type moves.
+   ------------------------------------------------------------ */
+
+@media (min-width: 1041px) {
+  .oyss { --bay: clamp(72px, 7.2vw, 104px); }
+  .oyss .bay--open  { padding: clamp(104px, 10.6vw, 152px) 0; }
+  .oyss .bay--tight { padding: clamp(44px, 4vw, 58px) 0; }
+  .oyss .essay      { padding: clamp(88px, 9.2vw, 132px) 0; }
+  .oyss .band__copy {
+    padding-block: clamp(56px, 7vw, 92px) clamp(38px, 4.4vw, 56px);
+  }
+}

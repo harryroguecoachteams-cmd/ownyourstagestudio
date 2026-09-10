@@ -1329,4 +1329,229 @@
     } else { openTarget(); }
   })();
 
+
+  /* --------------------------------------------------------
+     19. THE FILM
+     Feedback 5.0, note 4. The explainer sits behind its own
+     poster with a play control over the whole picture, because
+     Chrome's native control on a poster frame is a small
+     triangle in the bottom corner and the block reads as a
+     still image.
+
+     The button does three things and no more: load the film,
+     play it, and get out of the way. `preload="none"` means the
+     first press is also the first byte fetched, so nothing is
+     downloaded for a reader who never presses it.
+     -------------------------------------------------------- */
+  (function () {
+    document.querySelectorAll('.videoblock').forEach(function (block) {
+      var clip = block.querySelector('video');
+      var btn = block.querySelector('.videoblock__play');
+      if (!clip || !btn) return;
+
+      /* The element ships WITH controls, so a reader with no
+         JavaScript gets a playable film. This takes them off
+         once the overlay exists to replace them, which is the
+         only state where the poster should be a clean picture
+         rather than a picture with a scrubber under it. */
+      clip.controls = false;
+
+      btn.addEventListener('click', function () {
+        block.classList.add('is-playing');
+        clip.controls = true;
+        var p = clip.play();
+        if (p && p.catch) p.catch(function () {});
+        clip.focus({ preventScroll: true });
+      });
+
+      /* If it is paused back to the very start, the poster is on
+         screen again and the control belongs back with it. */
+      clip.addEventListener('ended', function () {
+        clip.currentTime = 0;
+        clip.controls = false;
+        block.classList.remove('is-playing');
+      });
+    });
+  })();
+
+
+  /* --------------------------------------------------------
+     20. THE APPLICATION, ONE SECTION AT A TIME
+     Feedback 5.0, note 2: "Make the apply.html form similar to
+     the assessment.html form style."
+
+     The assessment shows one question, a count, a row of pips
+     and a Back control. The application was a single scroll of
+     eighteen fields under four headings, which is a different
+     object entirely on the same site.
+
+     This gives it the same chrome, from the same classes, so
+     the two forms are visibly one family. Three things differ,
+     and each because the content differs:
+
+       - it steps by SECTION, not by field. "About you" is four
+         questions that belong together and splitting them would
+         be eighteen screens.
+       - it does not auto advance. The assessment advances on a
+         radio because the answer IS the click; here somebody is
+         typing and being moved mid sentence would be hostile.
+       - it validates the current section before it will move on,
+         so nobody reaches the end and meets a list of things
+         they missed four screens ago.
+
+     Progressive enhancement throughout: with JavaScript off the
+     form is the long scroll it always was, every field on the
+     page, one submit button, and nothing is lost.
+     -------------------------------------------------------- */
+  window.OYSS = window.OYSS || {};
+  window.OYSS.formSteps = function (formId, opts) {
+    var form = document.getElementById(formId);
+    if (!form) return null;
+    opts = opts || {};
+
+    var foot = form.querySelector('.sheet__foot');
+    var heads = [].slice.call(form.querySelectorAll('.sheet__sec'));
+    if (heads.length < 2 || !foot) return null;
+
+    /* Group each section heading with everything that follows it
+       until the next heading. The markup has no per-section
+       wrapper, and adding one to nine hundred lines of form by
+       hand is how a required field goes missing. */
+    heads.forEach(function (head) {
+      var pane = document.createElement('div');
+      pane.className = 'qstep';
+      form.insertBefore(pane, head);
+      var node = head;
+      while (node && node !== foot &&
+             !(node !== head && node.classList && node.classList.contains('sheet__sec'))) {
+        var next = node.nextSibling;
+        pane.appendChild(node);
+        node = next;
+        while (node && node.nodeType !== 1) { node = node.nextSibling; }
+      }
+    });
+
+    var panes = [].slice.call(form.querySelectorAll('.qstep'));
+    form.classList.add('quiz', 'quiz--form');
+
+    var stage = document.createElement('div');
+    stage.className = 'quiz__stage';
+    panes[0].parentNode.insertBefore(stage, panes[0]);
+    panes.forEach(function (pn) { stage.appendChild(pn); });
+
+    var bar = document.createElement('div');
+    bar.className = 'quiz__bar';
+    bar.innerHTML = '<span class="quiz__count"></span><span class="quiz__pips"></span>';
+    stage.parentNode.insertBefore(bar, stage);
+    var count = bar.querySelector('.quiz__count');
+    var pips = bar.querySelector('.quiz__pips');
+    panes.forEach(function () {
+      var d = document.createElement('span'); d.className = 'quiz__pip'; pips.appendChild(d);
+    });
+    var pipEls = [].slice.call(pips.children);
+
+    var nav = document.createElement('div');
+    nav.className = 'quiz__nav quiz__nav--form';
+    var back = document.createElement('button');
+    back.type = 'button'; back.className = 'quiz__back'; back.textContent = 'Back';
+    var next = document.createElement('button');
+    next.type = 'button'; next.className = 'btn btn--primary quiz__next';
+    var hint = document.createElement('span');
+    hint.className = 'quiz__hint';
+    nav.appendChild(back); nav.appendChild(next); nav.appendChild(hint);
+    stage.parentNode.insertBefore(nav, foot);
+
+    var at = 0;
+
+    function fieldsIn(i) {
+      return [].slice.call(panes[i].querySelectorAll('[required]'));
+    }
+    function missingIn(i) {
+      return fieldsIn(i).filter(function (el) {
+        return el.type === 'checkbox' ? !el.checked : !el.value.trim();
+      });
+    }
+    function done(i) { return missingIn(i).length === 0; }
+
+
+    function render() {
+      panes.forEach(function (pn, i) { pn.classList.toggle('is-current', i === at); });
+      pipEls.forEach(function (d, i) {
+        d.classList.toggle('done', done(i) && i < at);
+        d.classList.toggle('now', i === at);
+      });
+      /* "Step 1 of 4", not "About you 1 of 4". The section
+         heading two lines below already says About you, and the
+         assessment shipped that exact duplication once. */
+      count.textContent = 'Step ' + (at + 1) + ' of ' + panes.length;
+      back.disabled = at === 0;
+      var last = at === panes.length - 1;
+      next.hidden = last;
+      next.textContent = 'Continue';
+      foot.hidden = !last;
+      hint.textContent = '';
+    }
+
+    function go(i) {
+      at = Math.max(0, Math.min(panes.length - 1, i));
+      render();
+      var top = bar.getBoundingClientRect().top + window.pageYOffset -
+                (window.innerHeight * 0.14);
+      window.scrollTo({ top: top, behavior: CALM ? 'auto' : 'smooth' });
+      var first = panes[at].querySelector('input, textarea, select');
+      if (first && !CALM) setTimeout(function () { first.focus({ preventScroll: true }); }, 260);
+    }
+
+    function advance() {
+      var miss = missingIn(at);
+      fieldsIn(at).forEach(function (el) {
+        el.setAttribute('aria-invalid', miss.indexOf(el) > -1 ? 'true' : 'false');
+      });
+      if (miss.length) {
+        hint.textContent = miss.length === 1
+          ? 'One more field on this step.'
+          : miss.length + ' fields still to fill on this step.';
+        miss[0].focus();
+        return;
+      }
+      hint.textContent = '';
+      go(at + 1);
+    }
+
+    back.addEventListener('click', function () { go(at - 1); });
+    next.addEventListener('click', advance);
+
+    /* Enter moves on rather than submitting a form the reader is
+       three sections away from finishing. Not in a textarea,
+       where Enter is a newline and means it. */
+    form.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Enter') return;
+      if (ev.target.tagName === 'TEXTAREA') return;
+      if (at === panes.length - 1) return;
+      ev.preventDefault();
+      advance();
+    });
+
+    form.addEventListener('input', function () {
+      if (hint.textContent) hint.textContent = '';
+      render();
+    });
+    form.addEventListener('change', render);
+
+    render();
+    return {
+      go: go,
+      /* The submit handler validates the whole form. When
+         something is missing it is usually not on screen, so it
+         hands the field back here and this finds its step. */
+      reveal: function (el) {
+        var pane = el.closest('.qstep');
+        if (!pane) return false;
+        go(panes.indexOf(pane));
+        setTimeout(function () { el.focus({ preventScroll: true }); }, 300);
+        return true;
+      }
+    };
+  };
+
 })();
