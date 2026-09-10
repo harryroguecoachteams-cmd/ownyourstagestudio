@@ -4,11 +4,11 @@
      right and a full-width letterbox would not be: a 9:16 frame
      in a near-square panel loses almost nothing.
 
-     One file, three beats, built by _art/hero_loop.py: her two
-     clips cut to the light only, then a photograph of a real
-     person standing in the beam. It loops, and the last frame
-     dissolves into the first, so there is no seam at the wrap
-     and the room never goes dark.
+     Feedback 4.0 rolled this back to the earlier footage: the
+     stage is lit on load, the figure resolves 1.4s in, then it
+     holds. Built by _art/hero_loop.py, which cross fades the
+     tail onto the head so it can loop without the figure
+     vanishing every four seconds.
 
      The headline carries the belief and the lead carries the
      mechanics, so a stranger has the whole offer before
@@ -365,12 +365,25 @@
       <span>Exact deliverables are confirmed in the schedule attached to the Host Services Agreement.</span>
     </p>
 
-    <figure class="figure-wide" data-lit data-cue="4">
-      <img src="assets/media/clips.jpg" width="1400" height="788"
-           alt="Short-form clips cut from a produced panel, shown running on three phones in a dark room.">
+    <!-- Feedback 4.0, note 3: "Add the video here that I will be
+         sharing it with you". Her explainer, encoded by
+         _art/explainer.py.
+
+         It does not autoplay and does not preload. It runs two
+         minutes and twenty two seconds and it has a voice over,
+         so it is something a reader chooses; until they press
+         play the browser fetches the poster frame and nothing
+         else. The caption sits under it rather than over it,
+         because the overlay would land on the control bar. -->
+    <figure class="figure-wide figure-wide--video" data-lit data-cue="4">
+      <video controls playsinline preload="none"
+             poster="assets/media/explainer-poster.jpg"
+             aria-label="Own Your Stage Studio explainer video, two minutes and twenty two seconds, with captions.">
+        <source src="assets/media/explainer.mp4" type="video/mp4">
+      </video>
       <figcaption>
-        The event runs once. The clips cut from it are what the following ninety days are made
-        of, which is the half of this that most people underestimate.
+        The Own Your Stage Experience, explained in a little over two minutes. Captions are on
+        the picture, so it reads with the sound off.
       </figcaption>
     </figure>
   </div>

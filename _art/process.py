@@ -33,8 +33,12 @@ STILLS = [
     # ("panel-f",    "panel-f.png",              900, 16 / 9, 0.42),
     # shot 01, for the essay column: kept portrait
     ("expert",       "host-portrait.png",        860, None,   0.50),
-    # shots 02 to 06
-    ("panel-room",   "panel-conversation.png",  1500, 3 / 2,  0.50),
+    # shots 02 to 06.
+    # feedback 4.0 note 5: "It is not going to be a real round table
+    # conference, it is going to be virtual". panel-conversation.png is four
+    # people in armchairs in one room, which is an in-person panel and the
+    # wrong product. Replaced by the host watching five panelists on a screen.
+    ("panel-virtual", "panel-virtual.png",      1500, 3 / 2,  0.50),
     ("attendee",     "attendee-screenlight.png", 1400, 16 / 9, 0.50),
     ("room-empty",   "empty-room.png",          1500, 16 / 9, 0.52),
     # feedback 2.0: the About room was liked but empty; same room, one figure.
@@ -51,7 +55,14 @@ STILLS = [
     # for the About column.
     ("prep",         "prep-session.png",        1500, 3 / 2,  0.46),
     ("greenroom",    "green-room.png",          1500, 3 / 2,  0.50),
-    ("deciding",     "deciding.png",            1500, 3 / 2,  0.48),
+    # feedback 4.0 note 9: "The image is not going with the page". The FAQ
+    # hero was a man alone at a desk at night, which reads brooding against a
+    # bright premium studio brand. Same beat, this brand's light.
+    # 16:9 rather than the source's 3:2, anchored high: it crops the bottom
+    # of the frame, which is where the generator left her hands merging into
+    # a cuff. Same rule as always, the hands are cropped out rather than
+    # prompted away.
+    ("reading",      "reading-it.png",          1500, 16 / 9, 0.38),
     ("house",        "back-of-room.png",        1500, 16 / 9, 0.52),
     ("talking",      "two-talking.png",         1500, 3 / 2,  0.44),
     ("spot-alt",     "spot-figure-alt.png",      900, None,   0.50),

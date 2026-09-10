@@ -1266,3 +1266,169 @@ Unchanged, and every one of them is a launch blocker:
 - Annette's Zoom PNGs are on the new brand but she still has to swap them into
   her Zoom account.
 - `_film/render_film.py` still renders the OLD identity. Not shipped anywhere.
+
+---
+
+# Feedback 4.0, 10 September 2026
+
+Ten notes in `new changes/feedback 4.0.docx`, plus the explainer video, which
+arrived in the same folder as
+`Own Your Stage Studio Explainer Video_1080p_caption.mp4`.
+
+All ten are done. Nothing was changed that was not in the document.
+
+| | note | where |
+|---|---|---|
+| 1 | Roll it back to the previous video style, make sure that video will play in loop | home hero |
+| 2 | Recreate all these images and make it look more humanize | the six frames of the rig |
+| 3 | Add the video here that I will be sharing it with you | home, the wide figure |
+| 4 | Remove this from the footer, I feel like it is added uncessarly | the legal line |
+| 5 | It is not going to be a real round table conference, it is going to be virtual | Experience, the pair |
+| 6 | Not liking this at all | Experience, contents leaders |
+| 7 | Same here | the second contents list |
+| 8 | Start the form like this | Assessment |
+| 9 | The image is not going with the page | FAQ hero |
+| 10 | Make sure the form overlaps the black above the fold section, and change the image to a more humanize person | Apply |
+
+## 1. The hero, rolled back
+
+The three beat sequence from round 8 is gone and the earlier footage is back:
+her `illuminating_person` clip, the same 3.5s to 8.04s cut, the same delogo box,
+the same encode settings. It is in `_art/hero_loop.py`, which now builds the
+rollback rather than the sequence. The round 8 version is at commit `59fd124`.
+
+**One thing in that note could not be done literally.** That cut opens on a lit
+but empty stage and ends with the figure standing in the beam, so putting
+`loop` on it as it is makes him vanish every 4.5 seconds and resolve again out
+of nothing. Measured, first frame against last: mean absolute difference 18.93
+of 255, and the whole subject IS the difference.
+
+So the tail dissolves back into the head. Nothing was added: the dissolve is
+made only from this clip's own frames, and the result is the same shot with its
+last 0.7 seconds cross faded onto its first 0.7. The seam measures 0.58 of 255
+now, which is invisible. 3.8 seconds, 476 KB, down from 818 KB.
+
+## 2 and 10. The rig, recreated
+
+**What made those six faces read as generated was not the framing.** A video
+call frame really is eyes to camera, head and shoulders, centered. It was
+everything around it: the six were lit identically, retouched to the same flat
+skin, shot against the same black void with nothing behind them, and all six
+were sitting still with the same neutral expression. Six people cannot be that
+alike. A real six up grid is six different rooms, six different cameras, six
+people at slightly different distances, and at any moment one of them is mid
+sentence.
+
+`_art/round9.py` keeps the broadcast framing and changes the six things that
+were identical: a real room behind each one instead of a void, a different
+practical light in each, unretouched skin with visible texture, a different
+moment caught in each, slightly different distances, and no two the same.
+
+The host frame is also the Apply page hero, which is the face note 10 circled,
+so notes 2 and 10 are answered by the same regeneration.
+
+`panel-b` was rolled twice. "Brow furrowed in thought" came back as a scowl,
+which is not what a panelist looks like while somebody else is talking.
+
+## 3. The explainer video
+
+`_art/explainer.py`. The file arrived at 1920x1080, 25fps, 2 minutes 22, stereo,
+**106 MB**, with the captions burned into the picture.
+
+- **720p, not 1080p.** The figure it sits in is at most 1180 CSS px wide, so
+  720p is already above 1x. The burned-in captions are the one thing a
+  downscale hurts, so the encode protects fine detail rather than chasing a
+  number: CRF 26, no denoise, the same psy and deblock settings the site's other
+  clips use. **11.5 MB.**
+- **The audio stays.** It has a voice over. 128k AAC.
+- **It does not autoplay and does not preload.** Two minutes with sound is
+  something a reader chooses, so the page ships a poster frame and the browser
+  fetches nothing until somebody presses play. Anyone who scrolls past pays for
+  a 71 KB JPEG.
+- **The caption sits under it, not over it.** `.figure-wide` lays its caption
+  over the bottom of the picture on a gradient, which is exactly where a video's
+  scrubber is. `.figure-wide--video` in section 45.2 drops the overlay.
+- The poster is taken at 2 seconds, not 4. Four caught the opening title mid
+  dissolve with half a sentence faded out, which looks like a broken render.
+
+## 4. The footer line
+
+The no-guarantee paragraph added in round 8 is removed, along with its rules in
+the stylesheet so nothing dead is left behind. **The same statement is still on
+the Experience page** as clause 21 of the extract from the Host Services
+Agreement, in the agreement's own words, which is where the substance of it
+lives.
+
+## 5. The panel is virtual
+
+The picture was four people in armchairs in one room, which is an in-person
+panel and the wrong product. It is now the host at her desk watching five other
+experts talking in separate video call frames on a screen, with the screen glow
+as the only light. `panel-conversation.png` is out of `process.py`;
+`panel-virtual.jpg` replaces `panel-room.jpg` on the page.
+
+## 6 and 7. The leaders
+
+Both contents lists on the Experience page had a dotted rule running from the
+item across to its quantity. Gone. The spacer stays and still holds the column
+of figures out at the right hand edge; there is simply nothing drawn across the
+gap. The item description gets the width the leader used to take.
+
+## 8 and 10. The form never actually overlapped
+
+Both screenshots draw a box from inside the dark band down over the top of the
+white form. **The form was already built to do exactly that:** `.sheet` carries
+`margin-top: -84px` so it lifts out of whatever is above it. Measured on the
+live page, it was not doing it, and the reason is margin collapse.
+
+The sheet is the first in-flow child of `.sheetbay`, and neither the section nor
+the `.wrap` between them establishes a block formatting context, so the negative
+margin collapsed through both and moved THE SECTION up instead of lifting the
+sheet out of it. On apply.html the section top and the sheet top measured
+identical, at 463. The section carries the light background, so it painted Warm
+Neutral over the bottom 82px of the dark hero and the overlap was invisible.
+Every time, on all three form pages.
+
+`display: flow-root` stops the collapse. The section now starts where the dark
+band ends and keeps its background there, and the sheet lifts out over the dark
+on its own. The lift went up to 56 to 118px so the overlap is unmistakable
+rather than technically true.
+
+**The hero above it has to give that height back**, or the sheet covers its last
+line. That is the same bug round 5 fixed by hand on apply.html, and raising the
+lift brings it straight back, so it is a rule now rather than one page's
+padding. Measured at 1440, 1366, 1024 and 390: 95 to 114px of visible overlap on
+desktop, and the sheet covers no hero text at any width.
+
+## 9. The FAQ picture
+
+It was a man alone at a desk at night, which reads brooding and lonely against a
+bright premium studio brand. Same beat, somebody taking their time over it
+before they commit, but in this brand's light and unhurried rather than
+troubled. Cropped 16:9 and anchored high, because the generator left her hands
+merging into a cuff at the bottom of the frame: **cropped out, not prompted
+away**, same rule as always.
+
+## Verified
+
+`python _build/audit.py` over 11 pages at 390, 768, 1024, 1366 and 1440:
+**55 probes, 0 findings**. All 11 pages at 1440 and 390 with no JavaScript
+errors and no failed requests.
+
+`assets/media` is 17 MB, of which the explainer is 12. Nothing on any page
+preloads it.
+
+## Still not done
+
+Unchanged, and every one of them is a launch blocker:
+
+- Every form still has `CONFIG.endpoint = null`.
+- No payment path for the $2,997 or the $47.
+- The assessment captures no lead.
+- **The domain is not connected.** No CNAME in the repo, so the site is on the
+  Pages URL while every footer says ownyourstagestudio.com.
+- The signature block on both agreements is a front-end demo.
+- No testimonials, no Spotlight Call calendar embed, no legal review.
+- The three minute speech still calls the free call a "Stop Hiding Strategy
+  Call" where the site says Spotlight Call, and still carries "valued at $297"
+  and "the first three to complete it".

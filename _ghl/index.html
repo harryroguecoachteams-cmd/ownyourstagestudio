@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=6df35b7d">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=dd9e0923">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -51,11 +51,11 @@
      right and a full-width letterbox would not be: a 9:16 frame
      in a near-square panel loses almost nothing.
 
-     One file, three beats, built by _art/hero_loop.py: her two
-     clips cut to the light only, then a photograph of a real
-     person standing in the beam. It loops, and the last frame
-     dissolves into the first, so there is no seam at the wrap
-     and the room never goes dark.
+     Feedback 4.0 rolled this back to the earlier footage: the
+     stage is lit on load, the figure resolves 1.4s in, then it
+     holds. Built by _art/hero_loop.py, which cross fades the
+     tail onto the head so it can loop without the figure
+     vanishing every four seconds.
 
      The headline carries the belief and the lead carries the
      mechanics, so a stranger has the whole offer before
@@ -412,12 +412,25 @@
       <span>Exact deliverables are confirmed in the schedule attached to the Host Services Agreement.</span>
     </p>
 
-    <figure class="figure-wide" data-lit data-cue="4">
-      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/clips.jpg" width="1400" height="788"
-           alt="Short-form clips cut from a produced panel, shown running on three phones in a dark room.">
+    <!-- Feedback 4.0, note 3: "Add the video here that I will be
+         sharing it with you". Her explainer, encoded by
+         _art/explainer.py.
+
+         It does not autoplay and does not preload. It runs two
+         minutes and twenty two seconds and it has a voice over,
+         so it is something a reader chooses; until they press
+         play the browser fetches the poster frame and nothing
+         else. The caption sits under it rather than over it,
+         because the overlay would land on the control bar. -->
+    <figure class="figure-wide figure-wide--video" data-lit data-cue="4">
+      <video controls playsinline preload="none"
+             poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer-poster.jpg"
+             aria-label="Own Your Stage Studio explainer video, two minutes and twenty two seconds, with captions.">
+        <source src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer.mp4" type="video/mp4">
+      </video>
       <figcaption>
-        The event runs once. The clips cut from it are what the following ninety days are made
-        of, which is the half of this that most people underestimate.
+        The Own Your Stage Experience, explained in a little over two minutes. Captions are on
+        the picture, so it reads with the sound off.
       </figcaption>
     </figure>
   </div>
@@ -659,21 +672,6 @@
         </div>
       </div>
     </div>
-    <!-- FEEDBACK 3.0: "We need to make sure we do not over promise
-         on the website (USA!)". The substance of that sits on the
-         Experience page as an extract from the agreement's own
-         clauses 5, 6, 7, 8 and 21, in the agreement's own words.
-         This is the one line version, on every page, where a
-         reader who never reaches that section still meets it. It
-         restates clause 21 and nothing more. -->
-    <p class="footer__legal">
-      Own Your Stage Studio provides event planning, coordination, production and
-      creative services. It does not guarantee registration or attendance numbers,
-      audience size, leads, clients, revenue, media coverage or any other business
-      result. The <a href="/host-agreement">Host Services Agreement</a> and the
-      <a href="/panelist-agreement">Featured Panelist Agreement</a> govern every
-      engagement and are published here in full.
-    </p>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
       <span class="footer__note">The room is already looking for you.</span>
@@ -682,5 +680,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=6df35b7d"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=dd9e0923"></script>
 
