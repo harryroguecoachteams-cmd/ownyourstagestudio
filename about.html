@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=6259e00f">
+<link rel="stylesheet" href="assets/oyss.css?v=89523346">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -25,6 +25,14 @@
    and never reaches the GHL block. */
 html, body { margin: 0; padding: 0; }
 body { background: #F8F5F2; }
+/* THE WIDE SCREEN (feedback 6.0). The site was approved at 1440 and stopped
+   responding above it. From 1440 to 1920 the root eases 100% -> 112.5%, so
+   every rem measure in oyss.css (type, leads, columns, buttons) grows with
+   the screen; the content width grows with it via --wrap (oyss.css section
+   47). Percentages, not px, so a reader's own browser font size still
+   counts. It is the html element, so it lives in the shell, not the brand
+   file, which may style nothing outside .oyss. */
+html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </style>
 </head>
 <body>
@@ -82,7 +90,7 @@ body { background: #F8F5F2; }
 <section class="bay light">
   <div class="wrap">
     <div style="max-width:46rem" data-lit>
-      <p class="belief" style="font-size:clamp(1.6rem,1.2rem+1.5vw,2.35rem);line-height:1.2;color:var(--navy)">
+      <p class="belief" style="font-size:clamp(1.6rem,1.2rem + 1.5vw,2.35rem);line-height:1.2;color:var(--navy)">
         We create premium virtual panel experiences that place established experts at the
         center of a conversation they are qualified to lead.
       </p>
@@ -230,7 +238,7 @@ body { background: #F8F5F2; }
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap center">
     <div data-lit>
-      <h2 class="display" style="font-size:clamp(1.9rem,1.4rem+2.4vw,3.2rem);max-width:24ch;margin:0 auto">
+      <h2 class="display" style="font-size:clamp(1.9rem,1.4rem + 2.4vw,3.2rem);max-width:24ch;margin:0 auto">
         You do not need more expertise. You need the right stage.
       </h2>
       <span class="pool" aria-hidden="true"></span>
@@ -295,7 +303,7 @@ body { background: #F8F5F2; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=6259e00f"></script>
+<script src="assets/oyss.js?v=89523346"></script>
 <script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
   barTitle: 'Find out where you stand first.',

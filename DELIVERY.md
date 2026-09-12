@@ -1628,3 +1628,128 @@ Unchanged, and every one of them is a launch blocker:
 - **The domain is not connected.**
 - The signature block on both agreements is a front-end demo.
 - No testimonials, no Spotlight Call calendar embed, no legal review.
+
+
+# Feedback 6.0, 13 September 2026
+
+Five notes in a Google Doc, each with a screenshot from a second laptop: the
+site looks "very contained" there and on every page, the panelist button "is
+not looking nice", the "What the room looks like" text should sit further
+left, and the film section is "lamely done", with no copy that sells, on "the
+section which helps in converting majority of the people".
+
+## The site stopped responding above 1440
+
+The screenshots are 1920px wide and the browser chrome in them is a 125
+percent Windows display, so the viewport that produced them is 1536 CSS
+pixels. Measured there, and at 1920, before anything was touched:
+
+| | 1440 (approved) | 1536 (that laptop) | 1920 |
+|---|---|---|---|
+| content width | 1180 | 1180 | 1180 |
+| dark margin either side | 130 | 178 | 370 |
+| hero headline column | 533px, 4 lines | 482px, 5 lines | 278px, 7 lines |
+
+The headline column got **narrower as the screen got wider.** The copy block
+was a fixed 48rem box whose left padding grows with the viewport to stay on the
+wrap's edge, so the text inside it was being squeezed from the left while the
+box could not grow on the right. Every page shares that component, which is
+why "the same issue is with all the pages" is exactly right. Separately, the
+content width was capped at 1180 and every display size is a clamp that stops
+growing at about 1240px, so past that point a wider screen only added margin.
+
+Three changes, all gated at 1441px so the approved 1440 layout is untouched:
+
+1. **The content width grows with the screen**, 86 percent of the viewport up
+   to 1640px. It is one token now (`--wrap`), and the five places that had
+   1180 written into an expression all read it.
+2. **The root type size eases from 100 percent at 1440 to 112.5 percent at
+   1920.** Every rem measure on the site scales with it, so leads, columns,
+   buttons and the sheets grow together and the page reads as the same design
+   larger, not the same design with wider margins. It is a percentage, so a
+   reader's own browser font setting still counts.
+3. **The display sizes keep climbing** instead of stopping at their cap, and
+   the hero copy column is the grid track it always should have been, with the
+   measure set on the headline itself.
+
+After:
+
+| | 1440 | 1536 | 1920 |
+|---|---|---|---|
+| content width | 1180 | 1321 | 1640 |
+| margin either side | 130 | 108 | 140 |
+| hero headline | 573px, 3 lines at 67px | 647px, 3 lines at 70px | 780px, 3 lines at 82px |
+| body / lead | 19 / 23 | 19.5 / 23.6 | 21.4 / 25.9 |
+
+## Fifteen font sizes the browser had been throwing away
+
+Every band headline, the About page's belief statement, the two prices on the
+panelist page, the "Your application is in" and "Thank you for applying"
+headings, the assessment head and the agreement execution headings carried an
+inline `font-size: clamp(2rem,1.4rem+2.4vw,3.3rem)`. That is invalid CSS: the
+`+` inside a clamp needs a space either side, or the whole declaration is
+dropped. So those elements had been rendering at whatever their class gave
+them. "What the room actually looks like" was written for 53px and had been
+showing at 72. The About page's belief statement was written for 38px and had
+been showing as 19px body text. The $997 was the same size as the $1,497 it is
+meant to sit under.
+
+All fifteen are valid now (and the two templates in `agreements_build.py`), so
+each renders at the size it was written for and scales with the screen. This
+is also most of the answer to "the text should be more on the left": at its
+intended size the band headline is 575px wide instead of 782, sits on the
+wider wrap's left edge, and clears the beam.
+
+## The panelist button
+
+The page close was a two column grid, statement and detail on the left, one
+button on the right, aligned to the bottom. On a wide screen that put the
+button alone at the far right with a hundred pixels of nothing above it,
+anchored to no sentence. It is statement left, detail and action right, top
+aligned, so the button sits under the sentence that explains it. Same fix on
+the Experience and FAQ closes, which are the same component.
+
+## The film section
+
+It was presented as a labelled object: a neutral heading, a running time, a
+note about captions. Nothing asked anyone to press play and nothing after it
+asked anyone to do anything. Rebuilt as the section that sells:
+
+- **Head:** "Two minutes, start to finish" / "Watch a stage get built around
+  one expert." / "From the first conversation to the night the light comes up:
+  the Authority Blueprint, the panel we cast, the launch kit your audience
+  receives, the production itself, and what you are still holding ninety days
+  later. Shown, not described." Every phase named is a title card in her film.
+- **The control** says "Watch the film", with "Two minutes, captions on" under
+  it (the caption note is gone; that is where the information belongs).
+- **A run order** under the picture: the film's own six chapters, timed from
+  its audio track sentence by sentence (0:00 Why good work stays unknown, 0:46
+  The Authority Blueprint, 0:57 Casting the panel, 1:08 The launch kit, 1:24
+  Showtime, 1:41 What you keep). Each one is a button that starts the film at
+  that point, and the chapter that is playing carries the red marker, so a
+  reader who will not sit through two minutes can go straight to the night, or
+  to what they keep. Verified in Chrome: each cue seeks and plays, the marker
+  follows.
+- **A close** after the film, because the moment it ends is the warmest a
+  reader gets on this page: "If that is the stage you want, the application
+  takes about eight minutes." with the Apply button and the assessment as the
+  second route, which is the call the film itself ends on.
+
+Still no autoplay and still `preload="none"`.
+
+## Verified
+
+`python _build/audit.py`, now over seven widths with 1536x825 and 1920x1080
+added: **77 probes, 0 findings.** All 11 pages at 390, 1440 and 1920 with no
+JavaScript errors and no failed requests.
+
+## Still not done
+
+Unchanged, and every one of them is a launch blocker:
+
+- Every form still has `CONFIG.endpoint = null`.
+- No payment path for the $2,997 or the $47.
+- The assessment captures no lead.
+- **The domain is not connected.**
+- The signature block on both agreements is a front-end demo.
+- No testimonials, no Spotlight Call calendar embed, no legal review.

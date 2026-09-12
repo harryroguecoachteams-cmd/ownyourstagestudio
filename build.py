@@ -300,6 +300,14 @@ SHELL = """<!doctype html>
    and never reaches the GHL block. */
 html, body {{ margin: 0; padding: 0; }}
 body {{ background: #F8F5F2; }}
+/* THE WIDE SCREEN (feedback 6.0). The site was approved at 1440 and stopped
+   responding above it. From 1440 to 1920 the root eases 100% -> 112.5%, so
+   every rem measure in oyss.css (type, leads, columns, buttons) grows with
+   the screen; the content width grows with it via --wrap (oyss.css section
+   47). Percentages, not px, so a reader's own browser font size still
+   counts. It is the html element, so it lives in the shell, not the brand
+   file, which may style nothing outside .oyss. */
+html {{ font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }}
 </style>
 </head>
 <body>

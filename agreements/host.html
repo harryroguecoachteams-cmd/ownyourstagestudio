@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/oyss.css?v=6259e00f">
+<link rel="stylesheet" href="../assets/oyss.css?v=89523346">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -25,6 +25,14 @@
    and never reaches the GHL block. */
 html, body { margin: 0; padding: 0; }
 body { background: #F8F5F2; }
+/* THE WIDE SCREEN (feedback 6.0). The site was approved at 1440 and stopped
+   responding above it. From 1440 to 1920 the root eases 100% -> 112.5%, so
+   every rem measure in oyss.css (type, leads, columns, buttons) grows with
+   the screen; the content width grows with it via --wrap (oyss.css section
+   47). Percentages, not px, so a reader's own browser font size still
+   counts. It is the html element, so it lives in the shell, not the brand
+   file, which may style nothing outside .oyss. */
+html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </style>
 </head>
 <body>
@@ -837,7 +845,7 @@ body { background: #F8F5F2; }
 
       <div id="sign-panel">
         <p class="eyebrow" style="color:var(--gold)">Electronic signature</p>
-        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem+1.2vw,2rem)">Sign this agreement</h2>
+        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">Sign this agreement</h2>
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem;max-width:36rem">
           Electronic signatures have the same legal force as handwritten ones under
           Florida&rsquo;s Uniform Electronic Transaction Act, Fla. Stat. &sect; 668.50.
@@ -979,7 +987,7 @@ body { background: #F8F5F2; }
 
       <div id="signed-state" hidden>
         <p class="eyebrow" style="color:var(--gold)">Signed</p>
-        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem+1.2vw,2rem)">
+        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">
           Agreement executed
         </h2>
         <div class="sig-preview" style="margin-top:1.8rem">
@@ -1057,7 +1065,7 @@ body { background: #F8F5F2; }
 </footer>
 
 </div>
-<script src="../assets/oyss.js?v=6259e00f"></script>
+<script src="../assets/oyss.js?v=89523346"></script>
 
 <script>OYSS.signing({ agreement: "Done-For-You Panel Host Services Agreement" });</script>
 </body>

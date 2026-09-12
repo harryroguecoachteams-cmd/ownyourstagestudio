@@ -84,6 +84,7 @@
 
   /* --- RHYTHM --- */
   --gutter: clamp(20px, 5vw, 56px);
+  --wrap: 1180px;                  /* content width; grows past 1440, section 47 */
   --bay: clamp(72px, 9vw, 132px);   /* vertical section padding */
   --measure: 34rem;                 /* editorial line length      */
 
@@ -392,8 +393,8 @@
    4. STRUCTURE
    ============================================================ */
 
-.oyss .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
-.oyss .wrap--tight { max-width: 900px; }
+.oyss .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.oyss .wrap--tight { max-width: 56.25rem; }
 .oyss .bay { padding: var(--bay) 0; }
 .oyss .bay--half { padding: calc(var(--bay) * .58) 0; }
 .oyss .light { background: var(--ivory); }
@@ -2090,9 +2091,14 @@
   position: relative;
   z-index: 2;
   padding: calc(var(--oyss-mh, 78px) + clamp(28px, 5vh, 72px)) clamp(28px, 3.4vw, 64px)
-           clamp(40px, 7vh, 88px) max(var(--gutter), calc((100vw - 1180px) / 2 + var(--gutter)));
-  max-width: 48rem;
-  justify-self: end;
+           clamp(40px, 7vh, 88px) max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
+  /* No max-width. It was 48rem with justify-self:end, and because the left
+     padding grows with the viewport to stay on the wrap's edge, a fixed box
+     width meant the TEXT column got narrower as the screen got wider: 533px
+     of measure at 1440, 482 at 1536, 278 at 1920, where the headline broke
+     into seven lines. Feedback 6.0: "the title and everything looks very
+     contained". The column is the grid track now, and the measure is set
+     on the headline and the lead themselves (section 47). */
   width: 100%;
 }
 
@@ -2869,7 +2875,7 @@
 .oyss .essay { background: var(--white); padding: clamp(88px, 12vw, 168px) 0; }
 .oyss .essay__inner {
   width: 100%;
-  max-width: 1180px;
+  max-width: var(--wrap);
   margin: 0 auto;
   padding: 0 var(--gutter);
   display: grid;
@@ -2965,11 +2971,11 @@
    sitting in a margin looking like it missed. */
 .oyss .plate--wide {
   grid-column: 1;
-  margin-left: calc(-1 * max(var(--gutter), (100vw - 1180px) / 2 + var(--gutter)));
+  margin-left: calc(-1 * max(var(--gutter), (100vw - var(--wrap)) / 2 + var(--gutter)));
   border-left: 0;
 }
 .oyss .plate--wide figcaption {
-  padding-left: max(1.1rem, calc(max(var(--gutter), (100vw - 1180px) / 2 + var(--gutter))));
+  padding-left: max(1.1rem, calc(max(var(--gutter), (100vw - var(--wrap)) / 2 + var(--gutter))));
 }
 .oyss .plate--tall {
   grid-column: 2;
@@ -4338,7 +4344,7 @@
 .oyss .prompt__inner {
   display: flex; align-items: center; gap: clamp(14px, 2.4vw, 34px);
   padding: clamp(14px, 1.5vw, 20px) var(--gutter);
-  max-width: 1180px; margin: 0 auto;
+  max-width: var(--wrap); margin: 0 auto;
 }
 .oyss .prompt__text { display: block; flex: 1 1 auto; min-width: 0; }
 /* These are spans, so without a display they are INLINE and the
@@ -5052,15 +5058,24 @@
    So the close is a rule, one line naming what happens next on
    THIS page, and one action. The home page keeps its flood;
    nothing else does.
+
+   Feedback 6.0: "This apply panelist button is not looking
+   nice." It was a two column grid of [statement + detail | one
+   button] aligned to the bottom, so on a wide screen the button
+   sat alone at the far right with a hundred pixels of nothing
+   above it, anchored to no sentence. Now the statement holds the
+   left and the detail and its action share the right, top
+   aligned, so the button sits under the sentence that explains
+   it. Markup: .close__t then .close__aside (.close__m + .actions).
    ------------------------------------------------------------ */
 
 .oyss .close {
   border-top: 1px solid rgba(31, 30, 29, .14);
   padding-top: clamp(30px, 4vw, 52px);
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: clamp(22px, 4vw, 60px);
-  align-items: end;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 88px);
+  align-items: start;
 }
 .oyss .dark .close, .oyss .stage .close { border-top-color: rgba(228, 218, 214, .16); }
 .oyss .close__t {
@@ -5068,15 +5083,19 @@
   font-size: clamp(1.4rem, 1rem + 1.6vw, 2.05rem);
   line-height: 1.2; letter-spacing: -.01em;
   max-width: 22ch; color: var(--ink);
+  text-wrap: balance;
 }
 .oyss .dark .close__t, .oyss .stage .close__t { color: var(--ivory); }
+.oyss .close__aside { padding-top: .3em; }
 .oyss .close__m {
-  margin-top: .9rem; max-width: 42ch;
+  max-width: 44ch;
   font-size: var(--t-caption); line-height: 1.55; color: var(--slate);
 }
 .oyss .dark .close__m, .oyss .stage .close__m { color: var(--ivory-46); }
+.oyss .close__aside .actions { margin-top: 1.5rem; }
 @media (max-width: 720px) {
-  .oyss .close { grid-template-columns: 1fr; align-items: start; }
+  .oyss .close { grid-template-columns: 1fr; gap: 0; }
+  .oyss .close__aside { padding-top: .9rem; }
 }
 
 /* ---- 44.8 THE FRAME DEMO ON A LIGHT GROUND ------------------
@@ -5459,4 +5478,136 @@
   .oyss .band__copy {
     padding-block: clamp(56px, 7vw, 92px) clamp(38px, 4.4vw, 56px);
   }
+}
+
+
+/* ============================================================
+   47. THE WIDE SCREEN  (feedback 6.0)
+   ------------------------------------------------------------
+   "See the site is screen responsive also, I opened the site on
+    another laptop and the title and everything looks very
+    contained. The same issue is with all the pages."
+
+   Measured before touching anything. The site was designed and
+   approved at 1440 and it held there. Above that it stopped
+   responding: the wrap is capped at 1180px, every display size
+   is a clamp whose top is reached by 1240px, and the hero copy
+   column was a fixed 48rem box whose left padding grows with the
+   viewport, so the TEXT inside it got narrower as the screen got
+   wider. On a 1536 laptop (a 1080p screen at 125%) the headline
+   ran five lines in 482px; at 1920 it ran seven lines in 278px
+   with 370px of dark on either side of everything else.
+
+   Three things, all above 1440 so the approved layout is
+   untouched below it:
+
+     1. --wrap grows with the viewport, 86vw capped at 1640, so
+        the content holds the same share of the screen it holds
+        at 1440 instead of a shrinking one.
+     2. The root font size eases from 100% at 1440 to 112.5% at
+        1920 (in build.py's page shell, because it is the html
+        element and this file must not style anything outside
+        .oyss). Every rem measure on the site scales with it, so
+        columns, leads and buttons grow together and the page
+        reads as the same design, larger, rather than the same
+        design with wider margins.
+     3. The display sizes keep climbing instead of stopping at
+        their 1240px cap.
+
+   The hero copy column's box is gone entirely (section 29); the
+   measure now lives on the headline and the lead, where it
+   always should have.
+   ============================================================ */
+
+.oyss .reel .display { max-width: 14ch; }
+
+@media (min-width: 1441px) {
+  .oyss {
+    --wrap: clamp(1180px, 86vw, 1640px);
+    --t-display: clamp(4.5rem, 2.2rem + 2.6vw, 5rem);
+    --t-heading: clamp(2.35rem, 1.1rem + 1.4vw, 2.75rem);
+  }
+  /* the home hero only: .reel--page and .reel--short set their own size
+     at the same specificity, and this rule is later in the file */
+  .oyss .reel--spot .display { font-size: clamp(4.2rem, 2rem + 2.4vw, 4.8rem); }
+  .oyss .reel .lead { max-width: 32rem; }
+}
+
+
+/* ---- 47.2 THE FILM, AS THE SECTION THAT SELLS ----------------
+   "This is lamely done, 'Play the film 2 min 2 sec', all these
+    crappy wording, no real exciting copy done. This is the
+    section which helps in converting majority of the people."
+
+   The film is the studio's own two minute pitch and it sat on
+   the page as a labelled object: a neutral heading, a duration
+   and a note about captions. Nothing on it asked anyone to press
+   play, and nothing after it asked anyone to do anything.
+
+   Now it is built like the thing it is. The head makes the case
+   for pressing play. The run order under the picture names the
+   film's own six chapters, in its own words, and each one starts
+   the film at that point, so a reader who will not sit through
+   two minutes can go straight to the night, or to what they
+   keep. And the section closes with the next step, because the
+   moment the film ends is the warmest a reader gets on this page.
+   ------------------------------------------------------------ */
+
+.oyss .videoblock__label { font-size: clamp(1.2rem, .9rem + .9vw, 1.7rem); }
+
+.oyss .filmcues {
+  margin-top: clamp(18px, 2.4vw, 30px);
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0 clamp(14px, 1.8vw, 28px);
+  border-top: 1px solid rgba(31, 30, 29, .14);
+}
+.oyss .filmcue {
+  /* grid, not block: a button centers its content vertically by default,
+     so a two line cue sat higher than a one line one */
+  display: grid; align-content: start; justify-items: start;
+  width: 100%;
+  padding: 1rem 0 .3rem;
+  border: 0; background: none; cursor: pointer;
+  text-align: left; color: var(--ink);
+  font: inherit;
+  position: relative;
+}
+/* The rule above each cue is the marker: red on the cue that is
+   playing, red on hover, and the rest a hairline. */
+.oyss .filmcue::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: -1px;
+  height: 3px; background: var(--red);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 420ms var(--fade-up);
+}
+.oyss .filmcue:hover::before, .oyss .filmcue.on::before { transform: scaleX(1); }
+.oyss .filmcue__t {
+  display: block;
+  font-family: var(--serif); font-weight: 600;
+  font-size: var(--t-eyebrow); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.oyss .filmcue__n {
+  display: block; margin-top: .3rem;
+  font-family: var(--serif); font-weight: 700;
+  font-size: 1rem; line-height: 1.25; letter-spacing: -.005em;
+}
+.oyss .filmcue:hover .filmcue__n, .oyss .filmcue.on .filmcue__n { color: var(--red); }
+.oyss .filmcue:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.oyss .filmcues__hint { margin-top: .9rem; color: var(--slate); }
+
+.oyss #film .close { margin-top: clamp(40px, 5vw, 72px); }
+
+@media (max-width: 900px) {
+  .oyss .filmcues { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .oyss .filmcue { padding-bottom: .8rem; }
+  /* rows two and three need their own rule to hang the marker from */
+  .oyss .filmcue:nth-child(n+4) { border-top: 1px solid rgba(31, 30, 29, .14); }
+}
+@media (max-width: 520px) {
+  .oyss .filmcues { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(14px, 4vw, 22px); }
+  .oyss .filmcue:nth-child(n+3) { border-top: 1px solid rgba(31, 30, 29, .14); }
 }

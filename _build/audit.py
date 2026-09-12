@@ -25,7 +25,7 @@ ROOT = "http://127.0.0.1:8899/"
 PAGES = ["index.html", "experience.html", "assessment.html", "panelists.html",
          "about.html", "faq.html", "apply.html", "contact.html",
          "apply-panelist.html", "agreements/host.html", "agreements/panelist.html"]
-WIDTHS = [(390, 844), (768, 1024), (1024, 768), (1366, 768), (1440, 900)]
+WIDTHS = [(390, 844), (768, 1024), (1024, 768), (1366, 768), (1440, 900), (1536, 825), (1920, 1080)]
 SHOT_AT = [(390, 844), (1366, 768), (1440, 900)]
 
 # The probe reads computed color, so it needs to know what "behind" means when

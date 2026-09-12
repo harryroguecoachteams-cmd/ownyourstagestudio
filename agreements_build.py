@@ -158,7 +158,7 @@ HERO = """<!-- ============ HERO ============ -->
   <div class="wrap">
     <div style="max-width:44rem" data-lit>
       <p class="eyebrow">{eyebrow}</p>
-      <h1 class="display" style="font-size:clamp(1.9rem,1.4rem+2.2vw,3rem)">{title}</h1>
+      <h1 class="display" style="font-size:clamp(1.9rem,1.4rem + 2.2vw,3rem)">{title}</h1>
       <span class="pool" aria-hidden="true"></span>
       <p class="lead" style="margin-top:1.8rem;max-width:36rem">{blurb}</p>
       <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(224, 90, 90, .08)">
@@ -352,7 +352,7 @@ def sign_section(kind):
 
       <div id="sign-panel">
         <p class="eyebrow" style="color:var(--gold)">Electronic signature</p>
-        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem+1.2vw,2rem)">Sign this agreement</h2>
+        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">Sign this agreement</h2>
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem;max-width:36rem">
           Electronic signatures have the same legal force as handwritten ones under
           Florida&rsquo;s Uniform Electronic Transaction Act, Fla. Stat. &sect; 668.50.
@@ -416,7 +416,7 @@ def sign_section(kind):
 
       <div id="signed-state" hidden>
         <p class="eyebrow" style="color:var(--gold)">Signed</p>
-        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem+1.2vw,2rem)">
+        <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">
           Agreement executed
         </h2>
         <div class="sig-preview" style="margin-top:1.8rem">

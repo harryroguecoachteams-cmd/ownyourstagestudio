@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=6259e00f">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=89523346">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -156,7 +156,7 @@
            poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-build-poster.jpg"></video>
   </div>
   <div class="wrap band__copy" data-lit>
-    <h2 class="display" style="font-size:clamp(2rem,1.4rem+2.4vw,3.3rem);max-width:16ch">
+    <h2 class="display" style="font-size:clamp(2rem,1.4rem + 2.4vw,3.3rem);max-width:16ch">
       What the room actually looks like.
     </h2>
     <p class="lead" style="margin-top:1.6rem;max-width:36rem">
@@ -271,7 +271,7 @@
   </div>
   <div class="wrap band__copy" data-lit>
     <p class="eyebrow">Three months, one event</p>
-    <h2 class="display" style="font-size:clamp(1.9rem,1.35rem+2.2vw,3.1rem);max-width:18ch">
+    <h2 class="display" style="font-size:clamp(1.9rem,1.35rem + 2.2vw,3.1rem);max-width:18ch">
       What happens over three months.
     </h2>
     <p class="lead" style="margin-top:1.5rem;max-width:34rem">
@@ -417,56 +417,98 @@
 
 
 <!-- ============ 5b. THE FILM ============
-     Feedback 5.0, note 4: "This one should be a proper section
-     with headings and everything as this is one section which
-     explain what own your stage studio is about. You could
-     create a thumbnail too for the video."
+     Feedback 5.0 gave the film its own section. Feedback 6.0:
+     "This is lamely done, 'Play the film 2 min 2 sec', all these
+     crappy wording, no real exciting copy done. This is the
+     section which helps in converting majority of the people."
 
-     It was a bare figure at the tail of the section above, which
-     made a two minute film that explains the whole business read
-     as an afterthought to a delivery note. It is its own section
-     now, with the heading it earns.
+     Fair. The film is the studio's own two minute pitch and it
+     was presented as a labelled object: a neutral heading, a
+     running time, a note about captions. Nothing asked anyone to
+     press play and nothing after it asked anyone to do anything.
 
-     Still no autoplay and still preload="none": it runs two
-     minutes twenty two and it has a voice over, so it is
-     something a reader chooses. Until they press play the
-     browser fetches a poster and nothing else.
+     Now the head makes the case for pressing play, in the film's
+     own terms (every phase named below is a title card in it).
+     The run order under the picture is the film's six chapters,
+     each one a button that starts the film at that point, so a
+     reader who will not sit through two minutes can go straight
+     to the night, or to what they keep. And the section ends on
+     the next step, because the moment the film ends is the
+     warmest a reader gets on this page.
 
-     The poster is her own opening title card rather than
-     something drawn over the top of it. The film has its own
-     design language and putting the site's furniture on the
-     front of it would only make the two disagree. What was
-     added is the thing a poster frame actually needs, which is
-     a play control you can see: Chrome's native one is a small
-     triangle in the bottom corner and reads as a still image. -->
+     Still no autoplay and still preload="none": it has a voice
+     over, so it is something a reader chooses. Until they press
+     play, or a cue, the browser fetches a poster and nothing
+     else. The cue times were taken from the film's own audio
+     track, sentence by sentence, not guessed. -->
 <section class="bay paper" id="film">
   <div class="wrap">
     <div class="filmhead" data-lit>
       <div>
-        <p class="eyebrow eyebrow--gold">The studio, in two minutes</p>
-        <h2>What Own Your Stage Studio actually does.</h2>
+        <p class="eyebrow eyebrow--gold">Two minutes, start to finish</p>
+        <h2>Watch a stage get built around one expert.</h2>
       </div>
       <p class="lead">
-        The whole thing end to end: what the problem is, what gets built, what happens on
-        the night, and what you are left holding ninety days later.
+        From the first conversation to the night the light comes up: the Authority
+        Blueprint, the panel we cast, the launch kit your audience receives, the production
+        itself, and what you are still holding ninety days later. Shown, not described.
       </p>
     </div>
 
     <div class="videoblock" data-lit data-cue="2">
       <video playsinline preload="none" controls
              poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer-poster.jpg"
-             aria-label="Own Your Stage Studio explainer film, two minutes and twenty two seconds, with captions on the picture.">
+             aria-label="Own Your Stage Studio film, two minutes, with captions on the picture.">
         <source src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/explainer.mp4" type="video/mp4">
       </video>
       <button class="videoblock__play" type="button">
         <span class="videoblock__ico" aria-hidden="true"></span>
-        <span class="videoblock__label">Play the film<b>2 min 22</b></span>
+        <span class="videoblock__label">Watch the film<b>Two minutes, captions on</b></span>
       </button>
     </div>
 
-    <p class="caption videoblock__note" data-lit data-cue="3">
-      Captions are on the picture, so it reads with the sound off.
-    </p>
+    <div class="filmcues" data-lit data-cue="3" aria-label="The film, chapter by chapter">
+      <button class="filmcue" type="button" data-t="0">
+        <span class="filmcue__t">0:00</span>
+        <span class="filmcue__n">Why good work stays unknown</span>
+      </button>
+      <button class="filmcue" type="button" data-t="46">
+        <span class="filmcue__t">0:46</span>
+        <span class="filmcue__n">The Authority Blueprint</span>
+      </button>
+      <button class="filmcue" type="button" data-t="57">
+        <span class="filmcue__t">0:57</span>
+        <span class="filmcue__n">Casting the panel</span>
+      </button>
+      <button class="filmcue" type="button" data-t="68">
+        <span class="filmcue__t">1:08</span>
+        <span class="filmcue__n">The launch kit</span>
+      </button>
+      <button class="filmcue" type="button" data-t="84">
+        <span class="filmcue__t">1:24</span>
+        <span class="filmcue__n">Showtime</span>
+      </button>
+      <button class="filmcue" type="button" data-t="101">
+        <span class="filmcue__t">1:41</span>
+        <span class="filmcue__n">What you keep</span>
+      </button>
+    </div>
+    <p class="caption filmcues__hint" data-lit data-cue="3">Choose a chapter to start the film there.</p>
+
+    <div class="close" data-lit data-cue="4">
+      <p class="close__t">If that is the stage you want, the application takes about eight minutes.</p>
+      <div class="close__aside">
+        <p class="close__m">
+          It asks what you do, who already knows you for it, and what you want to be known
+          for next. No card, no payment, and applying commits you to nothing. The studio
+          team reads every one.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href="/apply">Apply to host a panel</a>
+          <a class="cue" href="/assessment">Not sure yet? Take the assessment</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -619,7 +661,7 @@
 <section class="dark stage stage--plate" style="padding:clamp(90px,12vh,140px) 0 0;overflow:hidden;position:relative">
   <div class="wrap center">
     <div data-lit>
-      <h2 class="display" style="font-size:clamp(2.1rem,1.4rem+3vw,3.8rem);max-width:20ch;margin:0 auto">
+      <h2 class="display" style="font-size:clamp(2.1rem,1.4rem + 3vw,3.8rem);max-width:20ch;margin:0 auto">
         Stop getting ready. Start getting recognized.
       </h2>
       <span class="pool" aria-hidden="true"></span>
@@ -714,5 +756,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=6259e00f"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=89523346"></script>
 

@@ -1356,13 +1356,48 @@
          rather than a picture with a scrubber under it. */
       clip.controls = false;
 
-      btn.addEventListener('click', function () {
+      function play(at) {
         block.classList.add('is-playing');
         clip.controls = true;
+        /* preload="none": before the first press there is no metadata to
+           seek in, so the seek waits for it. play() is what starts the
+           fetch, and loadedmetadata lands before the first frame does. */
+        if (typeof at === 'number') {
+          if (clip.readyState >= 1) { clip.currentTime = at; }
+          else {
+            clip.addEventListener('loadedmetadata', function () { clip.currentTime = at; }, { once: true });
+          }
+        }
         var p = clip.play();
         if (p && p.catch) p.catch(function () {});
         clip.focus({ preventScroll: true });
-      });
+      }
+      btn.addEventListener('click', function () { play(); });
+
+      /* Feedback 6.0: the run order. Each cue under the picture is one of
+         the film's own chapters and starts it there. The cue that is
+         playing carries the marker, so the strip doubles as a progress
+         bar in the film's own vocabulary. */
+      var section = block.closest('section') || document;
+      var cues = [].slice.call(section.querySelectorAll('.filmcue'));
+      if (cues.length) {
+        cues.forEach(function (cue) {
+          cue.addEventListener('click', function () {
+            play(parseFloat(cue.getAttribute('data-t')) || 0);
+            block.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          });
+        });
+        var mark = function () {
+          var t = clip.currentTime, live = null;
+          cues.forEach(function (cue) {
+            if (t >= (parseFloat(cue.getAttribute('data-t')) || 0)) live = cue;
+          });
+          cues.forEach(function (cue) { cue.classList.toggle('on', cue === live && !clip.paused); });
+        };
+        clip.addEventListener('timeupdate', mark);
+        clip.addEventListener('play', mark);
+        clip.addEventListener('pause', mark);
+      }
 
       /* If it is paused back to the very start, the poster is on
          screen again and the control belongs back with it. */
@@ -1370,6 +1405,7 @@
         clip.currentTime = 0;
         clip.controls = false;
         block.classList.remove('is-playing');
+        cues.forEach(function (cue) { cue.classList.remove('on'); });
       });
     });
   })();

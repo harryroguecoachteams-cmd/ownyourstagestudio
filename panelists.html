@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=6259e00f">
+<link rel="stylesheet" href="assets/oyss.css?v=89523346">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -25,6 +25,14 @@
    and never reaches the GHL block. */
 html, body { margin: 0; padding: 0; }
 body { background: #F8F5F2; }
+/* THE WIDE SCREEN (feedback 6.0). The site was approved at 1440 and stopped
+   responding above it. From 1440 to 1920 the root eases 100% -> 112.5%, so
+   every rem measure in oyss.css (type, leads, columns, buttons) grows with
+   the screen; the content width grows with it via --wrap (oyss.css section
+   47). Percentages, not px, so a reader's own browser font size still
+   counts. It is the html element, so it lives in the shell, not the brand
+   file, which may style nothing outside .oyss. */
+html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </style>
 </head>
 <body>
@@ -333,7 +341,7 @@ body { background: #F8F5F2; }
         <div class="figure__value">$1,497</div>
         <p class="figure__label">Standard price</p>
         <div class="rule" style="margin:1.8rem 0"></div>
-        <div class="figure__value" style="font-size:clamp(2rem,1.4rem+2vw,2.8rem)">$997</div>
+        <div class="figure__value" style="font-size:clamp(2rem,1.4rem + 2vw,2.8rem)">$997</div>
         <p class="figure__label">If you decide within twenty four hours of the event</p>
         <div class="rule" style="margin-top:1.8rem"></div>
       </div>
@@ -346,16 +354,16 @@ body { background: #F8F5F2; }
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
     <div class="close" data-lit>
-      <div>
-        <p class="close__t">Stand on one of our stages before you decide whether you want one built around you.</p>
+      <p class="close__t">Stand on one of our stages before you decide whether you want one built around you.</p>
+      <div class="close__aside">
         <p class="close__m">
           Panelists see the production from the inside, which is the honest way to evaluate
           a studio. The application is short and applications are kept on file for twelve
           months.
         </p>
-      </div>
-      <div class="actions">
-        <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
+        <div class="actions">
+          <a class="btn btn--primary" href="apply-panelist.html">Apply to be a panelist</a>
+        </div>
       </div>
     </div>
   </div>
@@ -414,7 +422,7 @@ body { background: #F8F5F2; }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=6259e00f"></script>
+<script src="assets/oyss.js?v=89523346"></script>
 <script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
   barTitle: 'Find out where you stand first.',
