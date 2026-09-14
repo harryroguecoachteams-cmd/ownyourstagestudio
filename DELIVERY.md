@@ -1753,3 +1753,72 @@ Unchanged, and every one of them is a launch blocker:
 - **The domain is not connected.**
 - The signature block on both agreements is a front-end demo.
 - No testimonials, no Spotlight Call calendar embed, no legal review.
+
+
+# The spotlight reveal in the hero, 14 September 2026
+
+One change: the home hero now runs the searching spotlight clip Harsh
+generated to the 12 September brief,
+`Spotlight_revealing_person_in_dark_20260914121410_gwr_video_mvp.mp4`
+(1080x1920, 24fps, 8.0s). The lamp fades up on an empty floor, the beam
+blooms and settles, and the figure resolves inside the light at 4.4s and
+holds to the end. Nothing else on the site moved.
+
+## The cut
+
+Whole clip, no trim: the search is the content this time, where the erasio
+cut had five seconds of nothing to lose. Timed from the frames, not the eye:
+the figure resolves between 4.4s and 5.0s (centre-body luma 148 to 44 as the
+silhouette covers the pool), and from 5.0s to 8.0s she holds while the rim
+light keeps building on her.
+
+**It loops the same way feedback 4.0's did.** Raw, the first and last frames
+differ by 53 of 255, the whole subject. So the tail dissolves into the head,
+0.9s, out of the clip's own frames, and because the head is the lamp coming
+up from black the dissolve reads as the light going down on her and coming
+back up to search again. The seam measures 0.77 of 255. 7.1 seconds, 1.1MB.
+
+The wrap sits at the START of the file rather than the end, for the poster:
+frame 0 of the source is near black (mean luma 6), and a slow connection
+would show that as the hero. Leading with the wrap makes the poster and the
+reduced-motion still the lit woman. Built by `_art/hero_reveal.py`.
+
+No watermark this time. Checked the way the erasio clips were caught: a high
+pass of the temporal mean over the hold peaks at 1.7 luma units outside the
+figure, which is noise. No delogo box.
+
+## New file names
+
+`hero-reveal.mp4`, `hero-reveal-poster.jpg`, `hero-reveal-still.jpg` replace
+the three `hero-spotlight` files, which are deleted. Media is not content
+hashed the way `oyss.css` and `oyss.js` are, and GitHub Pages holds an mp4 at
+a given URL long enough that the old clip would have kept arriving for anyone
+who had already seen it.
+
+## The framing
+
+This figure stands lower and taller than the erasio one: head at 35.5% of the
+source height, feet at 88%, the pool's brightest row at 81% (measured as the
+silhouette against the lit haze). The old `object-position: 50% 58%` cut her
+off at the ankles on a 1536x825 laptop and at the shins at 1920x1080.
+
+- **Desktop, 70%.** Head and feet in the panel from 1280x720 to 1920x1080;
+  the head lands 160 to 243px down the screen, clear of the masthead.
+- **Stacked, 40%** (new rule under 860px). The band is wide and short, so it
+  shows 748 of the source's 1920 rows on a 390x844 phone and 489 on a
+  768x1024 tablet; anything above about 50% started the band at or below
+  her head. 40% opens it at 469 on the phone, 407 on the tablet, 557 on an
+  820x1180 iPad Air and 635 on a phone turned sideways. The feet are the
+  price at this width, not the head.
+
+Measured with Playwright at eleven viewports, then screenshotted at six.
+
+## Verified
+
+`python _build/audit.py`: **77 probes, 0 findings.** The clip autoplays,
+reports `loop: true`, and wraps at 7.08s in Chrome.
+
+## Still not done
+
+Unchanged: endpoints null, no payment path, no domain, demo signatures, no
+testimonials, calendar or legal review.

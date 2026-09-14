@@ -2741,23 +2741,27 @@
    masthead blend it needs.
    ============================================================ */
 
-/* ---- 36.1 THE HERO, ON ANNETTE'S FOOTAGE --------------------
-   The clip she supplied is 1080x1920. A 9:16 frame is the one
-   shape the split hero was already the right answer for: the
-   media panel is roughly 0.77:1, so cover crops the height by
-   about a fifth and nothing that matters leaves the frame. The
-   figure sits between 40% and 73% of the source height and the
-   pool at 74%, which is what object-position is protecting.
+/* ---- 36.1 THE HERO, ON THE SPOTLIGHT REVEAL -----------------
+   The clip is 1080x1920. A 9:16 frame is the one shape the
+   split hero was already the right answer for: the media panel
+   is roughly 0.8:1, so cover crops the height by about a third
+   and nothing that matters leaves the frame.
 
-   Trimmed to start at 3.5s: the stage is already lit when the
-   page loads, the figure resolves 1.4s later and then holds.
-   The original cut spent five seconds on an empty room, which
-   is longer than anybody looks at a hero.
+   14 September's clip (assets/media/hero-reveal.mp4, built by
+   _art/hero_reveal.py) puts the figure lower and taller than
+   the erasio cut did: measured, her head is at 35.5% of the
+   source height, her feet at 88%, the pool's brightest row at
+   81%. The old 58% cut her off at the ankles on a 1536x825
+   laptop and at the shins at 1920x1080. 70% keeps head and feet
+   in at every desktop size from 1280x720 up: at 1920x1080 the
+   visible band is 500..1705 of 1920, and the head sits 64px
+   under the masthead's bottom edge. The beam's apex was never
+   in the frame, so what the extra top crop costs is haze.
    ------------------------------------------------------------ */
 
 .oyss .reel--spot .reel__media video,
 .oyss .reel--spot .reel__media img {
-  object-position: 50% 58%;
+  object-position: 50% 70%;
 }
 /* The room is darker than --ink at the edges, so the panel needs
    its own ground or the seam shows before the poster arrives. */
@@ -3348,6 +3352,16 @@
    button now clears the fold by about 50px. */
 @media (max-width: 860px) {
   .oyss .reel--spot .reel__media { height: clamp(260px, 34svh, 420px); }
+  /* Stacked, the panel is a wide short band and cover is width
+     constrained, so on a 390x844 phone it shows 748 of the source's
+     1920 rows and on a 768x1024 tablet 489. Anything above about 50%
+     starts at or below the head (y 682). 40% opens the band at 469
+     on the phone, 407 on the tablet, 557 on an 820x1180 iPad Air and
+     635 on a phone turned sideways: the head with room over it, then
+     as much of her as the band can hold. The feet are the price at
+     this width, not the head. Measured with Playwright at all five. */
+  .oyss .reel--spot .reel__media video,
+  .oyss .reel--spot .reel__media img { object-position: 50% 40%; }
 }
 @media (max-width: 620px) {
   .oyss .reel--spot .reel__media { height: clamp(250px, 32svh, 360px); }

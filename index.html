@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=89523346">
+<link rel="stylesheet" href="assets/oyss.css?v=2d7d99bc">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -71,11 +71,14 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
      right and a full-width letterbox would not be: a 9:16 frame
      in a near-square panel loses almost nothing.
 
-     Feedback 4.0 rolled this back to the earlier footage: the
-     stage is lit on load, the figure resolves 1.4s in, then it
-     holds. Built by _art/hero_loop.py, which cross fades the
-     tail onto the head so it can loop without the figure
-     vanishing every four seconds.
+     14 September: the searching spotlight reveal, the clip
+     Harsh generated to the 12 September brief. The lamp fades
+     up on an empty floor, the beam blooms and settles, and the
+     figure resolves inside the light at 4.4s and holds. Built
+     by _art/hero_reveal.py, which cross fades the tail onto the
+     head so it can loop: the light goes down on her and comes
+     back up to search again. The poster and the still are the
+     lit frame, not the black one the source opens on.
 
      The headline carries the belief and the lead carries the
      mechanics, so a stranger has the whole offer before
@@ -107,10 +110,10 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 
   <div class="reel__media" aria-hidden="true">
     <video autoplay muted playsinline loop preload="metadata"
-           poster="assets/media/hero-spotlight-poster.jpg">
-      <source src="assets/media/hero-spotlight.mp4" type="video/mp4">
+           poster="assets/media/hero-reveal-poster.jpg">
+      <source src="assets/media/hero-reveal.mp4" type="video/mp4">
     </video>
-    <img class="reel__still" src="assets/media/hero-spotlight-still.jpg" alt="">
+    <img class="reel__still" src="assets/media/hero-reveal-still.jpg" alt="">
   </div>
 </section>
 
@@ -775,7 +778,7 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=89523346"></script>
+<script src="assets/oyss.js?v=2d7d99bc"></script>
 <script>OYSS.prompts({
   after: '.figure__value',
   barTitle: 'Ready to host your own panel?',
