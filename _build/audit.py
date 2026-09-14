@@ -15,7 +15,8 @@ broken on this project before:
     python _build/audit.py              probe every page at every width
     python _build/audit.py --shots      also write screenshots to _build/shots
 
-Serve the site first:  python -m http.server 8899
+Serve the site first:  python _build/serve.py . 8899
+(not python -m http.server: it ignores Range headers and video seeking stalls)
 """
 
 import sys, json, pathlib
