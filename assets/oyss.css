@@ -6062,7 +6062,7 @@
 /* STUDIO rendered at 7.4px in the bar, a smudge rather than a word.
    In the bar it is set larger and tracked tighter, so it still sits
    inside the width of STAGE. */
-.oyss .masthead .lockup__row--studio { font-size: .35em; letter-spacing: .5em; margin-right: -.5em; margin-top: .52em; }
+.oyss .masthead .lockup__row--studio { font-size: max(.35em, 9px); letter-spacing: .5em; margin-right: -.5em; margin-top: .52em; }
 
 /* A field that follows a two column row of fields had no gap above it. */
 .oyss .cols-2 + .field { margin-top: 1.5rem; }
