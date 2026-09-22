@@ -19,7 +19,7 @@
    There is no global reset and no bare element styling.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Sacramento&family=Herr+Von+Muellerhoff&display=swap');
 
 .oyss {
   /* --- THE FIVE THE BRAND SHEET NAMES ---------------------------------
@@ -5625,3 +5625,486 @@
   .oyss .filmcues { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(14px, 4vw, 22px); }
   .oyss .filmcue:nth-child(n+3) { border-top: 1px solid rgba(31, 30, 29, .14); }
 }
+
+
+/* ============================================================
+   48. FEEDBACK 7.0
+   ------------------------------------------------------------
+   Eleven notes from a Google Doc of 23 September 2026. The ones
+   that land here: the logo redrawn to Annette's own artwork
+   (note 3), the footer rebuilt as her silk banner (note 5), the
+   sections her live GHL page carried that this site did not
+   (note 10), the formats that stop the studio reading as a
+   virtual-event-only company (note 1), the legal pages, and the
+   text message consent her A2P registration depends on.
+   ============================================================ */
+
+
+/* ---- 48.1 THE STACKED LOCKUP --------------------------------
+   Drawn from the reference Annette sent: OWN YOUR light and wide,
+   as wide as the word under it; STAGE bold with the red A; STUDIO
+   red, tracked out and centered; the tagline under all of it where
+   there is room to read it. Every row is live text, so it scales
+   with the type and stays sharp at any size.
+
+   The size of the whole thing is one number, the font-size on
+   .lockup--stack, and every row is an em of it. The masthead, the
+   phone bar and the footer each set that one number.
+   ------------------------------------------------------------ */
+.oyss .lockup--stack { display: inline-flex; align-items: center; font-size: 1.72rem; line-height: 1; }
+.oyss .lockup--stack .lockup__type {
+  display: inline-flex; flex-direction: column; align-items: center;
+  font-family: var(--serif); text-transform: uppercase;
+  color: var(--ivory);
+}
+.oyss .lockup__row { display: block; white-space: nowrap; line-height: 1; }
+/* Trailing tracking is paid back with a negative margin, or every
+   tracked row sits a letter-space to the left of true center. */
+.oyss .lockup__row--own {
+  font-size: .5em; font-weight: 400;
+  letter-spacing: .122em; margin-right: -.122em;
+}
+.oyss .lockup__row--stage {
+  font-size: 1em; font-weight: 700;
+  letter-spacing: .012em; margin-right: -.012em;
+  line-height: .8; margin-top: .14em;
+}
+.oyss .lockup__row--studio {
+  font-size: max(.27em, 8px); font-weight: 600;
+  letter-spacing: .66em; margin-right: -.66em;
+  color: var(--rose);
+  margin-top: .62em;
+}
+.oyss .lockup__tag {
+  display: block; margin-top: 1.1em;
+  font-family: var(--sans); font-weight: 400; text-transform: none;
+  font-size: max(.215em, 12px); letter-spacing: .01em; white-space: nowrap;
+  color: var(--ivory-70);
+}
+/* The A sits on the baseline of STAGE, apex level with the caps. */
+.oyss .lockup--stack .mark { width: .8em; height: .725em; margin: 0 .04em 0 .03em; }
+
+/* On a light ground: the primary, as the reference prints it. */
+.oyss .lockup--light .lockup__type { color: #1F1E1D; }
+.oyss .lockup--light .lockup__row--studio { color: var(--red); }
+.oyss .lockup--light .lockup__tag { color: #4A4542; }
+.oyss .lockup--light .mark__a,
+.oyss .lockup--light .mark__arch { fill: var(--red); }
+
+/* The bar grows by six pixels to hold three rows, and no more. */
+.oyss .masthead__inner { height: 84px; }
+.oyss .masthead .lockup--stack { font-size: 1.72rem; }
+@media (max-width: 1040px) {
+  .oyss .masthead nav { top: 100%; }
+}
+@media (max-width: 700px) {
+  .oyss .masthead__inner { height: 70px; }
+  .oyss .masthead .lockup--stack { font-size: 1.42rem; }
+}
+
+
+/* ---- 48.2 THE FOOTER, ON SILK -------------------------------
+   Annette's mockup, built: a warm white banner, red silk sweeping
+   across it, the lockup and its tagline top left, REAL / EXPERTISE
+   / BIGGER / OPPORTUNITIES over a short red rule top right, and
+   Your Voice Matters in a red signature script under them.
+
+   The silk is a generated plate (assets/media/silk-banner.jpg),
+   tinted so its white IS this ground. The fabric crosses the full
+   width with its upper edge between 44 and 59 percent of the
+   plate's height, and the plate is always shown at the full width
+   of the screen with the same slice in view (8 to 70 percent), so
+   the type sits on clear ground at every width. That is why the
+   banner's height is a vw figure: it keeps the slice fixed.
+
+   The links live below the banner on the same warm ground, so no
+   link's contrast depends on where it lands on the fabric.
+   ------------------------------------------------------------ */
+.oyss .footer--silk {
+  background: #F7F1ED;              /* the tinted plate's own white */
+  color: #4A4542;
+  padding: 0 0 2.2rem;
+  position: relative;
+  overflow: hidden;
+}
+.oyss .footer__banner {
+  position: relative;
+  isolation: isolate;
+  min-height: max(440px, 41.3vw);
+}
+.oyss .footer__silk {
+  position: absolute; inset: 0;
+  z-index: -1;
+  background: url('media/silk-banner.jpg') 50% 21% / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 76%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 76%, transparent 100%);
+  pointer-events: none;
+}
+.oyss .footer__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 2rem;
+  padding-top: clamp(40px, 4.6vw, 72px);
+  padding-bottom: 2rem;
+}
+.oyss .footer .lockup--stack { display: inline-flex; padding: 0; font-size: clamp(2.5rem, 1.8rem + 2.2vw, 4rem); }
+.oyss .footer__words { display: grid; justify-items: start; padding-top: .4rem; }
+.oyss .footer__claims {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(.8rem, .7rem + .3vw, .95rem);
+  letter-spacing: .2em; text-transform: uppercase; line-height: 1.75;
+  color: #3A3634;
+}
+.oyss .footer__claims span { display: block; }
+.oyss .footer__rule { display: block; width: 58px; height: 2px; background: var(--red); margin-top: 1.1rem; border-radius: 2px; }
+.oyss .footer__voice {
+  font-family: 'Herr Von Muellerhoff', var(--script);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 2.1rem + 2.2vw, 4.4rem);
+  line-height: .74;
+  color: var(--red);
+  margin-top: clamp(20px, 2.2vw, 34px);
+  transform: rotate(-4deg);
+  transform-origin: left center;
+}
+/* the stepped indent of the mockup: each word starts to the right
+   of the one above it */
+.oyss .footer__voice span { display: block; white-space: nowrap; }
+.oyss .footer__voice span:nth-child(2) { padding-left: .5em; }
+.oyss .footer__voice span:nth-child(3) { padding-left: 1em; }
+
+.oyss .footer__nav { position: relative; }
+.oyss .footer--silk .footer__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid rgba(185, 28, 28, .16);
+}
+.oyss .footer--silk h4 { color: #B91C1C; }
+.oyss .footer--silk .footer__grid a { color: #4A4542; }
+.oyss .footer--silk .footer__grid a:hover { color: #1F1E1D; }
+.oyss .footer--silk .footer__base {
+  border-top-color: rgba(185, 28, 28, .16);
+  color: #5E5753;
+  margin-top: clamp(30px, 3.2vw, 48px);
+}
+.oyss .footer--silk .footer__note { color: #B91C1C; font-style: normal; font-family: var(--serif); font-weight: 600; font-size: 1rem; }
+
+@media (max-width: 1040px) {
+  .oyss .footer--silk .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Stacked and centered below 900px, where two columns no longer
+   leave the script clear of the fabric. The plate becomes a band
+   under the type, shown wider than the screen so its folds keep
+   their size. */
+@media (max-width: 900px) {
+  .oyss .footer__banner { min-height: 0; }
+  .oyss .footer__hero {
+    grid-template-columns: 1fr;
+    justify-items: center; text-align: center;
+    gap: 2rem;
+    padding-bottom: calc(min(40vw, 250px) + 1.5rem);
+  }
+  .oyss .footer__words { justify-items: center; }
+  .oyss .footer__claims span { display: inline; }
+  .oyss .footer__claims span + span::before { content: ' '; }
+  .oyss .footer__claims span:nth-child(3)::before { content: '\A'; white-space: pre; }
+  .oyss .footer__claims { max-width: 17rem; }
+  .oyss .footer__voice { transform: rotate(-4deg); transform-origin: center; font-size: clamp(3.2rem, 2.4rem + 3vw, 4.2rem); }
+  .oyss .footer__voice span:nth-child(2) { padding-left: .4em; }
+  .oyss .footer__voice span:nth-child(3) { padding-left: .8em; }
+  .oyss .footer__silk {
+    top: auto; height: min(44vw, 280px);
+    background-position: 0 100%; background-size: 130% auto;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 78%, transparent 100%);
+  }
+}
+@media (max-width: 420px) {
+  .oyss .footer--silk .footer__grid { grid-template-columns: 1fr; }
+}
+@media print { .oyss .footer__silk { display: none; } }
+
+
+/* ---- 48.3 THE FACTS LABEL ------------------------------------ */
+.oyss .facts .facts__k {
+  flex-basis: 100%;
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+}
+/* the label takes its own line, so the first fact after it opens the
+   row without a separator dot in front of it */
+.oyss .facts .facts__k + span::before { display: none; }
+
+
+/* ---- 48.4 IF THIS SOUNDS LIKE YOU ---------------------------- */
+.oyss .sounds__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 84px);
+  align-items: start;
+}
+.oyss .sounds h2 { margin-top: .7rem; max-width: 18ch; }
+.oyss .sounds__list { margin-top: 1.9rem; max-width: 36rem; }
+.oyss .sounds .sounds__list li { color: rgba(248, 245, 242, .82); }
+.oyss .sounds__turn {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.25rem, 1.05rem + .8vw, 1.65rem); line-height: 1.25;
+  color: var(--ivory); margin-top: 2.2rem; max-width: 24ch;
+}
+.oyss .sounds .sounds__alt { color: var(--ivory-70); margin-top: 1.3rem; }
+.oyss .sounds__alt a { color: var(--ivory); border-bottom: 1px solid var(--gold); }
+@media (max-width: 960px) { .oyss .sounds__grid { grid-template-columns: 1fr; } }
+
+/* A white sheet inside a dark section is a light island: every
+   dark-context color rule that would otherwise reach into it is
+   put back to its light value here, one specificity step higher. */
+.oyss .dark .sheet, .oyss .stage .sheet { color: var(--navy); }
+.oyss .dark .sheet .field__label, .oyss .stage .sheet .field__label { color: var(--slate); }
+.oyss .dark .sheet .caption, .oyss .stage .sheet .caption { color: var(--slate); }
+.oyss .dark .sheet .eyebrow, .oyss .stage .sheet .eyebrow { color: #B91C1C; }
+.oyss .dark .sheet .lead, .oyss .stage .sheet .lead { color: var(--slate); }
+.oyss .dark .sheet .notice, .oyss .stage .sheet .notice { color: var(--slate); background: rgba(185, 28, 28, .05); }
+.oyss .sheet__done {
+  font-family: var(--serif); font-weight: 700;
+  font-size: 1.4rem; line-height: 1.3; margin-top: .6rem; color: var(--navy);
+}
+
+
+/* ---- 48.5 TEXT MESSAGE CONSENT --------------------------------
+   The two boxes Annette's own GHL forms carry, worded as hers are,
+   because that is the language an A2P 10DLC texting campaign is
+   reviewed against. Both optional, both unchecked, never required to
+   submit: consent to texts cannot be a condition of anything.
+   ------------------------------------------------------------ */
+.oyss .consent { margin-top: 1.8rem; display: grid; gap: .95rem; }
+.oyss .consent .check { font-size: .8125rem; line-height: 1.55; color: var(--slate); }
+.oyss .check + .check.consent__box { margin-top: 0; }
+.oyss .legalline { margin-top: .9rem; font-size: var(--t-caption); color: var(--slate); }
+.oyss .legalline a { color: var(--navy); border-bottom: 1px solid var(--ash); }
+.oyss .legalline a:hover { border-color: var(--red); }
+.oyss .legalline span { margin: 0 .45rem; color: var(--ash); }
+
+
+/* ---- 48.6 THE THREE SHIFTS ----------------------------------- */
+.oyss .shifts__head { max-width: 46rem; }
+.oyss .shifts__head h2 { margin-top: .6rem; }
+.oyss .shifts__head .lead { margin-top: 1.1rem; }
+.oyss .shifts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3.4vw, 56px);
+  margin-top: clamp(36px, 4.4vw, 60px);
+}
+.oyss .shift { border-top: 3px solid var(--red); padding-top: 1.4rem; }
+.oyss .shift__n {
+  display: block; font-family: var(--serif); font-weight: 800;
+  font-size: clamp(2.2rem, 1.8rem + 1.4vw, 3rem); line-height: 1; color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.oyss .shift__t {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.15rem, 1.02rem + .5vw, 1.4rem); line-height: 1.25;
+  margin-top: .9rem; color: var(--navy); text-wrap: balance;
+}
+.oyss .shift__b { margin-top: .8rem; color: var(--slate); }
+.oyss .shifts__close {
+  margin-top: clamp(34px, 4.2vw, 58px);
+  font-size: var(--t-lead); line-height: 1.5; max-width: 44rem; color: var(--navy);
+}
+.oyss .shifts__close b { color: var(--red); font-weight: 700; }
+@media (max-width: 860px) { .oyss .shifts { grid-template-columns: 1fr; } }
+
+
+/* ---- 48.7 THE MICROPHONE BAND ---------------------------------
+   The picture is the microphone in the left third and dark space
+   in the right two, so the scrim and the copy flip to the right.
+   ------------------------------------------------------------ */
+.oyss .band--mic { min-height: clamp(420px, 60svh, 660px); align-items: center; }
+.oyss .band--mic .band__media img { object-position: 30% 50%; }
+.oyss .band--mic .band__media::after {
+  background:
+    linear-gradient(180deg, rgba(19, 18, 17, .30) 0%, rgba(19, 18, 17, 0) 30%,
+                            rgba(19, 18, 17, 0) 70%, rgba(19, 18, 17, .50) 100%),
+    linear-gradient(270deg, rgba(19, 18, 17, .84) 0%, rgba(19, 18, 17, .64) 34%,
+                            rgba(19, 18, 17, .12) 60%, rgba(19, 18, 17, 0) 74%);
+}
+.oyss .band--mic .band__copy { display: grid; justify-items: start; }
+@media (min-width: 900px) {
+  .oyss .band--mic .band__copy { padding-left: max(var(--gutter), 50%); }
+}
+@media (max-width: 899px) {
+  .oyss .band--mic { align-items: end; }
+  .oyss .band--mic .band__media img { object-position: 22% 40%; }
+  .oyss .band--mic .band__media::after {
+    background: linear-gradient(180deg, rgba(19, 18, 17, .10) 0%, rgba(19, 18, 17, .30) 38%,
+                                        rgba(19, 18, 17, .86) 66%, rgba(19, 18, 17, .94) 100%);
+  }
+  .oyss .band--mic .band__copy { padding-top: clamp(200px, 52vw, 320px); }
+}
+
+
+/* ---- 48.8 WHAT WE PRODUCE ------------------------------------ */
+.oyss .formats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--ash);
+  border: 1px solid var(--ash); border-radius: 3px; overflow: hidden;
+}
+.oyss .format {
+  background: var(--white);
+  padding: clamp(24px, 2.6vw, 38px);
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.oyss .format__k {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.oyss .format__t {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(1.15rem, 1.04rem + .45vw, 1.35rem); line-height: 1.22; color: var(--navy);
+}
+.oyss .format__b { color: var(--slate); font-size: 1rem; line-height: 1.6; }
+.oyss .format--flag { background: var(--navy); }
+.oyss .format--flag .format__t { color: var(--ivory); font-size: clamp(1.35rem, 1.15rem + .8vw, 1.7rem); }
+.oyss .format--flag .format__b { color: rgba(248, 245, 242, .78); }
+.oyss .format--flag .cue { margin-top: auto; padding-top: .8rem; color: var(--ivory); align-self: flex-start; }
+.oyss .formats__also {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  margin-top: clamp(36px, 4vw, 56px);
+}
+.oyss .formats__also > div { border-top: 1px solid var(--ash); padding-top: 1.2rem; }
+.oyss .formats__also h3 { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+.oyss .formats__also p { margin-top: .55rem; color: var(--slate); font-size: 1rem; }
+.oyss .formats__note { margin-top: clamp(28px, 3vw, 42px); max-width: 46rem; }
+.oyss .formats__note a { color: var(--navy); border-bottom: 1px solid var(--red); }
+@media (max-width: 960px) {
+  .oyss .formats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .oyss .formats__also { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) { .oyss .formats { grid-template-columns: 1fr; } }
+
+
+/* ---- 48.9 THE BOOKING CALENDAR --------------------------------
+   Annette's own GHL calendar, embedded. The iframe sizes itself
+   through GHL's form_embed.js; the min-height stops the column
+   collapsing to nothing while it loads.
+   ------------------------------------------------------------ */
+.oyss .booking {
+  background: var(--white);
+  border: 1px solid var(--ash); border-radius: 3px;
+  padding: clamp(8px, 1.2vw, 16px);
+  box-shadow: 0 30px 70px -50px rgba(19, 18, 17, .6);
+}
+.oyss .booking iframe { display: block; width: 100%; min-height: 720px; border: 0; overflow: hidden; }
+.oyss .booking__fallback { margin-top: .9rem; }
+.oyss .booking__fallback a { color: var(--navy); border-bottom: 1px solid var(--red); }
+
+
+/* ---- 48.10 THE LEGAL PAGES ---------------------------------- */
+.oyss .legaldoc { max-width: 46rem; margin-left: auto; margin-right: auto; }
+.oyss .legaldoc h2 {
+  font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); line-height: 1.3;
+  margin-top: 2.4rem; color: var(--navy);
+}
+.oyss .legaldoc h2:first-of-type { margin-top: 0; }
+.oyss .legaldoc p, .oyss .legaldoc li { color: #3F3A37; line-height: 1.7; }
+.oyss .legaldoc p + p, .oyss .legaldoc p + ol, .oyss .legaldoc p + ul { margin-top: 1rem; }
+.oyss .legaldoc ol, .oyss .legaldoc ul { margin-top: .8rem; padding-left: 1.4rem; }
+.oyss .legaldoc ol { list-style: lower-roman; }
+.oyss .legaldoc ul { list-style: disc; }
+.oyss .legaldoc li + li { margin-top: .45rem; }
+.oyss .legaldoc a { color: var(--red); border-bottom: 1px solid var(--gold-40); }
+.oyss .legaldoc .legaldoc__meta { font-size: var(--t-caption); color: var(--slate); margin-bottom: 2rem; }
+
+
+/* ---- 48.11 THE ASSESSMENT, SIX PILLARS ----------------------- */
+.oyss .pillars {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: rgba(228, 218, 214, .14);
+  border: 1px solid rgba(228, 218, 214, .14); border-radius: 3px;
+  margin-top: clamp(32px, 3.6vw, 48px);
+}
+.oyss .pillar { background: var(--navy); padding: 1.3rem 1.4rem 1.4rem; }
+.oyss .pillar__n {
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.oyss .pillar__t { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--ivory); margin-top: .4rem; }
+.oyss .pillar__b { font-size: .95rem; line-height: 1.55; color: rgba(248, 245, 242, .74); margin-top: .35rem; }
+@media (max-width: 860px) { .oyss .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .oyss .pillars { grid-template-columns: 1fr; } }
+
+.oyss .result__text p + p { margin-top: .9rem; }
+.oyss .result__list { margin-top: .6rem; }
+.oyss .result__list li { color: var(--navy); }
+
+
+/* ---- 48.12 THE NEW PICTURES ------------------------------------
+   Named per file, as section 35 insists, with the narrow framing
+   set from where each subject's head actually sits.
+   ------------------------------------------------------------ */
+.oyss .reel__media img[src$="panelist-live.jpg"] { object-position: 62% 40%; }
+.oyss .reel__media img[src$="house-lit.jpg"]     { object-position: center 40%; }
+.oyss .reel__media img[src$="room-annette.jpg"]  { object-position: 47% 56%; }
+@media (max-width: 1040px) {
+  .oyss .reel__media img[src$="panelist-live.jpg"] { object-position: 62% 28%; }
+  .oyss .reel__media img[src$="house-lit.jpg"]     { object-position: center 34%; }
+  .oyss .reel__media img[src$="room-annette.jpg"]  { object-position: 47% 62%; }
+}
+.oyss .essay__portrait img[src$="expert-ready.jpg"] { object-position: 50% 18%; }
+
+
+/* ---- 48.13 FIRST REVIEW PASS ----------------------------------
+   Measured on the rendered pages at 1440 and 390, not guessed.
+   ------------------------------------------------------------ */
+
+/* STUDIO rendered at 7.4px in the bar, a smudge rather than a word.
+   In the bar it is set larger and tracked tighter, so it still sits
+   inside the width of STAGE. */
+.oyss .masthead .lockup__row--studio { font-size: .35em; letter-spacing: .5em; margin-right: -.5em; margin-top: .52em; }
+
+/* A field that follows a two column row of fields had no gap above it. */
+.oyss .cols-2 + .field { margin-top: 1.5rem; }
+@media (max-width: 1040px) { .oyss .cols-2 > .field + .field { margin-top: 1.5rem; } }
+
+/* The microphone's head was cut by the band's top edge. */
+.oyss .band--mic .band__media img { object-position: 30% 12%; }
+@media (max-width: 899px) {
+  .oyss .band--mic .band__media img { object-position: 24% 6%; }
+  .oyss .band--mic .band__media::after {
+    background: linear-gradient(180deg, rgba(19, 18, 17, .05) 0%, rgba(19, 18, 17, .20) 34%,
+                                        rgba(19, 18, 17, .90) 56%, rgba(19, 18, 17, .96) 100%);
+  }
+  .oyss .band--mic .band__copy { padding-top: clamp(250px, 68vw, 380px); }
+}
+
+/* The calendar is shorter than the box it was given. */
+.oyss .booking iframe { min-height: 600px; }
+
+/* The founder plate's eyebrow sat where the gradient was still thin,
+   over the brightest part of the photograph. */
+.oyss .portrait__plate {
+  padding-top: 2.4rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(19, 18, 17, .72) 34%, rgba(19, 18, 17, .92) 100%);
+}
+.oyss .portrait__plate .eyebrow { color: #F08A8A; }
+
+/* A legal heading and its first paragraph belong together. */
+.oyss .legaldoc h2 + p, .oyss .legaldoc h2 + ol { margin-top: .5rem; }
+
+
+/* ---- 48.14 AUDIT PASS -----------------------------------------
+   Found by _build/audit.py over 14 pages at 7 widths.
+   ------------------------------------------------------------ */
+
+/* Twelve questions, twelve pips: at 26px each they ran 46px past the
+   edge of a 390px phone. They share the row now and shrink to fit,
+   never wider than they were. */
+.oyss .quiz__pips { flex: 1 1 auto; min-width: 0; justify-content: flex-end; }
+.oyss .quiz__pip { flex: 0 1 26px; min-width: 6px; }
+@media (max-width: 480px) { .oyss .quiz__pips { gap: 4px; } }
+
+/* The rule between Privacy Policy and Terms of Service is a divider,
+   but it is a glyph, so it is measured as text. */
+.oyss .legalline span { color: var(--slate); }

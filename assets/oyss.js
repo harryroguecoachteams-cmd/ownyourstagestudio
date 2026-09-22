@@ -815,9 +815,10 @@
 
   /* ==========================================================
      THE READINESS ASSESSMENT
-     Scores eight questions across the five factors named in the
-     brand discovery: positioning, recognition, consistency,
-     audience reach and readiness. Returns one of the four levels.
+     Scores Annette's own twelve questions across her six pillars:
+     positioning, visibility, credibility, platform ownership,
+     content leverage and authority conversion. Returns one of the
+     four levels her GHL quiz uses.
      ========================================================== */
   /* ----------------------------------------------------------
      THE STEPPER
@@ -940,28 +941,102 @@
        reader nothing. */
     var step = stepper(form);
 
+    /* Feedback 7.0: Annette's own assessment, "Assessment 2.0" in
+       her GHL account. Twelve questions, each answer worth 1 to 4 in
+       order, so a total runs 12 to 48. Her tiers are entered in GHL as
+       0-20, 21-29, 30-39 and 40+, which as POINTS on a 48 point scale
+       make a sensible ladder; they are used here as points. (Entered
+       as percentages, as they are in her quiz, nobody can score under
+       25% and most people land on Visible. That is flagged to her.)
+
+       Every sentence of every result is hers, from the quiz's own
+       results page. */
     var LEVELS = [
-      { key: 'hidden', name: 'Hidden Expert', min: 0,
-        meaning: 'Your work is trusted by the people who already know you, and almost invisible to everyone else. Nothing here is a comment on your expertise. It is a comment on distribution.',
-        opportunity: 'A single produced event that puts your name on one subject. You do not need a content system yet. You need one credible room.',
-        step: 'Book a Spotlight Call and leave with the subject you should be known for.',
-        route: 'Spotlight Call' },
-      { key: 'emerging', name: 'Emerging Expert', min: 9,
-        meaning: 'You are known for something, by some people, some of the time. The signal is real but it is inconsistent, so it does not compound.',
-        opportunity: 'Association. Sharing a stage with other credible experts raises your standing faster than posting more will.',
-        step: 'Join a panel as a featured expert and see the production from the inside.',
-        route: 'Panelist Program' },
-      { key: 'expanding', name: 'Expanding Expert', min: 17,
-        meaning: 'The right people are starting to find you without an introduction. Your positioning is working. Your platform is not yet built to hold the attention it is earning.',
-        opportunity: 'A stage of your own. You are past borrowing other people’s audiences and ready to convene one.',
-        step: 'Apply for the Own Your Stage Experience and host the room instead of joining it.',
-        route: 'Own Your Stage Experience' },
-      { key: 'visible', name: 'Visible Expert', min: 25,
-        meaning: 'You are recognized in your field and your name carries the subject. The risk at this level is not obscurity. It is a single good year that never became a platform.',
-        opportunity: 'Repetition. One event creates visibility. A signature series builds lasting authority.',
-        step: 'Talk to us about a signature event series rather than a single event.',
-        route: 'Own Your Stage Experience' }
+      { key: 'hidden', name: 'Hidden Expert', min: 12,
+        meaning: [
+          'Your expertise is stronger than your visibility.',
+          'You may be highly experienced, capable, and respected by the people who already know you. However, the broader market cannot yet see the full value of what you bring.',
+          'You may depend heavily on referrals, direct outreach, networking, or individual conversations to explain your expertise. This means your authority is working privately rather than publicly.',
+          'Your challenge is not a lack of expertise. Your challenge is that your market does not yet have enough opportunities to see, understand, and trust it.'],
+        opportunity: [
+          'Clarify what you want to be known for and begin placing that message consistently in front of a larger and more relevant audience.',
+          'Your next stage of growth will not come from becoming more qualified. It will come from making your existing qualifications more visible.'],
+        priorities: ['Clarify your authority message', 'Strengthen your public positioning',
+          'Establish consistent visibility', 'Develop stronger credibility assets',
+          'Create a clear next step for interested prospects'],
+        step: [
+          'Begin by defining one clear idea, problem, or transformation that you want people to associate with your name.',
+          'Then create a visibility opportunity that allows you to demonstrate that expertise publicly.'],
+        route: { label: 'Join a panel as a featured expert', href: 'panelists.html' } },
+
+      { key: 'emerging', name: 'Emerging Expert', min: 21,
+        meaning: [
+          'Your authority is beginning to take shape, but it is not yet working as a complete system.',
+          'You have started building recognition through content, networking, speaking, collaborations, or professional relationships.',
+          'However, your efforts may still feel fragmented, inconsistent, or dependent on continued personal effort.',
+          'People may see pieces of your expertise without fully understanding the depth of your experience, the distinction of your perspective, or the value of working with you.'],
+        opportunity: [
+          'Connect your positioning, visibility, credibility, content, and offers into one deliberate authority strategy.',
+          'You may not need to do more. You need your current efforts to work together more effectively.'],
+        priorities: ['Strengthen your recognizable authority message', 'Increase strategic visibility',
+          'Build more third-party credibility', 'Repurpose your strongest ideas and appearances',
+          'Connect every visibility activity to a clear next step'],
+        step: [
+          'Choose one central authority theme and build your next month of content, collaborations, and visibility around it.',
+          'Consistency around one strong message will create more recognition than frequently changing topics.'],
+        route: { label: 'Join a panel as a featured expert', href: 'panelists.html' } },
+
+      { key: 'established', name: 'Established Expert', min: 30,
+        meaning: [
+          'Your expertise and credibility are established, but your visibility may not yet reflect your full potential.',
+          'You have a clear foundation, valuable content, and meaningful credibility. People recognize your work, and your visibility is beginning to produce opportunities.',
+          'However, you may still rely heavily on platforms created by other people. Your next level will come from owning more of the stage, the audience, and the conversation.',
+          'You are ready to move from being invited into authority-building opportunities to creating those opportunities yourself.'],
+        opportunity: [
+          'Build a platform that positions you as the host, convener, and central voice of an important professional conversation.',
+          'Instead of waiting for invitations, create experiences that attract experts, audiences, prospects, and opportunities to you.'],
+        priorities: ['Create an authority platform of your own', 'Build strategic expert collaborations',
+          'Expand access to relevant audiences', 'Develop a repeatable visibility engine',
+          'Turn every appearance into long-term content and credibility'],
+        step: [
+          'Identify one important conversation your audience needs and determine how you could host, lead, or convene it.',
+          'This could become an expert interview series, a virtual panel, a roundtable, a live event, or another signature authority platform.'],
+        route: { label: 'Apply for the Host Package', href: 'apply.html' } },
+
+      { key: 'visible', name: 'Visible Expert', min: 40,
+        meaning: [
+          'Your authority is no longer hidden.',
+          'The right people can see your expertise, understand its value, and recognize you as a trusted voice in your field.',
+          'Your positioning, visibility, credibility, content, platform, and conversion strategy are working together. You are increasingly able to attract recognition, opportunities, partnerships, invitations, and qualified prospects rather than constantly chasing them.',
+          'You have built visible authority. Now it is time to expand its reach, influence, and commercial value.'],
+        opportunity: [
+          'Turn your visibility into an owned and scalable authority platform.',
+          'Your next level will not come from simply appearing in more places. It will come from creating repeatable platforms that expand your reach, strengthen your professional associations, and position you at the center of valuable conversations.'],
+        priorities: ['Expand the platforms you own', 'Host high-value expert conversations',
+          'Build recurring authority events', 'Develop strategic partnerships',
+          'Convert visibility into long-term brand equity'],
+        step: [
+          'Create a signature authority platform that can be repeated, expanded, and associated directly with your brand.',
+          'The goal is to move beyond individual appearances and build an ecosystem that continues generating credibility, content, relationships, and opportunities.'],
+        route: { label: 'See what we produce', href: 'index.html#formats' } }
     ];
+
+    /* Paragraphs and list items are built as nodes, never as HTML
+       strings: nothing here should ever be parsed as markup. */
+    function paras(el, list) {
+      if (!el) return;
+      el.textContent = '';
+      list.forEach(function (t) {
+        var p = document.createElement('p'); p.textContent = t; el.appendChild(p);
+      });
+    }
+    function items(el, list) {
+      if (!el) return;
+      el.textContent = '';
+      list.forEach(function (t) {
+        var li = document.createElement('li'); li.textContent = t; el.appendChild(li);
+      });
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -1005,10 +1080,15 @@
       var out = document.getElementById('assessment-result');
       if (!out) return;
 
-      document.getElementById('result-level').textContent = level.name;
-      document.getElementById('result-meaning').textContent = level.meaning;
-      document.getElementById('result-opportunity').textContent = level.opportunity;
-      document.getElementById('result-step').textContent = level.step;
+      document.getElementById('result-level').textContent = 'The ' + level.name;
+      paras(document.getElementById('result-meaning'), level.meaning);
+      paras(document.getElementById('result-opportunity'), level.opportunity);
+      items(document.getElementById('result-priorities'), level.priorities);
+      paras(document.getElementById('result-step'), level.step);
+      var score = document.getElementById('result-score');
+      if (score) score.textContent = total + ' of ' + (qs.length * 4);
+      var route = document.getElementById('result-route');
+      if (route && level.route) { route.textContent = level.route.label; route.setAttribute('href', level.route.href); }
 
       /* Light the ladder up to the level reached.
          Not with opacity: the cells are near-black and the result now sits
@@ -1039,7 +1119,7 @@
 
       try {
         window.sessionStorage.setItem('oyss:assessment',
-          JSON.stringify({ score: total, level: level.key, route: level.route }));
+          JSON.stringify({ score: total, of: qs.length * 4, level: level.key }));
       } catch (_) {}
     });
   };
@@ -1163,7 +1243,7 @@
         '<button class="exit__x" type="button" aria-label="Close">&times;</button>' +
         '<p class="exit__eyebrow">' + (cfg.exitEyebrow || 'Before you go') + '</p>' +
         '<p class="exit__t" id="oyss-exit-t">' + (cfg.exitTitle || 'Find out what the room already thinks you are known for.') + '</p>' +
-        '<p class="exit__p">' + (cfg.exitBody || 'Eight questions, about three minutes, and the result appears on the screen. No email address, nothing sent anywhere.') + '</p>' +
+        '<p class="exit__p">' + (cfg.exitBody || 'Twelve questions, about five minutes, and the result appears on the screen. No email address, nothing sent anywhere.') + '</p>' +
         '<div class="exit__actions">' +
           '<a class="btn btn--primary" href="' + (cfg.exitHref || 'assessment.html') + '">' + (cfg.exitCta || 'Take the assessment') + '</a>' +
           '<button class="exit__no" type="button">No thanks</button>' +
@@ -1589,5 +1669,84 @@
       }
     };
   };
+
+
+  /* ==========================================================
+     THE ONE ENDPOINT  (feedback 7.0)
+     Every form used to carry its own `CONFIG.endpoint = null`, so
+     connecting the site to GHL meant finding and editing five
+     scripts, and one would always be missed. Now there is one
+     switch for the whole site:
+
+       <script>window.OYSS_ENDPOINT = 'https://services.leadconnectorhq.com/hooks/...';</script>
+
+     placed before oyss.js loads. In GHL that is Settings > Tracking
+     Code > Header, once for the whole funnel. The value is a GHL
+     workflow's Inbound Webhook trigger URL; every form posts JSON to
+     it with its own `tag`, so one workflow can branch on the tag.
+
+     Never a private integration token and never the contacts API
+     from the browser: anything in page source is public.
+     ========================================================== */
+  window.OYSS.endpoint = function () { return window.OYSS_ENDPOINT || null; };
+
+  /* A short form: validate the required fields, collect everything,
+     record both text message consents as an explicit yes or no, post
+     it, and swap the form for its confirmation. */
+  window.OYSS.simpleForm = function (formId, doneId, errId, tag) {
+    var form = document.getElementById(formId);
+    var done = document.getElementById(doneId);
+    var err = document.getElementById(errId);
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      form.querySelectorAll('[required]').forEach(function (el) {
+        var bad = (el.type === 'checkbox') ? !el.checked : !String(el.value || '').trim();
+        if (!bad && el.type === 'email') bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+        el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad) missing.push(el);
+      });
+      if (missing.length) {
+        if (err) {
+          err.textContent = missing.length === 1
+            ? 'One field still needs an answer.'
+            : 'Complete the required fields. ' + missing.length + ' remaining.';
+          err.hidden = false;
+        }
+        missing[0].focus();
+        return;
+      }
+      if (err) err.hidden = true;
+
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      ['sms_consent_transactional', 'sms_consent_marketing'].forEach(function (k) {
+        var box = form.querySelector('input[name="' + k + '"]');
+        if (box) data[k] = box.checked ? 'yes' : 'no';
+      });
+      data.tag = tag;
+      data.page = window.location.pathname;
+      data.submittedAt = new Date().toISOString();
+      try {
+        var a = window.sessionStorage.getItem('oyss:assessment');
+        if (a) data.assessment = a;
+      } catch (_) {}
+
+      function finish() {
+        form.hidden = true;
+        if (done) { done.hidden = false; done.scrollIntoView({ block: 'center', behavior: CALM ? 'auto' : 'smooth' }); }
+      }
+      var url = window.OYSS.endpoint();
+      if (url) {
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+          .then(finish).catch(finish);
+      } else {
+        setTimeout(finish, 400);
+      }
+    });
+  };
+
 
 })();

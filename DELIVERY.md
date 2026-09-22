@@ -4,6 +4,88 @@ A working draft of the company site.
 
 ---
 
+## FEEDBACK 7.0 (23 September 2026) - read this first
+
+Eleven notes from a Google Doc. All eleven are done. What needs Annette is
+listed first; what changed follows.
+
+### Needs Annette (nothing here was decided for her)
+
+1. **Her GHL quiz has two bugs, whichever assessment she keeps.**
+   - The "Book your strategy session" button **404s**: it links to
+     `/widget/booking/cNJmGXJ4ed9Yp`, a truncated id. The real calendar is
+     `https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE`.
+   - The tiers are entered as **percentages** (0-20, 21-29, 30-39, 40-100) but
+     the answers score 1 to 4 across twelve questions, so totals run 12 to 48.
+     As a percentage of 48 nobody can land under 25%, so nobody is ever a
+     Hidden Expert, and anyone averaging 2 points an answer is already
+     "Visible". As *points* the same numbers make a sensible ladder, and that
+     is how this site scores it. Fix: tiers of 0-42 / 43-61 / 62-82 / 83-100
+     percent, or switch the quiz to points. (Worked out from the quiz's own
+     configuration; not tested by submitting it, because a test submission
+     would have created a contact in her CRM and fired her workflows.)
+2. **Her live Terms page says Texas.** "Governed by... the laws of Texas", while
+   the LLC and both agreements are Florida. Her section 8 "Refund policy"
+   describes refunds for orders that have "never been unblocked", which is
+   template language and contradicts both agreements, where the fees are
+   non-refundable. Both are ported **word for word** onto `/terms-conditions`
+   and left for her or her attorney: one word and one paragraph to change.
+3. **Privacy Policy: one section is added.** Her text is ported word for word;
+   a "Text messages" section is new. Her forms ask for text message consent,
+   and an A2P 10DLC campaign review looks for a privacy policy that says
+   mobile numbers and consent are not shared for marketing. Hers did not say
+   it. It is the standard wording GHL recommends; she should confirm it.
+4. **The Disclaimer page is a draft.** Her footer links "Disclaimer" to
+   nowhere. The new page restates only what her own agreements already say
+   (no guaranteed results, no attendance numbers, the agreements govern).
+   Legal review before launch, like the agreements themselves.
+5. **The formats list.** "What we produce" names webinars and masterclasses,
+   virtual summits, expert interview series, roundtables and podcast-style
+   conversations beside the flagship panel. They come from her Business
+   Concept Overview's growth list and her quiz's own result text ("an expert
+   interview series, a virtual panel, a roundtable, a live event"). None is
+   priced; each is "scoped on a Strategy Session". She should strike any she
+   does not want to sell yet: each is one `<article>` in `_pages/index.html`.
+6. **Hidden / Emerging / Established / Visible.** Her quiz calls level 3
+   "Established"; her 3-minute speech says "Expanding". The site follows the
+   quiz, because that is the name in the results people actually receive.
+7. **Her Speaker Sign Up form says "Spotlight Studio"** in its consent text,
+   not Own Your Stage Studio (GHL form `LMgKxI6tuq668t5K7sso`). A carrier
+   review can fail on a brand name that does not match the registration.
+8. **Social links.** Her GHL footer shows Facebook, X and YouTube icons that
+   link nowhere. The site shows none until there are real profile URLs.
+9. **Still open from before:** one GHL Inbound Webhook URL wires every form
+   (see below and `GHL_SETUP.md`); payment links for $2,997 and $47; real
+   signatures through GHL Documents & Contracts; testimonials.
+
+### What changed
+
+| Note | Done |
+|---|---|
+| 1. The 3-minute speech, not virtual-event-only | Home hero rewritten (it used to open "We are a virtual event production studio"). New **three shifts** section, her speech's argument in her words. New **What we produce** section: the flagship panel plus five formats and three services. About, FAQ and page descriptions follow. |
+| 2. Sad portrait on the home page | Replaced: `expert-ready.jpg`, a consultant in her fifties, eyes to camera, smiling. |
+| 3. The logo | Rebuilt to her reference: stacked, OWN YOUR light and wide, STAGE bold with the red arched A, STUDIO red and centered. "Virtual panel events" removed everywhere. **The tagline call:** "Speak. Be Seen. Create Impact." is in the footer lockup, where it reads, and not in the header, where it would set at about seven pixels. |
+| 4. The microphone photo | Regenerated at full resolution in the same composition (`mic-stage.jpg`), its violet haze pulled toward the brand red. It carries the new "More than one kind of stage" band. |
+| 5. The footer | Rebuilt as her silk banner: warm white, red silk across the full width, the lockup and tagline top left, REAL / EXPERTISE / BIGGER / OPPORTUNITIES over a red rule, and Your Voice Matters in a red signature script (Herr Von Muellerhoff, the closest match to her lettering of twelve fonts compared). Links sit under the banner on the same ground. |
+| 6. All page copy for the new deliverables | Experience page itemizes the Product for Host document in full: the attendee email sequence, green room, chat moderation, and what the Momentum Session covers. FAQ: sixteen questions, two new. |
+| 7. Dull auditorium on the assessment | Brightened about a stop and a half, with a figure standing in the light as a silhouette (`house-lit.jpg`). |
+| 8. Sad panelist hero | Replaced: a panelist mid-laugh at her laptop, in the brand red (`panelist-live.jpg`). |
+| 9. Annette's face in the About hero | The figure in the spotlight is Annette now, built from two of her own photographs (`room-annette.jpg`), cropped so she is large enough to recognize. |
+| 10. Her live pages and forms | Her "If any of this sounds like you" list and her four-field "Let's talk" form are on the home page, with her two text message consent boxes. Her founder biography, "Hello, I'm Annette", is on About in full and quoted on Home. Her real booking calendar is embedded on the renamed **Strategy Session** page. The assessment now asks her twelve questions in her six pillars and shows her own result text. Terms, Privacy and Disclaimer pages exist, at the same paths her site uses. Every form with a phone field has the two consent boxes and Privacy / Terms links. |
+| 11. GHL-ready, responsive | Every page is still a single-paste block in `_ghl/`, now fourteen. **Forms have one switch:** `window.OYSS_ENDPOINT`, set once in GHL's tracking code header. Audited at 390 / 768 / 1024 / 1366 / 1440 / 1536 / 1920: 98 probes, 0 findings. 30 functional checks pass: no console errors or 404s on any page, all four levels and every tier boundary, form payloads including consent values, and the live calendar. |
+
+### How the new pictures were made
+
+`python _art/round12.py` (Azure gpt-image-2; generations and two edits) then
+`python _art/round12_finish.py`. The raw masters are in `_art/raw/` (not in
+git). The two images that read as sad were made to the old house prompt, which
+asked for "one warm key, hard falloff into darkness" and a subject "not
+smiling". The round 12 house prompt keeps the production values and turns the
+mood the other way. The old files (`expert.jpg`, `greenroom.jpg`, `house.jpg`,
+`room-figure.jpg`) are no longer referenced by any page.
+
+---
+
 ## THE IDENTITY CHANGED (September 2026) - read this before the rest
 
 The site was built to the **OYSS Brand Deck v3**: Authority Navy, Spotlight

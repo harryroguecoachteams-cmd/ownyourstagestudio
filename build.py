@@ -56,29 +56,68 @@ SITE = [
     # expressed in words. See section 22 of oyss.css.
     #
     # file, nav label, title, description, kind, page-mark name, page-mark meta
-    ("index.html",             "Home",           "We build the stage. You steal the show.",    "Own Your Stage Studio helps hidden experts become recognized authorities through professionally produced virtual panel events.",
+    ("index.html",             "Home",           "We build the stage. You steal the show.",    "Own Your Stage Studio builds done-for-you authority platforms for established experts: produced panel events, webinars, summits and interview series, turned into content that keeps working.",
      "home",      None,                       None),
-    ("experience.html",        "The Experience", "The Own Your Stage Experience",              "A three month done-for-you visibility and authority experience built around one professionally produced virtual panel event.",
+    ("experience.html",        "The Experience", "The Own Your Stage Experience",              "The flagship: a three month done-for-you visibility and authority experience built around one professionally produced virtual panel event.",
      "guide",     "The Experience",           "Three months \u00b7 $2,997"),
-    ("assessment.html",        "Assessment",     "Readiness Assessment",                       "Eight questions that place you on the visibility ladder and tell you what to do next.",
-     "form",      "Readiness Assessment",     "8 questions \u00b7 3 minutes"),
+    ("assessment.html",        "Assessment",     "Readiness Assessment",                       "Twelve questions across six pillars that show how visible your authority is today, and what to do next.",
+     "form",      "Readiness Assessment",     "12 questions \u00b7 5 minutes"),
     ("panelists.html",         "Panelists",      "Featured Panelist Program",                  "Join a produced panel as a featured expert. A spotlight, professional footage and exposure to the combined audience.",
      "guide",     "Featured Panelists",       "$47 · by application"),
-    ("about.html",             "About",          "About Own Your Stage Studio",                "A premium authority building studio founded by Annette Knecht Seier.",
+    ("about.html",             "About",          "About Own Your Stage Studio",                "A done-for-you authority building studio founded by Annette Knecht Seier.",
      "guide",     "About the Studio",         None),
-    ("faq.html",               "FAQ",            "Frequently Asked Questions",                 "What the Own Your Stage Experience includes, what it costs and what stays with you.",
+    ("faq.html",               "FAQ",            "Frequently Asked Questions",                 "What Own Your Stage Studio produces, what the Experience includes, what it costs and what stays with you.",
      "guide",     "Questions",                "Tap a question to open it"),
     ("apply.html",             None,             "Apply for the Host Package",                 "Apply for the Own Your Stage Experience, a three month done-for-you authority engagement.",
      "form",      "Host Package",             "No payment at this step"),
-    ("contact.html",           None,             "Book a Spotlight Call",                      "A short conversation about the subject you should be known for.",
-     "form",      "Spotlight Call",           "30 minutes · no charge"),
+    # Feedback 7.0: renamed from "Spotlight Call" to the name Annette's own
+    # booking calendar and assessment already use, so the site, the calendar
+    # invite and the results screen all call it the same thing.
+    ("contact.html",           None,             "Book a Strategy Session",                    "Thirty minutes on Zoom, complimentary: where your authority stands today and which stage fits you next.",
+     "form",      "Strategy Session",         "30 minutes · complimentary"),
     ("apply-panelist.html",    None,             "Panelist Application",                       "Apply to be considered as a featured panelist on an Own Your Stage Studio panel event.",
      "form",      "Panelist Application",     "Kept on file 12 months"),
     ("agreements/host.html",   None,             "Done-For-You Panel Host Services Agreement", "The agreement governing the Own Your Stage Experience host engagement.",
      "agreement", "Host Services",            "Draft · read then sign"),
     ("agreements/panelist.html", None,           "Featured Panelist Agreement",                "The agreement governing participation as a featured panelist.",
      "agreement", "Featured Panelist",        "Draft · read then sign"),
+    # Feedback 7.0, note 10: the three legal pages Annette's own GHL site
+    # links from its footer and from under every form's consent boxes.
+    ("terms.html",             None,             "Terms and Conditions",                       "The terms governing use of the Own Your Stage Studio website.",
+     "legal",     "Terms",                    None),
+    ("privacy.html",           None,             "Privacy Policy",                             "How Own Your Stage Studio collects, uses and protects personal information, including text message consent.",
+     "legal",     "Privacy",                  None),
+    ("disclaimer.html",        None,             "Disclaimer",                                 "What Own Your Stage Studio does and does not promise.",
+     "legal",     "Disclaimer",               None),
 ]
+
+# Annette's own "OWN YOUR STAGE" Strategy Session calendar in GHL, read from
+# the LeadConnector API on 23 Sep 2026 (30 minutes, Zoom). The button inside
+# her GHL quiz points at a TRUNCATED id, cNJmGXJ4ed9Yp, and 404s; this is the
+# full one.
+BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE"
+
+# TEXT MESSAGE CONSENT (feedback 7.0, note 10).
+# Every form Annette runs in GHL carries these two boxes, worded exactly like
+# this, and it is the wording carriers look for when an A2P 10DLC texting
+# campaign is reviewed. So every form here that asks for a phone number
+# carries them too,
+# from one source, so no page can drift. Both optional, both unchecked: consent
+# to texts cannot be a condition of anything.
+CONSENT_HTML = """<div class="consent">
+              <label class="check consent__box">
+                <input type="checkbox" name="sms_consent_transactional" value="yes">
+                <span>By checking this box, I consent to receive non-marketing text messages from Own Your Stage Studio. Message frequency varies, message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+              </label>
+              <label class="check consent__box">
+                <input type="checkbox" name="sms_consent_marketing" value="yes">
+                <span>By checking this box, I consent to receive marketing and promotional messages including special offers, discounts, new product updates among others, from Own Your Stage Studio at the phone number provided. Frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+              </label>
+            </div>"""
+
+LEGAL_HTML = ('<p class="legalline"><a href="{base}privacy.html">Privacy Policy</a>'
+              '<span aria-hidden="true">|</span><a href="{base}terms.html">Terms of Service</a></p>')
+
 
 # What the page-mark badge says for each kind. "Guide" would be jargon to a
 # reader; "Read" and "Form" and "Agreement" are what the thing actually is.
@@ -112,10 +151,13 @@ SLUGS = {
     "about.html":               "/about",
     "faq.html":                 "/faq",
     "apply.html":               "/apply",
-    "contact.html":             "/spotlight-call",
+    "contact.html":             "/strategy-session",
     "apply-panelist.html":      "/panelist-application",
     "agreements/host.html":     "/host-agreement",
     "agreements/panelist.html": "/panelist-agreement",
+    "terms.html":               "/terms-conditions",
+    "privacy.html":             "/privacy-policy",
+    "disclaimer.html":          "/disclaimer",
 }
 
 
@@ -132,6 +174,8 @@ def for_ghl(markup):
     for f in sorted(SLUGS, key=len, reverse=True):
         markup = markup.replace(f'href="{f}"', f'href="{SLUGS[f]}"')
         markup = markup.replace(f'href="../{f}"', f'href="{SLUGS[f]}"')
+        # and the same link with an anchor on it (index.html#formats)
+        markup = re.sub(rf'href="(?:\.\./)*{re.escape(f)}#', f'href="{SLUGS[f]}#', markup)
     return markup
 
 # THE MARK.
@@ -160,19 +204,37 @@ def for_ghl(markup):
 # The A is set as a mark inside live text rather than as a picture of the
 # whole wordmark, so the lockup stays selectable, scales with the type and
 # needs no second file at 2x.
+# Feedback 7.0, note 3: "make sure the logo looks exactly like that". The
+# reference Annette sent is the stacked lockup: OWN YOUR light and wide, STAGE
+# bold with the red A, STUDIO red and tracked out, centered under it, and the
+# line "Speak. Be Seen. Create Impact." beneath. The apex of the A in that
+# artwork comes to a point, so the flat cut is narrowed from 6 units to 3.
 MARK_SVG = """<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
-          <path class="mark__a" d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>
+          <path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
           <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
         </svg>"""
 
 
-def lockup(gid, base):  # gid kept: the callers name their instances
+def lockup(gid, base, tagline=False, tone=""):  # gid kept: the callers name their instances
     # The anchor carries the accessible name, so the mark standing in for
     # the A never has to be read as "St ge" by anything.
-    return f"""<a href="{base}index.html" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
+    #
+    # "Virtual panel events" is gone from under the wordmark: the studio is
+    # not a virtual-event-only company (feedback 7.0, notes 1 and 3). STUDIO
+    # takes the middle, as the reference draws it.
+    #
+    # The tagline is a call we were asked to take. It is IN wherever the
+    # lockup is large enough to read it (the footer), and OUT of the header,
+    # where at 30px of wordmark the line would set at about seven pixels and
+    # read as a smudge under the logo rather than as a promise.
+    tag = ('\n        <span class="lockup__tag">Speak. Be Seen. Create Impact.</span>'
+           if tagline else "")
+    cls = "lockup lockup--stack lockup--motion" + (f" lockup--{tone}" if tone else "")
+    return f"""<a href="{base}index.html" class="{cls}" aria-label="Own Your Stage Studio, home">
       <span class="lockup__type">
-        <span class="lockup__name"><span class="lockup__own">Own Your</span><span class="lockup__stage">St{MARK_SVG}ge</span></span>
-        <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
+        <span class="lockup__row lockup__row--own">Own Your</span>
+        <span class="lockup__row lockup__row--stage">St{MARK_SVG}ge</span>
+        <span class="lockup__row lockup__row--studio">Studio</span>{tag}
       </span>
     </a>"""
 
@@ -195,52 +257,69 @@ def masthead(current, base):
 
 
 def footer(base):
-    # THE BIG LINES.
-    # Lifted from the v2 build the client flagged as the one thing he liked in
-    # it, and it is the right call: the tagline is the strongest asset the brand
-    # owns and it was being whispered in 19px sans halfway down a column. Set at
-    # display scale it does what the deck's closing panel does on page 25, and
-    # the split color is the deck's own: the promise in ivory, what you get in
-    # gold.
-    return f"""<footer class="footer silked">
-  <div class="wrap">
-    <p class="footer__lines">
-      <span>We build the stage.</span>
-      <span class="footer__lines--gold">You steal the show.</span>
-    </p>
+    # FEEDBACK 7.0, NOTE 5: "Change the footer design to [the silk banner].
+    # Add text exactly like Your Voice Matters, Real Expertise Bigger
+    # Opportunities, and the colors palettes too."
+    #
+    # The footer used to be the dark ink ground with the old big tagline lines.
+    # Annette's mockup turns it the other way: a warm white banner with red
+    # silk sweeping up from the lower left, the stacked lockup and its
+    # tagline top left, REAL / EXPERTISE / BIGGER / OPPORTUNITIES over a short
+    # red rule top right, and Your Voice Matters in a red signature script
+    # under it. That banner is built here with the type live over a generated
+    # silk plate (assets/media/silk-footer.jpg), so every word stays crisp and
+    # editable.
+    #
+    # A site footer also has to be a way round the site, which a banner is
+    # not, so the links sit under the banner on the same warm ground rather
+    # than on the silk, where the contrast would depend on where a word landed.
+    # The promise the old footer set at display scale is kept as the sign-off.
+    return f"""<footer class="footer footer--silk">
+  <div class="footer__banner">
+    <span class="footer__silk" aria-hidden="true"></span>
+    <div class="wrap footer__hero">
+      <div class="footer__brand">
+        {lockup("fb", base, tagline=True, tone="light")}
+      </div>
+      <div class="footer__words">
+        <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
+        <span class="footer__rule" aria-hidden="true"></span>
+        <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
+      </div>
+    </div>
   </div>
-  <div class="wrap">
+  <div class="wrap footer__nav">
     <div class="footer__grid">
       <div>
-        {lockup("fb", base)}
-        <p class="caption" style="margin-top:1.1rem;max-width:34ch">
-          A premium authority building studio for established experts ready to become
-          more visible, more credible and easier to remember.
-        </p>
-      </div>
-      <div>
         <h4>Explore</h4>
+        <a href="{base}index.html#formats">What we produce</a>
         <a href="{base}experience.html">The Experience</a>
-        <a href="{base}assessment.html">Readiness Assessment</a>
         <a href="{base}panelists.html">Panelist Program</a>
-        <a href="{base}about.html">About</a>
-        <a href="{base}faq.html">Frequently Asked Questions</a>
+        <a href="{base}about.html">About Annette</a>
+        <a href="{base}faq.html">Questions</a>
       </div>
       <div>
         <h4>Next step</h4>
+        <a href="{base}assessment.html">Take the Readiness Assessment</a>
+        <a href="{base}contact.html">Book a Strategy Session</a>
         <a href="{base}apply.html">Apply for the Host Package</a>
-        <a href="{base}contact.html">Book a Spotlight Call</a>
         <a href="{base}apply-panelist.html">Panelist Application</a>
-        <div style="margin-top:1.6rem">
-          <h4>Agreements</h4>
-          <a href="{base}agreements/host.html">Host Services Agreement</a>
-          <a href="{base}agreements/panelist.html">Featured Panelist Agreement</a>
-        </div>
+      </div>
+      <div>
+        <h4>Agreements</h4>
+        <a href="{base}agreements/host.html">Host Services Agreement</a>
+        <a href="{base}agreements/panelist.html">Featured Panelist Agreement</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="{base}terms.html">Terms and Conditions</a>
+        <a href="{base}privacy.html">Privacy Policy</a>
+        <a href="{base}disclaimer.html">Disclaimer</a>
       </div>
     </div>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span class="footer__note">The room is already looking for you.</span>
+      <span class="footer__note">We build the stage. You steal the show.</span>
     </div>
   </div>
 </footer>"""
@@ -264,11 +343,11 @@ PROMPTS = {
 });</script>""",
     "guide": """<script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
-  barTitle: 'Find out where you stand first.',
-  barMeta: 'Eight questions, three minutes, no email required.',
+  barTitle: 'Find out how visible your authority is first.',
+  barMeta: 'Twelve questions, about five minutes, no email required.',
   barCta: 'Take the assessment', barHref: 'assessment.html',
   exitTitle: 'One question before you go.',
-  exitBody: 'Would the people in your industry name a subject when they describe you? Eight questions tells you, in about three minutes.'
+  exitBody: 'How visible is your authority today? Twelve questions across six pillars tell you, in about five minutes, and the result appears on the screen.'
 });</script>""",
 }
 
@@ -361,6 +440,10 @@ def build():
         # makes every "Own Your Stage Experience™" read as a typo. Wrapping it
         # once here beats hand-tagging it across nine pages.
         body = body.replace("&trade;", '<span class="tm">&trade;</span>')
+        body = (body.replace("%%CONSENT%%", CONSENT_HTML)
+                    .replace("%%LEGAL%%", LEGAL_HTML.format(base=base))
+                    .replace("%%BOOKING_URL%%", BOOKING_URL))
+        inline = inline.replace("%%BOOKING_URL%%", BOOKING_URL)
 
         # THE PROMPTS.
         # A page whose own job IS the action never gets a bar or an exit

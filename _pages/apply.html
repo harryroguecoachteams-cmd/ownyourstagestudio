@@ -54,6 +54,10 @@
             <input class="field__input" type="email" name="email" required autocomplete="email">
           </label>
           <label class="field">
+            <span class="field__label">Phone</span>
+            <input class="field__input" type="tel" name="phone" required autocomplete="tel" placeholder="+1 (555) 000-0000">
+          </label>
+          <label class="field">
             <span class="field__label">Business or practice name</span>
             <input class="field__input" type="text" name="business" autocomplete="organization">
           </label>
@@ -144,12 +148,15 @@
             </label>
           </div>
 
+          %%CONSENT%%
+
           <div class="sheet__foot">
             <p id="apply-error" hidden class="notice notice--action" style="margin-bottom:1.4rem" role="alert"></p>
             <button type="submit" class="btn btn--primary">Submit application</button>
             <p class="caption">
               No payment is taken at this step, and applying does not commit you to anything.
             </p>
+            %%LEGAL%%
           </div>
         </form>
 
@@ -193,7 +200,7 @@
       </div>
       <div class="cuerow">
         <div class="cuerow__n">02</div>
-        <div><h3 class="cuerow__label">A Spotlight Call</h3>
+        <div><h3 class="cuerow__label">A Strategy Session</h3>
           <p class="body" style="max-width:44rem">If it is a fit, we book a call to agree the subject and the date before any money changes hands.</p></div>
       </div>
       <div class="cuerow">
@@ -215,11 +222,11 @@
 </section>
 %%INLINE%%
 <script>
-/* Front-end only. Point CONFIG.endpoint at the GHL form webhook or the
-   LeadConnector contacts endpoint to make this live. Everything the form
-   collects is already keyed to match the CRM field names. */
+/* The endpoint is one switch for the whole site: window.OYSS_ENDPOINT, a GHL
+   Inbound Webhook URL, set once before oyss.js loads (see GHL_SETUP.md).
+   Everything the form collects is already keyed to match the CRM field names. */
 (function () {
-  var CONFIG = { endpoint: null, tag: 'host-application' };
+  var CONFIG = { endpoint: window.OYSS_ENDPOINT || null, tag: 'host-application' };
   var form = document.getElementById('host-application');
   var done = document.getElementById('apply-done');
   var err  = document.getElementById('apply-error');
@@ -251,6 +258,10 @@
     err.hidden = true;
 
     var data = {}; new FormData(form).forEach(function (v, k) { data[k] = v; });
+    ['sms_consent_transactional', 'sms_consent_marketing'].forEach(function (k) {
+      var box = form.querySelector('input[name="' + k + '"]');
+      if (box) data[k] = box.checked ? 'yes' : 'no';
+    });
     data.tag = CONFIG.tag;
     data.submittedAt = new Date().toISOString();
 

@@ -54,10 +54,17 @@ names, because the links in the blocks already point at them:
 | About | `/about` |
 | FAQ | `/faq` |
 | Apply | `/apply` |
-| Spotlight Call | `/spotlight-call` |
+| Strategy Session | `/strategy-session` |
 | Panelist Application | `/panelist-application` |
 | Host Agreement | `/host-agreement` |
 | Panelist Agreement | `/panelist-agreement` |
+| Terms and Conditions | `/terms-conditions` |
+| Privacy Policy | `/privacy-policy` |
+| Disclaimer | `/disclaimer` |
+
+`/terms-conditions` and `/privacy-policy` are the paths Annette's current GHL site
+already uses on ownyourstagestudio.com, so those two pages keep their addresses:
+replace their content with the blocks rather than creating new pages.
 
 If you want different paths, change the `SLUGS` map in `build.py` and re-run it.
 Do not rename them only in GHL - the links inside the blocks will break.
@@ -77,7 +84,7 @@ Do not rename them only in GHL - the links inside the blocks will break.
 7. Open the corresponding file in `_ghl/`, copy **the entire file**, paste it in,
    save.
 
-Repeat for all eleven steps. `_ghl/agreements__host.html` is the Host Agreement
+Repeat for all fourteen steps. `_ghl/agreements__host.html` is the Host Agreement
 step, `_ghl/agreements__panelist.html` is the Panelist Agreement step.
 
 > **If you skip step 4 and 5**, the design still works - every block carries a
@@ -92,43 +99,87 @@ browser caches both after the first page. If you would rather load them once:
 
 - **Funnel Settings → Tracking Code → Header**: paste the `<link>` line
 - **Funnel Settings → Tracking Code → Footer**: paste the `<script>` line
-- Then delete those two lines from each of the eleven blocks
+- Then delete those two lines from each of the fourteen blocks
 
 ---
 
 ## Wiring the forms to the CRM
 
-Three forms and two agreements currently validate and confirm on the page but
-send nothing anywhere. Each has one line to change.
+Until this is done the forms validate and confirm on the page but **send nothing
+anywhere**. Since feedback 7.0 there is **one switch for the whole site**, not one
+per form.
 
-### The recommended route: inbound webhook
+### The one switch: an inbound webhook
 
 1. **Automation → Workflows → Create Workflow**
 2. Trigger: **Inbound Webhook**. Copy the webhook URL it gives you.
 3. Add action **Create/Update Contact**, mapping the payload fields.
-4. Add action **Add Tag**, using the tag the form already sends.
-5. In the block, find `CONFIG.endpoint` near the bottom and replace `null` with
-   the webhook URL in quotes.
+4. Add **If/Else** on `tag` and **Add Tag** per branch (tags below).
+5. **Settings → Tracking Code → Header** (for a Website) or **Funnel Settings →
+   Tracking Code → Header** (for a Funnel), paste once:
 
-Field names are already keyed to match CRM fields, and each submission carries a
-tag so a workflow can filter on it:
+```html
+<script>window.OYSS_ENDPOINT = 'https://services.leadconnectorhq.com/hooks/PASTE-YOURS-HERE';</script>
+```
+
+That is all. Every form on every page reads `window.OYSS_ENDPOINT`, so a new
+webhook URL is a one-line change and no block has to be touched. Each submission
+is JSON and carries its own `tag`:
 
 | Page | Tag it sends |
 |---|---|
+| `/` (the "Let's talk" form) | `website-lead` |
 | `/apply` | `host-application` |
-| `/spotlight-call` | `spotlight-call-request` |
 | `/panelist-application` | `panelist-application` |
 
-For the agreement pages the call is `OYSS.signing({ agreement: "..." })` - add an `endpoint` key to that object:
+Every form that asks for a phone number also sends `sms_consent_transactional`
+and `sms_consent_marketing`, each `yes` or `no`. The two boxes use the exact
+wording of Annette's own GHL forms. Map them to whatever her A2P setup uses (a
+custom field, or a tag such as `sms-consent-marketing`) and **never text a
+contact whose marketing value is `no`**.
+
+If the visitor took the assessment earlier in the session, the submission also
+carries `assessment` with their score and level, so the contact arrives with it.
+
+For the agreement pages the call is `OYSS.signing({ agreement: "..." })` - add an
+`endpoint` key to that object:
 
 ```js
 OYSS.signing({ agreement: "Featured Panelist Agreement",
                endpoint: "https://services.leadconnectorhq.com/hooks/..." });
 ```
 
-The Spotlight Call form also forwards the visitor's assessment result if they
-took it earlier in the session, so the contact record arrives with their level
-already attached.
+### The Strategy Session page books for real already
+
+`/strategy-session` embeds Annette's own GHL calendar, **"OWN YOUR STAGE" Strategy
+Session** (30 minutes, Zoom), id `cNJmGXJ4ed9YpmzNEElE`. Bookings land in her
+calendar and CRM with no wiring. If the calendar is ever replaced, change
+`BOOKING_URL` in `build.py` and rebuild.
+
+### The assessment
+
+`/assessment` asks the twelve questions of Annette's own GHL quiz ("Assessment
+2.0"), scores them 1 to 4 each exactly as her quiz does, and shows her own result
+text for her four levels. It shows the result on the page with no email, which
+is a promise the site makes. If she would rather capture every assessment as a
+lead, the alternative is her native quiz: in GHL add a **Quiz** element (or embed
+`https://api.leadconnectorhq.com/widget/quiz/uPnkxd0WB8tKdu78hl5b`) in place of the
+`.sheet` on that page.
+
+**Two things to fix inside her GHL quiz whichever way she goes:**
+
+1. **Its "Book your strategy session" button 404s.** It links to
+   `/widget/booking/cNJmGXJ4ed9Yp`, a truncated id. The calendar's real link is
+   `https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE`.
+2. **The tiers are almost certainly entered in the wrong unit.** Answers score 1
+   to 4, so twelve answers total 12 to 48. The tiers are set as *percentages*
+   0-20 / 21-29 / 30-39 / 40-100. If GHL takes the percentage as score over
+   maximum, the lowest possible result is 25%, so nobody can be a Hidden Expert
+   and anyone averaging 2 points an answer is already a Visible Expert. As
+   *points*, 12-20 / 21-29 / 30-39 / 40-48 is a sensible ladder, and that is how
+   this site scores it. Either change the tiers to 0-42 / 43-61 / 62-82 /
+   83-100 percent (the same point bands, as percentages of 48), or switch the
+   quiz to point scoring.
 
 ### What not to do
 
@@ -140,9 +191,9 @@ source. The webhook route has no such exposure.
 
 If Annette would rather manage fields herself in the GHL form builder, replace
 the `<form>` in a block with a GHL Form element. You lose the styling and the
-inline validation copy, and the Assessment cannot be rebuilt this way because it
-is scored in JavaScript. For `/apply` and `/spotlight-call` it is a reasonable
-trade.
+inline validation copy. Her existing "Form 2" (`Di92ryq4IJYnYRbsmLXO`) already
+asks exactly what the home page's "Let's talk" form asks, consent boxes included,
+so it is a drop-in for that one.
 
 ---
 

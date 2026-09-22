@@ -28,16 +28,18 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SERVE = "http://127.0.0.1:8899/"
 
 MARK = ('<svg class="mark" viewBox="0 0 64 58" aria-hidden="true">'
-        '<path class="mark__a" d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>'
+        '<path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>'
         '<path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 '
         'a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/></svg>')
 
 
 def lockup(scale=1.0):
-    return (f'<span class="lockup" style="--k:{scale}"><span class="lockup__type">'
-            f'<span class="lockup__name"><span class="lockup__own">Own Your</span>'
-            f'<span class="lockup__stage">St{MARK}ge</span></span>'
-            f'<span class="lockup__desc">Studio</span></span></span>')
+    # Feedback 7.0: the stacked lockup from Annette's reference, the same
+    # markup build.py writes, so the plates and the site stay one logo.
+    return (f'<span class="lockup lockup--stack" style="--k:{scale}"><span class="lockup__type">'
+            f'<span class="lockup__row lockup__row--own">Own Your</span>'
+            f'<span class="lockup__row lockup__row--stage">St{MARK}ge</span>'
+            f'<span class="lockup__row lockup__row--studio">Studio</span></span></span>')
 
 
 # key, output, layout, role, name, title
@@ -46,7 +48,7 @@ PLATES = [
     ("stage-holding", "assets/stage-holding.png", "holding", None, None, None),
     ("virtual-stage", "assets/virtual-stage.png", "holding", None, None, None),
     ("stage-host", "assets/stage-host.png", "corner", "Host",
-     "Annette Knecht Seier", "Founder, Own Your Stage Studio"),
+     "Annette Knecht Seier", "Founder & CEO, Own Your Stage Studio"),
     ("stage-panelist", "assets/stage-panelist.png", "corner", "Panelist",
      "Your Name Here", "Your Title Here"),
 ]
@@ -65,7 +67,7 @@ def page_html(layout, role, name, title, w, h):
         # The full lockup belongs to the host frame and the mark alone to a
         # panelist's. That was the old set's rule and it is still the right one:
         # one plate is the studio's, the others are guests standing on it.
-        corner = (f'<span class="plate__corner">{lockup(.78)}</span>'
+        corner = (f'<span class="plate__corner">{lockup(.5)}</span>'
                   if role == "Host"
                   else f'<span class="plate__corner plate__corner--icon">{MARK}</span>')
         body = f"""
@@ -100,6 +102,9 @@ def page_html(layout, role, name, title, w, h):
     position:absolute; left:0; bottom:0; width:100%; height:17%; z-index:0;
     background:url('{SERVE}assets/silk.svg') left bottom / 100% 100% no-repeat;
     opacity:.15; mix-blend-mode:screen;
+    /* feathered, or the top of the ribbon's box shows as a straight line */
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 45%);
+            mask-image:linear-gradient(180deg, transparent 0%, #000 45%);
   }}
   /* the stage lip: the red rule along the floor of every frame */
   .plate__lip {{
@@ -112,11 +117,7 @@ def page_html(layout, role, name, title, w, h):
     position:absolute; inset:0; z-index:3;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
   }}
-  .plate .lockup__type {{ text-align:center; }}
-  .plate .lockup__name {{ font-size:calc({round(w * 0.0335)}px * var(--k,1)); color:#F8F5F2; }}
-  .plate .lockup__desc {{ font-size:calc({round(w * 0.0148)}px * var(--k,1));
-                          letter-spacing:.62em; text-indent:.62em;
-                          margin-top:calc({round(w * 0.012)}px * var(--k,1)); }}
+  .plate .lockup--stack {{ font-size:calc({round(w * 0.058)}px * var(--k,1)); }}
   .plate__rule {{ width:{round(w * 0.050)}px; height:3px; border-radius:2px;
                   background:#E05A5A; margin-top:{round(w * 0.024)}px; }}
   .plate__sub {{

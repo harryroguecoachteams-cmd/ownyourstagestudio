@@ -16,19 +16,20 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=2d7d99bc">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=77676434">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
 <header class="masthead">
   <div class="wrap masthead__inner">
-    <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
+    <a href="/" class="lockup lockup--stack lockup--motion" aria-label="Own Your Stage Studio, home">
       <span class="lockup__type">
-        <span class="lockup__name"><span class="lockup__own">Own Your</span><span class="lockup__stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
-          <path class="mark__a" d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>
+        <span class="lockup__row lockup__row--own">Own Your</span>
+        <span class="lockup__row lockup__row--stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
+          <path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
           <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
-        </svg>ge</span></span>
-        <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
+        </svg>ge</span>
+        <span class="lockup__row lockup__row--studio">Studio</span>
       </span>
     </a>
     <button class="burger" aria-expanded="false" aria-controls="primary-nav">Menu</button>
@@ -62,25 +63,33 @@
 
      The headline carries the belief and the lead carries the
      mechanics, so a stranger has the whole offer before
-     scrolling. -->
+     scrolling.
+
+     Feedback 7.0, note 1: the lead used to open "We are a virtual
+     event production studio", which is exactly the impression
+     Annette asked us to remove. The studio builds authority
+     platforms; the produced panel is the flagship, not the whole
+     business. The facts line still carries the flagship's own
+     numbers, labelled as such. -->
 <section class="reel reel--spot dark" data-over>
   <div class="reel__copy" data-lit>
     <h1 class="display">Become known for the work you are here to lead.</h1>
     <span class="reel__rule" aria-hidden="true"></span>
     <p class="lead">
-      We are a virtual event production studio. We build one panel event around your
-      subject, cast five other experts onto it, brand it, promote it and run it live.
-      You host. Three months, start to finish.
+      A done-for-you studio for established experts: panels, webinars, summits and
+      interview series built around your subject, then turned into content that keeps you
+      visible for months. You lead. We handle the rest.
     </p>
     <div class="actions">
-      <a class="btn btn--primary" href="/apply">Apply to host a panel</a>
-      <a class="cue" href="#stage">See what we produce</a>
+      <a class="btn btn--primary" href="/apply">Apply to host</a>
+      <a class="cue" href="/assessment">Take the free Readiness Assessment</a>
     </div>
     <p class="donext">
-      The application takes about <b>eight minutes</b> and asks nothing about payment.
-      The studio team reads every one.
+      The assessment takes about <b>five minutes</b> and shows your result on the screen.
+      The host application takes about eight and asks nothing about payment.
     </p>
     <p class="facts">
+      <span class="facts__k">The flagship</span>
       <span><b>1</b> host</span>
       <span>up to <b>5</b> featured experts</span>
       <span><b>3</b> months</span>
@@ -119,14 +128,248 @@
         work are two different jobs, and only one of them is the one you trained for.
       </p>
     </div>
+    <!-- Feedback 7.0, note 2: the portrait here read as sorrow, a
+         woman with her chin on her hand looking away into the dark.
+         The paragraph is about somebody who is very good at the
+         work, so the picture is that person, ready: eyes to camera,
+         a settled smile, the light behind her rather than on her
+         like an interrogation. -->
     <figure class="essay__portrait" data-lit data-cue="2">
-      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/expert.jpg" width="860" height="1290"
-           alt="An expert photographed shoulders up under a single warm key light against a deep navy ground.">
+      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/expert-ready.jpg" width="860" height="1290"
+           alt="An accomplished consultant in her fifties in a charcoal blazer, smiling at the camera in a warmly lit studio.">
     </figure>
     <p class="essay__note" data-lit data-cue="3">
       Who this is not for: anyone new to their field, still building a first offer, or hoping
       an event will stand in for experience they have not had yet. The host carries the room.
       That only works when there is something behind it.
+    </p>
+  </div>
+</section>
+
+
+<!-- ============ 2b. IF THIS SOUNDS LIKE YOU ============
+     Feedback 7.0, note 10: Annette's own page on ownyourstagestudio.com
+     opens on this list and a four field form under "Let's talk about
+     how to change that." Neither was on the site. The seven lines are
+     hers, word for word (one dash became a comma), and the form asks
+     for exactly what hers asks for, with the same two text message
+     consent boxes, because A2P texting registration expects them. -->
+<section class="bay dark stage sounds" id="talk">
+  <span class="stage__pool" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="sounds__grid">
+      <div data-lit>
+        <p class="eyebrow">Your expertise deserves to be recognized</p>
+        <h2>If any of this sounds like you&hellip;</h2>
+        <ul class="ticklist sounds__list">
+          <li>You&rsquo;re exceptional at what you do, yet your brilliance remains unseen</li>
+          <li>You keep relying on referrals, waiting instead of actively creating opportunities</li>
+          <li>You want more visibility, but get stuck in hesitation and inconsistency</li>
+          <li>You keep preparing, researching, and overthinking instead of showing up</li>
+          <li>You watch less-qualified competitors take the spotlight you should be leading</li>
+          <li>You have the credentials and the results, but no one outside your circle knows it</li>
+          <li>You feel like a best-kept secret in your industry, instead of the go-to authority</li>
+        </ul>
+        <p class="sounds__turn">It&rsquo;s time to stop getting ready to get ready.</p>
+      </div>
+
+      <div data-lit data-cue="2">
+        <div class="sheet sheet--inline">
+          <div class="sheet__head">
+            <div>
+              <p class="sheet__kicker">Let&rsquo;s talk</p>
+              <p class="sheet__title">Let&rsquo;s talk about how to change that.</p>
+              <p class="caption" style="margin-top:.7rem">Four fields. We reply within two business days.</p>
+            </div>
+          </div>
+
+          <form id="lead-form" novalidate>
+            <div class="cols-2" style="gap:1.2rem">
+              <label class="field" style="margin:0">
+                <span class="field__label">First name</span>
+                <input class="field__input" type="text" name="first_name" autocomplete="given-name">
+              </label>
+              <label class="field" style="margin:0">
+                <span class="field__label">Last name</span>
+                <input class="field__input" type="text" name="last_name" autocomplete="family-name">
+              </label>
+            </div>
+            <label class="field">
+              <span class="field__label">Phone</span>
+              <input class="field__input" type="tel" name="phone" required autocomplete="tel" placeholder="+1 (555) 000-0000">
+            </label>
+            <label class="field">
+              <span class="field__label">Email</span>
+              <input class="field__input" type="email" name="email" required autocomplete="email" placeholder="your@email.com">
+            </label>
+            <div class="consent">
+              <label class="check consent__box">
+                <input type="checkbox" name="sms_consent_transactional" value="yes">
+                <span>By checking this box, I consent to receive non-marketing text messages from Own Your Stage Studio. Message frequency varies, message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+              </label>
+              <label class="check consent__box">
+                <input type="checkbox" name="sms_consent_marketing" value="yes">
+                <span>By checking this box, I consent to receive marketing and promotional messages including special offers, discounts, new product updates among others, from Own Your Stage Studio at the phone number provided. Frequency may vary. Message &amp; data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+              </label>
+            </div>
+            <div class="sheet__foot">
+              <p id="lead-error" hidden class="notice notice--action" style="margin-bottom:1.2rem" role="alert"></p>
+              <button type="submit" class="btn btn--primary">Send</button>
+              <p class="legalline"><a href="/privacy-policy">Privacy Policy</a><span aria-hidden="true">|</span><a href="/terms-conditions">Terms of Service</a></p>
+            </div>
+          </form>
+
+          <div id="lead-done" hidden>
+            <p class="eyebrow eyebrow--gold">Received</p>
+            <h3 class="sheet__done">Thank you. We will be in touch within two business days.</h3>
+            <span class="pool pool--sm" aria-hidden="true"></span>
+            <p class="caption" style="margin-top:1.4rem">
+              Rather pick a time now?
+              <a href="/strategy-session" style="border-bottom:1px solid var(--gold)">Book your Strategy Session</a>.
+            </p>
+          </div>
+        </div>
+        <p class="caption sounds__alt">
+          Rather pick a time yourself? <a href="/strategy-session">Book a Strategy Session</a>,
+          thirty minutes on Zoom, complimentary.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ 2c. THE THREE SHIFTS ============
+     Feedback 7.0, note 1: Annette's three minute speech. This is its
+     argument, in her words: the problem is not expertise, it is
+     visible authority, and it turns on three shifts. The last line is
+     the hinge into what the studio actually builds. -->
+<section class="bay light">
+  <div class="wrap">
+    <div class="shifts__head" data-lit>
+      <p class="eyebrow eyebrow--gold">Stop getting ready to get ready</p>
+      <h2>You do not need more expertise. You need visible authority.</h2>
+      <p class="lead">And that begins with three shifts.</p>
+    </div>
+
+    <ol class="shifts" data-lit data-cue="2">
+      <li class="shift">
+        <span class="shift__n" aria-hidden="true">01</span>
+        <h3 class="shift__t">Decide what you want to be known for.</h3>
+        <p class="shift__b">One subject, one problem you solve, one idea people can repeat about you
+          when you are not in the room. Everything else is built on it.</p>
+      </li>
+      <li class="shift">
+        <span class="shift__n" aria-hidden="true">02</span>
+        <h3 class="shift__t">Stop waiting to be invited onto someone else&rsquo;s stage. Create your own.</h3>
+        <p class="shift__b">A room you convene puts you at the center of the conversation, instead of in
+          a slot on somebody else&rsquo;s program.</p>
+      </li>
+      <li class="shift">
+        <span class="shift__n" aria-hidden="true">03</span>
+        <h3 class="shift__t">Make your visibility last.</h3>
+        <p class="shift__b">One powerful conversation can create content, relationships and
+          opportunities for months, when it is produced and captured properly.</p>
+      </li>
+    </ol>
+
+    <p class="shifts__close" data-lit data-cue="3">
+      Bring those three shifts together and you have your own authority platform.
+      <b>That is exactly what we build.</b>
+    </p>
+  </div>
+</section>
+
+
+<!-- ============ 2d. WHAT WE PRODUCE ============
+     Feedback 7.0, note 1: "she doesn't want to look like a virtual
+     event only company whereas she also supports webinars and other
+     deliverables." The panel stays the flagship and keeps its price;
+     the other formats are named from Annette's own documents (the
+     Business Concept Overview and her assessment's own results page,
+     which lists "an expert interview series, a virtual panel, a
+     roundtable, a live event") and are scoped on a call rather than
+     priced, so nothing here promises what has not been costed.
+
+     Note 4: the microphone photograph she loves, regenerated at full
+     resolution rather than lifted from a photo of a laptop screen.
+     The dark right two thirds of the frame is where the type sits. -->
+<section class="band band--mic dark" id="formats">
+  <div class="band__media" aria-hidden="true">
+    <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/mic-stage.jpg" width="1536" height="1024" alt="">
+  </div>
+  <div class="wrap band__copy" data-lit>
+    <p class="eyebrow">Speak. Be seen. Create impact.</p>
+    <h2 class="display" style="font-size:clamp(2rem, 1.4rem + 2.4vw, 3.3rem);max-width:15ch">
+      More than one kind of stage.
+    </h2>
+    <p class="lead" style="margin-top:1.6rem;max-width:34rem">
+      A produced panel is our flagship, and it is not the only room we build. Whatever the
+      format, the job is the same: put your expertise at the center of the conversation,
+      produce it properly, and turn it into content that keeps working.
+    </p>
+  </div>
+</section>
+
+<section class="bay paper">
+  <div class="wrap">
+    <div class="formats" data-lit>
+      <article class="format format--flag">
+        <p class="format__k">The flagship</p>
+        <h3 class="format__t">Virtual panel events</h3>
+        <p class="format__b">You host. Up to five other experts join you on a produced stage, and every
+          one of them invites their own audience. This is the Own Your Stage Experience<span class="tm">&trade;</span>.</p>
+        <a class="cue" href="/experience">The Experience, $2,997</a>
+      </article>
+      <article class="format">
+        <h3 class="format__t">Webinars and masterclasses</h3>
+        <p class="format__b">You teach and we produce it: the topic and positioning, the registration page
+          and launch kit, the live production and the recording, cut into clips afterwards.</p>
+      </article>
+      <article class="format">
+        <h3 class="format__t">Virtual summits</h3>
+        <p class="format__b">Several sessions and several experts around one theme, with you as the
+          convener whose name is on the door.</p>
+      </article>
+      <article class="format">
+        <h3 class="format__t">Expert interview series</h3>
+        <p class="format__b">A recurring conversation you host with the people your audience most wants
+          to hear from, so your name keeps appearing next to theirs.</p>
+      </article>
+      <article class="format">
+        <h3 class="format__t">Roundtables</h3>
+        <p class="format__b">A smaller, closer conversation between peers, produced for the people in the
+          room and for everyone who watches it later.</p>
+      </article>
+      <article class="format">
+        <h3 class="format__t">Podcast-style conversations</h3>
+        <p class="format__b">Long-form conversations recorded cleanly, edited into episodes, and cut into
+          short clips for the platforms you already use.</p>
+      </article>
+    </div>
+
+    <div class="formats__also" data-lit data-cue="2">
+      <div>
+        <h3>Content that keeps working</h3>
+        <p>Every format ends in footage. The Visibility Accelerator<span class="tm">&trade;</span> turns it into highlight
+          videos, short-form clips, captions and a content calendar.</p>
+      </div>
+      <div>
+        <h3>Speaker preparation</h3>
+        <p>Your talking points, your segment and your presence on camera, prepared before you step
+          onto any stage, ours or somebody else&rsquo;s.</p>
+      </div>
+      <div>
+        <h3>A signature series</h3>
+        <p>For experts who want a platform rather than an appearance: a year of produced events,
+          each one followed by its own content package.</p>
+      </div>
+    </div>
+
+    <p class="caption formats__note" data-lit data-cue="3">
+      The panel Experience is the one format with a published price. Everything else is scoped
+      with you on a <a href="/strategy-session">Strategy Session</a>, because its size depends on the
+      number of sessions, speakers and deliverables.
     </p>
   </div>
 </section>
@@ -146,7 +389,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="oyss-mark" viewBox="0 0 64 64">
     <g transform="translate(0,3)" fill="#E05A5A">
-      <path d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>
+      <path d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
       <path d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
     </g>
   </symbol>
@@ -273,13 +516,13 @@
            poster="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/panel-drift-poster.jpg"></video>
   </div>
   <div class="wrap band__copy" data-lit>
-    <p class="eyebrow">Three months, one event</p>
+    <p class="eyebrow">The flagship, step by step</p>
     <h2 class="display" style="font-size:clamp(1.9rem,1.35rem + 2.2vw,3.1rem);max-width:18ch">
       What happens over three months.
     </h2>
     <p class="lead" style="margin-top:1.5rem;max-width:34rem">
       Four stages. The strategy, the panel and the production are ours. The expertise and
-      the promotion are yours.
+      the promotion are yours. The same four stages sit under every format we produce.
     </p>
   </div>
 </section>
@@ -527,8 +770,9 @@
         <p class="eyebrow eyebrow--gold">Launch investment</p>
         <h2>What it costs, and what we need from you.</h2>
         <p class="lead" style="margin-top:1.3rem">
-          One price, paid on signature, before a date is reserved. Minimum eight week cycle,
-          because the date is set by how much runway the promotion needs.
+          One price for the flagship, paid on signature, before a date is reserved. Minimum
+          eight week cycle, because the date is set by how much runway the promotion needs.
+          Webinars, summits and series are quoted after a Strategy Session.
         </p>
         <div class="actions" style="margin-top:2.4rem">
           <a class="btn btn--primary" href="/apply">Apply for the Host Package</a>
@@ -612,9 +856,12 @@
 
 <!-- ============ 7. THE FOUNDER ============
      A new company with no client list has one piece of proof
-     that it is run by a person, and that is the person. The
-     quotation is Annette's own, verbatim from the completed
-     brand discovery questionnaire; nothing here is invented.
+     that it is run by a person, and that is the person.
+
+     Feedback 7.0, note 10: Annette's own page carries her
+     biography, "Hello, I'm Annette", in her words. The quotation
+     and the paragraph below are lifted from it; the full text is
+     on the About page. Nothing here is invented.
 
      This is also the site's one gold field. The palette allows
      exactly that: "SPOTLIGHT HIGHLIGHT. Rare. A single panel, a
@@ -633,18 +880,21 @@
       </figure>
       <div data-lit data-cue="2">
         <p class="byline__quote">
-          &ldquo;Own Your Stage Studio should feel like the moment a highly qualified expert
-          finally steps forward and is presented at the level their expertise deserves.&rdquo;
+          &ldquo;I believe your expertise deserves to be recognized. Not someday. Not after one
+          more credential or one more year of preparation. Now.&rdquo;
         </p>
         <p class="byline__attrib">
-          <b>Annette Knecht Seier</b>, founder. Own Your Stage Studio, LLC, Florida.
+          <b>Annette Knecht Seier</b>, founder and CEO. Own Your Stage Studio, LLC, Florida.
         </p>
         <p class="body" style="margin-top:1.6rem">
-          The studio is founder-led while it is new, with Annette as its visible face, and it
-          is deliberately built to grow past that.
+          For years Annette has worked as The Life Reset Coach through Transformation
+          Unlimited, and kept meeting brilliant coaches, consultants and business owners who
+          had all the expertise in the world and still were not being seen. She has been
+          featured in CEO Monthly and regularly speaks alongside more than a hundred business
+          and life experts at events like the Spotlight on Success Summit.
         </p>
         <div class="actions" style="margin-top:1.8rem">
-          <a class="cue" href="/about">About the studio</a>
+          <a class="cue" href="/about">Meet Annette</a>
         </div>
       </div>
     </div>
@@ -693,71 +943,80 @@
       <a href="/panelists">The Panelist Program</a>
     </p>
     <p class="sidedoor">
-      <span>Not sure where you stand? Eight questions, three minutes, and the result appears
-      on the screen without an email address.</span>
+      <span>Not sure where you stand? Twelve questions, about five minutes, and the result
+      appears on the screen without an email address.</span>
       <a href="/assessment">Readiness assessment</a>
     </p>
     <p class="sidedoor">
-      <span>Rather talk to a person first? Thirty minutes with the studio, no charge and no
-      pitch deck.</span>
-      <a href="/spotlight-call">Book a Spotlight Call</a>
+      <span>Rather talk to a person first? Thirty minutes on Zoom with the studio,
+      complimentary, and no pitch deck.</span>
+      <a href="/strategy-session">Book a Strategy Session</a>
     </p>
   </div>
 </section>
 </main>
 
 <!-- ---------- footer ---------- -->
-<footer class="footer silked">
-  <div class="wrap">
-    <p class="footer__lines">
-      <span>We build the stage.</span>
-      <span class="footer__lines--gold">You steal the show.</span>
-    </p>
-  </div>
-  <div class="wrap">
-    <div class="footer__grid">
-      <div>
-        <a href="/" class="lockup lockup--motion" aria-label="Own Your Stage Studio, home">
+<footer class="footer footer--silk">
+  <div class="footer__banner">
+    <span class="footer__silk" aria-hidden="true"></span>
+    <div class="wrap footer__hero">
+      <div class="footer__brand">
+        <a href="/" class="lockup lockup--stack lockup--motion lockup--light" aria-label="Own Your Stage Studio, home">
       <span class="lockup__type">
-        <span class="lockup__name"><span class="lockup__own">Own Your</span><span class="lockup__stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
-          <path class="mark__a" d="M29 0 H35 L64 58 H53 L32 16 L11 58 H0 Z"/>
+        <span class="lockup__row lockup__row--own">Own Your</span>
+        <span class="lockup__row lockup__row--stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
+          <path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
           <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
-        </svg>ge</span></span>
-        <span class="lockup__desc">Studio<span class="lockup__what"> &middot; Virtual panel events</span></span>
+        </svg>ge</span>
+        <span class="lockup__row lockup__row--studio">Studio</span>
+        <span class="lockup__tag">Speak. Be Seen. Create Impact.</span>
       </span>
     </a>
-        <p class="caption" style="margin-top:1.1rem;max-width:34ch">
-          A premium authority building studio for established experts ready to become
-          more visible, more credible and easier to remember.
-        </p>
       </div>
+      <div class="footer__words">
+        <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
+        <span class="footer__rule" aria-hidden="true"></span>
+        <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer__nav">
+    <div class="footer__grid">
       <div>
         <h4>Explore</h4>
+        <a href="/#formats">What we produce</a>
         <a href="/experience">The Experience</a>
-        <a href="/assessment">Readiness Assessment</a>
         <a href="/panelists">Panelist Program</a>
-        <a href="/about">About</a>
-        <a href="/faq">Frequently Asked Questions</a>
+        <a href="/about">About Annette</a>
+        <a href="/faq">Questions</a>
       </div>
       <div>
         <h4>Next step</h4>
+        <a href="/assessment">Take the Readiness Assessment</a>
+        <a href="/strategy-session">Book a Strategy Session</a>
         <a href="/apply">Apply for the Host Package</a>
-        <a href="/spotlight-call">Book a Spotlight Call</a>
         <a href="/panelist-application">Panelist Application</a>
-        <div style="margin-top:1.6rem">
-          <h4>Agreements</h4>
-          <a href="/host-agreement">Host Services Agreement</a>
-          <a href="/panelist-agreement">Featured Panelist Agreement</a>
-        </div>
+      </div>
+      <div>
+        <h4>Agreements</h4>
+        <a href="/host-agreement">Host Services Agreement</a>
+        <a href="/panelist-agreement">Featured Panelist Agreement</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="/terms-conditions">Terms and Conditions</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/disclaimer">Disclaimer</a>
       </div>
     </div>
     <div class="footer__base">
       <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span class="footer__note">The room is already looking for you.</span>
+      <span class="footer__note">We build the stage. You steal the show.</span>
     </div>
   </div>
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=2d7d99bc"></script>
-
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=77676434"></script>
+<script>OYSS.simpleForm('lead-form', 'lead-done', 'lead-error', 'website-lead');</script>

@@ -1,16 +1,22 @@
 <!-- ============ HEAD ============
-     Type column left, one photograph full bleed right. The plate
-     was a closed notebook and a pen on a desk, which is the
-     picture on every consultancy site there has ever been. This
-     page sells a conversation, so the shot is a conversation. -->
+     Type column left, one photograph full bleed right. This page
+     sells a conversation, so the shot is a conversation.
+
+     Feedback 7.0: this was the "Spotlight Call", a request form that
+     promised to come back with two or three times. Annette already
+     has the real thing in GHL, a calendar called the "OWN YOUR STAGE"
+     Strategy Session (30 minutes, Zoom), and her own assessment sends
+     people to it. So the page is now that calendar, under that name,
+     and a visitor books the time themselves. -->
 <section class="reel reel--short dark" data-over>
   <div class="reel__copy" data-lit>
-    <h1 class="display">Book a Spotlight Call.</h1>
+    <h1 class="display">Book your Strategy Session.</h1>
     <span class="reel__rule" aria-hidden="true"></span>
-    <p class="lead">Thirty minutes on one question: what subject should carry your name. You leave with an answer whether or not you ever work with us.</p>
+    <p class="lead">Thirty minutes on Zoom with the studio. Where your authority stands today,
+      what you should be known for, and which stage fits you next.</p>
     <p class="donext">
-      <b>No charge and no pitch deck.</b> Send the form and we come back with two or three
-      times that week.
+      <b>Complimentary, and no pitch deck.</b> Pick a time below and the Zoom link arrives
+      with your confirmation.
     </p>
   </div>
 
@@ -21,22 +27,22 @@
 </section>
 
 
-<section class="bay light">
+<section class="bay light" id="book">
   <div class="wrap">
     <div class="split" style="align-items:start">
 
       <div data-lit>
-        <p class="eyebrow eyebrow--gold">What the call is</p>
-        <h2 style="font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">A conversation about positioning, not a sales script.</h2>
+        <p class="eyebrow eyebrow--gold">What the session is</p>
+        <h2 style="font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">A conversation about your authority, not a sales script.</h2>
         <p class="body" style="margin-top:1.3rem">
-          We look at where you are on the visibility ladder, the subject you are closest
-          to owning, and whether a produced panel is the right vehicle this year or the
-          wrong one.
+          We look at where you are today, the subject you are closest to owning, and whether a
+          produced panel, a webinar, a summit or a series is the right stage for you this
+          year, or none of them yet.
         </p>
         <div class="rule" style="margin:2.2rem 0"></div>
         <p class="eyebrow eyebrow--gold">Come with</p>
         <ul class="ticklist">
-          <li>The subject you think you should be known for</li>
+          <li>The subject you want to be known for</li>
           <li>A rough sense of who you could invite</li>
           <li>Any date you are working toward</li>
         </ul>
@@ -44,95 +50,22 @@
         <p class="caption">
           If you would rather start on your own,
           <a href="assessment.html" style="border-bottom:1px solid var(--gold)">the Readiness Assessment</a>
-          takes about three minutes and needs no email.
+          takes about five minutes, needs no email, and gives us a useful place to start the
+          conversation.
         </p>
-
-        <!-- CALENDAR SLOT.
-             A marked placeholder was live here in production: a
-             pale box reading "Calendar embed goes here", visible
-             to anybody who opened this page. That is the third
-             time a working note has shipped on this site, so it
-             is not replaced with another note. The form beside it
-             already books the call, and it is the fallback the
-             calendar was going to need anyway.
-
-             To add the calendar, paste the GoHighLevel booking
-             iframe in place of this comment and delete nothing
-             else; the form is the no-JavaScript path and stays. -->
+        <p class="caption" style="margin-top:1.6rem">
+          Own Your Stage Studio, LLC &middot; Florida
+        </p>
       </div>
 
       <div data-lit data-cue="2">
-        <div class="sheet sheet--inline">
-
-          <div class="sheet__head">
-            <div>
-              <p class="sheet__kicker">Request form</p>
-              <p class="sheet__title">Book a Spotlight Call</p>
-            </div>
-            <p class="sheet__meta">
-              <b>30 minutes</b>
-              No charge<br>
-              No obligation
-            </p>
-          </div>
-
-          <form id="spotlight-form" novalidate>
-            <p class="sheet__key">
-              Five fields. We reply within two business days.
-            </p>
-
-            <label class="field">
-              <span class="field__label">Full name</span>
-              <input class="field__input" type="text" name="name" required autocomplete="name">
-            </label>
-            <label class="field">
-              <span class="field__label">Email</span>
-              <input class="field__input" type="email" name="email" required autocomplete="email">
-            </label>
-            <label class="field">
-              <span class="field__label">Website or LinkedIn</span>
-              <input class="field__input" type="text" name="url" placeholder="https://">
-            </label>
-            <label class="field">
-              <span class="field__label">What do you want to be known for</span>
-              <textarea class="field__input" name="subject" required placeholder="One sentence is enough."></textarea>
-            </label>
-            <label class="field">
-              <span class="field__label">Where are you now</span>
-              <select class="field__input" name="level" required>
-                <option value="">Select</option>
-                <option>Hidden Expert: trusted inside a small circle</option>
-                <option>Emerging Expert: known inconsistently</option>
-                <option>Expanding Expert: found without an introduction</option>
-                <option>Visible Expert: my name carries the subject</option>
-                <option>Not sure yet</option>
-              </select>
-            </label>
-
-            <div class="sheet__foot">
-              <p id="call-error" hidden class="notice notice--action" style="margin-bottom:1.2rem" role="alert"></p>
-              <button type="submit" class="btn btn--primary">Request the call</button>
-              <p class="caption">We reply within two business days.</p>
-            </div>
-          </form>
-
-          <div id="call-done" hidden>
-            <p class="eyebrow eyebrow--gold">Received</p>
-            <h3 style="font-family:var(--serif);font-size:1.6rem;font-weight:400;margin-top:.6rem">
-              We will be in touch within two business days.
-            </h3>
-            <span class="pool pool--sm" aria-hidden="true"></span>
-            <p class="caption" style="margin-top:1.4rem">
-              In the meantime,
-              <a href="assessment.html" style="border-bottom:1px solid var(--gold)">the Readiness Assessment</a>
-              will give you a useful starting point for the conversation.
-            </p>
-          </div>
+        <div class="booking">
+          <iframe src="%%BOOKING_URL%%" scrolling="no" id="oyss-booking"
+                  title="Book your Own Your Stage Strategy Session" loading="lazy"></iframe>
         </div>
-
-        <p class="caption" style="margin-top:1.6rem">
-          Own Your Stage Studio, LLC &middot; Florida<br>
-          events@ownyourstagestudio.com
+        <p class="caption booking__fallback">
+          Calendar not showing?
+          <a href="%%BOOKING_URL%%" target="_blank" rel="noopener">Open it in a new tab</a>.
         </p>
       </div>
 
@@ -140,41 +73,6 @@
   </div>
 </section>
 %%INLINE%%
-<script>
-(function () {
-  var CONFIG = { endpoint: null, tag: 'spotlight-call-request' };
-  var form = document.getElementById('spotlight-form');
-  var done = document.getElementById('call-done');
-  var err  = document.getElementById('call-error');
-  if (!form) return;
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var missing = [];
-    form.querySelectorAll('[required]').forEach(function (el) {
-      var bad = !el.value.trim();
-      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
-      if (bad) missing.push(el);
-    });
-    if (missing.length) {
-      err.textContent = 'Complete every required field. ' + missing.length + ' remaining.';
-      err.hidden = false; missing[0].focus(); return;
-    }
-    err.hidden = true;
-
-    var data = {}; new FormData(form).forEach(function (v, k) { data[k] = v; });
-    data.tag = CONFIG.tag;
-    data.submittedAt = new Date().toISOString();
-    try {
-      var a = sessionStorage.getItem('oyss:assessment');
-      if (a) data.assessment = a;      /* carry the level through if they took it */
-    } catch (_) {}
-
-    function finish() { form.hidden = true; done.hidden = false; }
-    if (CONFIG.endpoint) {
-      fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(finish).catch(finish);
-    } else { setTimeout(finish, 400); }
-  });
-})();
-</script>
+<!-- GHL's own embed script: it resizes the calendar to its content, so the
+     page never shows a scrollbar inside a scrollbar. -->
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>

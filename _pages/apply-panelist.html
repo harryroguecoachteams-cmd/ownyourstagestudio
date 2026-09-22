@@ -254,6 +254,8 @@
         <span>I have read and agree to the acknowledgment above.</span>
       </label>
 
+      %%CONSENT%%
+
       <div class="sheet__foot">
         <p id="pan-error" hidden class="notice notice--action" style="margin-bottom:1.4rem" role="alert"></p>
         <button type="submit" class="btn btn--primary">Submit my application</button>
@@ -261,6 +263,7 @@
           No payment is taken at this step. The $47 fee is only due once you are selected
           and sign the agreement.
         </p>
+        %%LEGAL%%
       </div>
       </form>
 
@@ -287,7 +290,7 @@
 %%INLINE%%
 <script>
 (function () {
-  var CONFIG = { endpoint: null, tag: 'panelist-application' };
+  var CONFIG = { endpoint: window.OYSS_ENDPOINT || null, tag: 'panelist-application' };
   var form = document.getElementById('panelist-application');
   var done = document.getElementById('pan-done');
   var err  = document.getElementById('pan-error');
@@ -328,6 +331,10 @@
       if (k === 'promo') { promo.push(v); } else { data[k] = v; }
     });
     data.promo = promo.join(', ');
+    ['sms_consent_transactional', 'sms_consent_marketing'].forEach(function (k) {
+      var box = form.querySelector('input[name="' + k + '"]');
+      if (box) data[k] = box.checked ? 'yes' : 'no';
+    });
     data.tag = CONFIG.tag;
     data.submittedAt = new Date().toISOString();
 
