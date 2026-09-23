@@ -20,35 +20,33 @@ GitHub Pages is only a demo copy.
 - 15 pages built, SEO set, published, audited (`python _build/ghl_live_audit.py`).
 - Website settings: favicon, **Optimize JavaScript OFF** (it lazy-loads custom code).
 
-## Left to do, in order
-1. **Re-paste the Body tracking code** from `_ghl_native/site_tracking_body.html`
-   (the live copy predates the endpoint and the `[src$=]` framing fix; the About hero is
-   cropped until this is done). Verify the saved length equals the file length.
-2. **Finish the workflow** "Website - all forms and the assessment (ownyourstagestudio.com)",
-   id 5e574732-ce29-4627-9636-b97e889b1018 (Automation > Workflows):
-   - Existing: Inbound Webhook -> Create contact (first name, email) -> Tag (dynamic:
-     `website, {{inboundWebhookRequest.tag}}`).
-   - Step 4 may be lost (was unsaved): **Send internal notification**, Email, From name
-     "Own Your Stage Studio website", To: Custom email events@ownyourstagestudio.com,
-     Subject `Website: {{inboundWebhookRequest.tag}} from {{inboundWebhookRequest.first_name}} {{inboundWebhookRequest.last_name}}`,
-     body = `workflow/notify_annette_email.html` pasted through the editor's **Source code (</>)**
-     view (a rich paste auto-links .page/.email/.phone/.video as domains).
-   - Step 5: **If/Else** on `{{inboundWebhookRequest.tag}}` equals `assessment-result`:
-     - Yes: **Update contact field** Assessment Level / Assessment Score Percent / Assessment
-       Points / Assessment Start Here / Assessment Pillars from
-       `{{inboundWebhookRequest.assessment_level}}`, `..._percent`, `..._points`,
-       `..._start_here`, `..._pillars`; then **Send email** to the contact, subject
-       `Your Authority Visibility Score: {{inboundWebhookRequest.assessment_percent}}%`,
-       body = `workflow/assessment_result_email.html` via Source code view.
-     - No (applications): **Update contact field** Last name, Phone, Company name, Website
-       from last_name / phone / business / url.
-   - **Publish** the workflow (toggle top right).
-3. **Test** each form on the live site (assessment email, host application, panelist
-   application); check Execution logs and the contact record. Check the result email renders
-   `result_html` as HTML (if GHL escapes it, switch the body to the individual fields).
-4. **Point the root domain** `ownyourstagestudio.com/` at the new Home (/home). Today `/`
-   serves Annette's old GHL page. Settings > Domains (or the website's domain settings).
-5. Optional: workflow for the home short form (GHL form dvJo5tJIIPvpcprpSPcc, no workflow yet).
+## Done 24 Sep 2026 (session 2)
+- Body tracking code re-pasted: 190,980 chars saved = file minus CRLF; live pages carry the endpoint.
+- Workflow "Website - all forms and the assessment" PUBLISHED. Steps:
+  Inbound Webhook -> Create contact -> Tag `website, {{tag}}` -> Internal notification email to
+  events@ownyourstagestudio.com (default sender) -> Update field **Last Website Form** (contact
+  custom field MiwF8qRHokjYW8c4FPBv, `contact.last_website_form`) = `{{inboundWebhookRequest.tag}}`
+  -> If/Else "Assessment or application?": Last Website Form is `assessment-result`
+  - Assessment: 5 assessment fields -> Send email "Your Authority Visibility Score: N%"
+    (body `workflow/assessment_result_email.html`; result_html arrives as real HTML, verified)
+  - Application (none branch): Last name, Phone, Business Name, Website
+    (`{{url}}{{website}}`: host form sends url, panelist form sends website)
+- Tested with two webhook posts (TEST / example.com contacts jAWTzBp2xKc5E8V7688a and
+  fYbUFE6NAvXVlZoO1Hf6, still in her CRM, tagged website): every step Executed, fields correct.
+
+## Left to do
+1. **Root domain** `ownyourstagestudio.com/` still serves her old `/home-8271`. The login we use
+   has NO Settings > Domains (limited role). An admin must set the domain's default page to the
+   new website's Home (/home).
+2. Real browser test of each live form once (assessment email, host, panelist).
+3. Optional: workflow for the home short form (GHL form dvJo5tJIIPvpcprpSPcc).
+4. Optional: delete the two TEST contacts.
+
+## Workflow builder traps (24 Sep)
+- If/Else cannot read `inboundWebhookRequest.*`; copy the value into a contact field first.
+- Only ONE Inbound Webhook trigger per workflow (second is greyed out).
+- Number / phone fields reject a pasted `{{...}}`: use the tag icon picker > Inbound Webhook Trigger.
+- Internal notification: a From Name without a From Email fails validation; leave both empty.
 
 ## Builder traps (cost real time)
 - Chrome must be visible. If `document.visibilityState` is "hidden" the builder never
