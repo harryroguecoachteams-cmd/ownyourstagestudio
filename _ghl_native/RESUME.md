@@ -34,13 +34,37 @@ GitHub Pages is only a demo copy.
 - Tested with two webhook posts (TEST / example.com contacts jAWTzBp2xKc5E8V7688a and
   fYbUFE6NAvXVlZoO1Hf6, still in her CRM, tagged website): every step Executed, fields correct.
 
-## Left to do
-1. **Root domain** `ownyourstagestudio.com/` still serves her old `/home-8271`. The login we use
-   has NO Settings > Domains (limited role). An admin must set the domain's default page to the
-   new website's Home (/home).
-2. Real browser test of each live form once (assessment email, host, panelist).
-3. Optional: workflow for the home short form (GHL form dvJo5tJIIPvpcprpSPcc).
-4. Optional: delete the two TEST contacts.
+## Left to do (24 Sep, round 2; code is committed, GHL side pending)
+Code: agreements now post to the webhook (tag host-agreement / panelist-agreement, first/last
+name split from legal_name, business = business_name); "Demonstration build" notice replaced by
+the payment step; Annette's keynote lines + 2 stage photos added. Tracking code WITH the signing
+fix is already LIVE (191,253 chars saved). Email bodies: workflow/confirm_*.html, subjects in
+workflow/subjects.json.
+1. Media Storage folder "Website - Own Your Stage Studio": upload assets/media/annette-stage-blue.jpg
+   and annette-stage-warm.jpg, add ids to _ghl_media.json, run build.py + build_ghl.py.
+2. Re-paste page code (one Custom Code element each): Host Agreement (page-builder
+   igBKL674r7nm7ZrQAg0R), Panelist Agreement, Home, About, Virtual Panel Events; publish each.
+   DO NOT paste via clipboard while another process uses it; verify length before Save.
+3. Website workflow (5e574732): replace internal notification body (agreement section added);
+   If/Else add branch "Agreement" (Last Website Form is any of host-agreement,panelist-agreement)
+   -> Update Last name/Phone/Business Name -> If/Else host vs panelist -> Send email
+   confirm_host_agreement / confirm_panelist_agreement. Application branch: after "Save the
+   application details" add If/Else host-application / panelist-application -> Send email
+   confirm_host_application / confirm_panelist_application.
+4. New workflow "Website - Let's talk form": Form Submitted (dvJo5tJIIPvpcprpSPcc) -> tag
+   website, lets-talk -> internal notification to events@ -> Send email confirm_lets_talk.
+5. New workflow "Stop Hiding Strategy Call booked": Customer Booked Appointment (calendar
+   cNJmGXJ4ed9YpmzNEElE) -> tag strategy-call-booked -> internal notification to events@.
+   Contact emails are NOT needed: the calendar's own notifications (auto-confirm on) already
+   send confirmation, 24h/1h/10m reminders, reschedule and cancel to the contact and Annette.
+6. New workflow "Own Your Stage Experience - payment received": Payment Received (products
+   6a8f2ab7ddec25df2d4e9da4 $2,997 and 6a9193ac469e8f2385c54aa4 plan) -> tag experience-client
+   -> internal notification -> Send email confirm_payment. Leave re-entry OFF (plan pays twice).
+7. Test each with TEST contacts, then DELETE all TEST contacts (Harsh asked): jAWTzBp2xKc5E8V7688a,
+   fYbUFE6NAvXVlZoO1Hf6 + new ones.
+8. Root domain -> /home (admin, waiting on Annette).
+Open questions for Annette: no $47 panelist fee product/payment link exists; payment plan
+product says $3,110 vs site $1,550 x 2 = $3,100; keynote says "Expanding", quiz says "Established".
 
 ## Workflow builder traps (24 Sep)
 - If/Else cannot read `inboundWebhookRequest.*`; copy the value into a contact field first.
