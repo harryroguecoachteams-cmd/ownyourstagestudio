@@ -4,6 +4,25 @@ A working draft of the company site.
 
 ---
 
+## FEEDBACK 8.0 (23 Sep 2026)
+
+1. **Not a virtual-event-only company.** The home page lost the three sections that were only about the panel (the three-month cue sheet, the deliverables list, the price). The hero now leads with "Book a Strategy Session" and "Explore our services". The facts line lists the range of formats instead of the panel's numbers.
+2. **Services page** (`services.html`, GHL slug `/services`, in the nav): every service in short. Each one links to the booking calendar at the foot of the page. The flagship links to its own page.
+3. **Calendar instead of a form** on the home page's "If any of this sounds like you" section. Recommended and done: the calendar asks for the same details and books the call on the spot, with no webhook in between.
+4. **Virtual Panel Events is the flagship** (`experience.html`, nav label "Virtual Panel Events"). There is no price on the home page. The page follows three steps: assessment, then the Strategy Session (calendar embedded), then payment. **Pay in full $2,997** or **pay in two, $1,550 x 2**. Both buttons are Annette's own live GHL/Stripe payment links.
+5. **Assessment:** her live quiz's introduction and six "you will discover" lines are ported. The result now shows a percentage ring (the same number her quiz reports), the points, the level ladder with point ranges, six pillar bars with "Start here" on the weakest, her text for that level only, and the calendar inside the result.
+6-7. No prices on the home page. The closing links are full-line links to Services, Virtual Panel Events, Assessment and the Panelist Program.
+8. **Footer rearranged** to the drawing: the links move up under the lockup, "We build the stage. You steal the show." is back at display size, the silk runs underneath, and "Your Voice Matters" sits on the base line.
+9. **Calendar embed fixed.** The lazy-loading iframe was painting as an empty box. It now has a fixed height, loads eagerly, and comes from one shared block used on 5 pages.
+10. **About hero:** Annette in a waist-up close-up (`assets/media/annette-close.jpg`, made by `_art/round13.py` from her two photographs).
+- The header button is now **Book a Call**. "Home" was dropped from the bar because the logo already goes home and the bar no longer fit at 1366px.
+
+**For Annette:**
+- Her payment-plan product says "Total Investment: $3,110", but 2 x $1,550 = $3,100.
+- Her GHL quiz still has the truncated booking link and the percent tiers flagged in 7.0.
+
+
+
 ## FEEDBACK 7.0 (23 September 2026) - read this first
 
 Eleven notes from a Google Doc. All eleven are done. What needs Annette is

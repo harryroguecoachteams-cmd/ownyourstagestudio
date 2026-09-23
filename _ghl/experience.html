@@ -1,6 +1,6 @@
 <!-- ==========================================================
      OWN YOUR STAGE STUDIO - GHL BLOCK
-     Page:  The Own Your Stage Experience
+     Page:  Virtual Panel Events
      Step:  /experience
 
      Paste ALL of this into one Custom JS/HTML element on that
@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=f12eabba">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=b3020bd0">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -34,13 +34,13 @@
     </a>
     <button class="burger" aria-expanded="false" aria-controls="primary-nav">Menu</button>
     <nav id="primary-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/experience" aria-current="page">The Experience</a>
+      <a href="/services">Services</a>
+      <a href="/experience" aria-current="page">Virtual Panel Events</a>
       <a href="/assessment">Assessment</a>
       <a href="/panelists">Panelists</a>
       <a href="/about">About</a>
       <a href="/faq">FAQ</a>
-      <a class="btn btn--primary" href="/apply">Apply</a>
+      <a class="btn btn--primary" href="/strategy-session">Book a Call</a>
     </nav>
   </div>
 </header>
@@ -59,12 +59,13 @@
      planning session, weeks before anybody logs in. -->
 <section class="reel reel--page dark" data-over>
   <div class="reel__copy" data-lit>
+    <p class="eyebrow">The flagship &middot; Virtual panel events</p>
     <h1 class="display">The Own Your Stage Experience<span class="tm">&trade;</span></h1>
     <span class="reel__rule" aria-hidden="true"></span>
-    <p class="lead">Our flagship. One virtual panel event, produced end to end and built around your subject. We handle the strategy, the panel, the branding and the production. You host it.</p>
+    <p class="lead">One virtual panel event, produced end to end and built around your subject. We handle the strategy, the panel, the branding and the production. You host it.</p>
     <div class="actions">
-      <a class="btn btn--primary" href="/apply">Apply for the Host Package</a>
-      <a class="cue" href="/strategy-session">Book a Strategy Session</a>
+      <a class="btn btn--primary" href="#path">Reserve your panel</a>
+      <a class="cue" href="/services">See every service</a>
     </div>
   </div>
 
@@ -256,7 +257,7 @@
 
     <p class="caption" style="margin-top:2.2rem;max-width:44rem" data-lit data-cue="3">
       Not a panel? The same six cues sit under every format we produce, from webinars to
-      summits and interview series. <a href="/#formats" style="border-bottom:1px solid var(--gold)">See what we produce</a>.
+      summits and interview series. <a href="/services" style="border-bottom:1px solid var(--gold)">See every service</a>.
     </p>
   </div>
 </section>
@@ -478,79 +479,156 @@
   </div>
 </section>
 
-<!-- ============ INVESTMENT ============
-     The boxed card is gone. A price in a bordered box next to a
-     price on a dark ground was two objects doing one job. -->
-<section class="bay dark stage">
+<!-- ============ THE PATH ============
+     Feedback 8.0, note 4: "make the virtual panel events the
+     flagship, make it unique, and link it to a page where they do the
+     assessment, then book the call, then pay for the virtual event,
+     in full or split in half and paid in two."
+
+     This is that page, and this is the path, in that order. The price
+     lives here and nowhere on the home page. Both payment options are
+     Annette's own GHL products ("Own Your Stage Experience", $2,997
+     once; "Own Your Stage Experience - Payment Plan", $1,550 a month
+     for two months). The buttons are her own GHL payment links,
+     PAY_FULL_URL and PAY_PLAN_URL in build.py. -->
+<section class="bay dark stage" id="path">
   <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="split">
+    <div class="path__head" data-lit>
+      <p class="eyebrow">Reserve your panel</p>
+      <h2>Three steps from here to your date.</h2>
+      <p class="lead">Know where you stand, talk it through with the studio, then secure the
+        engagement in full or in two payments.</p>
+    </div>
+
+    <ol class="path" data-lit data-cue="2">
+      <li class="path__step">
+        <span class="path__n" aria-hidden="true">01</span>
+        <h3 class="path__t">Take the Readiness Assessment</h3>
+        <p class="path__b">Twelve questions, about five minutes. Your score, your level and your
+          six pillars appear on the screen, and they give the call a place to start.</p>
+        <a class="cue" href="/assessment">Take the assessment</a>
+      </li>
+      <li class="path__step">
+        <span class="path__n" aria-hidden="true">02</span>
+        <h3 class="path__t">Book your Strategy Session</h3>
+        <p class="path__b">Thirty minutes on Zoom, complimentary. We confirm the panel is the right
+          stage for you, sketch the topic, and agree a date that leaves the promotion enough
+          runway.</p>
+        <a class="cue" href="#book">Pick a time below</a>
+      </li>
+      <li class="path__step">
+        <span class="path__n" aria-hidden="true">03</span>
+        <h3 class="path__t">Secure your date</h3>
+        <p class="path__b">Pay in full, or split it into two monthly payments. Your date is reserved
+          once payment and the intake are complete, under the Host Services Agreement.</p>
+        <a class="cue" href="#invest">Payment options</a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="bay light" id="book">
+  <div class="wrap">
+    <div class="split" style="align-items:start">
       <div data-lit>
-        <p class="eyebrow">Launch investment</p>
-        <div class="figure__value" style="color:var(--ivory)">$2,997</div>
-        <p class="lead" style="margin-top:1.6rem">
-          A three month done-for-you engagement. Payment is due when the Host Services
-          Agreement is signed, and an event date is reserved once payment and the initial
-          intake are complete.
+        <p class="eyebrow eyebrow--gold">Step 02</p>
+        <h2>Book your Strategy Session.</h2>
+        <p class="body" style="margin-top:1.3rem">
+          Thirty minutes with the studio. Bring the subject you want to be known for, a rough
+          sense of who you could invite onto your panel, and any date you are working toward.
         </p>
         <div class="rule" style="margin:2.2rem 0"></div>
         <p class="caption">
-          A launch price while the studio delivers and evaluates its first engagements.
-          Read the <a href="/host-agreement">Host Services Agreement</a> in full
-          before you apply.
+          Not taken the assessment yet?
+          <a href="/assessment" style="border-bottom:1px solid var(--gold)">It takes about five minutes</a>,
+          and your result is a useful place to start the conversation.
         </p>
       </div>
-
       <div data-lit data-cue="2">
-        <p class="eyebrow">Before you apply</p>
-        <p class="body" style="margin-top:1rem;max-width:34rem">
-          This is built for someone who already has the experience and the client results,
-          who is respected inside their own network and largely unknown outside it, and who
-          has an audience they are willing to invite, however small. It asks for a
-          commitment to a minimum eight week production cycle and to promoting the event to
-          that audience.
-        </p>
-        <div class="rule" style="margin:1.8rem 0;max-width:34rem"></div>
-        <p class="caption" style="max-width:34rem">
-          It is the wrong engagement if you are new to your field, still building a first
-          offer, or looking for someone to promote the event for you. If that is where you
-          are, the Strategy Session is complimentary and we will say so on it.
+        <div class="booking">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE" scrolling="no" id="oyss-booking-1"
+                  title="Book your Own Your Stage Strategy Session" height="740"></iframe>
+        </div>
+        <p class="caption booking__fallback">
+          Calendar not showing?
+          <a href="https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE" target="_blank" rel="noopener">Open the calendar in a new tab</a>.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CLOSE ============
-     Every interior page used to end on the same centered headline
-     with the same two buttons. This one names what happens next
-     on this page and offers one action. -->
-<section class="bay--half light">
+<!-- ============ INVESTMENT ============ -->
+<section class="bay dark stage" id="invest">
+  <span class="stage__pool" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="close" data-lit>
-      <p class="close__t">The application is the next step, and it costs nothing.</p>
-      <div class="close__aside">
-        <p class="close__m">
-          About eight minutes. It asks what you do, who already knows you for it, and what
-          you want to be known for next. No payment, no card, and applying does not commit
-          you to anything.
-        </p>
-        <div class="actions">
-          <a class="btn btn--primary" href="/apply">Apply for the Host Package</a>
-        </div>
+    <div class="path__head" data-lit>
+      <p class="eyebrow">Step 03 &middot; Launch investment</p>
+      <h2>Pay in full, or in two.</h2>
+      <p class="lead">A three month done-for-you engagement. An event date is reserved once
+        payment and the initial intake are complete.</p>
+    </div>
+
+    <div class="pay" data-pay="live" data-lit data-cue="2">
+      <div class="pay__opt pay__opt--main">
+        <p class="pay__k">Pay in full</p>
+        <p class="pay__v">$2,997</p>
+        <p class="pay__m">One payment. The simplest way to secure your date.</p>
+        <a class="btn btn--primary pay__btn" href="https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334" target="_blank" rel="noopener">Pay in full</a>
+      </div>
+      <div class="pay__opt">
+        <p class="pay__k">Two payments</p>
+        <p class="pay__v">$1,550 <small>&times; 2</small></p>
+        <p class="pay__m">The first today, the second a month later.</p>
+        <a class="btn btn--ghost pay__btn" href="https://link.fastpaydirect.com/payment-link/6a919448f9c8c807930ba92c" target="_blank" rel="noopener">Pay in two</a>
       </div>
     </div>
+    <p class="caption pay__note" data-lit data-cue="3">
+      Both include everything on this page. Read the
+      <a href="/host-agreement">Host Services Agreement</a> before you pay. Checkout is
+      secure, by card, and opens in a new tab. Rather talk first? <a href="#book">Book the
+      Strategy Session</a> above.
+    </p>
+
+    <div class="pay__fit" data-lit data-cue="3">
+      <div>
+        <p class="eyebrow">Who it is for</p>
+        <p class="body">
+          Someone who already has the experience and the client results, who is respected
+          inside their own network and largely unknown outside it, and who has an audience they
+          are willing to invite, however small. It asks for a minimum eight week production
+          cycle and for promoting the event to that audience.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Who it is not for</p>
+        <p class="body">
+          Anyone new to their field, still building a first offer, or looking for someone to
+          promote the event for them. If that is where you are, the Strategy Session is
+          complimentary and we will say so on it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bay--half light">
+  <div class="wrap">
+    <p class="caption" style="max-width:44rem" data-lit>
+      Prefer to put it in writing first? The
+      <a href="/apply" style="border-bottom:1px solid var(--gold)">host application</a>
+      takes about eight minutes and asks nothing about payment.
+    </p>
   </div>
 </section>
 </main>
 
 <!-- ---------- footer ---------- -->
 <footer class="footer footer--silk">
-  <div class="footer__banner">
-    <span class="footer__silk" aria-hidden="true"></span>
-    <div class="wrap footer__hero">
-      <div class="footer__brand">
-        <a href="/" class="lockup lockup--stack lockup--motion lockup--light" aria-label="Own Your Stage Studio, home">
+  <div class="wrap footer__hero">
+    <div class="footer__brand">
+      <a href="/" class="lockup lockup--stack lockup--motion lockup--light" aria-label="Own Your Stage Studio, home">
       <span class="lockup__type">
         <span class="lockup__row lockup__row--own">Own Your</span>
         <span class="lockup__row lockup__row--stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
@@ -561,28 +639,26 @@
         <span class="lockup__tag">Speak. Be Seen. Create Impact.</span>
       </span>
     </a>
-      </div>
-      <div class="footer__words">
-        <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
-        <span class="footer__rule" aria-hidden="true"></span>
-        <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
-      </div>
+    </div>
+    <div class="footer__words">
+      <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
+      <span class="footer__rule" aria-hidden="true"></span>
     </div>
   </div>
   <div class="wrap footer__nav">
     <div class="footer__grid">
       <div>
         <h4>Explore</h4>
-        <a href="/#formats">What we produce</a>
-        <a href="/experience">The Experience</a>
+        <a href="/services">Services</a>
+        <a href="/experience">Virtual Panel Events</a>
         <a href="/panelists">Panelist Program</a>
         <a href="/about">About Annette</a>
         <a href="/faq">Questions</a>
       </div>
       <div>
         <h4>Next step</h4>
-        <a href="/assessment">Take the Readiness Assessment</a>
         <a href="/strategy-session">Book a Strategy Session</a>
+        <a href="/assessment">Take the Readiness Assessment</a>
         <a href="/apply">Apply for the Host Package</a>
         <a href="/panelist-application">Panelist Application</a>
       </div>
@@ -598,13 +674,17 @@
         <a href="/disclaimer">Disclaimer</a>
       </div>
     </div>
-    <div class="footer__base">
-      <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span class="footer__note">We build the stage. You steal the show.</span>
-    </div>
+  </div>
+  <div class="footer__stage">
+    <span class="footer__silk" aria-hidden="true"></span>
+    <p class="wrap footer__tagline"><span>We build the stage.</span><span>You steal the show.</span></p>
+  </div>
+  <div class="wrap footer__base">
+    <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
+    <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
   </div>
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=f12eabba"></script>
-
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=b3020bd0"></script>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>

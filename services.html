@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services | Own Your Stage Studio</title>
+<meta name="description" content="Everything Own Your Stage Studio produces: virtual panel events, webinars and masterclasses, virtual summits, interview series, roundtables, podcast-style conversations, content and speaker preparation.">
+<meta property="og:title" content="Services | Own Your Stage Studio">
+<meta property="og:description" content="Everything Own Your Stage Studio produces: virtual panel events, webinars and masterclasses, virtual summits, interview series, roundtables, podcast-style conversations, content and speaker preparation.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/stage-holding-slide.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/oyss.css?v=b3020bd0">
+<style>
+/* PAGE SHELL RESET.
+   oyss.css carries no global reset on purpose: every selector is scoped
+   under .oyss so the same file can be pasted into a GoHighLevel Custom Code
+   element without touching the builder chrome. The cost is that on a
+   standalone page the browser's own 8px body margin survives, and it was
+   drawing a pale frame around every dark section on every page. It is the
+   page shell's job to remove it, not the brand system's, so it lives here
+   and never reaches the GHL block. */
+html, body { margin: 0; padding: 0; }
+body { background: #F8F5F2; }
+/* THE WIDE SCREEN (feedback 6.0). The site was approved at 1440 and stopped
+   responding above it. From 1440 to 1920 the root eases 100% -> 112.5%, so
+   every rem measure in oyss.css (type, leads, columns, buttons) grows with
+   the screen; the content width grows with it via --wrap (oyss.css section
+   47). Percentages, not px, so a reader's own browser font size still
+   counts. It is the html element, so it lives in the shell, not the brand
+   file, which may style nothing outside .oyss. */
+html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
+</style>
+</head>
+<body>
+<div class="oyss">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a href="index.html" class="lockup lockup--stack lockup--motion" aria-label="Own Your Stage Studio, home">
+      <span class="lockup__type">
+        <span class="lockup__row lockup__row--own">Own Your</span>
+        <span class="lockup__row lockup__row--stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
+          <path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
+          <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
+        </svg>ge</span>
+        <span class="lockup__row lockup__row--studio">Studio</span>
+      </span>
+    </a>
+    <button class="burger" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav id="primary-nav" aria-label="Primary">
+      <a href="services.html" aria-current="page">Services</a>
+      <a href="experience.html">Virtual Panel Events</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="panelists.html">Panelists</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a class="btn btn--primary" href="contact.html">Book a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HEAD ============
+     Feedback 8.0, note 2: "Put a services page, mention all the
+     services there in short, and link each of them to call booking.
+     Want to know more? Let's book a call."
+
+     So every service is short, and every one ends in the same
+     place: the calendar at the foot of this page. The flagship is the
+     one exception, because it has a page of its own to go to first.
+     The shot is a conversation in the round rather than a stage,
+     since most of what is on this page is not a panel. -->
+<section class="reel reel--page dark" data-over>
+  <div class="reel__copy" data-lit>
+    <h1 class="display">Every stage we build.</h1>
+    <span class="reel__rule" aria-hidden="true"></span>
+    <p class="lead">One studio, several rooms. Each one puts your expertise at the center of the
+      conversation, is produced properly, and ends in content that keeps working after the
+      room has closed.</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="#book">Book a Strategy Session</a>
+      <a class="cue" href="experience.html">The flagship: Virtual Panel Events</a>
+    </div>
+  </div>
+
+  <div class="reel__media">
+    <img class="reel__plate" src="assets/media/panel-room.jpg" width="1500" height="1000"
+         alt="Four professionals in conversation in a warmly lit dark room, one of them speaking while the others listen.">
+  </div>
+</section>
+
+
+<!-- ============ THE STAGES ============ -->
+<section class="bay light">
+  <div class="wrap">
+    <div class="svc__head" data-lit>
+      <p class="eyebrow eyebrow--gold">What we produce</p>
+      <h2>Choose the room. We build the rest.</h2>
+      <p class="lead">
+        Every format is scoped with you on a Strategy Session, because its size depends on the
+        number of sessions, speakers and deliverables. Read the short version here, then book a
+        call about the one that fits.
+      </p>
+    </div>
+
+    <div class="svc" data-lit data-cue="2">
+
+      <article class="svc__item svc__item--flag" id="panels">
+        <p class="svc__k">The flagship</p>
+        <h3 class="svc__t">Virtual panel events</h3>
+        <p class="svc__b">You host. Up to five other experts join you on a produced stage, and every
+          one of them invites their own audience. Strategy, casting, branding, production and
+          the content package afterwards, over three months. This is the Own Your Stage
+          Experience<span class="tm">&trade;</span>.</p>
+        <div class="svc__go">
+          <a class="btn btn--primary" href="experience.html">Explore Virtual Panel Events</a>
+        </div>
+      </article>
+
+      <article class="svc__item" id="webinars">
+        <h3 class="svc__t">Webinars and masterclasses</h3>
+        <p class="svc__b">You teach and we produce it: the topic and positioning, the registration
+          page and launch kit, the live production and the recording, cut into clips afterwards.</p>
+        <a class="svc__cta" href="#book">Book a call about webinars</a>
+      </article>
+
+      <article class="svc__item" id="summits">
+        <h3 class="svc__t">Virtual summits</h3>
+        <p class="svc__b">Several sessions and several experts around one theme, with you as the
+          convener whose name is on the door.</p>
+        <a class="svc__cta" href="#book">Book a call about summits</a>
+      </article>
+
+      <article class="svc__item" id="interviews">
+        <h3 class="svc__t">Expert interview series</h3>
+        <p class="svc__b">A recurring conversation you host with the people your audience most wants
+          to hear from, so your name keeps appearing next to theirs.</p>
+        <a class="svc__cta" href="#book">Book a call about a series</a>
+      </article>
+
+      <article class="svc__item" id="roundtables">
+        <h3 class="svc__t">Roundtables</h3>
+        <p class="svc__b">A smaller, closer conversation between peers, produced for the people in the
+          room and for everyone who watches it later.</p>
+        <a class="svc__cta" href="#book">Book a call about roundtables</a>
+      </article>
+
+      <article class="svc__item" id="podcasts">
+        <h3 class="svc__t">Podcast-style conversations</h3>
+        <p class="svc__b">Long-form conversations recorded cleanly, edited into episodes, and cut into
+          short clips for the platforms you already use.</p>
+        <a class="svc__cta" href="#book">Book a call about podcasts</a>
+      </article>
+
+      <article class="svc__item" id="content">
+        <h3 class="svc__t">Content that keeps working</h3>
+        <p class="svc__b">Every format ends in footage. The Visibility Accelerator<span class="tm">&trade;</span> turns it into
+          highlight videos, short-form clips, captions and a content calendar.</p>
+        <a class="svc__cta" href="#book">Book a call about content</a>
+      </article>
+
+      <article class="svc__item" id="preparation">
+        <h3 class="svc__t">Speaker preparation</h3>
+        <p class="svc__b">Your talking points, your segment and your presence on camera, prepared
+          before you step onto any stage, ours or somebody else&rsquo;s.</p>
+        <a class="svc__cta" href="#book">Book a call about preparation</a>
+      </article>
+
+      <article class="svc__item" id="series">
+        <h3 class="svc__t">A signature series</h3>
+        <p class="svc__b">For experts who want a platform rather than an appearance: a year of
+          produced events, each one followed by its own content package.</p>
+        <a class="svc__cta" href="#book">Book a call about a signature series</a>
+      </article>
+
+      <article class="svc__item" id="panelist">
+        <h3 class="svc__t">Featured panelist program</h3>
+        <p class="svc__b">Not hosting yet? Sit on somebody else&rsquo;s produced panel as a featured
+          expert, in front of the combined audience, and keep the footage.</p>
+        <a class="svc__cta" href="panelists.html">The Panelist Program</a>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ BOOK ============
+     The one place every card above points. -->
+<section class="bay paper" id="book">
+  <div class="wrap">
+    <div class="split" style="align-items:start">
+      <div data-lit>
+        <p class="eyebrow eyebrow--gold">Want to know more?</p>
+        <h2>Let&rsquo;s book a call.</h2>
+        <p class="body" style="margin-top:1.3rem">
+          Thirty minutes on Zoom with the studio, complimentary. We look at where your authority
+          stands today, what you want to be known for, and which of these stages fits you this
+          year, or none of them yet.
+        </p>
+        <div class="rule" style="margin:2.2rem 0"></div>
+        <p class="eyebrow eyebrow--gold">Come with</p>
+        <ul class="ticklist">
+          <li>The subject you want to be known for</li>
+          <li>The format you are curious about</li>
+          <li>Any date you are working toward</li>
+        </ul>
+        <div class="rule" style="margin:2.2rem 0"></div>
+        <p class="caption">
+          Rather start on your own?
+          <a href="assessment.html" style="border-bottom:1px solid var(--gold)">The Readiness Assessment</a>
+          takes about five minutes and shows your score on the screen.
+        </p>
+      </div>
+      <div data-lit data-cue="2">
+        <div class="booking">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE" scrolling="no" id="oyss-booking-1"
+                  title="Book your Own Your Stage Strategy Session" height="740"></iframe>
+        </div>
+        <p class="caption booking__fallback">
+          Calendar not showing?
+          <a href="https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE" target="_blank" rel="noopener">Open the calendar in a new tab</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer footer--silk">
+  <div class="wrap footer__hero">
+    <div class="footer__brand">
+      <a href="index.html" class="lockup lockup--stack lockup--motion lockup--light" aria-label="Own Your Stage Studio, home">
+      <span class="lockup__type">
+        <span class="lockup__row lockup__row--own">Own Your</span>
+        <span class="lockup__row lockup__row--stage">St<svg class="mark" viewBox="0 0 64 58" aria-hidden="true" focusable="false">
+          <path class="mark__a" d="M30.5 0 H33.5 L64 58 H53 L32 16 L11 58 H0 Z"/>
+          <path class="mark__arch" d="M27.5 46.4 Q26.5 46.4 26.5 45.4 V42.5 a5.5 5.5 0 0 1 11 0 V45.4 Q37.5 46.4 36.5 46.4 Z"/>
+        </svg>ge</span>
+        <span class="lockup__row lockup__row--studio">Studio</span>
+        <span class="lockup__tag">Speak. Be Seen. Create Impact.</span>
+      </span>
+    </a>
+    </div>
+    <div class="footer__words">
+      <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
+      <span class="footer__rule" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="wrap footer__nav">
+    <div class="footer__grid">
+      <div>
+        <h4>Explore</h4>
+        <a href="services.html">Services</a>
+        <a href="experience.html">Virtual Panel Events</a>
+        <a href="panelists.html">Panelist Program</a>
+        <a href="about.html">About Annette</a>
+        <a href="faq.html">Questions</a>
+      </div>
+      <div>
+        <h4>Next step</h4>
+        <a href="contact.html">Book a Strategy Session</a>
+        <a href="assessment.html">Take the Readiness Assessment</a>
+        <a href="apply.html">Apply for the Host Package</a>
+        <a href="apply-panelist.html">Panelist Application</a>
+      </div>
+      <div>
+        <h4>Agreements</h4>
+        <a href="agreements/host.html">Host Services Agreement</a>
+        <a href="agreements/panelist.html">Featured Panelist Agreement</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__stage">
+    <span class="footer__silk" aria-hidden="true"></span>
+    <p class="wrap footer__tagline"><span>We build the stage.</span><span>You steal the show.</span></p>
+  </div>
+  <div class="wrap footer__base">
+    <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
+    <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
+  </div>
+</footer>
+
+</div>
+<script src="assets/oyss.js?v=b3020bd0"></script>
+<script>OYSS.prompts({
+  after: '.flood, .figure__value, .bay--half',
+  barTitle: 'Find out how visible your authority is first.',
+  barMeta: 'Twelve questions, about five minutes, no email required.',
+  barCta: 'Take the assessment', barHref: 'assessment.html',
+  exitTitle: 'One question before you go.',
+  exitBody: 'How visible is your authority today? Twelve questions across six pillars tell you, in about five minutes, and the result appears on the screen.'
+});</script>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+</body>
+</html>

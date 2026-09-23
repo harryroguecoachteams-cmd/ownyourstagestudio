@@ -56,10 +56,19 @@ SITE = [
     # expressed in words. See section 22 of oyss.css.
     #
     # file, nav label, title, description, kind, page-mark name, page-mark meta
-    ("index.html",             "Home",           "We build the stage. You steal the show.",    "Own Your Stage Studio builds done-for-you authority platforms for established experts: produced panel events, webinars, summits and interview series, turned into content that keeps working.",
+    # Feedback 8.0: no "Home" in the bar. With Services and Virtual Panel
+    # Events added it no longer fit on one line at 1366, and the lockup is
+    # already the way home on every page.
+    ("index.html",             None,             "We build the stage. You steal the show.",    "Own Your Stage Studio builds done-for-you authority platforms for established experts: produced panel events, webinars, summits and interview series, turned into content that keeps working.",
      "home",      None,                       None),
-    ("experience.html",        "The Experience", "The Own Your Stage Experience",              "The flagship: a three month done-for-you visibility and authority experience built around one professionally produced virtual panel event.",
-     "guide",     "The Experience",           "Three months \u00b7 $2,997"),
+    # Feedback 8.0, note 2: every service on one page, each one ending in
+    # the booking calendar.
+    ("services.html",          "Services",       "Services",                                   "Everything Own Your Stage Studio produces: virtual panel events, webinars and masterclasses, virtual summits, interview series, roundtables, podcast-style conversations, content and speaker preparation.",
+     "guide",     "Services",                 None),
+    # Feedback 8.0, note 4: the flagship is named for what it is. The file
+    # keeps its name so every old link still lands.
+    ("experience.html",        "Virtual Panel Events", "Virtual Panel Events",                 "The flagship: the Own Your Stage Experience, a three month done-for-you visibility and authority engagement built around one professionally produced virtual panel event.",
+     "guide",     "Virtual Panel Events",          "Three months \u00b7 $2,997"),
     ("assessment.html",        "Assessment",     "Readiness Assessment",                       "Twelve questions across six pillars that show how visible your authority is today, and what to do next.",
      "form",      "Readiness Assessment",     "12 questions \u00b7 5 minutes"),
     ("panelists.html",         "Panelists",      "Featured Panelist Program",                  "Join a produced panel as a featured expert. A spotlight, professional footage and exposure to the combined audience.",
@@ -96,6 +105,34 @@ SITE = [
 # her GHL quiz points at a TRUNCATED id, cNJmGXJ4ed9Yp, and 404s; this is the
 # full one.
 BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/cNJmGXJ4ed9YpmzNEElE"
+
+# The calendar as an embeddable block (feedback 8.0, notes 3 and 9). One
+# source, so the home page, the services page, the flagship page, the
+# assessment result and the Strategy Session page all carry the same widget.
+# No loading="lazy": a lazy iframe inside a revealed section was painting as
+# an empty white box until something scrolled it, which is the blank calendar
+# in the review screenshot. The explicit height is the calendar's own
+# rendered height, so the box is right before form_embed.js resizes it.
+BOOKING_HTML = """<div class="booking">
+          <iframe src="%%BOOKING_URL%%" scrolling="no" id="{id}"
+                  title="Book your Own Your Stage Strategy Session" height="740"></iframe>
+        </div>
+        <p class="caption booking__fallback">
+          Calendar not showing?
+          <a href="%%BOOKING_URL%%" target="_blank" rel="noopener">Open the calendar in a new tab</a>.
+        </p>"""
+BOOKING_SCRIPT = '<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>'
+
+# PAYMENT (feedback 8.0, note 4): pay in full, or in two. Both are Annette's
+# own GHL products: "Own Your Stage Experience" at $2,997 one time, and
+# "Own Your Stage Experience - Payment Plan" at $1,550 a month for two
+# months (totalCycles 2, so it stops after the second). Both payment links
+# already existed in her GHL (Payments > Payment Links, created 26 and 28
+# Aug) and were checked on 23 Sep 2026: each renders a Stripe checkout for
+# the right product and amount. Set either to None and its button books the
+# Strategy Session instead.
+PAY_FULL_URL = "https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334"
+PAY_PLAN_URL = "https://link.fastpaydirect.com/payment-link/6a919448f9c8c807930ba92c"
 
 # TEXT MESSAGE CONSENT (feedback 7.0, note 10).
 # Every form Annette runs in GHL carries these two boxes, worded exactly like
@@ -145,6 +182,7 @@ ASSET_HOST = "https://harryroguecoachteams-cmd.github.io/ownyourstagestudio"
 # Change the right-hand side to match whatever the steps are actually named.
 SLUGS = {
     "index.html":               "/",
+    "services.html":            "/services",
     "experience.html":          "/experience",
     "assessment.html":          "/assessment",
     "panelists.html":           "/panelists",
@@ -244,7 +282,9 @@ def masthead(current, base):
     for f, label in NAV:
         cur = ' aria-current="page"' if f == current else ""
         links.append(f'      <a href="{base}{f}"{cur}>{label}</a>')
-    links.append(f'      <a class="btn btn--primary" href="{base}apply.html">Apply</a>')
+    # Feedback 8.0: every service ends in a conversation, so the one action
+    # in the bar is the call, not the flagship's application.
+    links.append(f'      <a class="btn btn--primary" href="{base}contact.html">Book a Call</a>')
     return f"""<header class="masthead">
   <div class="wrap masthead__inner">
     {lockup("mb", base)}
@@ -257,51 +297,44 @@ def masthead(current, base):
 
 
 def footer(base):
-    # FEEDBACK 7.0, NOTE 5: "Change the footer design to [the silk banner].
-    # Add text exactly like Your Voice Matters, Real Expertise Bigger
-    # Opportunities, and the colors palettes too."
+    # FEEDBACK 7.0, NOTE 5 gave the footer Annette's silk banner: the stacked
+    # lockup and its tagline top left, REAL / EXPERTISE / BIGGER /
+    # OPPORTUNITIES over a short red rule top right, red silk sweeping across.
     #
-    # The footer used to be the dark ink ground with the old big tagline lines.
-    # Annette's mockup turns it the other way: a warm white banner with red
-    # silk sweeping up from the lower left, the stacked lockup and its
-    # tagline top left, REAL / EXPERTISE / BIGGER / OPPORTUNITIES over a short
-    # red rule top right, and Your Voice Matters in a red signature script
-    # under it. That banner is built here with the type live over a generated
-    # silk plate (assets/media/silk-footer.jpg), so every word stays crisp and
-    # editable.
-    #
-    # A site footer also has to be a way round the site, which a banner is
-    # not, so the links sit under the banner on the same warm ground rather
-    # than on the silk, where the contrast would depend on where a word landed.
-    # The promise the old footer set at display scale is kept as the sign-off.
+    # FEEDBACK 8.0, NOTE 8 rearranged it, drawn on a screenshot:
+    #   - the links move UP, into the empty warm ground between the lockup
+    #     and the silk, where the banner had nothing to say;
+    #   - the big old sign-off comes back at display size, "We build the
+    #     stage. You steal the show.", the one line of the old dark footer
+    #     Harsh ever liked;
+    #   - Your Voice Matters moves DOWN, to the base line, where the small
+    #     version of the sign-off used to sit.
+    # The silk is now a band of its own under the type, so no word, link or
+    # line sits on the fabric and every contrast is measured on the ground.
     return f"""<footer class="footer footer--silk">
-  <div class="footer__banner">
-    <span class="footer__silk" aria-hidden="true"></span>
-    <div class="wrap footer__hero">
-      <div class="footer__brand">
-        {lockup("fb", base, tagline=True, tone="light")}
-      </div>
-      <div class="footer__words">
-        <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
-        <span class="footer__rule" aria-hidden="true"></span>
-        <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
-      </div>
+  <div class="wrap footer__hero">
+    <div class="footer__brand">
+      {lockup("fb", base, tagline=True, tone="light")}
+    </div>
+    <div class="footer__words">
+      <p class="footer__claims"><span>Real</span><span>Expertise</span><span>Bigger</span><span>Opportunities</span></p>
+      <span class="footer__rule" aria-hidden="true"></span>
     </div>
   </div>
   <div class="wrap footer__nav">
     <div class="footer__grid">
       <div>
         <h4>Explore</h4>
-        <a href="{base}index.html#formats">What we produce</a>
-        <a href="{base}experience.html">The Experience</a>
+        <a href="{base}services.html">Services</a>
+        <a href="{base}experience.html">Virtual Panel Events</a>
         <a href="{base}panelists.html">Panelist Program</a>
         <a href="{base}about.html">About Annette</a>
         <a href="{base}faq.html">Questions</a>
       </div>
       <div>
         <h4>Next step</h4>
-        <a href="{base}assessment.html">Take the Readiness Assessment</a>
         <a href="{base}contact.html">Book a Strategy Session</a>
+        <a href="{base}assessment.html">Take the Readiness Assessment</a>
         <a href="{base}apply.html">Apply for the Host Package</a>
         <a href="{base}apply-panelist.html">Panelist Application</a>
       </div>
@@ -317,10 +350,14 @@ def footer(base):
         <a href="{base}disclaimer.html">Disclaimer</a>
       </div>
     </div>
-    <div class="footer__base">
-      <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
-      <span class="footer__note">We build the stage. You steal the show.</span>
-    </div>
+  </div>
+  <div class="footer__stage">
+    <span class="footer__silk" aria-hidden="true"></span>
+    <p class="wrap footer__tagline"><span>We build the stage.</span><span>You steal the show.</span></p>
+  </div>
+  <div class="wrap footer__base">
+    <span>&copy; 2026 Own Your Stage Studio, LLC. Florida.</span>
+    <p class="footer__voice"><span>Your</span><span>Voice</span><span>Matters</span></p>
   </div>
 </footer>"""
 
@@ -336,10 +373,10 @@ def footer(base):
 # earning one.
 PROMPTS = {
     "home": """<script>OYSS.prompts({
-  after: '.figure__value',
-  barTitle: 'Ready to host your own panel?',
-  barMeta: 'Eight minutes to apply. No payment at this step.',
-  barCta: 'Apply to host', barHref: 'apply.html'
+  after: '#formats',
+  barTitle: 'Talk to us about your stage.',
+  barMeta: 'Thirty minutes on Zoom, complimentary.',
+  barCta: 'Book a Strategy Session', barHref: 'contact.html'
 });</script>""",
     "guide": """<script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
@@ -442,7 +479,16 @@ def build():
         body = body.replace("&trade;", '<span class="tm">&trade;</span>')
         body = (body.replace("%%CONSENT%%", CONSENT_HTML)
                     .replace("%%LEGAL%%", LEGAL_HTML.format(base=base))
-                    .replace("%%BOOKING_URL%%", BOOKING_URL))
+                    .replace("%%PAY_FULL%%", PAY_FULL_URL or base + "contact.html")
+                    .replace("%%PAY_PLAN%%", PAY_PLAN_URL or base + "contact.html")
+                    .replace("%%PAY_LIVE%%", "live" if (PAY_FULL_URL and PAY_PLAN_URL) else "pending"))
+        n = 0
+        while "%%BOOKING%%" in body:
+            n += 1
+            body = body.replace("%%BOOKING%%", BOOKING_HTML.format(id=f"oyss-booking-{n}"), 1)
+        body = body.replace("%%BOOKING_URL%%", BOOKING_URL)
+        if n and BOOKING_SCRIPT not in inline:
+            inline = BOOKING_SCRIPT + "\n" + inline
         inline = inline.replace("%%BOOKING_URL%%", BOOKING_URL)
 
         # THE PROMPTS.

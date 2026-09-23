@@ -23,7 +23,7 @@ import sys, json, pathlib
 from playwright.sync_api import sync_playwright
 
 ROOT = "http://127.0.0.1:8899/"
-PAGES = ["index.html", "experience.html", "assessment.html", "panelists.html",
+PAGES = ["index.html", "services.html", "experience.html", "assessment.html", "panelists.html",
          "about.html", "faq.html", "apply.html", "contact.html",
          "apply-panelist.html", "agreements/host.html", "agreements/panelist.html",
          "terms.html", "privacy.html", "disclaimer.html"]

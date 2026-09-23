@@ -967,7 +967,7 @@
         step: [
           'Begin by defining one clear idea, problem, or transformation that you want people to associate with your name.',
           'Then create a visibility opportunity that allows you to demonstrate that expertise publicly.'],
-        route: { label: 'Join a panel as a featured expert', href: 'panelists.html' } },
+        route: { label: 'Join a panel as a featured expert first', href: 'panelists.html' } },
 
       { key: 'emerging', name: 'Emerging Expert', min: 21,
         meaning: [
@@ -1001,7 +1001,7 @@
         step: [
           'Identify one important conversation your audience needs and determine how you could host, lead, or convene it.',
           'This could become an expert interview series, a virtual panel, a roundtable, a live event, or another signature authority platform.'],
-        route: { label: 'Apply for the Host Package', href: 'apply.html' } },
+        route: { label: 'Host your own panel: Virtual Panel Events', href: 'experience.html' } },
 
       { key: 'visible', name: 'Visible Expert', min: 40,
         meaning: [
@@ -1018,7 +1018,7 @@
         step: [
           'Create a signature authority platform that can be repeated, expanded, and associated directly with your brand.',
           'The goal is to move beyond individual appearances and build an ecosystem that continues generating credibility, content, relationships, and opportunities.'],
-        route: { label: 'See what we produce', href: 'index.html#formats' } }
+        route: { label: 'See every stage we build', href: 'services.html' } }
     ];
 
     /* Paragraphs and list items are built as nodes, never as HTML
@@ -1085,8 +1085,71 @@
       paras(document.getElementById('result-opportunity'), level.opportunity);
       items(document.getElementById('result-priorities'), level.priorities);
       paras(document.getElementById('result-step'), level.step);
+      var max = qs.length * 4;
       var score = document.getElementById('result-score');
-      if (score) score.textContent = total + ' of ' + (qs.length * 4);
+      if (score) score.textContent = total + ' of ' + max;
+
+      /* Feedback 8.0: the score, shown. Her GHL quiz reports a
+         percentage of the maximum (39 of 48 is 81.25%), so the ring
+         says the same number, rounded, and the points sit under it. */
+      var pct = Math.round(total / max * 100);
+      var arc = document.getElementById('result-arc');
+      var pctEl = document.getElementById('result-pct');
+      var pts = document.getElementById('result-points');
+      if (pts) pts.textContent = total + ' of ' + max + ' points';
+      if (arc) {
+        var C = 326.73;
+        arc.style.strokeDashoffset = C;
+        var target = C * (1 - pct / 100);
+        if (CALM) { arc.style.strokeDashoffset = target; if (pctEl) pctEl.textContent = pct; }
+        else {
+          var t0 = null;
+          var tick = function (t) {
+            if (t0 === null) t0 = t;
+            var k = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - k, 3);
+            arc.style.strokeDashoffset = C - (C - target) * e;
+            if (pctEl) pctEl.textContent = Math.round(pct * e);
+            if (k < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      } else if (pctEl) pctEl.textContent = pct;
+
+      /* The six pillars, two questions each, scored 2 to 8. The weakest
+         pillar is where the Strategy Session starts, so it says so. */
+      var NAMES = ['Positioning', 'Visibility', 'Credibility', 'Platform ownership',
+                   'Content leverage', 'Authority conversion'];
+      var sums = [0, 0, 0, 0, 0, 0];
+      qs.forEach(function (fs) {
+        var q = parseInt(fs.getAttribute('data-q'), 10);
+        var picked = fs.querySelector('input:checked');
+        if (picked && q >= 1 && q <= 12) sums[Math.ceil(q / 2) - 1] += parseInt(picked.value, 10);
+      });
+      var low = Math.min.apply(null, sums);
+      var list = document.getElementById('result-pillars');
+      if (list) {
+        list.textContent = '';
+        sums.forEach(function (v, i) {
+          var li = document.createElement('li');
+          li.className = 'pillarscore__row' + (v === low && low < 8 ? ' is-low' : '');
+          var name = document.createElement('span'); name.className = 'pillarscore__name';
+          name.textContent = NAMES[i];
+          if (v === low && low < 8) {
+            var tag = document.createElement('b'); tag.textContent = 'Start here'; name.appendChild(tag);
+          }
+          var bar = document.createElement('span'); bar.className = 'pillarscore__bar';
+          var fill = document.createElement('span'); fill.className = 'pillarscore__fill';
+          fill.style.setProperty('--w', ((v - 2) / 6 * 100) + '%');
+          bar.appendChild(fill);
+          var val = document.createElement('span'); val.className = 'pillarscore__v';
+          val.textContent = v + ' / 8';
+          li.appendChild(name); li.appendChild(bar); li.appendChild(val);
+          list.appendChild(li);
+        });
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          list.classList.add('is-in');
+        }); });
+      }
       var route = document.getElementById('result-route');
       if (route && level.route) { route.textContent = level.route.label; route.setAttribute('href', level.route.href); }
 

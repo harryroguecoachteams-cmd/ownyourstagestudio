@@ -6108,3 +6108,275 @@
 /* The rule between Privacy Policy and Terms of Service is a divider,
    but it is a glyph, so it is measured as text. */
 .oyss .legalline span { color: var(--slate); }
+
+
+/* ==================================================================
+   49. FEEDBACK 8.0
+   ================================================================== */
+
+/* ---- 49.1 THE FOOTER, REARRANGED ----------------------------------
+   Drawn on a screenshot: the links move up into the empty ground under
+   the lockup, the big sign-off comes back at display size, and Your
+   Voice Matters takes the base line. The silk is its own band UNDER the
+   type now, so nothing is set on the fabric.
+   ------------------------------------------------------------------ */
+.oyss .footer--silk { padding: 0 0 1.4rem; }
+.oyss .footer--silk .footer__hero { padding-bottom: clamp(26px, 2.8vw, 44px); }
+.oyss .footer--silk .footer__grid { padding-top: clamp(26px, 2.8vw, 40px); }
+
+.oyss .footer__stage {
+  display: flex; flex-direction: column;
+  margin-top: clamp(44px, 5vw, 84px);
+  position: relative; isolation: isolate;
+}
+.oyss .footer__tagline {
+  font-family: var(--serif); font-weight: 800;
+  font-size: clamp(2.3rem, 1.1rem + 4.4vw, 5.8rem);
+  line-height: 1.02; letter-spacing: -.02em;
+  color: var(--navy);
+  position: relative; z-index: 1;
+}
+.oyss .footer__tagline span { display: block; }
+.oyss .footer__tagline span + span { color: var(--red); }
+.oyss .footer__stage .footer__silk {
+  order: 2;
+  position: relative; inset: auto;
+  display: block; width: 100%;
+  height: clamp(170px, 27vw, 470px);
+  margin-top: calc(clamp(170px, 27vw, 470px) * -.14);
+  z-index: 0;
+  background: url('media/silk-banner.jpg') 50% 60% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+}
+.oyss .footer--silk .footer__base {
+  align-items: center;
+  margin-top: 0;
+  border-top: 1px solid rgba(185, 28, 28, .16);
+  padding-top: 1.1rem;
+}
+.oyss .footer__base .footer__voice {
+  margin: 0; transform: rotate(-4deg); transform-origin: right center;
+  font-size: clamp(2.3rem, 1.9rem + 1.4vw, 3.4rem);
+  line-height: 1; white-space: nowrap;
+}
+.oyss .footer__base .footer__voice span { display: inline; padding: 0; }
+.oyss .footer__base .footer__voice span + span::before { content: ' '; }
+
+@media (max-width: 900px) {
+  .oyss .footer--silk .footer__hero { padding-bottom: 1.6rem; }
+  .oyss .footer__stage .footer__silk {
+    top: auto; height: clamp(150px, 40vw, 280px);
+    margin-top: -6px;
+    background-size: 150% auto; background-position: 0 58%;
+  }
+  .oyss .footer__tagline { text-align: center; }
+  .oyss .footer--silk .footer__base { flex-direction: column; align-items: center; text-align: center; gap: .4rem; }
+  .oyss .footer__base .footer__voice { transform-origin: center; }
+}
+
+
+
+/* ---- 49.2 THE CALENDAR, EVERYWHERE ----------------------------------
+   One widget, five pages. The iframe carries its own height attribute
+   (the calendar's rendered height) so the box is right before GHL's
+   script resizes it; min-height is only a floor.
+   ------------------------------------------------------------------ */
+.oyss .booking iframe { height: 740px; min-height: 640px; }
+.oyss .sheet--cal .booking { border: 0; box-shadow: none; padding: 0; margin-top: 1.2rem; }
+.oyss .sheet--cal .booking__fallback { color: var(--slate); }
+.oyss .result__cal { margin-top: 1.8rem; }
+.oyss .result__cal .booking { box-shadow: none; }
+
+
+/* ---- 49.3 HOME: LINKS THAT ARE LINKS ------------------------------- */
+.oyss .format__more {
+  margin-top: auto; padding-top: .6rem; align-self: flex-start;
+  font-size: var(--t-action); font-weight: 700; letter-spacing: .06em;
+  color: var(--navy); border-bottom: 1px solid var(--red);
+}
+.oyss .format__more::after { content: ' \2192'; }
+.oyss .format__more:hover { color: var(--red); }
+.oyss .formats__close {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1.4rem 2.4rem; margin-top: clamp(28px, 3vw, 42px);
+}
+.oyss .formats__close .formats__note { margin-top: 0; flex: 1 1 26rem; }
+.oyss .formats__close .actions { margin-top: 0; }
+
+/* The closing side doors: the whole line is the link now. */
+.oyss a.sidedoor--link {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: .4rem 1.4rem;
+  padding: 1.05rem 0;
+  border-top: 1px solid rgba(248, 245, 242, .12);
+  color: rgba(248, 245, 242, .78);
+  transition: color 220ms var(--settle);
+}
+.oyss a.sidedoor--link:last-child { border-bottom: 1px solid rgba(248, 245, 242, .12); }
+.oyss a.sidedoor--link b {
+  color: var(--ivory); font-weight: 700; white-space: nowrap;
+  border-bottom: 1px solid var(--gold-40); padding-bottom: .12rem;
+}
+.oyss a.sidedoor--link b::after { content: ' \2192'; }
+.oyss a.sidedoor--link:hover { color: var(--ivory); }
+.oyss a.sidedoor--link:hover b { border-color: var(--gold); }
+.oyss .reel .donext a { color: var(--ivory); border-bottom: 1px solid var(--gold); }
+
+
+/* ---- 49.4 THE SERVICES PAGE ------------------------------------------ */
+.oyss .svc__head { max-width: 46rem; }
+.oyss .svc__head h2 { margin-top: .6rem; }
+.oyss .svc__head .lead { margin-top: 1.1rem; }
+.oyss .svc {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--ash);
+  border: 1px solid var(--ash); border-radius: 3px; overflow: hidden;
+  margin-top: clamp(36px, 4.4vw, 60px);
+}
+.oyss .svc__item {
+  background: var(--white);
+  padding: clamp(24px, 2.6vw, 38px);
+  display: flex; flex-direction: column; gap: .8rem;
+  scroll-margin-top: calc(var(--oyss-mh, 80px) + 24px);
+}
+.oyss .svc__item--flag { grid-column: 1 / -1; background: var(--navy); padding: clamp(30px, 3.6vw, 54px); }
+.oyss .svc__k { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.oyss .svc__t { font-family: var(--serif); font-weight: 700; font-size: clamp(1.15rem, 1.04rem + .45vw, 1.35rem); line-height: 1.22; color: var(--navy); }
+.oyss .svc__item--flag .svc__t { color: var(--ivory); font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); }
+.oyss .svc__b { color: var(--slate); font-size: 1rem; line-height: 1.6; max-width: 46rem; }
+.oyss .svc__item--flag .svc__b { color: rgba(248, 245, 242, .8); font-size: var(--t-body); }
+.oyss .svc__go { margin-top: .6rem; }
+.oyss .svc__cta {
+  margin-top: auto; padding-top: .8rem; align-self: flex-start;
+  font-size: var(--t-action); font-weight: 700; letter-spacing: .06em;
+  color: var(--red); border-bottom: 1px solid var(--red);
+}
+.oyss .svc__cta::after { content: ' \2192'; }
+.oyss .svc__cta:hover { color: var(--navy); }
+.oyss .svc__side {
+  display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem;
+  margin-top: clamp(32px, 3.6vw, 52px); padding-top: 1.4rem; border-top: 1px solid var(--ash);
+}
+.oyss .svc__side .body { margin-top: .4rem; max-width: 34rem; }
+.oyss #book { scroll-margin-top: var(--oyss-mh, 80px); }
+@media (max-width: 960px) { .oyss .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .oyss .svc { grid-template-columns: 1fr; } }
+
+
+/* ---- 49.5 THE FLAGSHIP PATH AND THE PAYMENT OPTIONS ----------------- */
+.oyss .path__head { max-width: 46rem; }
+.oyss .path__head h2 { margin-top: .6rem; }
+.oyss .path__head .lead { margin-top: 1.1rem; }
+.oyss .path {
+  list-style: none; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3.4vw, 56px);
+  margin-top: clamp(36px, 4.4vw, 60px);
+}
+.oyss .path__step { border-top: 3px solid var(--gold); padding-top: 1.4rem; display: flex; flex-direction: column; gap: .8rem; }
+.oyss .path__n { font-family: var(--serif); font-weight: 800; font-size: clamp(2.2rem, 1.8rem + 1.4vw, 3rem); line-height: 1; color: var(--gold); }
+.oyss .path__t { font-family: var(--serif); font-weight: 700; font-size: clamp(1.15rem, 1.02rem + .5vw, 1.4rem); line-height: 1.25; color: var(--ivory); }
+.oyss .path__b { color: rgba(248, 245, 242, .78); }
+.oyss .path__step .cue { margin-top: auto; align-self: flex-start; }
+@media (max-width: 860px) { .oyss .path { grid-template-columns: 1fr; } }
+
+.oyss .pay {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(32px, 4vw, 56px); max-width: 60rem;
+}
+.oyss .pay__opt {
+  border: 1px solid rgba(248, 245, 242, .18); border-radius: 3px;
+  padding: clamp(26px, 3vw, 42px);
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.oyss .pay__opt--main { background: rgba(248, 245, 242, .04); border-color: var(--gold-40); }
+.oyss .pay__k { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.oyss .pay__v { font-family: var(--serif); font-weight: 800; font-size: clamp(2.4rem, 1.8rem + 2.4vw, 3.6rem); line-height: 1; color: var(--ivory); }
+.oyss .pay__v small { font-size: .45em; font-weight: 600; color: rgba(248, 245, 242, .7); }
+.oyss .pay__m { color: rgba(248, 245, 242, .78); }
+.oyss .pay__opt .pay__btn { margin-top: auto; align-self: flex-start; }
+.oyss .pay__note { margin-top: 1.4rem; max-width: 44rem; color: rgba(248, 245, 242, .72); }
+.oyss .pay__note a { color: var(--ivory); border-bottom: 1px solid var(--gold); }
+.oyss .pay__fit {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 3.4vw, 56px);
+  margin-top: clamp(40px, 5vw, 72px); padding-top: clamp(24px, 3vw, 40px);
+  border-top: 1px solid rgba(248, 245, 242, .12);
+}
+.oyss .pay__fit .body { margin-top: .7rem; color: rgba(248, 245, 242, .8); }
+@media (max-width: 760px) { .oyss .pay, .oyss .pay__fit { grid-template-columns: 1fr; } }
+
+
+/* ---- 49.6 THE SCORE, SHOWN ------------------------------------------
+   A lit ring for the percentage (the number her own quiz reports), the
+   level beside it, and the six pillars as bars under the ladder.
+   ------------------------------------------------------------------ */
+.oyss .score { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(22px, 3.4vw, 48px); align-items: center; }
+.oyss .score__ring { position: relative; width: clamp(150px, 16vw, 200px); aspect-ratio: 1; }
+.oyss .score__ring svg { width: 100%; height: 100%; transform: rotate(-90deg); display: block; }
+.oyss .score__track { fill: none; stroke: var(--blush); stroke-width: 10; }
+.oyss .score__arc { fill: none; stroke: var(--red); stroke-width: 10; stroke-linecap: round; }
+.oyss .score__num {
+  position: absolute; inset: 0; display: flex; justify-content: center; align-items: center;
+  font-family: var(--serif); color: var(--navy); margin: 0;
+}
+.oyss .score__num b { font-weight: 800; font-size: clamp(2.4rem, 1.9rem + 1.8vw, 3.2rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.oyss .score__num span { font-weight: 700; font-size: 1.2rem; color: var(--red); margin-left: .1rem; align-self: flex-start; margin-top: 38%; }
+.oyss .score__level { font-size: clamp(2rem, 1.5rem + 2.2vw, 3.3rem); margin-top: .3rem; }
+.oyss .score__pts { margin-top: .7rem; color: var(--slate); font-weight: 700; letter-spacing: .04em; }
+@media (max-width: 560px) {
+  .oyss .score { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+}
+
+.oyss .pillarscore { margin-top: clamp(30px, 3.6vw, 48px); }
+.oyss .pillarscore__list { list-style: none; padding: 0; margin: 1rem 0 .8rem; display: grid; gap: .85rem; }
+.oyss .pillarscore__row {
+  display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) 3.4rem;
+  align-items: center; gap: 1rem;
+}
+.oyss .pillarscore__name { font-weight: 700; color: var(--navy); display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .6rem; }
+.oyss .pillarscore__name b {
+  font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--white); background: var(--red); padding: .2rem .5rem; border-radius: 2px;
+}
+.oyss .pillarscore__bar { height: 10px; background: var(--blush); border-radius: 6px; overflow: hidden; }
+.oyss .pillarscore__fill {
+  display: block; height: 100%; width: 0; background: #1F1E1D; border-radius: 6px;
+  transition: width 1100ms var(--settle);
+}
+.oyss .pillarscore__list.is-in .pillarscore__fill { width: max(var(--w), 6px); }
+.oyss .pillarscore__row.is-low .pillarscore__fill { background: var(--red); }
+.oyss .pillarscore__v { font-weight: 700; color: var(--slate); text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) {
+  .oyss .pillarscore__row { grid-template-columns: minmax(0, 1fr) 3.2rem; }
+  .oyss .pillarscore__bar { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .oyss .pillarscore__fill { transition: none; } }
+
+
+/* ---- 49.7 ANNETTE, CLOSE UP ------------------------------------------ */
+.oyss .reel__media img[src$="annette-close.jpg"] { object-position: 50% 10%; }
+.oyss .reel__media img[src$="panel-room.jpg"] { object-position: 40% 40%; }
+
+
+/* ---- 49.8 THE BAR, ONE LINE ------------------------------------------ */
+.oyss .masthead nav a { white-space: nowrap; }
+
+/* The base line is a .wrap itself now, so its rule is drawn inside the
+   gutters rather than across them. */
+.oyss .footer--silk .footer__base { border-top: 0; position: relative; }
+.oyss .footer--silk .footer__base::before {
+  content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter);
+  border-top: 1px solid rgba(185, 28, 28, .16);
+}
+
+@media (max-width: 560px) {
+  /* each line of the sign-off on one line of type on a phone */
+  .oyss .footer__tagline { font-size: clamp(1.55rem, .5rem + 5.6vw, 2.3rem); }
+  .oyss .footer--silk .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+}
+
+/* Rose Red is 4.12:1 on the lifted card; the lighter rose the founder
+   plate already uses clears 4.5. */
+.oyss .pay__opt--main .pay__k { color: #F08A8A; }
