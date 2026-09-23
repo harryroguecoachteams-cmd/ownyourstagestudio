@@ -4,5 +4,6 @@
  "confirm_host_agreement.html": "Your Host Services Agreement is signed",
  "confirm_panelist_agreement.html": "Your Featured Panelist Agreement is signed",
  "confirm_lets_talk.html": "Thank you for reaching out, {{contact.first_name}}",
- "confirm_payment.html": "Payment received: welcome to the Own Your Stage Experience"
+ "confirm_payment.html": "Payment received: welcome to the Own Your Stage Experience",
+ "confirm_panelist_fee.html": "Fee received: your panel seat is almost confirmed"
 }

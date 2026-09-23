@@ -264,8 +264,11 @@ def sign_section(kind):
         cta = "Sign and continue to payment"
         confirm = ("Your signature has been recorded and a confirmation is on its way to your "
                    "inbox. The last step is the $47 Panelist Commitment and Administrative Fee, "
-                   "which confirms your speaking position. We will email you the payment link.")
-        after = ""
+                   "which confirms your speaking position.")
+        after = """
+        <div class="actions no-print" style="margin-top:2rem">
+          <a class="btn btn--primary" href="https://link.fastpaydirect.com/payment-link/6ab42a504ae1d45672839331" target="_blank" rel="noopener">Pay the $47 fee</a>
+        </div>"""
     else:
         fee = """
           <div class="fee" style="margin:2.2rem 0">
