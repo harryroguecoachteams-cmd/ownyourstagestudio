@@ -21,6 +21,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Sacramento&family=Herr+Von+Muellerhoff&display=swap');
 
+/* HOST RESET (feedback 9.0, note 8). Inside a GHL website the builder's
+   own typography reaches in: a plain "h1 { color: ... }" outranks a color
+   the heading only INHERITS, which dimmed the home headline to #333 in the
+   GHL simulation. Every text element takes its color from .oyss
+   components instead. Specificity 0,1,1 and first in the file, so every
+   component rule below still wins. */
+.oyss h1, .oyss h2, .oyss h3, .oyss h4, .oyss h5, .oyss h6,
+.oyss p, .oyss li, .oyss a, .oyss span, .oyss b, .oyss strong,
+.oyss em, .oyss label, .oyss small, .oyss figcaption, .oyss blockquote { color: inherit; }
+.oyss a { text-decoration: none; }
+
 .oyss {
   /* --- THE FIVE THE BRAND SHEET NAMES ---------------------------------
      Signature Red is the identity and the action. Rose Red is the same
