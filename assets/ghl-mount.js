@@ -16,8 +16,22 @@
 (function () {
   var me = document.currentScript;
   if (!me) return;
-  var page = me.getAttribute('data-page') || 'index';
   var base = me.src.replace(/assets\/ghl-mount\.js.*$/, '');
+
+  /* One snippet for the whole website: put it in the GHL website's
+     Settings > Body tracking code and every page works out which block
+     it is from its own path. data-page still overrides, for a single
+     page placed by hand. */
+  var PATHS = {
+    '': 'index', 'home': 'index', 'services': 'services', 'experience': 'experience',
+    'assessment': 'assessment', 'panelists': 'panelists', 'about': 'about', 'faq': 'faq',
+    'apply': 'apply', 'strategy-session': 'contact', 'panelist-application': 'apply-panelist',
+    'host-agreement': 'agreements__host', 'panelist-agreement': 'agreements__panelist',
+    'terms-conditions': 'terms', 'privacy-policy': 'privacy', 'disclaimer': 'disclaimer'
+  };
+  var slug = location.pathname.replace(/^\/+|\/+$/g, '').split('/').pop().toLowerCase();
+  var page = me.getAttribute('data-page') || PATHS[slug];
+  if (!page) return;            /* a page this site does not own: leave it alone */
 
   /* The GHL builder wraps custom code in its own padded, centered
      column; the block is full bleed, so that column is opened up. */
@@ -30,10 +44,24 @@
 
   var host = document.createElement('div');
   host.className = 'oyss-mount';
-  me.parentNode.insertBefore(host, me);
+  var inBody = me.parentNode && me.parentNode !== document.head && document.body && document.body.contains(me);
+  var tracking = !me.getAttribute('data-page');
+  if (inBody && !tracking) me.parentNode.insertBefore(host, me);
+  else {
+    /* From tracking code the script sits in the head or at the end of
+       the body: the site goes first in the body, and the builder's own
+       (empty) page sections are hidden. */
+    var place = function () {
+      document.body.insertBefore(host, document.body.firstChild);
+      var hide = document.createElement('style');
+      hide.textContent = 'body > *:not(.oyss-mount):not(script):not(style):not(link){display:none!important}';
+      document.head.appendChild(hide);
+    };
+    if (document.body) place(); else document.addEventListener('DOMContentLoaded', place);
+  }
 
   var parents = [];
-  for (var n = host.parentElement; n && n !== document.body; n = n.parentElement) parents.push(n);
+  for (var n = host.parentElement; n && n !== document.body && n !== document.documentElement; n = n.parentElement) parents.push(n);
   parents.forEach(function (el) {
     el.style.maxWidth = 'none'; el.style.padding = '0'; el.style.margin = '0';
     el.style.width = '100%';
