@@ -6380,3 +6380,218 @@
 /* Rose Red is 4.12:1 on the lifted card; the lighter rose the founder
    plate already uses clears 4.5. */
 .oyss .pay__opt--main .pay__k { color: #F08A8A; }
+
+
+
+/* ==================================================================
+   50. FEEDBACK 9.0
+   ================================================================== */
+
+/* ---- 50.1 THE "WHAT WE DO" MENU ------------------------------------ */
+.oyss .navdrop { position: relative; }
+.oyss .navdrop__btn {
+  background: none; border: 0; cursor: pointer;
+  font: inherit; font-size: var(--t-caption); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ivory-70);
+  padding: .4rem 0; border-bottom: 1px solid transparent;
+  display: inline-flex; align-items: center; gap: .45rem;
+  transition: color 220ms var(--settle), border-color 220ms var(--settle);
+}
+.oyss .navdrop__btn::after {
+  content: ""; width: .42rem; height: .42rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-.15rem) rotate(45deg);
+  transition: transform 220ms var(--settle);
+}
+.oyss .navdrop.is-open .navdrop__btn::after { transform: translateY(.05rem) rotate(-135deg); }
+.oyss .navdrop__btn:hover, .oyss .navdrop.is-open .navdrop__btn,
+.oyss .navdrop.is-current .navdrop__btn { color: var(--ivory); border-color: var(--gold); }
+.oyss .navdrop__menu {
+  position: absolute; top: calc(100% + 14px); left: -1.4rem;
+  min-width: 21rem;
+  background: #1A1918;
+  border: 1px solid rgba(228, 218, 214, .14);
+  border-top: 2px solid var(--red);
+  border-radius: 3px;
+  box-shadow: 0 28px 60px -20px rgba(0, 0, 0, .7);
+  padding: .5rem;
+  display: grid;
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity 180ms var(--settle), transform 180ms var(--settle), visibility 0s linear 180ms;
+}
+/* the hover bridge, so the pointer can travel from button to menu */
+.oyss .navdrop__menu::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.oyss .navdrop.is-open .navdrop__menu {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity 180ms var(--settle), transform 180ms var(--settle), visibility 0s;
+}
+.oyss .masthead .navdrop__menu a {
+  display: grid; gap: .2rem;
+  padding: .85rem 1rem; border: 0; border-radius: 2px;
+  text-transform: none; letter-spacing: 0;
+}
+.oyss .masthead .navdrop__menu a b {
+  font-family: var(--serif); font-weight: 700; font-size: .95rem; color: var(--ivory);
+  letter-spacing: .01em;
+}
+.oyss .masthead .navdrop__menu a span { font-size: .8125rem; color: rgba(248, 245, 242, .72); font-weight: 400; }
+.oyss .masthead .navdrop__menu a:first-child b { color: #F08A8A; }
+.oyss .masthead .navdrop__menu a:hover,
+.oyss .masthead .navdrop__menu a:focus-visible { background: rgba(248, 245, 242, .06); }
+.oyss .masthead .navdrop__menu a[aria-current="page"] { background: rgba(224, 90, 90, .1); }
+
+@media (max-width: 1040px) {
+  .oyss .navdrop { border-bottom: 1px solid rgba(228, 218, 214, .1); }
+  .oyss .navdrop__btn { display: none; }
+  .oyss .navdrop__menu {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    min-width: 0; background: none; border: 0; box-shadow: none; padding: .4rem 0;
+  }
+  .oyss .navdrop__menu::before { display: none; }
+  .oyss .masthead .navdrop__menu a { padding: .75rem 0; min-height: 48px; border-bottom: 0; }
+}
+
+
+
+/* ---- 50.2 WHAT WE SELL (home) ----------------------------------------
+   The flagship as one wide card with its picture, then the other
+   products as picture cards. Every card is a single link, and the
+   whole card answers the pointer: it lifts, the red rule runs along
+   its top, the picture eases in, the arrow moves (feedback 9.0, note 5).
+   ------------------------------------------------------------------ */
+.oyss .reel__k { margin-bottom: 1rem; }
+.oyss .products__head { max-width: 46rem; }
+.oyss .products__head h2 { margin-top: .6rem; }
+.oyss .products__head .lead { margin-top: 1.1rem; }
+
+.oyss .flagcard {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  margin-top: clamp(32px, 4vw, 56px);
+  background: var(--navy); color: var(--ivory);
+  border-radius: 4px; overflow: hidden;
+  position: relative; isolation: isolate;
+  box-shadow: 0 30px 70px -48px rgba(19, 18, 17, .7);
+  transition: transform 320ms var(--settle), box-shadow 320ms var(--settle);
+}
+.oyss .flagcard::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 2;
+  background: var(--red); transform: scaleX(0); transform-origin: left;
+  transition: transform 420ms var(--settle);
+}
+.oyss .flagcard__media { position: relative; overflow: hidden; min-height: 320px; }
+.oyss .flagcard__media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+  transition: transform 700ms var(--settle);
+}
+.oyss .flagcard__live {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--white); background: var(--red); padding: .3rem .6rem; border-radius: 2px;
+}
+.oyss .flagcard__copy { display: flex; flex-direction: column; gap: .9rem; padding: clamp(28px, 3.6vw, 56px); }
+.oyss .flagcard__k { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #F08A8A; }
+.oyss .flagcard__t { font-family: var(--serif); font-weight: 800; font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.8rem); line-height: 1.08; }
+.oyss .flagcard__b { color: rgba(248, 245, 242, .82); line-height: 1.6; }
+.oyss .flagcard__list { display: grid; gap: .45rem; margin-top: .2rem; }
+.oyss .flagcard__list span { position: relative; padding-left: 1.3rem; color: rgba(248, 245, 242, .86); font-size: .96rem; }
+.oyss .flagcard__list span::before { content: ""; position: absolute; left: 0; top: .72em; width: .7rem; height: 2px; background: var(--gold); }
+.oyss .flagcard__go {
+  margin-top: auto; padding-top: .8rem; align-self: flex-start;
+  font-size: var(--t-action); font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--red); color: var(--white); padding: .95rem 1.4rem; border-radius: 2px;
+  transition: background 220ms var(--settle);
+}
+.oyss .flagcard__go::after { content: " \2192"; display: inline-block; transition: transform 260ms var(--settle); }
+.oyss .flagcard:hover, .oyss .flagcard:focus-visible { transform: translateY(-4px); box-shadow: 0 40px 80px -44px rgba(19, 18, 17, .85); }
+.oyss .flagcard:hover::before, .oyss .flagcard:focus-visible::before { transform: scaleX(1); }
+.oyss .flagcard:hover .flagcard__media img { transform: scale(1.04); }
+.oyss .flagcard:hover .flagcard__go { background: #A81919; }
+.oyss .flagcard:hover .flagcard__go::after { transform: translateX(4px); }
+@media (max-width: 900px) {
+  .oyss .flagcard { grid-template-columns: 1fr; }
+  .oyss .flagcard__media { min-height: 0; aspect-ratio: 16 / 9; }
+}
+
+.oyss .products__also {
+  margin-top: clamp(40px, 5vw, 64px);
+  font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--red);
+}
+.oyss .pcards {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px); margin-top: 1.2rem;
+}
+.oyss .pcard {
+  display: flex; flex-direction: column;
+  background: var(--white); border: 1px solid var(--ash); border-radius: 4px; overflow: hidden;
+  position: relative; color: var(--navy);
+  transition: transform 300ms var(--settle), box-shadow 300ms var(--settle), border-color 300ms var(--settle), background 300ms var(--settle);
+}
+.oyss .pcard::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 2;
+  background: var(--red); transform: scaleX(0); transform-origin: left;
+  transition: transform 380ms var(--settle);
+}
+.oyss .pcard__media { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--navy); }
+.oyss .pcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--settle); }
+.oyss .pcard__t {
+  font-family: var(--serif); font-weight: 700; font-size: clamp(1.08rem, 1rem + .35vw, 1.25rem); line-height: 1.25;
+  padding: 1.2rem 1.3rem 0; transition: color 220ms var(--settle);
+}
+.oyss .pcard__b { padding: .5rem 1.3rem 0; color: var(--slate); font-size: .98rem; line-height: 1.55; }
+.oyss .pcard__go {
+  margin-top: auto; padding: 1rem 1.3rem 1.3rem;
+  font-size: var(--t-action); font-weight: 700; letter-spacing: .06em; color: var(--red);
+}
+.oyss .pcard__go::after { content: " \2192"; display: inline-block; transition: transform 260ms var(--settle); }
+.oyss .pcard:hover, .oyss .pcard:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(185, 28, 28, .35);
+  background: #FFFBFA;
+  box-shadow: 0 30px 60px -36px rgba(120, 20, 20, .45);
+}
+.oyss .pcard:hover::before, .oyss .pcard:focus-visible::before { transform: scaleX(1); }
+.oyss .pcard:hover .pcard__media img { transform: scale(1.06); }
+.oyss .pcard:hover .pcard__t { color: var(--red); }
+.oyss .pcard:hover .pcard__go::after { transform: translateX(5px); }
+@media (max-width: 960px) { .oyss .pcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .oyss .pcards { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .oyss .pcard, .oyss .flagcard, .oyss .pcard__media img, .oyss .flagcard__media img { transition: none; }
+  .oyss .pcard:hover, .oyss .flagcard:hover { transform: none; }
+}
+
+/* ---- 50.3 THE SHORT FORM ------------------------------------------ */
+.oyss .leadform { margin-top: 1rem; }
+.oyss .leadform iframe { display: block; width: 100%; height: 700px; border: 0; }
+.oyss .sheet--short { padding-bottom: 1rem; }
+
+/* ---- 50.4 NEW PICTURES --------------------------------------------- */
+.oyss .essay__portrait img[src$="expert-ready2.jpg"] { object-position: 50% 16%; }
+.oyss .reel__media img[src$="annette-call.jpg"] { object-position: 62% 40%; }
+
+
+/* ---- 50.5 THE SERVICES, ONE SECTION EACH -----------------------------
+   Picture and copy side by side, alternating sides, so nine services
+   read as nine stages rather than one grid of text boxes.
+   ------------------------------------------------------------------ */
+.oyss .svcrows { display: grid; gap: clamp(40px, 5.6vw, 88px); margin-top: clamp(24px, 3vw, 40px); }
+.oyss .svcrow {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(28px, 4.4vw, 72px); align-items: center;
+  scroll-margin-top: calc(var(--oyss-mh, 80px) + 24px);
+}
+.oyss .svcrow--flip .svcrow__media { order: 2; }
+.oyss .svcrow__media { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 4px; background: var(--navy);
+  box-shadow: 0 30px 70px -50px rgba(19, 18, 17, .7); }
+.oyss .svcrow__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--settle); }
+.oyss .svcrow:hover .svcrow__media img { transform: scale(1.03); }
+.oyss .svcrow__n { font-family: var(--serif); font-weight: 800; font-size: 1rem; letter-spacing: .1em; color: var(--red); }
+.oyss .svcrow__t { font-family: var(--serif); font-weight: 800; font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.2rem); line-height: 1.12; color: var(--navy); margin-top: .5rem; }
+.oyss .svcrow__b { margin-top: 1rem; color: var(--slate); font-size: var(--t-body); line-height: 1.65; max-width: 34rem; }
+.oyss .svcrow__list { margin-top: 1.2rem; }
+.oyss .svcrow__go { margin-top: 1.6rem; }
+@media (max-width: 860px) {
+  .oyss .svcrow { grid-template-columns: 1fr; }
+  .oyss .svcrow--flip .svcrow__media { order: 0; }
+}

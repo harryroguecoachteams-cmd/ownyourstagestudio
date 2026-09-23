@@ -22,8 +22,7 @@
   </div>
 
   <div class="reel__media">
-    <img class="reel__plate" src="assets/media/panel-room.jpg" width="1500" height="1000"
-         alt="Four professionals in conversation in a warmly lit dark room, one of them speaking while the others listen.">
+    <img class="reel__plate" src="assets/media/mic-stage.jpg" width="1536" height="1024" alt="A stage microphone under a warm light, the studio behind it in darkness.">
   </div>
 </section>
 
@@ -41,85 +40,211 @@
       </p>
     </div>
 
-    <div class="svc" data-lit data-cue="2">
+    <!-- Feedback 9.0, note 4: "create services a proper section, with
+         images, a proper section style for each deliverable". Each
+         service is its own row now: its picture, what it is, what you
+         get, and the call to book about it. The flagship leads, dark
+         and full width. -->
+    <a class="flagcard" href="experience.html" id="panels" data-lit data-cue="2">
+      <span class="flagcard__media">
+        <img src="assets/media/panel-host.jpg" width="1200" height="675" alt="" loading="lazy">
+        <span class="flagcard__live" aria-hidden="true">On air</span>
+      </span>
+      <span class="flagcard__copy">
+        <span class="flagcard__k">Our flagship product</span>
+        <span class="flagcard__t">Virtual Panel Events</span>
+        <span class="flagcard__b">You host. Up to five other experts join you on a produced stage, and
+          every one of them invites their own audience. Strategy, casting, branding, production
+          and the content package afterwards, over three months. This is the Own Your Stage
+          Experience&trade;.</span>
+        <span class="flagcard__list">
+          <span>Strategy and your topic</span>
+          <span>Up to five experts, cast for you</span>
+          <span>Branding, launch kit and live production</span>
+          <span>Ninety days of content afterwards</span>
+        </span>
+        <span class="flagcard__go">Explore Virtual Panel Events</span>
+      </span>
+    </a>
 
-      <article class="svc__item svc__item--flag" id="panels">
-        <p class="svc__k">The flagship</p>
-        <h3 class="svc__t">Virtual panel events</h3>
-        <p class="svc__b">You host. Up to five other experts join you on a produced stage, and every
-          one of them invites their own audience. Strategy, casting, branding, production and
-          the content package afterwards, over three months. This is the Own Your Stage
-          Experience&trade;.</p>
-        <div class="svc__go">
-          <a class="btn btn--primary" href="experience.html">Explore Virtual Panel Events</a>
+    <p class="products__also" data-lit>Also from the studio</p>
+    <div class="svcrows">
+    <article class="svcrow" id="webinars" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/svc-webinar.jpg" width="1200" height="800" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">01</p>
+        <h3 class="svcrow__t">Webinars and masterclasses</h3>
+        <p class="svcrow__b">You teach and we produce it. You bring the expertise; we shape it into a session people register for, run it live, and turn the recording into something you keep using.</p>
+        <ul class="ticklist svcrow__list">
+            <li>The topic and your positioning</li>
+            <li>Registration page and launch kit</li>
+            <li>Live production and the recording</li>
+            <li>Clips cut afterwards</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about webinars</a>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="svc__item" id="webinars">
-        <h3 class="svc__t">Webinars and masterclasses</h3>
-        <p class="svc__b">You teach and we produce it: the topic and positioning, the registration
-          page and launch kit, the live production and the recording, cut into clips afterwards.</p>
-        <a class="svc__cta" href="#book">Book a call about webinars</a>
-      </article>
+    <article class="svcrow svcrow--flip" id="summits" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/control.jpg" width="1500" height="1000" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">02</p>
+        <h3 class="svcrow__t">Virtual summits</h3>
+        <p class="svcrow__b">Several sessions and several experts around one theme, with you as the convener whose name is on the door.</p>
+        <ul class="ticklist svcrow__list">
+            <li>One theme, several sessions</li>
+            <li>Experts brought in around you</li>
+            <li>You open and close as the host</li>
+            <li>Every session recorded and cut</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about summits</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="summits">
-        <h3 class="svc__t">Virtual summits</h3>
-        <p class="svc__b">Several sessions and several experts around one theme, with you as the
-          convener whose name is on the door.</p>
-        <a class="svc__cta" href="#book">Book a call about summits</a>
-      </article>
+    <article class="svcrow" id="interviews" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/svc-interview.jpg" width="1200" height="800" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">03</p>
+        <h3 class="svcrow__t">Expert interview series</h3>
+        <p class="svcrow__b">A recurring conversation you host with the people your audience most wants to hear from, so your name keeps appearing next to theirs.</p>
+        <ul class="ticklist svcrow__list">
+            <li>A series format and a guest list</li>
+            <li>Guests prepared before they arrive</li>
+            <li>Produced and recorded cleanly</li>
+            <li>An episode and clips from every one</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about a series</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="interviews">
-        <h3 class="svc__t">Expert interview series</h3>
-        <p class="svc__b">A recurring conversation you host with the people your audience most wants
-          to hear from, so your name keeps appearing next to theirs.</p>
-        <a class="svc__cta" href="#book">Book a call about a series</a>
-      </article>
+    <article class="svcrow svcrow--flip" id="roundtables" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/panel-room.jpg" width="1500" height="1000" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">04</p>
+        <h3 class="svcrow__t">Roundtables</h3>
+        <p class="svcrow__b">A smaller, closer conversation between peers, produced for the people in the room and for everyone who watches it later.</p>
+        <ul class="ticklist svcrow__list">
+            <li>A question worth a room</li>
+            <li>Peers chosen for the conversation</li>
+            <li>You chairing it</li>
+            <li>The recording, edited</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about roundtables</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="roundtables">
-        <h3 class="svc__t">Roundtables</h3>
-        <p class="svc__b">A smaller, closer conversation between peers, produced for the people in the
-          room and for everyone who watches it later.</p>
-        <a class="svc__cta" href="#book">Book a call about roundtables</a>
-      </article>
+    <article class="svcrow" id="podcasts" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/svc-podcast.jpg" width="1200" height="800" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">05</p>
+        <h3 class="svcrow__t">Podcast-style conversations</h3>
+        <p class="svcrow__b">Long-form conversations recorded cleanly, edited into episodes, and cut into short clips for the platforms you already use.</p>
+        <ul class="ticklist svcrow__list">
+            <li>Recorded cleanly, audio and video</li>
+            <li>Edited into full episodes</li>
+            <li>Short clips for social platforms</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about podcasts</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="podcasts">
-        <h3 class="svc__t">Podcast-style conversations</h3>
-        <p class="svc__b">Long-form conversations recorded cleanly, edited into episodes, and cut into
-          short clips for the platforms you already use.</p>
-        <a class="svc__cta" href="#book">Book a call about podcasts</a>
-      </article>
+    <article class="svcrow svcrow--flip" id="content" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/clips.jpg" width="1500" height="1000" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">06</p>
+        <h3 class="svcrow__t">Content that keeps working</h3>
+        <p class="svcrow__b">Every format ends in footage. The Visibility Accelerator&trade; turns it into highlight videos, short-form clips, captions and a content calendar.</p>
+        <ul class="ticklist svcrow__list">
+            <li>Highlight videos</li>
+            <li>Short-form clips sized for each platform</li>
+            <li>A caption for every clip</li>
+            <li>A calendar of what to post and when</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about content</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="content">
-        <h3 class="svc__t">Content that keeps working</h3>
-        <p class="svc__b">Every format ends in footage. The Visibility Accelerator&trade; turns it into
-          highlight videos, short-form clips, captions and a content calendar.</p>
-        <a class="svc__cta" href="#book">Book a call about content</a>
-      </article>
+    <article class="svcrow" id="preparation" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/svc-prep.jpg" width="1200" height="800" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">07</p>
+        <h3 class="svcrow__t">Speaker preparation</h3>
+        <p class="svcrow__b">Your talking points, your segment and your presence on camera, prepared before you step onto any stage, ours or somebody else&rsquo;s.</p>
+        <ul class="ticklist svcrow__list">
+            <li>Your talking points</li>
+            <li>Your segment, shaped</li>
+            <li>Presence on camera, rehearsed</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about preparation</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="preparation">
-        <h3 class="svc__t">Speaker preparation</h3>
-        <p class="svc__b">Your talking points, your segment and your presence on camera, prepared
-          before you step onto any stage, ours or somebody else&rsquo;s.</p>
-        <a class="svc__cta" href="#book">Book a call about preparation</a>
-      </article>
+    <article class="svcrow svcrow--flip" id="series" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/svc-series.jpg" width="1200" height="800" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">08</p>
+        <h3 class="svcrow__t">A signature series</h3>
+        <p class="svcrow__b">For experts who want a platform rather than an appearance: a year of produced events, each one followed by its own content package.</p>
+        <ul class="ticklist svcrow__list">
+            <li>A year of produced events</li>
+            <li>One stage, recognizably yours</li>
+            <li>A content package after each one</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="#book">Book a call about a signature series</a>
+        </div>
+      </div>
+    </article>
 
-      <article class="svc__item" id="series">
-        <h3 class="svc__t">A signature series</h3>
-        <p class="svc__b">For experts who want a platform rather than an appearance: a year of
-          produced events, each one followed by its own content package.</p>
-        <a class="svc__cta" href="#book">Book a call about a signature series</a>
-      </article>
-
-      <article class="svc__item" id="panelist">
-        <h3 class="svc__t">Featured panelist program</h3>
-        <p class="svc__b">Not hosting yet? Sit on somebody else&rsquo;s produced panel as a featured
-          expert, in front of the combined audience, and keep the footage.</p>
-        <a class="svc__cta" href="panelists.html">The Panelist Program</a>
-      </article>
-
+    <article class="svcrow" id="panelist" data-lit>
+      <figure class="svcrow__media">
+        <img src="assets/media/panelist-live.jpg" width="1500" height="1000" alt="" loading="lazy">
+      </figure>
+      <div class="svcrow__copy">
+        <p class="svcrow__n">09</p>
+        <h3 class="svcrow__t">Featured panelist program</h3>
+        <p class="svcrow__b">Not hosting yet? Sit on somebody else&rsquo;s produced panel as a featured expert, in front of the combined audience, and keep the footage.</p>
+        <ul class="ticklist svcrow__list">
+            <li>A seat on a produced panel</li>
+            <li>Exposure to the combined audience</li>
+            <li>Your own highlight footage</li>
+        </ul>
+        <div class="actions svcrow__go">
+          <a class="btn btn--primary" href="panelists.html">The Panelist Program</a>
+        </div>
+      </div>
+    </article>
     </div>
-
   </div>
 </section>
 

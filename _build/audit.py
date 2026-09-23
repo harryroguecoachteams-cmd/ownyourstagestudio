@@ -144,7 +144,7 @@ def _lum(c):
 def masthead_contrast(page, tmp):
     from PIL import Image
     boxes = page.evaluate("""
-      [...document.querySelectorAll('.masthead nav a, .masthead .lockup__name, .masthead .lockup__desc')]
+      [...document.querySelectorAll('.masthead nav a:not(.navdrop__menu a), .masthead .lockup__name, .masthead .lockup__desc')]
         .map(el => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el);
           return { t: el.textContent.trim().slice(0,24), x: r.left, y: r.top, w: r.width, h: r.height,
                    color: cs.color, px: parseFloat(cs.fontSize),

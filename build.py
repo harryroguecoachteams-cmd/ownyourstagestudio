@@ -121,6 +121,23 @@ BOOKING_HTML = """<div class="booking">
           Calendar not showing?
           <a href="%%BOOKING_URL%%" target="_blank" rel="noopener">Open the calendar in a new tab</a>.
         </p>"""
+# THE LEAD FORM (feedback 9.0, note 3): "bring back the form, but keep it
+# short". The site's own forms still have no endpoint (see OYSS_ENDPOINT), so
+# this one is Annette's own GHL form, embedded the way GHL's embed code does
+# it: a submission is a real contact in her CRM with her own SMS consent
+# wording. LEAD_FORM_ID is the short form built for the site in her GHL.
+LEAD_FORM_ID = "dvJo5tJIIPvpcprpSPcc"   # "Website - Let's talk (short)", 23 Sep 2026
+LEAD_FORM_HTML = """<div class="leadform">
+            <iframe src="https://api.leadconnectorhq.com/widget/form/{fid}"
+                    id="inline-{fid}" data-layout="{{'id':'INLINE'}}"
+                    data-trigger-type="alwaysShow" data-trigger-value=""
+                    data-activation-type="alwaysActivated" data-activation-value=""
+                    data-deactivation-type="neverDeactivate" data-deactivation-value=""
+                    data-form-name="Website - Let's talk (short)" data-height="700"
+                    data-layout-iframe-id="inline-{fid}" data-form-id="{fid}"
+                    title="Let's talk: Own Your Stage Studio" height="700"></iframe>
+          </div>"""
+
 BOOKING_SCRIPT = '<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>'
 
 # PAYMENT (feedback 8.0, note 4): pay in full, or in two. Both are Annette's
@@ -277,9 +294,31 @@ def lockup(gid, base, tagline=False, tone=""):  # gid kept: the callers name the
     </a>"""
 
 
+# FEEDBACK 9.0, NOTE 1: "the menu bar looks very cluttered ... add things
+# you do in a dropdown". Seven items and a button became four and a button:
+# everything the studio SELLS sits under one "What we do" menu, flagship
+# first, so the bar itself reads as a sentence rather than a site map.
+WHAT_WE_DO = [
+    ("experience.html", "Virtual Panel Events", "The flagship: host your own produced panel"),
+    ("services.html",   "All services",         "Webinars, summits, series, podcasts and more"),
+    ("panelists.html",  "Panelist Program",     "Join a panel as a featured expert"),
+]
+NAV_REST = [("assessment.html", "Assessment"), ("about.html", "About"), ("faq.html", "FAQ")]
+
+
 def masthead(current, base):
-    links = []
-    for f, label in NAV:
+    in_menu = any(f == current for f, _, _ in WHAT_WE_DO)
+    items = []
+    for f, label, sub in WHAT_WE_DO:
+        cur = ' aria-current="page"' if f == current else ""
+        items.append(f'          <a href="{base}{f}"{cur}><b>{label}</b><span>{sub}</span></a>')
+    links = [f"""      <div class="navdrop{' is-current' if in_menu else ''}">
+        <button class="navdrop__btn" type="button" aria-expanded="false" aria-controls="navdrop-menu">What we do</button>
+        <div class="navdrop__menu" id="navdrop-menu">
+{chr(10).join(items)}
+        </div>
+      </div>"""]
+    for f, label in NAV_REST:
         cur = ' aria-current="page"' if f == current else ""
         links.append(f'      <a href="{base}{f}"{cur}>{label}</a>')
     # Feedback 8.0: every service ends in a conversation, so the one action
@@ -483,6 +522,9 @@ def build():
                     .replace("%%PAY_PLAN%%", PAY_PLAN_URL or base + "contact.html")
                     .replace("%%PAY_LIVE%%", "live" if (PAY_FULL_URL and PAY_PLAN_URL) else "pending"))
         n = 0
+        if "%%LEADFORM%%" in body:
+            n += 1
+            body = body.replace("%%LEADFORM%%", LEAD_FORM_HTML.format(fid=LEAD_FORM_ID))
         while "%%BOOKING%%" in body:
             n += 1
             body = body.replace("%%BOOKING%%", BOOKING_HTML.format(id=f"oyss-booking-{n}"), 1)
@@ -544,6 +586,13 @@ def build():
             f'<script src="{ASSET_HOST}/assets/oyss.js?v={ASSET_V}"></script>\n'
             + for_ghl(inline.strip()) + "\n",
             encoding="utf-8")
+
+        # Feedback 9.0, note 8: the same block, published, for the GHL
+        # website's one-line mount (assets/ghl-mount.js). _ghl/ itself is
+        # not served: GitHub Pages skips folders that start with "_".
+        pub = ROOT / "assets" / "ghl" / fname.replace("/", "__")
+        pub.parent.mkdir(parents=True, exist_ok=True)
+        pub.write_text(ghl.read_text(encoding="utf-8"), encoding="utf-8")
 
         built.append(fname)
         print(f"  built {fname}")

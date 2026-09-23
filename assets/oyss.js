@@ -627,8 +627,14 @@
     if (over && barEl) {
       var syncBar = function () {
         var h = barEl.getBoundingClientRect().height;
+        /* Feedback 9.0, note 1: the bar went clear over the hero's
+           own words as soon as the page moved, so the menu and the
+           headline were printed on top of each other. It is clear
+           only at the very top now, where nothing is under it but
+           the picture, and takes its ground back on the first
+           scroll. */
         barEl.classList.toggle('masthead--over',
-          over.getBoundingClientRect().bottom > h + 8);
+          window.scrollY < 8 && over.getBoundingClientRect().bottom > h + 8);
       };
       syncBar();
       window.addEventListener('scroll', syncBar, { passive: true });
@@ -931,6 +937,36 @@
     render();
     return { go: go, reset: function () { go(0); } };
   }
+
+  /* ==========================================================
+     THE "WHAT WE DO" MENU (feedback 9.0, note 1)
+     Opens on hover and on focus with a pointer that can hover,
+     on click everywhere, closes on Escape and on an outside
+     click. Inside the phone panel it is simply an open list.
+     ========================================================== */
+  (function () {
+    var drop = document.querySelector('.navdrop');
+    if (!drop) return;
+    var btn = drop.querySelector('.navdrop__btn');
+    var set = function (open) {
+      drop.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      set(!drop.classList.contains('is-open'));
+    });
+    var hover = window.matchMedia('(hover: hover) and (min-width: 1041px)');
+    drop.addEventListener('mouseenter', function () { if (hover.matches) set(true); });
+    drop.addEventListener('mouseleave', function () { if (hover.matches) set(false); });
+    document.addEventListener('click', function (e) { if (!drop.contains(e.target)) set(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drop.classList.contains('is-open')) { set(false); btn.focus(); }
+    });
+    drop.addEventListener('focusout', function (e) {
+      if (!drop.contains(e.relatedTarget)) set(false);
+    });
+  })();
 
   window.OYSS.assessment = function () {
     var form = document.getElementById('assessment-form');
