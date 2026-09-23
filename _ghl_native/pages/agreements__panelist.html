@@ -34,23 +34,29 @@
 </header>
 <!-- ---------- page ---------- -->
 <main>
-<!-- ============ HEAD ============
-     The same component as the home page: type column left, a
-     plate cut from the brand film full bleed right, masthead
-     transparent over it. See section 35 of oyss.css. -->
-<section class="reel reel--short dark" data-over>
-  <div class="reel__copy" data-lit>
-    <h1 class="display">Featured Panelist Agreement</h1>
-    <span class="reel__rule" aria-hidden="true"></span>
-    <p class="lead">The full agreement for featured panelists. Read it, then sign at the bottom of the page.</p>
-    <p class="draft-flag">Draft for review &middot; not yet legally executed</p>
-  </div>
-
-  <div class="reel__media">
-    <img class="reel__plate" src="https://assets.cdn.filesafe.space/O1kebSJ9ZQAQPoaSv8lb/media/6ab3edbf8d8128ee4caa48eb.jpg" alt="A dark plaster surface raked by a single shaft of warm light.">
+<!-- ============ HERO ============ -->
+<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
+  <span class="stage__pool" aria-hidden="true"></span>
+  <div class="wrap">
+    <div style="max-width:44rem" data-lit>
+      <p class="eyebrow">Featured Panelist Program · $47</p>
+      <h1 class="display" style="font-size:clamp(1.9rem,1.4rem + 2.2vw,3rem)">Featured Panelist Agreement</h1>
+      <span class="pool" aria-hidden="true"></span>
+      <p class="lead" style="margin-top:1.8rem;max-width:36rem">The full agreement for featured panelists. Read it, then sign at the bottom of the page.</p>
+      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(224, 90, 90, .08)">
+        Draft for review &middot; not yet legally executed
+      </p>
+    </div>
   </div>
 </section>
-
 
 <!-- ============ THE DOCUMENT ============
      A contract is an object, so it is drawn as one: paper with an edge,
@@ -593,45 +599,20 @@
             <label class="check"><input type="checkbox" name="ack_promo" required><span>I agree to promote the Event a minimum of three times before the Event.</span></label>
             <label class="check"><input type="checkbox" name="ack_bind" required><span>I voluntarily agree to be legally bound by this Agreement and I have the legal authority to enter into it.</span></label>
 
-            <!-- THE EXECUTION PAGE.
-                 "When you say to sign you should give option to sign at the
-                 end it just looks another form to nothing looks like an
-                 agreement." Correct: a labelled input with a placeholder is a
-                 web form, and the last page of a contract does not look like
-                 one. This is set as an execution page instead: the witness
-                 clause, then two signature panels side by side, each with a
-                 ruled signature line, a printed name and a date. Only the
-                 client's panel is fillable; the studio's is countersigned. -->
-            <p class="exec__witness">
-              In witness whereof, the parties have executed this Agreement as of the date
-              of the last signature below.
-            </p>
+            <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Signature</p>
+            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 
-            <div class="exec">
-              <div class="exec__party">
-                <p class="exec__for">The Panelist</p>
-                <label class="exec__sign">
-                  <span class="sig" id="sig-preview" aria-hidden="true"></span>
-                  <input class="exec__input" type="text" name="signature" required
-                         autocomplete="off" aria-label="Type your full legal name to sign">
-                </label>
-                <p class="exec__rule"></p>
-                <dl class="exec__meta">
-                  <dt>Signature</dt><dd>Type your full legal name above</dd>
-                  <dt>Date</dt><dd id="sig-date"></dd>
-                </dl>
-              </div>
-
-              <div class="exec__party exec__party--them">
-                <p class="exec__for">Own Your Stage Studio, LLC</p>
-                <span class="sig sig--them">Annette Knecht Seier</span>
-                <p class="exec__rule"></p>
-                <dl class="exec__meta">
-                  <dt>Signature</dt><dd>Founder, for the Studio</dd>
-                  <dt>Date</dt><dd>On countersignature</dd>
-                </dl>
-              </div>
+            <label class="field" style="margin:0">
+              <span class="field__label">Type your full legal name to sign</span>
+              <input class="field__input" type="text" name="signature" required autocomplete="off" placeholder="Your full legal name">
+            </label>
+            <div class="sig-preview" style="margin-top:1.2rem">
+              <span class="sig" id="sig-preview"></span>
             </div>
+            <p class="caption" style="color:var(--ivory-46);margin-top:.8rem">
+              Signed on <span id="sig-date" style="color:var(--gold)"></span>. The date is
+              stamped automatically and cannot be edited.
+            </p>
 
             <p id="sign-error" hidden class="notice notice--action" style="margin-top:1.6rem;color:var(--ivory)" role="alert"></p>
 
@@ -651,13 +632,8 @@
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem">
           Signed <span id="done-date" style="color:var(--gold)"></span>
         </p>
-        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">Your signature has been recorded. The next step is the $47 Panelist Commitment and Administrative Fee, which confirms your speaking position.</p>
-        <div class="notice" style="margin-top:2rem;background:rgba(224, 90, 90, .09);border-left-color:var(--gold);color:var(--ivory-70)">
-          <strong style="color:var(--ivory)">Demonstration build.</strong>
-          This signature is recorded in the browser only. Before launch, connect the
-          signing endpoint and the payment processor, or replace this block with the
-          GoHighLevel document and payment step. See DELIVERY.md.
-        </div>
+        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">Your signature has been recorded and a confirmation is on its way to your inbox. The last step is the $47 Panelist Commitment and Administrative Fee, which confirms your speaking position. We will email you the payment link.</p>
+        
         <div class="actions no-print" style="margin-top:2rem">
           <button type="button" class="btn btn--ghost" onclick="window.print()">Save a copy as PDF</button>
         </div>
@@ -730,5 +706,5 @@
 </footer>
 
 </div>
-<script>OYSS.signing({ agreement: "Featured Panelist Agreement" });</script>
+<script>OYSS.signing({ agreement: "Featured Panelist Agreement", tag: "panelist-agreement" });</script>
 </template>

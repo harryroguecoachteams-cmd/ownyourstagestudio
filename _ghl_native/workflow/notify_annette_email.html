@@ -32,6 +32,12 @@
 <p>Why they want to join: {{inboundWebhookRequest.why}}</p>
 <p>Heard about us: {{inboundWebhookRequest.source}} {{inboundWebhookRequest.referrer}}</p>
 <p>&nbsp;</p>
+<p><strong>AGREEMENT SIGNED (tag host-agreement or panelist-agreement)</strong></p>
+<p>Agreement: {{inboundWebhookRequest.agreement}}</p>
+<p>Signed as: {{inboundWebhookRequest.signature}} (legal name {{inboundWebhookRequest.legal_name}}) on {{inboundWebhookRequest.signedAtDisplay}}</p>
+<p>Event: {{inboundWebhookRequest.event_title}}, {{inboundWebhookRequest.event_date}} {{inboundWebhookRequest.event_time}}, theme {{inboundWebhookRequest.event_theme}}</p>
+<p>Event audience: {{inboundWebhookRequest.event_audience}}; panelists {{inboundWebhookRequest.event_panelists}}; call to action {{inboundWebhookRequest.event_cta}}</p>
+<p>&nbsp;</p>
 <p><strong>ASSESSMENT (tag assessment-result)</strong></p>
 <p>Level: {{inboundWebhookRequest.assessment_level}} ({{inboundWebhookRequest.assessment_percent}}%, {{inboundWebhookRequest.assessment_points}})</p>
 <p>Start here: {{inboundWebhookRequest.assessment_start_here}}</p>

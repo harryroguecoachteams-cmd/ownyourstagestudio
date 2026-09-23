@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/oyss.css?v=b6b59bfd">
+<link rel="stylesheet" href="../assets/oyss.css?v=5f0d3b43">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -71,23 +71,29 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </header>
 
 <main id="main">
-<!-- ============ HEAD ============
-     The same component as the home page: type column left, a
-     plate cut from the brand film full bleed right, masthead
-     transparent over it. See section 35 of oyss.css. -->
-<section class="reel reel--short dark" data-over>
-  <div class="reel__copy" data-lit>
-    <h1 class="display">Done-For-You Panel Host Services Agreement</h1>
-    <span class="reel__rule" aria-hidden="true"></span>
-    <p class="lead">The full agreement, published before you commit rather than sent after. Read it, then sign at the bottom of the page.</p>
-    <p class="draft-flag">Draft for review &middot; not yet legally executed</p>
-  </div>
-
-  <div class="reel__media">
-    <img class="reel__plate" src="../assets/media/texture.jpg" alt="A dark plaster surface raked by a single shaft of warm light.">
+<!-- ============ HERO ============ -->
+<section class="dark stage" style="padding:clamp(64px,8vh,96px) 0 clamp(92px,11vh,132px);overflow:hidden">
+  <span class="spot" aria-hidden="true">
+    <span class="spot__haze"></span>
+    <span class="spot__rays spot__rays--c"></span>
+    <span class="spot__rays spot__rays--b"></span>
+    <span class="spot__rays spot__rays--a"></span>
+    <span class="spot__source"></span>
+    <span class="spot__floor"></span>
+  </span>
+  <span class="stage__pool" aria-hidden="true"></span>
+  <div class="wrap">
+    <div style="max-width:44rem" data-lit>
+      <p class="eyebrow">Own Your Stage Experience™ · $2,997</p>
+      <h1 class="display" style="font-size:clamp(1.9rem,1.4rem + 2.2vw,3rem)">Done-For-You Panel Host Services Agreement</h1>
+      <span class="pool" aria-hidden="true"></span>
+      <p class="lead" style="margin-top:1.8rem;max-width:36rem">The full agreement, published before you commit rather than sent after. Read it, then sign at the bottom of the page.</p>
+      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(224, 90, 90, .08)">
+        Draft for review &middot; not yet legally executed
+      </p>
+    </div>
   </div>
 </section>
-
 
 <!-- ============ THE DOCUMENT ============
      A contract is an object, so it is drawn as one: paper with an edge,
@@ -944,45 +950,20 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
             <label class="check"><input type="checkbox" name="ack_promo" required><span>I understand that I am responsible for promoting the event, and that Own Your Stage Studio does not guarantee audience size, registrations, leads, sales or revenue.</span></label>
             <label class="check"><input type="checkbox" name="ack_ip" required><span>I accept the recording and intellectual property provisions, and Florida law with Martin County venue.</span></label>
 
-            <!-- THE EXECUTION PAGE.
-                 "When you say to sign you should give option to sign at the
-                 end it just looks another form to nothing looks like an
-                 agreement." Correct: a labelled input with a placeholder is a
-                 web form, and the last page of a contract does not look like
-                 one. This is set as an execution page instead: the witness
-                 clause, then two signature panels side by side, each with a
-                 ruled signature line, a printed name and a date. Only the
-                 client's panel is fillable; the studio's is countersigned. -->
-            <p class="exec__witness">
-              In witness whereof, the parties have executed this Agreement as of the date
-              of the last signature below.
-            </p>
+            <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Signature</p>
+            <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 
-            <div class="exec">
-              <div class="exec__party">
-                <p class="exec__for">The Client</p>
-                <label class="exec__sign">
-                  <span class="sig" id="sig-preview" aria-hidden="true"></span>
-                  <input class="exec__input" type="text" name="signature" required
-                         autocomplete="off" aria-label="Type your full legal name to sign">
-                </label>
-                <p class="exec__rule"></p>
-                <dl class="exec__meta">
-                  <dt>Signature</dt><dd>Type your full legal name above</dd>
-                  <dt>Date</dt><dd id="sig-date"></dd>
-                </dl>
-              </div>
-
-              <div class="exec__party exec__party--them">
-                <p class="exec__for">Own Your Stage Studio, LLC</p>
-                <span class="sig sig--them">Annette Knecht Seier</span>
-                <p class="exec__rule"></p>
-                <dl class="exec__meta">
-                  <dt>Signature</dt><dd>Founder, for the Studio</dd>
-                  <dt>Date</dt><dd>On countersignature</dd>
-                </dl>
-              </div>
+            <label class="field" style="margin:0">
+              <span class="field__label">Type your full legal name to sign</span>
+              <input class="field__input" type="text" name="signature" required autocomplete="off" placeholder="Your full legal name">
+            </label>
+            <div class="sig-preview" style="margin-top:1.2rem">
+              <span class="sig" id="sig-preview"></span>
             </div>
+            <p class="caption" style="color:var(--ivory-46);margin-top:.8rem">
+              Signed on <span id="sig-date" style="color:var(--gold)"></span>. The date is
+              stamped automatically and cannot be edited.
+            </p>
 
             <p id="sign-error" hidden class="notice notice--action" style="margin-top:1.6rem;color:var(--ivory)" role="alert"></p>
 
@@ -1002,12 +983,11 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem">
           Signed <span id="done-date" style="color:var(--gold)"></span>
         </p>
-        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">Your signature has been recorded. The next step is the $2,997 package payment, after which your event date can be reserved.</p>
-        <div class="notice" style="margin-top:2rem;background:rgba(224, 90, 90, .09);border-left-color:var(--gold);color:var(--ivory-70)">
-          <strong style="color:var(--ivory)">Demonstration build.</strong>
-          This signature is recorded in the browser only. Before launch, connect the
-          signing endpoint and the payment processor, or replace this block with the
-          GoHighLevel document and payment step. See DELIVERY.md.
+        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">Your signature has been recorded and a confirmation is on its way to your inbox. The last step is the package payment, after which your event date is reserved.</p>
+        
+        <div class="actions no-print" style="margin-top:2rem">
+          <a class="btn btn--primary" href="https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334" target="_blank" rel="noopener">Pay in full, $2,997</a>
+          <a class="btn btn--ghost" href="https://link.fastpaydirect.com/payment-link/6a919448f9c8c807930ba92c" target="_blank" rel="noopener">Two payments of $1,550</a>
         </div>
         <div class="actions no-print" style="margin-top:2rem">
           <button type="button" class="btn btn--ghost" onclick="window.print()">Save a copy as PDF</button>
@@ -1080,8 +1060,8 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </footer>
 
 </div>
-<script src="../assets/oyss.js?v=b6b59bfd"></script>
+<script src="../assets/oyss.js?v=5f0d3b43"></script>
 
-<script>OYSS.signing({ agreement: "Done-For-You Panel Host Services Agreement" });</script>
+<script>OYSS.signing({ agreement: "Done-For-You Panel Host Services Agreement", tag: "host-agreement" });</script>
 </body>
 </html>

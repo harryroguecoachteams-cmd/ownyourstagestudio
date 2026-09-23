@@ -262,8 +262,10 @@ def sign_section(kind):
             ("ack_bind", "I voluntarily agree to be legally bound by this Agreement and I have the legal authority to enter into it."),
         ]
         cta = "Sign and continue to payment"
-        confirm = ("Your signature has been recorded. The next step is the $47 Panelist "
-                   "Commitment and Administrative Fee, which confirms your speaking position.")
+        confirm = ("Your signature has been recorded and a confirmation is on its way to your "
+                   "inbox. The last step is the $47 Panelist Commitment and Administrative Fee, "
+                   "which confirms your speaking position. We will email you the payment link.")
+        after = ""
     else:
         fee = """
           <div class="fee" style="margin:2.2rem 0">
@@ -288,8 +290,14 @@ def sign_section(kind):
             ("ack_ip", "I accept the recording and intellectual property provisions, and Florida law with Martin County venue."),
         ]
         cta = "Sign and continue to payment"
-        confirm = ("Your signature has been recorded. The next step is the $2,997 package "
-                   "payment, after which your event date can be reserved.")
+        confirm = ("Your signature has been recorded and a confirmation is on its way to your "
+                   "inbox. The last step is the package payment, after which your event date "
+                   "is reserved.")
+        after = """
+        <div class="actions no-print" style="margin-top:2rem">
+          <a class="btn btn--primary" href="https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334" target="_blank" rel="noopener">Pay in full, $2,997</a>
+          <a class="btn btn--ghost" href="https://link.fastpaydirect.com/payment-link/6a919448f9c8c807930ba92c" target="_blank" rel="noopener">Two payments of $1,550</a>
+        </div>"""
 
     ack_html = "\n".join(
         f'            <label class="check"><input type="checkbox" name="{n}" required><span>{t}</span></label>'
@@ -426,12 +434,7 @@ def sign_section(kind):
           Signed <span id="done-date" style="color:var(--gold)"></span>
         </p>
         <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">{confirm}</p>
-        <div class="notice" style="margin-top:2rem;background:rgba(224, 90, 90, .09);border-left-color:var(--gold);color:var(--ivory-70)">
-          <strong style="color:var(--ivory)">Demonstration build.</strong>
-          This signature is recorded in the browser only. Before launch, connect the
-          signing endpoint and the payment processor, or replace this block with the
-          GoHighLevel document and payment step. See DELIVERY.md.
-        </div>
+        {after}
         <div class="actions no-print" style="margin-top:2rem">
           <button type="button" class="btn btn--ghost" onclick="window.print()">Save a copy as PDF</button>
         </div>
@@ -501,7 +504,7 @@ def build():
                           party=j["party"], sections=len(toc))
             + sign_section(j["kind"])
             + "%%INLINE%%\n"
-            + f'<script>OYSS.signing({{ agreement: "{j["title"]}" }});</script>\n'
+            + f'<script>OYSS.signing({{ agreement: "{j["title"]}", tag: "{j["kind"]}-agreement" }});</script>\n'
         )
 
         (PAGES / j["out"]).write_text(page, encoding="utf-8")

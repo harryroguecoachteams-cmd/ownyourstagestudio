@@ -788,6 +788,16 @@
       record.agreement = cfg.agreement || 'Agreement';
       record.signedAt = now.toISOString();
       record.signedAtDisplay = stamp;
+      /* The same shape every other form posts, so the one workflow can
+         create the contact, tag it and email both sides. */
+      record.tag = cfg.tag || 'agreement';
+      var legal = String(record.legal_name || record.signature || '').trim().split(/\s+/);
+      record.first_name = legal.shift() || '';
+      record.last_name = legal.join(' ');
+      record.business = record.business_name || '';
+      record.page = window.location.pathname;
+      record.submittedAt = record.signedAt;
+      var endpoint = cfg.endpoint || (window.OYSS.endpoint && window.OYSS.endpoint());
 
       if (submit) { submit.disabled = true; submit.textContent = 'Recording signature'; }
 
@@ -807,8 +817,8 @@
 
       /* One line to go live. Until an endpoint is set this stays
          a local draft signature, which is what a demo should be. */
-      if (cfg.endpoint) {
-        fetch(cfg.endpoint, {
+      if (endpoint) {
+        fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(record)
