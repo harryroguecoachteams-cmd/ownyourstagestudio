@@ -4,6 +4,20 @@ A working draft of the company site.
 
 ---
 
+## FEEDBACK 9.0 (23 Sep 2026)
+
+1. **Header over the home hero:** it is now clear only at the very top of the page and turns solid on the first scroll.
+2. **Menu decluttered:** "What we do" is a dropdown (Virtual Panel Events, All services, Panelist Program), followed by Assessment, About, FAQ and Book a Call.
+3. **Essay portrait replaced** with a new image (`expert-ready2.jpg`).
+4. **Short form back:** Annette's own GHL form "Website - Let's talk (short)" (`dvJo5tJIIPvpcprpSPcc`) has First name, Phone, Email, her two SMS consents and a Send button. Submissions land in her CRM. **Still to do:** paste the brand CSS into Form > Styles & Options > Advanced > Custom CSS. The CSS text is in the feedback 8.1 notes.
+5. **Services:** each service is its own section with its own picture. On the home page, the product cards are full-card links with a hover animation.
+6. **Strategy Session hero:** Annette on a video call.
+7. **What the studio sells:** the first screen names the product (done-for-you virtual panel events), and a products section follows directly with the flagship first.
+8. **GHL website:** "Own Your Stage Studio" (`VxpsSqlLRJqrRH4qAFE0`) in the requested folder, with 15 pages on the site's own slugs. The website's Body tracking code loads `assets/ghl-mount.js`, which renders the right page from the URL, so every push to GitHub updates GHL too.
+   - **To go live:** connect a domain to this website and publish. GHL previews leave out tracking code, so the pages look empty until then.
+   - **Also to do:** delete the duplicate "Apply" page.
+
+
 ## FEEDBACK 8.0 (23 Sep 2026)
 
 1. **Not a virtual-event-only company.** The home page lost the three sections that were only about the panel (the three-month cue sheet, the deliverables list, the price). The hero now leads with "Book a Strategy Session" and "Explore our services". The facts line lists the range of formats instead of the panel's numbers.
