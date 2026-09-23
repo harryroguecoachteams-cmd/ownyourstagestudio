@@ -297,8 +297,8 @@
           <p id="assess-error" hidden class="notice notice--action" style="margin-bottom:1.4rem" role="alert"></p>
           <button type="submit" class="btn btn--primary">See my result</button>
           <p class="caption">
-            Your result appears on this page. Nothing is sent anywhere unless you choose to
-            take a next step.
+            Your result appears on this page. You can email it to yourself or download it
+            from there.
           </p>
         </div>
       </form>
@@ -310,8 +310,8 @@
            This shows the reader's own: the score as a lit ring, where
            they sit on the four level ladder, each of the six pillars
            it was built from with the weakest one marked "Start here",
-           her words for their level only, and the calendar in place,
-           so the next step is one click from the score. -->
+           her words for their level only, then email / PDF and a
+           button to the Strategy Session (feedback 10.0: no calendar here). -->
       <div id="assessment-result" hidden>
       <div class="sheet__head" style="margin-bottom:2rem">
         <div>
@@ -383,14 +383,44 @@
 
       <div class="rule" style="margin:2.8rem 0"></div>
 
+      <!-- Feedback 10.0: keep the result (email it AND/OR download it),
+           and a button to the Strategy Session instead of the calendar. -->
+      <div class="keep" id="result-keep">
+        <p class="eyebrow eyebrow--gold">Keep your result</p>
+        <p class="sheet__title" style="margin-top:.5rem">Send it to your inbox, download it, or both.</p>
+        <div class="keep__grid">
+          <form class="keep__mail" id="result-mail" novalidate>
+            <p class="keep__h">Email me my result</p>
+            <div class="keep__fields">
+              <label class="field"><span class="field__label">First name</span>
+                <input class="field__input" type="text" name="first_name" autocomplete="given-name" required></label>
+              <label class="field"><span class="field__label">Email</span>
+                <input class="field__input" type="email" name="email" autocomplete="email" required></label>
+            </div>
+            <p class="notice notice--action" id="result-mail-err" hidden role="alert"></p>
+            <button type="submit" class="btn btn--primary">Email my result</button>
+            <p class="caption keep__note" id="result-mail-note">Your full report, in your inbox in a minute or two.</p>
+            <p class="keep__done" id="result-mail-done" hidden role="status"></p>
+          </form>
+          <div class="keep__pdf">
+            <p class="keep__h">Download it</p>
+            <p class="body">A PDF of your score, your six pillars, what they mean and your next step.</p>
+            <button type="button" class="btn btn--ghost" id="result-pdf">Download PDF</button>
+            <p class="caption" id="result-pdf-note" hidden></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule" style="margin:2.8rem 0"></div>
+
       <p class="eyebrow eyebrow--gold">Talk it through</p>
       <p class="sheet__title" style="margin-top:.5rem">Book your Strategy Session.</p>
       <p class="body" style="max-width:40rem;margin-top:.9rem">
         Stop waiting to be discovered. Thirty minutes on Zoom, complimentary: we go through your
         score with you, pillar by pillar, and name the stage that fits you next.
       </p>
-      <div class="result__cal">
-        %%BOOKING%%
+      <div class="actions" style="margin-top:1.6rem">
+        <a class="btn btn--primary" href="contact.html">Book your Strategy Session</a>
       </div>
       <p class="caption" style="margin-top:1.4rem">
         Or read on first:

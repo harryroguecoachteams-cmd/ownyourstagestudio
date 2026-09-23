@@ -6606,3 +6606,41 @@
   .oyss .svcrow { grid-template-columns: 1fr; }
   .oyss .svcrow--flip .svcrow__media { order: 0; }
 }
+
+/* ============================================================
+   60. KEEP YOUR RESULT  (feedback 10.0)
+   The assessment result closes on two ways to keep it, side by
+   side: email it (posts to the GHL workflow, which sends the
+   report) and download it (a PDF drawn in the browser). The
+   calendar that used to sit here is now a single button.
+   ============================================================ */
+.oyss .keep__grid {
+  display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.6rem;
+  margin-top: 1.6rem; align-items: stretch;
+}
+.oyss .keep__mail, .oyss .keep__pdf {
+  border: 1px solid var(--ash); border-radius: 2px; padding: 1.6rem;
+  background: var(--white);
+}
+.oyss .keep__pdf { background: var(--blush, #F9E9E7); border-color: transparent; display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; }
+.oyss .keep__pdf .btn { margin-top: auto; }
+.oyss .keep__h {
+  font-family: var(--serif); font-weight: 700; font-size: 1.15rem;
+  color: var(--navy); margin: 0 0 1.1rem;
+}
+.oyss .keep__pdf .keep__h { margin-bottom: 0; }
+.oyss .keep__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
+.oyss .keep__fields .field + .field { margin-top: 0; }
+.oyss .keep__mail .notice { margin-bottom: 1rem; }
+.oyss .keep__note { margin-top: .8rem; }
+.oyss .keep__done { margin: 0; font-size: var(--t-body); color: var(--navy); line-height: 1.55; }
+.oyss .keep__done b { color: var(--crimson); }
+.oyss .keep [hidden] { display: none !important; }
+@media (max-width: 860px) {
+  .oyss .keep__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .oyss .keep__fields { grid-template-columns: 1fr; }
+  .oyss .keep__mail, .oyss .keep__pdf { padding: 1.2rem; }
+  .oyss .keep .btn { width: 100%; justify-content: center; }
+}

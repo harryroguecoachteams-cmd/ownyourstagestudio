@@ -1220,6 +1220,16 @@
         window.sessionStorage.setItem('oyss:assessment',
           JSON.stringify({ score: total, of: qs.length * 4, level: level.key }));
       } catch (_) {}
+
+      /* Feedback 10.0: hand the finished result to the keep module
+         (email it / download it). */
+      var weakest = [];
+      sums.forEach(function (v, i) { if (v === low && low < 8) weakest.push(NAMES[i]); });
+      window.OYSS.keepResult({
+        level: level, total: total, max: max, pct: pct,
+        pillars: NAMES.map(function (n, i) { return { name: n, v: sums[i] }; }),
+        weakest: weakest
+      });
     });
   };
 
@@ -1845,6 +1855,280 @@
         setTimeout(finish, 400);
       }
     });
+  };
+
+
+  /* ==========================================================
+     KEEP YOUR RESULT  (feedback 10.0)
+     "When you show the result give option to send it to their
+     email or download at the same time and don't show calendar,
+     just give the button there."
+
+     Email: posts the whole result to the GHL workflow (the same
+     one endpoint as every form, tag `assessment-result`). The
+     workflow creates or updates the contact and sends the report,
+     so the email is built from fields in the payload:
+       result_html   the full report as one block of email-safe HTML
+       result_text   the same as plain text
+       plus every piece on its own (level, score, pillars ...)
+     Download: a PDF drawn in the browser with jsPDF (loaded only
+     when the button is pressed), so nothing leaves the page.
+     ========================================================== */
+  var KEEP = null;
+
+  function esc(t) {
+    return String(t).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  function siteUrl(path) {
+    var a = document.createElement('a');
+    a.href = path;
+    return a.href;
+  }
+  function bookHref() {
+    var b = document.querySelector('#assessment-result a.btn--primary');
+    return siteUrl(b ? b.getAttribute('href') : 'contact.html');
+  }
+
+  function resultText(r) {
+    var L = r.level, out = [];
+    out.push('Your Authority Visibility Score: ' + r.pct + '% (' + r.total + ' of ' + r.max + ' points)');
+    out.push('You are: The ' + L.name);
+    out.push('');
+    out.push('YOUR SIX PILLARS');
+    r.pillars.forEach(function (p) {
+      out.push(p.name + ': ' + p.v + ' / 8' + (r.weakest.indexOf(p.name) > -1 ? '  (start here)' : ''));
+    });
+    out.push('', 'WHAT THIS MEANS', L.meaning.join('\n\n'));
+    out.push('', 'YOUR GREATEST OPPORTUNITY', L.opportunity.join('\n\n'));
+    out.push('', 'YOUR PRIORITIES', L.priorities.map(function (p) { return '- ' + p; }).join('\n'));
+    out.push('', 'YOUR RECOMMENDED NEXT STEP', L.step.join('\n\n'));
+    out.push('', 'Book your complimentary Strategy Session: ' + bookHref());
+    return out.join('\n');
+  }
+
+  function resultHtml(r) {
+    var L = r.level, RED = '#B91C1C', INK = '#2E2E2E', SL = '#5B5552';
+    var h = function (t) {
+      return '<p style="margin:28px 0 8px;font:700 12px/1.4 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:' + RED + '">' + esc(t) + '</p>';
+    };
+    var p = function (t) { return '<p style="margin:0 0 12px;font:16px/1.6 Georgia,serif;color:' + INK + '">' + esc(t) + '</p>'; };
+    var rows = r.pillars.map(function (x) {
+      var w = Math.round((x.v - 2) / 6 * 100), low = r.weakest.indexOf(x.name) > -1;
+      return '<tr><td style="padding:6px 12px 6px 0;font:15px Arial,sans-serif;color:' + INK + ';white-space:nowrap">' + esc(x.name) +
+        (low ? ' <b style="color:' + RED + ';font-size:11px;letter-spacing:.12em;text-transform:uppercase">Start here</b>' : '') +
+        '</td><td style="width:100%;padding:6px 12px 6px 0"><div style="background:#F9E9E7;height:10px;border-radius:5px">' +
+        '<div style="background:' + RED + ';height:10px;border-radius:5px;width:' + Math.max(w, 3) + '%"></div></div></td>' +
+        '<td style="font:700 14px Arial,sans-serif;color:' + INK + ';white-space:nowrap">' + x.v + ' / 8</td></tr>';
+    }).join('');
+    return '<div style="max-width:600px">' +
+      '<p style="margin:0;font:700 12px/1.4 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:' + SL + '">Authority Visibility Score</p>' +
+      '<p style="margin:6px 0 0;font:700 44px/1.1 Arial,sans-serif;color:' + RED + '">' + r.pct + '%</p>' +
+      '<p style="margin:4px 0 0;font:700 22px/1.3 Arial,sans-serif;color:' + INK + '">You are the ' + esc(L.name) + '</p>' +
+      '<p style="margin:4px 0 0;font:14px Arial,sans-serif;color:' + SL + '">' + r.total + ' of ' + r.max + ' points</p>' +
+      h('Your six pillars') + '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">' + rows + '</table>' +
+      h('What this means') + L.meaning.map(p).join('') +
+      h('Your greatest opportunity') + L.opportunity.map(p).join('') +
+      h('Your priorities') + '<ul style="margin:0;padding-left:20px">' + L.priorities.map(function (x) {
+        return '<li style="margin:0 0 6px;font:16px/1.5 Georgia,serif;color:' + INK + '">' + esc(x) + '</li>';
+      }).join('') + '</ul>' +
+      h('Your recommended next step') + L.step.map(p).join('') +
+      '<p style="margin:28px 0 0"><a href="' + esc(bookHref()) + '" style="display:inline-block;background:' + RED +
+      ';color:#fff;text-decoration:none;font:700 15px Arial,sans-serif;padding:14px 26px;border-radius:2px">Book your Strategy Session</a></p>' +
+      '</div>';
+  }
+
+  function sendResult(e) {
+    e.preventDefault();
+    var form = e.currentTarget, r = KEEP;
+    var err = document.getElementById('result-mail-err');
+    var done = document.getElementById('result-mail-done');
+    var note = document.getElementById('result-mail-note');
+    var btn = form.querySelector('button[type="submit"]');
+    if (!r) return;
+    var fn = form.elements.first_name, em = form.elements.email, bad = [];
+    [fn, em].forEach(function (el) {
+      var b = !String(el.value || '').trim();
+      if (!b && el.type === 'email') b = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      el.setAttribute('aria-invalid', b ? 'true' : 'false');
+      if (b) bad.push(el);
+    });
+    if (bad.length) {
+      err.textContent = bad.length === 2 ? 'Add your first name and email.'
+        : (bad[0] === em ? 'That email address does not look complete.' : 'Add your first name.');
+      err.hidden = false; bad[0].focus(); return;
+    }
+    err.hidden = true;
+    var url = window.OYSS.endpoint();
+    if (!url) {
+      err.textContent = 'Email delivery is not switched on yet. Download the PDF for now.';
+      err.hidden = false; return;
+    }
+    var data = {
+      tag: 'assessment-result',
+      first_name: fn.value.trim(),
+      email: em.value.trim(),
+      assessment_level: r.level.name,
+      assessment_level_key: r.level.key,
+      assessment_percent: r.pct,
+      assessment_points: r.total + ' of ' + r.max,
+      assessment_start_here: r.weakest.join(', '),
+      assessment_pillars: r.pillars.map(function (x) { return x.name + ' ' + x.v + '/8'; }).join('; '),
+      result_meaning: r.level.meaning.join('\n\n'),
+      result_opportunity: r.level.opportunity.join('\n\n'),
+      result_priorities: r.level.priorities.join('\n'),
+      result_step: r.level.step.join('\n\n'),
+      result_text: resultText(r),
+      result_html: resultHtml(r),
+      booking_url: bookHref(),
+      page: window.location.pathname,
+      submittedAt: new Date().toISOString()
+    };
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        form.querySelector('.keep__fields').hidden = true;
+        btn.hidden = true; note.hidden = true;
+        done.innerHTML = 'Sent to <b>' + esc(data.email) + '</b>. It should arrive in a minute or two; check your promotions folder if it does not.';
+        done.hidden = false;
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = 'Email my result';
+        err.textContent = 'That did not go through. Try again, or download the PDF.';
+        err.hidden = false;
+      });
+  }
+
+  var JSPDF = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  function loadJsPdf() {
+    return new Promise(function (ok, no) {
+      if (window.jspdf) return ok(window.jspdf);
+      var s = document.createElement('script');
+      s.src = JSPDF; s.async = true;
+      s.onload = function () { if (window.jspdf) ok(window.jspdf); else no(); };
+      s.onerror = no;
+      document.head.appendChild(s);
+    });
+  }
+
+  function drawPdf(lib, r) {
+    var doc = new lib.jsPDF({ unit: 'pt', format: 'a4' });
+    var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
+    var M = 54, y = 0, RED = [185, 28, 28], INK = [46, 46, 46], SL = [91, 85, 82], BL = [249, 233, 231];
+    function col(c) { doc.setTextColor(c[0], c[1], c[2]); }
+    function need(h) { if (y + h > H - 60) { doc.addPage(); y = M; } }
+    function eyebrow(t) {
+      need(40); y += 22;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); col(RED);
+      doc.text(t.toUpperCase(), M, y, { charSpace: 1.4 }); y += 14;
+    }
+    function para(t, size) {
+      doc.setFont('times', 'normal'); doc.setFontSize(size || 11.5); col(INK);
+      doc.splitTextToSize(t, W - 2 * M).forEach(function (line) { need(16); doc.text(line, M, y); y += 15.5; });
+      y += 5;
+    }
+
+    /* Letterhead band */
+    doc.setFillColor(31, 30, 29); doc.rect(0, 0, W, 86, 'F');
+    doc.setFillColor(RED[0], RED[1], RED[2]); doc.rect(M, 70, 36, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.setTextColor(248, 245, 242);
+    doc.text('OWN YOUR STAGE STUDIO', M, 44, { charSpace: 1.2 });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(215, 206, 192);
+    doc.text('Authority Visibility Score', W - M, 44, { align: 'right' });
+    doc.text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), W - M, 58, { align: 'right' });
+
+    /* Score */
+    y = 140;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(54); col(RED);
+    doc.text(r.pct + '%', M, y);
+    doc.setFontSize(20); col(INK);
+    doc.text('You are the ' + r.level.name, M + 150, y - 22);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11); col(SL);
+    doc.text(r.total + ' of ' + r.max + ' points, from twelve answers', M + 150, y - 4);
+
+    /* Ladder */
+    y += 26;
+    var names = ['Hidden', 'Emerging', 'Established', 'Visible'], cw = (W - 2 * M - 12) / 4;
+    var reached = ['hidden', 'emerging', 'established', 'visible'].indexOf(r.level.key);
+    names.forEach(function (n, i) {
+      var x = M + i * (cw + 4);
+      if (i <= reached) doc.setFillColor(RED[0], RED[1], RED[2]); else doc.setFillColor(BL[0], BL[1], BL[2]);
+      doc.rect(x, y, cw, 30, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+      if (i <= reached) doc.setTextColor(255, 255, 255); else col(SL);
+      doc.text(n.toUpperCase(), x + 8, y + 19);
+      if (i === reached) { doc.setFontSize(7); doc.text('YOU ARE HERE', x + cw - 8, y + 19, { align: 'right' }); }
+    });
+    y += 40;
+
+    /* Pillars */
+    eyebrow('Your six pillars');
+    r.pillars.forEach(function (p) {
+      need(20);
+      var low = r.weakest.indexOf(p.name) > -1, bx = M + 150, bw = W - 2 * M - 150 - 44;
+      doc.setFont('helvetica', low ? 'bold' : 'normal'); doc.setFontSize(10.5); col(INK);
+      doc.text(p.name + (low ? '  (start here)' : ''), M, y + 8);
+      doc.setFillColor(BL[0], BL[1], BL[2]); doc.rect(bx, y, bw, 9, 'F');
+      doc.setFillColor(RED[0], RED[1], RED[2]); doc.rect(bx, y, Math.max(bw * (p.v - 2) / 6, 4), 9, 'F');
+      doc.setFont('helvetica', 'bold'); col(INK);
+      doc.text(p.v + ' / 8', W - M, y + 8, { align: 'right' });
+      y += 19;
+    });
+
+    eyebrow('What this means');
+    r.level.meaning.forEach(function (t) { para(t); });
+    eyebrow('Your greatest opportunity');
+    r.level.opportunity.forEach(function (t) { para(t); });
+    eyebrow('Your priorities');
+    r.level.priorities.forEach(function (t) { para('•  ' + t); y -= 5; });
+    y += 5;
+    eyebrow('Your recommended next step');
+    r.level.step.forEach(function (t) { para(t); });
+
+    /* Next step */
+    need(70); y += 12;
+    doc.setFillColor(BL[0], BL[1], BL[2]); doc.rect(M, y, W - 2 * M, 56, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(12); col(INK);
+    doc.text('Book your complimentary Strategy Session', M + 16, y + 23);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10); col(RED);
+    var link = bookHref();
+    doc.textWithLink(link, M + 16, y + 40, { url: link });
+
+    var pages = doc.getNumberOfPages();
+    for (var i = 1; i <= pages; i++) {
+      doc.setPage(i);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(8); col(SL);
+      doc.text('ownyourstagestudio.com', M, H - 30);
+      doc.text(i + ' / ' + pages, W - M, H - 30, { align: 'right' });
+    }
+    doc.save('Authority-Visibility-Score-' + r.level.name.replace(/\s+/g, '-') + '.pdf');
+  }
+
+  function downloadResult() {
+    var btn = document.getElementById('result-pdf'), note = document.getElementById('result-pdf-note');
+    if (!KEEP) return;
+    btn.disabled = true; btn.textContent = 'Preparing...';
+    loadJsPdf().then(function (lib) {
+      drawPdf(lib, KEEP);
+      btn.disabled = false; btn.textContent = 'Download again';
+      note.textContent = 'Saved to your downloads.'; note.hidden = false;
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Download PDF';
+      note.textContent = 'The download could not start. Use your browser’s Print, then Save as PDF.';
+      note.hidden = false;
+    });
+  }
+
+  window.OYSS.keepResult = function (r) {
+    var first = !KEEP;
+    KEEP = r;
+    if (!first) return;
+    var mail = document.getElementById('result-mail');
+    var pdf = document.getElementById('result-pdf');
+    if (mail) mail.addEventListener('submit', sendResult);
+    if (pdf) pdf.addEventListener('click', downloadResult);
   };
 
 
