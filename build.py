@@ -197,21 +197,22 @@ ASSET_HOST = "https://harryroguecoachteams-cmd.github.io/ownyourstagestudio"
 
 # file on disk -> the funnel step slug it becomes in GHL.
 # Change the right-hand side to match whatever the steps are actually named.
+# Checked against the live GHL website paths 23 Sep 2026 (feedback 10.0).
 SLUGS = {
     "index.html":               "/",
     "services.html":            "/services",
     "experience.html":          "/experience",
     "assessment.html":          "/assessment",
     "panelists.html":           "/panelists",
-    "about.html":               "/about",
+    "about.html":               "/about-us",           # /about is reserved by another page on the domain
     "faq.html":                 "/faq",
     "apply.html":               "/apply",
     "contact.html":             "/strategy-session",
     "apply-panelist.html":      "/panelist-application",
     "agreements/host.html":     "/host-agreement",
     "agreements/panelist.html": "/panelist-agreement",
-    "terms.html":               "/terms-conditions",
-    "privacy.html":             "/privacy-policy",
+    "terms.html":               "/terms",              # /terms-conditions is her old template page
+    "privacy.html":             "/privacy",            # /privacy-policy is her old template page
     "disclaimer.html":          "/disclaimer",
 }
 

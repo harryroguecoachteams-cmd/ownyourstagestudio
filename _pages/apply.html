@@ -262,6 +262,10 @@
       var box = form.querySelector('input[name="' + k + '"]');
       if (box) data[k] = box.checked ? 'yes' : 'no';
     });
+    /* GHL contacts want first and last name; the form asks for one full name. */
+    var parts = String(data.name || '').trim().split(/\s+/);
+    data.first_name = parts.shift() || '';
+    data.last_name = parts.join(' ');
     data.tag = CONFIG.tag;
     data.submittedAt = new Date().toISOString();
 

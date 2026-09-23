@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=48162675">
+<link rel="stylesheet" href="assets/oyss.css?v=b6b59bfd">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -365,7 +365,7 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=48162675"></script>
+<script src="assets/oyss.js?v=b6b59bfd"></script>
 
 <script>
 /* The endpoint is one switch for the whole site: window.OYSS_ENDPOINT, a GHL
@@ -408,6 +408,10 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
       var box = form.querySelector('input[name="' + k + '"]');
       if (box) data[k] = box.checked ? 'yes' : 'no';
     });
+    /* GHL contacts want first and last name; the form asks for one full name. */
+    var parts = String(data.name || '').trim().split(/\s+/);
+    data.first_name = parts.shift() || '';
+    data.last_name = parts.join(' ');
     data.tag = CONFIG.tag;
     data.submittedAt = new Date().toISOString();
 

@@ -26,7 +26,7 @@
         </div>
       </div>
       <a href="/assessment">Assessment</a>
-      <a href="/about">About</a>
+      <a href="/about-us">About</a>
       <a href="/faq">FAQ</a>
       <a class="btn btn--primary" href="/strategy-session">Book a Call</a>
     </nav>
@@ -201,7 +201,7 @@
             <p class="caption">
               No payment is taken at this step, and applying does not commit you to anything.
             </p>
-            <p class="legalline"><a href="/privacy-policy">Privacy Policy</a><span aria-hidden="true">|</span><a href="/terms-conditions">Terms of Service</a></p>
+            <p class="legalline"><a href="/privacy">Privacy Policy</a><span aria-hidden="true">|</span><a href="/terms">Terms of Service</a></p>
           </div>
         </form>
 
@@ -295,7 +295,7 @@
         <a href="/services">Services</a>
         <a href="/experience">Virtual Panel Events</a>
         <a href="/panelists">Panelist Program</a>
-        <a href="/about">About Annette</a>
+        <a href="/about-us">About Annette</a>
         <a href="/faq">Questions</a>
       </div>
       <div>
@@ -312,8 +312,8 @@
       </div>
       <div>
         <h4>Legal</h4>
-        <a href="/terms-conditions">Terms and Conditions</a>
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms">Terms and Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
         <a href="/disclaimer">Disclaimer</a>
       </div>
     </div>
@@ -370,6 +370,10 @@
       var box = form.querySelector('input[name="' + k + '"]');
       if (box) data[k] = box.checked ? 'yes' : 'no';
     });
+    /* GHL contacts want first and last name; the form asks for one full name. */
+    var parts = String(data.name || '').trim().split(/\s+/);
+    data.first_name = parts.shift() || '';
+    data.last_name = parts.join(' ');
     data.tag = CONFIG.tag;
     data.submittedAt = new Date().toISOString();
 

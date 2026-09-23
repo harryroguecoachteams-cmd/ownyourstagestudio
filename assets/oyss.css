@@ -29,7 +29,7 @@
    component rule below still wins. */
 .oyss h1, .oyss h2, .oyss h3, .oyss h4, .oyss h5, .oyss h6,
 .oyss p, .oyss li, .oyss a, .oyss span, .oyss b, .oyss strong,
-.oyss em, .oyss label, .oyss small, .oyss figcaption, .oyss blockquote { color: inherit; }
+.oyss em, .oyss label, .oyss small, .oyss figcaption, .oyss blockquote { color: inherit; font-family: inherit; letter-spacing: inherit; }
 .oyss a { text-decoration: none; }
 
 .oyss {

@@ -72,6 +72,12 @@ def css_for_ghl():
     # relative url()s in the stylesheet: media/x.jpg and silk.svg
     css = re.sub(r"url\((['\"]?)(?:media/)?([\w.-]+\.(?:jpg|png|svg))\1\)",
                  lambda m: f"url({media_url(m.group(2))})", css)
+    # Framing rules pick a picture by its filename ([src$="annette-close.jpg"]).
+    # In GHL the file is served under its media id, so the rule has to name
+    # the id or it silently stops matching (the About hero lost its face).
+    # Names that are no longer in the media set are old pictures; left alone.
+    css = re.sub(r'\[src\$="([\w.-]+\.(?:jpg|png|svg|mp4))"\]',
+                 lambda m: f'[src$="{MEDIA[m.group(1)]}"]' if m.group(1) in MEDIA else m.group(0), css)
     assert "github.io" not in css
     return css
 
