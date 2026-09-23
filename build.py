@@ -82,8 +82,8 @@ SITE = [
     # Feedback 7.0: renamed from "Spotlight Call" to the name Annette's own
     # booking calendar and assessment already use, so the site, the calendar
     # invite and the results screen all call it the same thing.
-    ("contact.html",           None,             "Book a Strategy Session",                    "Thirty minutes on Zoom, complimentary: where your authority stands today and which stage fits you next.",
-     "form",      "Strategy Session",         "30 minutes · complimentary"),
+    ("contact.html",           None,             "Book a Stop Hiding Strategy Call",           "Thirty minutes on Zoom, complimentary: where your authority stands today and which stage fits you next.",
+     "form",      "Stop Hiding Strategy Call", "30 minutes · complimentary"),
     ("apply-panelist.html",    None,             "Panelist Application",                       "Apply to be considered as a featured panelist on an Own Your Stage Studio panel event.",
      "form",      "Panelist Application",     "Kept on file 12 months"),
     ("agreements/host.html",   None,             "Done-For-You Panel Host Services Agreement", "The agreement governing the Own Your Stage Experience host engagement.",
@@ -372,7 +372,7 @@ def footer(base):
       </div>
       <div>
         <h4>Next step</h4>
-        <a href="{base}contact.html">Book a Strategy Session</a>
+        <a href="{base}contact.html">Book a Stop Hiding Strategy Call</a>
         <a href="{base}assessment.html">Take the Readiness Assessment</a>
         <a href="{base}apply.html">Apply for the Host Package</a>
         <a href="{base}apply-panelist.html">Panelist Application</a>
@@ -415,7 +415,7 @@ PROMPTS = {
   after: '#formats',
   barTitle: 'Talk to us about your stage.',
   barMeta: 'Thirty minutes on Zoom, complimentary.',
-  barCta: 'Book a Strategy Session', barHref: 'contact.html'
+  barCta: 'Book a Stop Hiding Strategy Call', barHref: 'contact.html'
 });</script>""",
     "guide": """<script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',

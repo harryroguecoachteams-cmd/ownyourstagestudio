@@ -1152,7 +1152,7 @@
       } else if (pctEl) pctEl.textContent = pct;
 
       /* The six pillars, two questions each, scored 2 to 8. The weakest
-         pillar is where the Strategy Session starts, so it says so. */
+         pillar is where the Stop Hiding Strategy Call starts, so it says so. */
       var NAMES = ['Positioning', 'Visibility', 'Credibility', 'Platform ownership',
                    'Content leverage', 'Authority conversion'];
       var sums = [0, 0, 0, 0, 0, 0];
@@ -1904,7 +1904,7 @@
     out.push('', 'YOUR GREATEST OPPORTUNITY', L.opportunity.join('\n\n'));
     out.push('', 'YOUR PRIORITIES', L.priorities.map(function (p) { return '- ' + p; }).join('\n'));
     out.push('', 'YOUR RECOMMENDED NEXT STEP', L.step.join('\n\n'));
-    out.push('', 'Book your complimentary Strategy Session: ' + bookHref());
+    out.push('', 'Book your complimentary Stop Hiding Strategy Call: ' + bookHref());
     return out.join('\n');
   }
 
@@ -1935,7 +1935,7 @@
       }).join('') + '</ul>' +
       h('Your recommended next step') + L.step.map(p).join('') +
       '<p style="margin:28px 0 0"><a href="' + esc(bookHref()) + '" style="display:inline-block;background:' + RED +
-      ';color:#fff;text-decoration:none;font:700 15px Arial,sans-serif;padding:14px 26px;border-radius:2px">Book your Strategy Session</a></p>' +
+      ';color:#fff;text-decoration:none;font:700 15px Arial,sans-serif;padding:14px 26px;border-radius:2px">Book your Stop Hiding Strategy Call</a></p>' +
       '</div>';
   }
 
@@ -2091,7 +2091,7 @@
     need(70); y += 12;
     doc.setFillColor(BL[0], BL[1], BL[2]); doc.rect(M, y, W - 2 * M, 56, 'F');
     doc.setFont('helvetica', 'bold'); doc.setFontSize(12); col(INK);
-    doc.text('Book your complimentary Strategy Session', M + 16, y + 23);
+    doc.text('Book your complimentary Stop Hiding Strategy Call', M + 16, y + 23);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(10); col(RED);
     var link = bookHref();
     doc.textWithLink(link, M + 16, y + 40, { url: link });
