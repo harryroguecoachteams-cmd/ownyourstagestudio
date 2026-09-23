@@ -27,7 +27,16 @@
     'assessment': 'assessment', 'panelists': 'panelists', 'about': 'about', 'faq': 'faq',
     'apply': 'apply', 'strategy-session': 'contact', 'panelist-application': 'apply-panelist',
     'host-agreement': 'agreements__host', 'panelist-agreement': 'agreements__panelist',
-    'terms-conditions': 'terms', 'privacy-policy': 'privacy', 'disclaimer': 'disclaimer'
+    'terms-conditions': 'terms', 'privacy-policy': 'privacy', 'disclaimer': 'disclaimer',
+    /* GHL's preview links end in the page id rather than the path */
+    '1iz74onjjmqakhybutjf': 'index', 'ltoy0agqxqh7d1ekzoz0': 'services',
+    'ny4qv9tuq4uvy0tkhgb8': 'experience', 'ssfhgjmm35kvkmg5fehb': 'assessment',
+    'm6wij1vlrt3s2hpqzohb': 'panelists', 'l9dgzyg1hyqsxtnnfci8': 'about',
+    'oa8b1owhlb9h0docifr6': 'faq', 'kwc1l4mnmr5cexpk0tq5': 'apply',
+    'clpwh4u35kfg34f5vwie': 'contact', 'xsaarow6ptqsfzmnhw7x': 'apply-panelist',
+    'igbkl674r7nm7zrqag0r': 'agreements__host', 'yft7dckyim0rbojsxrgz': 'agreements__panelist',
+    '21ygqleftzsyeldmkebe': 'terms', 'esdoqdzqr1s95sn7fxme': 'privacy',
+    'cyei0n2mazbxrddekt6y': 'disclaimer'
   };
   var slug = location.pathname.replace(/^\/+|\/+$/g, '').split('/').pop().toLowerCase();
   var page = me.getAttribute('data-page') || PATHS[slug];
