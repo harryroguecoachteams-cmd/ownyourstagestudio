@@ -4,3 +4,7 @@ _build/shots/
 _art/raw/
 _art/*.log
 _ghl_native/_engine.js
+_build/live/
+_build/sim/
+_build/sec/
+_build/payloads.json

@@ -1,0 +1,41 @@
+New submission from ownyourstagestudio.com
+
+Form: {{inboundWebhookRequest.tag}}
+Page: {{inboundWebhookRequest.page}}
+Name: {{inboundWebhookRequest.first_name}} {{inboundWebhookRequest.last_name}}
+Email: {{inboundWebhookRequest.email}}
+Phone: {{inboundWebhookRequest.phone}}
+Business: {{inboundWebhookRequest.business}}
+Website: {{inboundWebhookRequest.url}} {{inboundWebhookRequest.website}}
+LinkedIn: {{inboundWebhookRequest.linkedin}}
+
+HOST APPLICATION (tag host-application)
+Subject they want to be known for: {{inboundWebhookRequest.subject}}
+Years in their field: {{inboundWebhookRequest.years}}
+Client results: {{inboundWebhookRequest.clients}}
+Audience: {{inboundWebhookRequest.audience}}
+Event experience: {{inboundWebhookRequest.experience}}
+Timing: {{inboundWebhookRequest.timing}}
+Notes: {{inboundWebhookRequest.notes}}
+
+PANELIST APPLICATION (tag panelist-application)
+Title: {{inboundWebhookRequest.title}}
+What they do: {{inboundWebhookRequest.what_you_do}}
+Expertise: {{inboundWebhookRequest.expertise}}
+Category: {{inboundWebhookRequest.category}}
+Topics: {{inboundWebhookRequest.topics}}
+Takeaways: {{inboundWebhookRequest.takeaways}}
+Speaking experience: {{inboundWebhookRequest.speaking_experience}}
+Video: {{inboundWebhookRequest.video}}
+Free resource to offer: {{inboundWebhookRequest.resource}}
+Commitments: {{inboundWebhookRequest.commitments}}
+Why they want to join: {{inboundWebhookRequest.why}}
+Heard about us: {{inboundWebhookRequest.source}} {{inboundWebhookRequest.referrer}}
+
+ASSESSMENT (tag assessment-result)
+Level: {{inboundWebhookRequest.assessment_level}} ({{inboundWebhookRequest.assessment_percent}}%, {{inboundWebhookRequest.assessment_points}})
+Start here: {{inboundWebhookRequest.assessment_start_here}}
+Pillars: {{inboundWebhookRequest.assessment_pillars}}
+
+Text message consent: transactional {{inboundWebhookRequest.sms_consent_transactional}}, marketing {{inboundWebhookRequest.sms_consent_marketing}}
+Submitted: {{inboundWebhookRequest.submittedAt}}
