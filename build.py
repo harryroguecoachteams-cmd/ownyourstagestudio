@@ -169,8 +169,10 @@ CONSENT_HTML = """<div class="consent">
               </label>
             </div>"""
 
-LEGAL_HTML = ('<p class="legalline"><a href="{base}privacy.html">Privacy Policy</a>'
-              '<span aria-hidden="true">|</span><a href="{base}terms.html">Terms of Service</a></p>')
+# Sits inside the application forms, so both links open a new tab: leaving the
+# page mid-application would throw the visitor's answers away.
+LEGAL_HTML = ('<p class="legalline"><a href="{base}privacy.html" target="_blank" rel="noopener">Privacy Policy</a>'
+              '<span aria-hidden="true">|</span><a href="{base}terms.html" target="_blank" rel="noopener">Terms of Service</a></p>')
 
 
 # What the page-mark badge says for each kind. "Guide" would be jargon to a

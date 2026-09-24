@@ -55,17 +55,24 @@ Workflows (all PUBLISHED):
 Webhook tests 24 Sep: all 10 emails sent and rendered (5 to person, 5 to events@).
 "Save the application details" errored only because the TEST phone was a duplicate.
 
+## Round 3 DONE (24 Sep 2026, ~5:40 AM IST)
+- User test finished (_build/user_test.py + _build/user_test_retry.py): every flow passes on
+  desktop and mobile. The earlier fails were test-script issues: assessment auto-advances
+  (click label.choice, wait 1.2s); host application is a 4-step form (.quiz__next); the GHL
+  "Let's talk" form has Cloudflare Turnstile, so headless Playwright can never submit it.
+  Verified by hand in real Chrome instead: contact created, first_name kept, tags applied.
+- Real bug fixed: the "Host Services Agreement" link inside the host-application checkbox and
+  the form's Privacy/Terms links opened in the SAME tab, wiping the half-filled application.
+  Now target=_blank (apply.html + LEGAL_HTML in build.py, forms only; footer untouched).
+  Apply + Panelist Application pages re-pasted and PUBLISHED.
+- All 20 TEST contacts (oyss-test*@example.com) DELETED from the CRM.
+
 ## Left to do
-1. Fix/finish user test (_build/user_test.py, results in _build/usertest/): 27 PASS, 6 FAIL,
-   likely test-script issues, not verified yet: assessment radios "outside viewport" (styled
-   inputs: click the label instead), host application submit button not found (check its
-   markup / multi-step), home Let's talk GHL iframe (timeout / crash). All 15 pages x 2 viewports
-   PASS, mobile menu PASS, panelist app PASS, both agreements PASS (pay buttons, no demo text),
-   calendar widget PASS.
-2. DELETE all TEST contacts (Harsh asked): emails oyss-test*@example.com (search contacts).
-3. Root domain -> /home (admin; Harsh waiting on Annette).
-4. Security Deposit product would also trigger the Experience welcome email (filter can only
+1. Root domain -> /home (admin; Harsh waiting on Annette).
+2. Security Deposit product would also trigger the Experience welcome email (filter can only
    exclude one product); not sold on the site.
+3. Known GHL behaviour: "Save the application details" fails when the phone already belongs
+   to another contact (same person, new email). Rare; the email still goes out.
 
 ## Workflow builder traps (24 Sep)
 - If/Else cannot read `inboundWebhookRequest.*`; copy the value into a contact field first.
