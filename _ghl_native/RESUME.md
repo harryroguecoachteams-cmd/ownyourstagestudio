@@ -78,8 +78,13 @@ Webhook tests 24 Sep: all 10 emails sent and rendered (5 to person, 5 to events@
   - the test event and contact were deleted afterwards
 - Payments: Stripe is LIVE (pk_live), 0 transactions ever. Both payment workflows are still untested; that needs a real card payment + refund.
 
+- ROOT DOMAIN FIXED 25 Sep: GHL URL redirect `/` -> https://ownyourstagestudio.com/home (301), created through the LeadConnector API `create-redirect` (id mRzUYGgWIxUaGBw3yOzk). The Domains screen was not needed.
+  - Verified: apex, www and http all land on /home; the other pages are unaffected.
+  - To undo: `delete-redirect-by-id`.
+  - The loader home-link rewrite (8b30fa8) is now optional; it saves one redirect hop.
+
 ## Left to do
-1. Root domain -> /home (admin; Harsh waiting on Annette).
+1. (done 25 Sep) Root domain -> /home, via the redirect above.
 2. Security Deposit product would also trigger the Experience welcome email (filter can only
    exclude one product); not sold on the site.
 3. Known GHL behaviour: "Save the application details" fails when the phone already belongs
