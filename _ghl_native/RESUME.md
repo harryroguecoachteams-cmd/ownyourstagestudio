@@ -89,11 +89,14 @@ Webhook tests 24 Sep: all 10 emails sent and rendered (5 to person, 5 to events@
 - Never type unless the field is focused (zoom to check): stray keys fire builder shortcuts.
 - Workflow field dropdowns render in a ~40px strip: scroll inside it to reach the result.
 
-## Feedback 10 (25 Sep 2026) - built + pushed (ab8c25b), GHL PASTE PENDING
+## Feedback 10 (25 Sep 2026) - built + pushed (ab8c25b), LIVE on GHL (all done)
 Doc tab "feedback 10" (t.a8e0n1k9sygc). Home page re-ordered to one ask; see commit message.
 New photo already in GHL Media Storage (root folder): annette-stage-blue-sharp.jpg
 6ab64b53974a9da6eeb9c872, mapped in _ghl_media.json. Two pastes left, nothing else:
 1. DONE 25 Sep: Body tracking code saved (193,259 chars LF, verified after reload).
-2. Home page (builder id 1IZ74onJJMQakHYBuTJF) Custom Code element = `_ghl_native/pages/index.html`, then Publish.
+2. DONE 25 Sep: Home page (builder id 1IZ74onJJMQakHYBuTJF) Custom Code element = `_ghl_native/pages/index.html`, published.
+   Harsh pasted it from the clipboard (LF, 36,748 chars). Verified live: 91/91 text snippets match, and the old "See all services" and "Let's talk" are gone.
+   Also verified: no overflow at 1440/390, and the sharp story photo loads (1280 wide).
+   NOTE: a HeadlessChrome UA renders the GHL page blank. Use a normal Chrome UA in Playwright.
 Other pages' GHL code is unchanged. Blocked on 25 Sep: Chrome's active tab was Harsh's Sheets tab,
 so the GHL tab stayed hidden, and forcing the window/tab switch was refused by the permission classifier.
