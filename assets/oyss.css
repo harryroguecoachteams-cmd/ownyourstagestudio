@@ -6708,3 +6708,60 @@
 @media (max-width: 520px) {
   .oyss .monologue__cta .btn { width: 100%; justify-content: center; text-align: center; }
 }
+
+/* ============================================================
+   62. FEEDBACK 10  (25 Sep 2026)
+   The home page, re-ordered to one ask. Four pieces of new layout:
+   the story with its photo spanning the text, "who this is not
+   for" as its own block, the panel heading folded into the frames'
+   section, and the founder field without the silk behind it.
+   ============================================================ */
+
+/* Her story: the photo is its own column and runs from the heading
+   to the signature, so the picture and the words start and end on
+   the same lines. object-fit keeps the face in frame at any height. */
+.oyss .monologue--story {
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.55fr);
+  grid-template-areas: "photo head" "photo body";
+  grid-template-rows: auto 1fr;
+  row-gap: clamp(18px, 2.4vw, 30px);
+  align-items: stretch;
+}
+.oyss .monologue--story .monologue__photo {
+  grid-area: photo; margin: 0; max-width: none; min-height: 100%;
+  position: relative; overflow: hidden; border-radius: 2px;
+}
+.oyss .monologue--story .monologue__photo img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  aspect-ratio: auto; object-fit: cover; object-position: 50% 12%;
+}
+.oyss .monologue--story .monologue__head { grid-area: head; position: static; }
+.oyss .monologue--story .monologue__body { grid-area: body; }
+@media (max-width: 860px) {
+  .oyss .monologue--story { grid-template-columns: 1fr; grid-template-areas: "head" "photo" "body"; grid-template-rows: auto; }
+  .oyss .monologue--story .monologue__photo { max-width: 26rem; aspect-ratio: 4 / 5; min-height: 0; }
+}
+
+/* Who this is not for: the counterweight to the list above it. */
+.oyss .notfor {
+  margin-top: clamp(48px, 7vw, 88px);
+  padding: clamp(24px, 3vw, 36px) 0 0 clamp(20px, 2.4vw, 30px);
+  border-left: 3px solid var(--rose);
+  max-width: 46rem;
+}
+.oyss .notfor__t {
+  margin-top: .6rem; color: var(--ivory);
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.1rem); line-height: 1.2;
+}
+.oyss .notfor__b {
+  margin-top: 1rem; color: rgba(248, 245, 242, .84);
+  font-size: clamp(1.05rem, 1rem + .25vw, 1.2rem); line-height: 1.6; max-width: 40rem;
+}
+
+/* The panel: the heading now sits in the same section as the frames. */
+.oyss .showcase__head { max-width: 40rem; margin-bottom: clamp(36px, 5vw, 60px); }
+.oyss .showcase__head h2 { margin-top: .7rem; font-size: clamp(2rem, 1.4rem + 2.4vw, 3.3rem); line-height: 1.08; max-width: 16ch; }
+.oyss .showcase__head .lead { margin-top: 1.4rem; }
+
+/* The founder field: without the silk the body can go darker. */
+.oyss .goldfield .body, .oyss .goldfield .byline__attrib { color: #4F4744; }
