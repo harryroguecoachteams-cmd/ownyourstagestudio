@@ -81,6 +81,18 @@ Webhook tests 24 Sep: all 10 emails sent and rendered (5 to person, 5 to events@
 - ROOT DOMAIN FIXED 25 Sep: GHL URL redirect `/` -> https://ownyourstagestudio.com/home (301), created through the LeadConnector API `create-redirect` (id mRzUYGgWIxUaGBw3yOzk). The Domains screen was not needed.
   - Verified: apex, www and http all land on /home; the other pages are unaffected.
   - To undo: `delete-redirect-by-id`.
+- Old-site redirects (25 Sep, all 301, verified). These old pages were already 404; the redirects catch old links.
+
+  | Old path | New page | Redirect id |
+  |---|---|---|
+  | /home-8271 | /home | Yad7MQSqS57v5n1lSB62 |
+  | /welcome-791727 | /home | gC8wGa9NDePO3EkAslSs |
+  | /about | /about-us | NWzDNBxnsc9OoZ7crssE |
+  | /courses | /services | FU7ZsIsG1SrE8Gff9ds8 |
+  | /trainings | /services | YPVbzjkirP5nNBbS3vRY |
+  | /coaching | /services | Fw3uzDOFBKW4u095CWpT |
+  | /terms-conditions | /terms | Z0H0nNLX0CB5CSxQvccq |
+  | /privacy-policy | /privacy | EcmBqtTDNrM0K1P0Cq7p |
   - The loader home-link rewrite (8b30fa8) is now optional; it saves one redirect hop.
 
 ## Left to do
