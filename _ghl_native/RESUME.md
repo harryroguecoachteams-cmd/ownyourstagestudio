@@ -67,6 +67,17 @@ Webhook tests 24 Sep: all 10 emails sent and rendered (5 to person, 5 to events@
   Apply + Panelist Application pages re-pasted and PUBLISHED.
 - All 20 TEST contacts (oyss-test*@example.com) DELETED from the CRM.
 
+## 25 Sep 2026 (evening)
+- Home links: 30 `href="/"` links (logo + footer) led to the OLD root page. The loader in build_ghl.py now rewrites a[href="/"] to /home at mount (8b30fa8).
+  - Tracking code: 193,512 chars LF, handed to Harsh on the clipboard to paste.
+  - Remove the rewrite once the root domain serves /home.
+- Booking workflow a834a089 TESTED via an API appointment (the widget has Turnstile). Results:
+  - tag strategy-call-booked applied
+  - the "New Stop Hiding Strategy Call booked" email reached events@
+  - the calendar confirmation reached the booker
+  - the test event and contact were deleted afterwards
+- Payments: Stripe is LIVE (pk_live), 0 transactions ever. Both payment workflows are still untested; that needs a real card payment + refund.
+
 ## Left to do
 1. Root domain -> /home (admin; Harsh waiting on Annette).
 2. Security Deposit product would also trigger the Experience welcome email (filter can only
