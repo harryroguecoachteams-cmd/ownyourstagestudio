@@ -109,6 +109,9 @@ LOADER = r"""
     var scripts = [].slice.call(frag.querySelectorAll('script'));
     scripts.forEach(function (s) { s.parentNode.removeChild(s); });
     host.appendChild(frag);
+    // The root domain still serves the old GHL page, so home links go to /home
+    // until an admin sets /home as the domain's default page.
+    [].forEach.call(host.querySelectorAll('a[href="/"]'), function (a) { a.setAttribute('href', '/home'); });
     document.body.insertBefore(host, document.body.firstChild);
     document.documentElement.classList.add('oyss-mounted');
     window.__oyssEngine();
