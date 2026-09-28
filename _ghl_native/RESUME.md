@@ -128,3 +128,23 @@ New photo already in GHL Media Storage (root folder): annette-stage-blue-sharp.j
    NOTE: a HeadlessChrome UA renders the GHL page blank. Use a normal Chrome UA in Playwright.
 Other pages' GHL code is unchanged. Blocked on 25 Sep: Chrome's active tab was Harsh's Sheets tab,
 so the GHL tab stayed hidden, and forcing the window/tab switch was refused by the permission classifier.
+
+## Go-live, feedback 11-16 (28 Sep 2026, ~3:15-3:30 PM IST). ALL LIVE.
+Order was deliberate: the workflow first, so the exit pop-up could never post before its branch existed.
+1. Workflow 5e574732 "Website - all forms and the assessment" (saved, still published):
+   - New If/Else branch "Exit intent" (Last Website Form is exit-intent) -> "Email the assessment link"
+     (workflow/confirm_exit_intent.html, subject "Your Readiness Assessment link"; greeting "Hello," because
+     first name is optional in the pop-up). Without it an exit lead would run "Save the application details".
+   - Both agreement confirmations: signed_copy_url button "View and download your signed agreement".
+   - Annette's notification: signed-copy link + EXIT INTENT section.
+   - Note: If/Else now offers "Inbound webhook trigger" fields too; branches still use Last Website Form.
+2. Body tracking code: 223,410 chars (557d504), verified after reload. The FIRST scripted Save did not persist;
+   a real click on the Save button (find -> ref) did. Always verify after reload.
+3. Pages pasted (LF, line counts checked in the editor) and published: Home, About, Panelist Application,
+   Host Agreement, Panelist Agreement. No other page block changed since its last paste.
+4. Live test _build/live_test_0928.py: 37/37 PASS (15 pages x 2 widths: mounted, no errors, no overflow, bar +
+   exit only on the 6 reading pages; exit lead; both agreements signed with a drawn signature + PDF; both
+   stepped applications; assessment). 6 webhooks 200; 6 contacts with the right tags/fields (exit lead got no
+   phone/business writes); 12 emails "sent" (6 to events@, 6 to the leads, all 6 read back in the RCT inbox);
+   the tracked "View and download" link 302s to /panelist-agreement#signed=... (fragment kept) and the signed
+   copy + PDF render on the live site. All 6 TEST contacts deleted afterwards.

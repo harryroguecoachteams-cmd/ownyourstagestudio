@@ -6,5 +6,5 @@
  "confirm_lets_talk.html": "Thank you for reaching out, {{contact.first_name}}",
  "confirm_payment.html": "Payment received: welcome to the Own Your Stage Experience",
  "confirm_panelist_fee.html": "Fee received: your panel seat is almost confirmed",
- "confirm_exit_intent.html": "Your Readiness Assessment link, {{inboundWebhookRequest.first_name}}"
+ "confirm_exit_intent.html": "Your Readiness Assessment link"
 }
