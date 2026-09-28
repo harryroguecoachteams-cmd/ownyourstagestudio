@@ -1063,9 +1063,14 @@
     });
   }
 
+  /* The signer's own calendar day. signedAt is UTC, so slicing it named a
+     file signed at 9 PM in Florida after the next day, while the PDF inside
+     said today (29 Sep 2026). */
   function pdfName(rec) {
     var who = String(rec.fields.legal_name || 'signer').replace(/[^\w .-]+/g, '').trim();
-    return 'Signed - ' + rec.agreement + ' - ' + who + ' - ' + String(rec.signedAt).slice(0, 10) + '.pdf';
+    var d = new Date(rec.signedAt), day = String(rec.signedAt).slice(0, 10);
+    if (!isNaN(d)) day = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    return 'Signed - ' + rec.agreement + ' - ' + who + ' - ' + day + '.pdf';
   }
 
   function savePdf(rec, btn, after) {
