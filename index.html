@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=702e7675">
+<link rel="stylesheet" href="assets/oyss.css?v=a08a30b0">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -150,14 +150,15 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
          work, so the picture is that person, ready: eyes to camera,
          a settled smile, the light behind her rather than on her
          like an interrogation. -->
-    <!-- Feedback 11 follow-up (28 Sep). Harsh's ChatGPT mock of two
-         circles and a gap, rebuilt as live markup. Second pass after "not
-         clean, looks amateurish" and "not liking these effects at all":
-         flat fills, 1px lines, one red accent, both circles on one axis
-         with a real gap between them (a gap drawn as an overlap says the
-         opposite), labels inside the shapes, no motion of its own. The
-         right side is the paragraph's "almost nobody has heard of them":
-         people, not formats. Section 64 of oyss.css. -->
+    <!-- Feedback 11 follow-up and feedback 12 (28 Sep). Harsh's ChatGPT
+         mock of two circles and a gap, rebuilt as live markup. Third pass:
+         your circle is the only tinted shape, the circle outside it an
+         empty hairline; both on one axis with a real gap between them (a
+         gap drawn as an overlap says the opposite); the gap a fine dotted
+         line named in its own row; the icons move one at a time and each
+         says what it means. The right side is the paragraph's "almost
+         nobody has heard of them": people, not formats. Section 64 of
+         oyss.css. -->
     <figure class="reach" data-lit data-cue="2">
       <div class="reach__stage">
         <div class="reach__circle reach__circle--in">
@@ -174,10 +175,10 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
         <div class="reach__circle reach__circle--out">
           <p class="reach__k">Outside<br>your circle</p>
           <ul class="reach__who">
-            <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4"/></svg></span>Clients who need you</li>
-            <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></span>Hosts looking for experts</li>
-            <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.6"/><circle cx="16" cy="9" r="2.6"/><path d="M3 19c.8-2.8 2.8-4.2 5-4.2s4.2 1.4 5 4.2M11 19c.8-2.8 2.8-4.2 5-4.2s4.2 1.4 5 4.2"/></svg></span>Audiences who would listen</li>
-            <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg></span>Partners you have not met</li>
+            <li><svg class="ri ri--client" viewBox="0 0 24 24" aria-hidden="true"><g class="ri__body"><circle cx="11" cy="7.4" r="3.6"/><path d="M4 21v-1.6A4.2 4.2 0 0 1 8.2 15.2h5.6a4.2 4.2 0 0 1 4.2 4.2V21"/></g><circle class="ri__ping" cx="19.4" cy="4.6" r="2.2"/></svg>Clients who need you</li>
+            <li><svg class="ri ri--host" viewBox="0 0 24 24" aria-hidden="true"><rect x="9.5" y="2.5" width="5" height="10" rx="2.5"/><path d="M12 12.5v8M9 20.5h6"/><path class="ri__wave ri__wave--1" d="M16.2 3.3a6 6 0 0 1 0 8.4"/><path class="ri__wave ri__wave--1" d="M7.8 3.3a6 6 0 0 0 0 8.4"/><path class="ri__wave ri__wave--2" d="M18.4 1.2a9 9 0 0 1 0 12.6"/><path class="ri__wave ri__wave--2" d="M5.6 1.2a9 9 0 0 0 0 12.6"/></svg>Hosts looking for experts</li>
+            <li><svg class="ri ri--audience" viewBox="0 0 24 24" aria-hidden="true"><g class="ri__p ri__p--1"><circle cx="4.8" cy="9" r="2.3"/><path d="M6.4 14.4H5.2A3.4 3.4 0 0 0 1.8 17.8V20"/></g><g class="ri__p ri__p--3"><circle cx="19.2" cy="9" r="2.3"/><path d="M17.6 14.4h1.2a3.4 3.4 0 0 1 3.4 3.4V20"/></g><g class="ri__p ri__p--2"><circle cx="12" cy="7.2" r="3"/><path d="M6.8 20.5v-1.3a4.2 4.2 0 0 1 4.2-4.2h2a4.2 4.2 0 0 1 4.2 4.2v1.3"/></g></svg>Audiences who would listen</li>
+            <li><svg class="ri ri--partner" viewBox="0 0 24 24" aria-hidden="true"><path class="ri__l ri__l--a" d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path class="ri__l ri__l--b" d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Partners you have not met</li>
           </ul>
         </div>
       </div>
@@ -755,7 +756,7 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=702e7675"></script>
+<script src="assets/oyss.js?v=a08a30b0"></script>
 <script>OYSS.prompts({
   after: '#formats',
   barTitle: 'Talk to us about your stage.',
