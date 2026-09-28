@@ -993,7 +993,12 @@
       text('Signed:  ' + rec.signedAtDisplay + '  (' + rec.signedAt + ')', 9.5, 'normal', 1, 14);
       text('Signature:  ' + (rec.sig.m === 'typed' ? 'typed legal name adopted as the signature' : 'drawn by the signer') +
            ', electronic, Fla. Stat. 668.50', 9.5, 'normal', 1, 14);
-      text('Document:  ' + rec.url, 9.5, 'normal', 6, 14);
+      text('Document:  ' + rec.url + (rec.version ? '  (text version ' + rec.version + ')' : ''), 9.5, 'normal', 6, 14);
+      if (rec.changed) {
+        text('The agreement text published at this address has changed since this signature. This copy ' +
+             'shows the current text; the PDF saved at the moment of signing is the exact signed version.',
+             9, 'bold', 6, 14, RED);
+      }
       doc.setDrawColor(RED[0], RED[1], RED[2]); doc.setLineWidth(1.4);
       doc.line(M, top, M, y);
       y += 18;
@@ -1087,6 +1092,21 @@
     return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
+  /* A fingerprint of the exact agreement text on the page (SHA-256, first
+     12 hex). Stored with every signature, printed on the PDF, and checked
+     when a signed copy link is opened: the link rebuilds the copy from the
+     page, so if the wording has changed since, it has to say so. */
+  function textVersion() {
+    var body = document.getElementById('agreement-body');
+    var t = body ? body.textContent.replace(/\s+/g, ' ').trim() : '';
+    if (!(window.crypto && crypto.subtle && window.TextEncoder)) return Promise.resolve('');
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)).then(function (buf) {
+      return [].slice.call(new Uint8Array(buf)).slice(0, 6).map(function (b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+    }, function () { return ''; });
+  }
+
   /* ---- showing a signature that has been made ------------------- */
   function showSigned(rec, asCopy) {
     var panel = document.getElementById('sign-panel');
@@ -1122,7 +1142,9 @@
       bar.innerHTML = '<div><p class="signedcopy__k">Signed copy</p><p class="signedcopy__t"></p></div>' +
         '<button type="button" class="btn btn--primary">Download signed PDF</button>';
       bar.querySelector('.signedcopy__t').textContent = 'Signed by ' + (rec.fields.legal_name || '') +
-        (rec.fields.business_name ? ', ' + rec.fields.business_name : '') + ', on ' + rec.signedAtDisplay + '.';
+        (rec.fields.business_name ? ', ' + rec.fields.business_name : '') + ', on ' + rec.signedAtDisplay + '.' +
+        (rec.changed ? ' The agreement text on this page has changed since it was signed; the PDF saved at ' +
+                       'signing is the exact signed version.' : '');
       var b = bar.querySelector('button');
       b.addEventListener('click', function () { savePdf(rec, b); });
       head.parentNode.insertBefore(bar, head.nextSibling);
@@ -1141,10 +1163,12 @@
     if (m) {
       var opened;
       try { opened = unpack(decodeURIComponent(m[1])); } catch (_) { opened = Promise.reject(_); }
-      opened.then(function (p) {
+      Promise.all([opened, textVersion()]).then(function (r) {
+        var p = r[0];
         showSigned({
           agreement: agreement, fields: p.f || {}, acks: p.a || [], sig: p.g,
-          signedAt: p.d, signedAtDisplay: longDate(p.d), url: here
+          signedAt: p.d, signedAtDisplay: longDate(p.d), url: here,
+          version: p.k || '', changed: !!(p.k && r[1] && p.k !== r[1])
         }, true);
       }).catch(function () { /* a damaged link falls through to the unsigned page */ });
     }
@@ -1237,7 +1261,10 @@
 
       if (submit) { submit.disabled = true; submit.textContent = 'Recording signature'; }
 
-      pack({ v: 1, f: fields, a: signed.acks, g: sig, d: signed.signedAt }).then(function (packed) {
+      textVersion().then(function (ver) {
+        signed.version = ver;
+        return pack({ v: 1, f: fields, a: signed.acks, g: sig, d: signed.signedAt, k: ver });
+      }).then(function (packed) {
         /* The same shape every other form posts, so the one workflow can
            create the contact, tag it and email both sides. */
         var record = {};
@@ -1249,6 +1276,7 @@
         record.signature = fields.legal_name || '';
         record.signature_method = sig.m === 'typed' ? 'typed name adopted' : 'drawn by hand';
         record.signed_copy_url = here + '#signed=' + packed;
+        record.agreement_version = signed.version || '';
         var legal = String(fields.legal_name || '').trim().split(/\s+/);
         record.first_name = legal.shift() || '';
         record.last_name = legal.join(' ');

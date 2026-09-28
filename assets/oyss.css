@@ -6779,6 +6779,9 @@
   min-height: 300px;
 }
 .oyss .essay__portrait img[src$="expert-ready2.jpg"] { object-position: 50% 20%; }
+.oyss .essay__portrait img[src$="essay-circle.jpg"] { object-position: 52% 40%; }
+/* the portrait scrim was for a face against dark; a room scene needs less */
+.oyss .essay__portrait:has(img[src$="essay-circle.jpg"])::after { background: linear-gradient(180deg, rgba(19, 18, 17, 0) 70%, rgba(19, 18, 17, .18) 100%); }
 @media (max-width: 900px) {
   .oyss .essay--faced .essay__inner { grid-template-columns: 1fr; }
   .oyss .essay--faced .essay__portrait { grid-row: 2; min-height: 0; aspect-ratio: 4 / 3; }
