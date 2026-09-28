@@ -6846,40 +6846,41 @@
 .oyss .signblock .btn--ghost.signed-pdf:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }
 
 /* ============================================================
-   64. THE ORBIT  (feedback 13 + 14, 28 Sep 2026)
-   Harsh's concentric diagram: you are here, then distribution,
-   then the people who should know you.
-   Feedback 14 shaped this version:
-     - every circle has its own background, as distinct as the
-       outer one: warm grey, soft blush, deeper rose
-     - "You are here" (a map dot), not "Known here / You"
-     - "Who should know you", not "Known out there"
-     - no words outside the circles: three items per ring on short
-       words, placed left / right / bottom, the only positions where
-       an icon and its name fit inside a ring on a 320px phone; the
-       ring names curve along the top of their rings
-   Motion (feedback 13): the circles build outward from the centre
-   when the figure first lights; then every 7 seconds a glow travels
-   inner, distribution, outside, each circle swelling a touch and
-   its icons lifting as it passes. The expansion.
-   Geometry, percent of the square stage: circles 31 / 65 / 100,
-   so the bands run 15.5-32.5 and 32.5-50 of the radius. Item
-   centres sit mid-band on the three spokes.
+   64. THE ORBIT  (feedback 13, 14, 15 and 16, 28 Sep 2026)
+   Harsh's concentric diagram, read from the centre out:
+     You are here     your circle: client results, a reputation,
+                      referrals, a full calendar (the paragraph's
+                      own first lines)
+     You need distribution   panels, podcasts, webinars
+     Known beyond your circle   new clients, event hosts, audiences
+   Three tones that cannot be mistaken for one another (feedback
+   15): the inner circle is charcoal, the ring around it blush,
+   the outside warm grey. The red glow starts in the dark centre
+   and travels outward: the expansion (feedback 13).
+   No words outside the circles (feedback 14). All the icons from
+   Harsh's image (feedback 16): six in the distribution ring, five
+   outside, each at a generated angle mid-band (_art/gen_orbit.py),
+   symmetric under the curved ring names. Eleven names fit inside the
+   rings from about 560px of figure width; below that (phones) the
+   rings carry the icons alone and the names stay for screen readers.
+   So on laptops the figure sits under the paragraph at full size.
+   Geometry, percent of the square stage: circles 38 / 67 / 100,
+   bands 19-33.5 and 33.5-50 of the radius.
    ============================================================ */
 .oyss .essay--orbit .essay__inner {
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   align-items: center;
 }
-@media (max-width: 1199px) {
+@media (max-width: 1499px) {
   .oyss .essay--orbit .essay__inner { grid-template-columns: 1fr; }
 }
 .oyss .orbit {
   grid-column: 2; margin: 0;
-  width: 100%; max-width: 620px; justify-self: center;
+  width: 100%; max-width: 680px; justify-self: center;
   container-type: inline-size;
 }
-@media (max-width: 1199px) {
-  .oyss .orbit { grid-column: 1; justify-self: start; margin-top: 3.4rem; }
+@media (max-width: 1499px) {
+  .oyss .orbit { grid-column: 1; justify-self: center; margin-top: 3.4rem; }
 }
 .oyss .orbit__sr {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -6888,35 +6889,44 @@
 
 .oyss .orbit__stage { position: relative; aspect-ratio: 1; }
 
-/* three circles, three backgrounds */
+/* three circles, three tones */
 .oyss .orbit__disc { position: absolute; border-radius: 50%; }
-.oyss .orbit__disc--out { inset: 0; background: #F2EEEA; box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .10); }
-.oyss .orbit__disc--mid { left: 17.5%; top: 17.5%; width: 65%; height: 65%; background: #F8E3DF; box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .22); }
-.oyss .orbit__disc--in  { left: 34.5%; top: 34.5%; width: 31%; height: 31%; background: #F2CFC9; box-shadow: inset 0 0 0 1.5px rgba(185, 28, 28, .9); }
+.oyss .orbit__disc--out { inset: 0; background: #F1EDE9; box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .10); }
+.oyss .orbit__disc--mid { left: 16.5%; top: 16.5%; width: 67%; height: 67%; background: #F8DCD7; box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .26); }
+.oyss .orbit__disc--in  { left: 31%; top: 31%; width: 38%; height: 38%; background: #27231F; box-shadow: inset 0 0 0 1.5px rgba(224, 90, 90, .75); }
 /* each circle's glow, a layer of its own, quiet at rest */
 .oyss .orbit__disc::after {
   content: ''; position: absolute; inset: 0; border-radius: 50%;
-  pointer-events: none; opacity: .22;
+  pointer-events: none; opacity: .3;
 }
-.oyss .orbit__disc--in::after  { box-shadow: 0 0 24px 3px rgba(224, 90, 90, .65); }
+.oyss .orbit__disc--in::after  { box-shadow: 0 0 26px 4px rgba(224, 90, 90, .7); }
 .oyss .orbit__disc--mid::after { box-shadow: 0 0 38px 5px rgba(224, 90, 90, .45); }
 .oyss .orbit__disc--out::after { box-shadow: 0 0 54px 6px rgba(224, 90, 90, .28); }
 
 .oyss .orbit__ring { position: absolute; inset: 0; }
 
-/* you are here */
+/* the centre: you are here, and what you already have */
+.oyss .orbit__core {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
 .oyss .orbit__here {
-  position: absolute; left: 50%; top: 46.6%; transform: translate(-50%, -50%);
-  width: 16px; width: clamp(12px, 3cqw, 18px); aspect-ratio: 1; border-radius: 50%;
+  width: 15px; width: clamp(11px, 2.8cqw, 17px); aspect-ratio: 1; border-radius: 50%;
   background: var(--crimson);
-  box-shadow: 0 0 0 4px #fff, 0 0 0 5px rgba(185, 28, 28, .28), 0 6px 16px rgba(185, 28, 28, .35);
+  box-shadow: 0 0 0 3px #fff, 0 0 18px 4px rgba(224, 90, 90, .55);
 }
 .oyss .orbit__k {
-  position: absolute; left: 50%; top: 55.2%; transform: translate(-50%, -50%);
-  margin: 0; white-space: nowrap;
+  margin: 10px 0 0; margin: clamp(7px, 1.8cqw, 12px) 0 0; white-space: nowrap;
   font-family: var(--serif); font-weight: 700; text-transform: uppercase;
-  font-size: 11px; font-size: clamp(9.5px, 2.05cqw, 12.5px);
-  letter-spacing: .16em; line-height: 1.2; color: var(--crimson);
+  font-size: 11px; font-size: clamp(9px, 2.05cqw, 12.5px);
+  letter-spacing: .16em; line-height: 1.2; color: var(--rose);
+}
+.oyss .orbit__list {
+  list-style: none; margin: 8px 0 0; margin: clamp(5px, 1.4cqw, 10px) 0 0; padding: 0;
+}
+.oyss .orbit__list li {
+  font-size: 13px; font-size: clamp(10px, 2.35cqw, 14px);
+  line-height: 1.4; color: rgba(248, 245, 242, .88); white-space: nowrap;
 }
 
 /* the ring names, curved along the top of their rings */
@@ -6926,7 +6936,7 @@
 .oyss .orbit__arc path { fill: none; stroke: none; }
 .oyss .orbit__arc text {
   font-family: var(--serif); font-weight: 700; text-transform: uppercase;
-  font-size: 22px; letter-spacing: .18em;
+  font-size: 22px; letter-spacing: .16em;
 }
 .oyss .orbit__ring--mid .orbit__arc text { fill: var(--crimson); }
 .oyss .orbit__ring--out .orbit__arc text { fill: var(--navy); }
@@ -6934,23 +6944,17 @@
 /* the items: an icon and its name, mid-band on three spokes */
 .oyss .orbit__items { list-style: none; margin: 0; padding: 0; }
 .oyss .orbit__item {
-  position: absolute; transform: translate(-50%, -50%);
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
   display: flex; flex-direction: column; align-items: center;
-  gap: 5px; gap: clamp(3px, .9cqw, 7px);
+  gap: 5px; gap: clamp(2px, .9cqw, 7px);
   text-align: center;
 }
-.oyss .orbit__ring--mid .orbit__item--l { left: 26%;    top: 50%; }
-.oyss .orbit__ring--mid .orbit__item--r { left: 74%;    top: 50%; }
-.oyss .orbit__ring--mid .orbit__item--b { left: 50%;    top: 74%; }
-.oyss .orbit__ring--out .orbit__item--l { left: 8.75%;  top: 50%; }
-.oyss .orbit__ring--out .orbit__item--r { left: 91.25%; top: 50%; }
-.oyss .orbit__ring--out .orbit__item--b { left: 50%;    top: 91.25%; }
 .oyss .orbit__ico {
   display: grid; place-items: center;
-  width: 34px; width: clamp(28px, 6.4cqw, 40px); aspect-ratio: 1; border-radius: 50%;
+  width: 32px; width: clamp(28px, 5.2cqw, 36px); aspect-ratio: 1; border-radius: 50%;
   background: #fff;
 }
-.oyss .orbit__ring--mid .orbit__ico { box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .22); }
+.oyss .orbit__ring--mid .orbit__ico { box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .24); }
 .oyss .orbit__ring--out .orbit__ico { box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .12); }
 .oyss .orbit__ico svg {
   width: 54%; height: 54%;
@@ -6960,7 +6964,7 @@
 .oyss .orbit__ring--out .orbit__ico svg { stroke: #4F4744; }
 .oyss .orbit__ico .orbit__dot { fill: var(--crimson); stroke: none; }
 .oyss .orbit__t {
-  font-size: 13px; font-size: clamp(11px, 2.4cqw, 14px);
+  font-size: 12px; font-size: clamp(11px, 1.95cqw, 13px);
   line-height: 1.2; color: #3E3835; white-space: nowrap;
 }
 
@@ -6977,9 +6981,9 @@
 @media (prefers-reduced-motion: no-preference) {
   /* the build: outward from the centre, once */
   .oyss .orbit .orbit__disc, .oyss .orbit .orbit__ring, .oyss .orbit .orbit__tag { opacity: 0; }
-  .oyss .orbit.lit .orbit__disc--in  { --from: .45; animation: orbit-grow  .9s cubic-bezier(.2, .7, .2, 1) .10s both, orbit-swell 7s ease-in-out 2.8s infinite; }
-  .oyss .orbit.lit .orbit__disc--mid { --from: .70; animation: orbit-grow 1.0s cubic-bezier(.2, .7, .2, 1) .55s both, orbit-swell 7s ease-in-out 3.6s infinite; }
-  .oyss .orbit.lit .orbit__disc--out { --from: .84; animation: orbit-grow 1.1s cubic-bezier(.2, .7, .2, 1) 1.0s both, orbit-swell 7s ease-in-out 4.4s infinite; }
+  .oyss .orbit.lit .orbit__disc--in  { --from: .5;  animation: orbit-grow  .9s cubic-bezier(.2, .7, .2, 1) .10s both, orbit-swell 7s ease-in-out 2.8s infinite; }
+  .oyss .orbit.lit .orbit__disc--mid { --from: .74; animation: orbit-grow 1.0s cubic-bezier(.2, .7, .2, 1) .55s both, orbit-swell 7s ease-in-out 3.6s infinite; }
+  .oyss .orbit.lit .orbit__disc--out { --from: .86; animation: orbit-grow 1.1s cubic-bezier(.2, .7, .2, 1) 1.0s both, orbit-swell 7s ease-in-out 4.4s infinite; }
   .oyss .orbit.lit .orbit__ring--in  { animation: orbit-fade .6s ease-out .45s both; }
   .oyss .orbit.lit .orbit__ring--mid { animation: orbit-fade .6s ease-out .95s both; }
   .oyss .orbit.lit .orbit__ring--out { animation: orbit-fade .6s ease-out 1.45s both; }
@@ -7006,10 +7010,10 @@
 @keyframes orbit-arrive {
   0%   { opacity: 0; }
   45%  { opacity: 1; }
-  100% { opacity: .22; }
+  100% { opacity: .3; }
 }
 @keyframes orbit-glow {
-  0%, 24%, 100% { opacity: .22; }
+  0%, 24%, 100% { opacity: .3; }
   10%           { opacity: 1; }
 }
 /* `scale`, not `transform`, so it composes with the build */
@@ -7019,27 +7023,118 @@
 }
 @keyframes orbit-here {
   0%, 24%, 100% { scale: 1; }
-  10%           { scale: 1.3; }
+  10%           { scale: 1.35; }
 }
 @keyframes orbit-lift {
   0%, 24%, 100% { transform: none; }
   10%           { transform: translateY(-2px) scale(1.07); }
 }
 
-/* Narrow figure (phones): the same diagram, smaller type. Every name
-   still sits inside its ring; measured at 320-460px. */
+/* Under ~560px of figure (phones): the rings carry the icons alone;
+   the names stay in the markup for screen readers. */
+@container (max-width: 559px) {
+  .oyss .orbit__t {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+  .oyss .orbit__ico { width: 26px; width: clamp(22px, 7.2cqw, 32px); }
+  .oyss .orbit__item { gap: 0; }
+}
+/* Narrow figure (phones): smaller type in the centre and on the arcs.
+   Every word still sits inside its circle; measured at 320-460px. */
 @container (max-width: 479px) {
-  .oyss .orbit__arc text { font-size: 29px; letter-spacing: .12em; }
-  .oyss .orbit__k { font-size: 9px; letter-spacing: .1em; }
-  .oyss .orbit__here { width: 12px; box-shadow: 0 0 0 3px #fff, 0 0 0 4px rgba(185, 28, 28, .28), 0 4px 12px rgba(185, 28, 28, .35); }
-  .oyss .orbit__ico { width: 27px; }
-  .oyss .orbit__item { gap: 3px; }
-  .oyss .orbit__t { font-size: 10.5px; }
+  .oyss .orbit__arc text { font-size: 29px; letter-spacing: .1em; }
+  .oyss .orbit__k { font-size: 9px; letter-spacing: .1em; margin-top: 6px; }
+  .oyss .orbit__here { width: 11px; box-shadow: 0 0 0 2.5px #fff, 0 0 12px 3px rgba(224, 90, 90, .55); }
+  .oyss .orbit__list { margin-top: 4px; }
+  .oyss .orbit__list li { font-size: 10px; line-height: 1.3; }
   .oyss .orbit__tag { margin-top: 18px; }
 }
 /* the smallest phones (320px screens) */
 @container (max-width: 300px) {
   .oyss .orbit__k { font-size: 8.5px; letter-spacing: .06em; }
-  .oyss .orbit__ico { width: 24px; }
-  .oyss .orbit__t { font-size: 10px; }
+  .oyss .orbit__list li { font-size: 9.5px; }
+  .oyss .orbit__ico { width: 21px; }
+}
+
+/* ============================================================
+   65. THE THREE BARS  (feedback 14, 28 Sep 2026)
+   "Put animations on the bar": the red rules over 01 / 02 / 03.
+   The rule is its own layer now instead of a border, so it can
+   draw itself in, left to right, one after another, when the
+   list is lit. After that a soft light passes along each bar
+   every six seconds, one bar at a time, like a follow spot
+   crossing the stage. Reduced motion keeps the plain bars.
+   ============================================================ */
+.oyss .shift { border-top: 0; position: relative; padding-top: calc(1.4rem + 3px); }
+.oyss .shift::before, .oyss .shift::after {
+  content: ''; position: absolute; top: 0; left: 0; height: 3px; pointer-events: none;
+}
+.oyss .shift::before { right: 0; background: var(--red); transform-origin: left center; }
+.oyss .shift::after {
+  width: 24%; opacity: 0;
+  background: linear-gradient(90deg, rgba(255, 236, 232, 0), rgba(255, 236, 232, .95) 50%, rgba(255, 236, 232, 0));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .oyss .shifts .shift::before { transform: scaleX(0); }
+  .oyss .shifts.lit .shift::before { animation: shift-draw 1s cubic-bezier(.65, 0, .35, 1) .15s both; }
+  .oyss .shifts.lit .shift:nth-child(2)::before { animation-delay: .4s; }
+  .oyss .shifts.lit .shift:nth-child(3)::before { animation-delay: .65s; }
+  .oyss .shifts.lit .shift::after { animation: shift-light 6s ease-in-out 2s infinite; }
+  .oyss .shifts.lit .shift:nth-child(2)::after { animation-delay: 2.5s; }
+  .oyss .shifts.lit .shift:nth-child(3)::after { animation-delay: 3s; }
+}
+@keyframes shift-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes shift-light {
+  0%        { opacity: 0; transform: translateX(-100%); }
+  4%        { opacity: 1; }
+  24%       { opacity: 1; transform: translateX(417%); }
+  28%, 100% { opacity: 0; transform: translateX(417%); }
+}
+
+/* ============================================================
+   66. EXIT INTENT THAT KEEPS THE LEAD  (feedback 14, 28 Sep 2026)
+   The exit card now asks for a first name and an email and sends
+   the assessment link; "take it now instead" and "no thanks" stay
+   one tap away. Same dark card, same field language as the
+   signature block.
+   ============================================================ */
+.oyss .exit__form {
+  margin-top: 1.6rem;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: .9rem; align-items: end;
+}
+.oyss .exit__field { display: grid; gap: .4rem; margin: 0; }
+.oyss .exit__field span {
+  font-size: .6875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(248, 245, 242, .7);
+}
+.oyss .exit__field input {
+  width: 100%; box-sizing: border-box; min-height: 48px; margin: 0;
+  padding: .7rem .9rem; border-radius: 2px;
+  font: inherit; font-size: 1rem; color: var(--ivory);
+  background: rgba(248, 245, 242, .07);
+  border: 1px solid rgba(228, 218, 214, .3);
+  box-shadow: none;
+}
+.oyss .exit__field input:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: transparent; }
+.oyss .exit__field input[aria-invalid="true"] { border-color: var(--rose); }
+.oyss .exit__send { grid-column: 1 / -1; justify-self: start; margin-top: .3rem; }
+.oyss .exit__err { grid-column: 1 / -1; margin: 0; font-size: .9375rem; color: #F4B3B3; }
+.oyss .exit__err[hidden] { display: none; }
+.oyss .exit__fine { margin-top: 1rem; font-size: .8125rem; line-height: 1.55; color: rgba(248, 245, 242, .68); }
+.oyss .exit__fine a { color: var(--ivory); text-decoration: underline; text-underline-offset: 2px; }
+.oyss .exit__ask .exit__actions { margin-top: 1.4rem; }
+.oyss .exit__now {
+  font-size: var(--t-action); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ivory); text-decoration: underline; text-underline-offset: 4px;
+}
+.oyss .exit__now:hover { color: var(--gold); }
+.oyss .exit__to { color: var(--ivory); font-weight: 700; overflow-wrap: anywhere; }
+.oyss .exit__ask[hidden], .oyss .exit__done[hidden] { display: none; }
+@media (max-width: 520px) {
+  .oyss .exit__form { grid-template-columns: 1fr; }
 }

@@ -440,7 +440,7 @@ def sign_section(kind):
           Agreement signed
         </h2>
         <div class="sigpad__done" style="margin-top:1.8rem">
-          <img id="done-sig" alt="">
+          <span id="done-sig"></span>
         </div>
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem">
           Signed by <span id="done-name" style="color:var(--ivory)"></span> on

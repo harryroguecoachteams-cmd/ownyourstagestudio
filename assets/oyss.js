@@ -1114,8 +1114,12 @@
     if (!done) return;
     if (panel) panel.hidden = true;
     done.hidden = false;
-    var img = document.getElementById('done-sig');
-    if (img) {
+    /* The picture of the signature is made only once there is one, so
+       the unsigned page carries no empty <img>. */
+    var slot = document.getElementById('done-sig');
+    if (slot) {
+      var img = slot.tagName === 'IMG' ? slot : slot.querySelector('img');
+      if (!img) { img = document.createElement('img'); slot.appendChild(img); }
       img.src = signaturePNG(rec.sig).url;
       img.alt = 'Signature of ' + (rec.fields.legal_name || 'the signer');
     }
@@ -1833,24 +1837,99 @@
       }
     }
 
-    /* ---------- exit intent ---------- */
-    if (recently('oyss:exit', 7)) return;
+    /* ---------- exit intent ----------
+       Feedback 14: it captures the lead. Somebody leaving is offered the
+       assessment now, or the link by email for later; the email goes to
+       the one site workflow tagged exit-intent (contact created, tagged,
+       Annette notified, the link sent). Nobody who has already left
+       their email is asked again. */
+    if (recently('oyss:exit', 7) || store('oyss:lead')) return;
 
+    var assessHref = cfg.exitHref || 'assessment.html';
     var exit = document.createElement('div');
     exit.className = 'exit';
     exit.hidden = true;
     exit.innerHTML =
       '<div class="exit__card" role="dialog" aria-modal="true" aria-labelledby="oyss-exit-t">' +
         '<button class="exit__x" type="button" aria-label="Close">&times;</button>' +
-        '<p class="exit__eyebrow">' + (cfg.exitEyebrow || 'Before you go') + '</p>' +
-        '<p class="exit__t" id="oyss-exit-t">' + (cfg.exitTitle || 'Find out what the room already thinks you are known for.') + '</p>' +
-        '<p class="exit__p">' + (cfg.exitBody || 'Twelve questions, about five minutes, and the result appears on the screen. No email address, nothing sent anywhere.') + '</p>' +
-        '<div class="exit__actions">' +
-          '<a class="btn btn--primary" href="' + (cfg.exitHref || 'assessment.html') + '">' + (cfg.exitCta || 'Take the assessment') + '</a>' +
-          '<button class="exit__no" type="button">No thanks</button>' +
+        '<div class="exit__ask">' +
+          '<p class="exit__eyebrow">' + (cfg.exitEyebrow || 'Before you go') + '</p>' +
+          '<p class="exit__t" id="oyss-exit-t">' + (cfg.exitTitle || 'How visible is your authority today?') + '</p>' +
+          '<p class="exit__p">' + (cfg.exitBody || 'Twelve questions across six pillars, about five minutes. Take it now, or leave your email and we will send you the link for later.') + '</p>' +
+          '<form class="exit__form" novalidate>' +
+            '<label class="exit__field"><span>First name</span><input name="first_name" type="text" autocomplete="given-name"></label>' +
+            '<label class="exit__field"><span>Email</span><input name="email" type="email" required autocomplete="email" inputmode="email"></label>' +
+            '<button class="btn btn--primary exit__send" type="submit">Email me the link</button>' +
+            '<p class="exit__err" role="alert" hidden></p>' +
+          '</form>' +
+          '<p class="exit__fine">We will email you the link. You can unsubscribe at any time. ' +
+            '<a href="' + (cfg.privacyHref || 'privacy.html') + '" target="_blank" rel="noopener">Privacy policy</a></p>' +
+          '<div class="exit__actions">' +
+            '<a class="exit__now" href="' + assessHref + '">Take it now instead</a>' +
+            '<button class="exit__no" type="button">No thanks</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="exit__done" hidden>' +
+          '<p class="exit__eyebrow">Sent</p>' +
+          '<p class="exit__t">Check your inbox.</p>' +
+          '<p class="exit__p">The link to the Readiness Assessment is on its way to <b class="exit__to"></b>. It takes about five minutes, whenever you are ready.</p>' +
+          '<div class="exit__actions">' +
+            '<a class="btn btn--primary" href="' + assessHref + '">Take it now</a>' +
+            '<button class="exit__no" type="button">Close</button>' +
+          '</div>' +
         '</div>' +
       '</div>';
     root.appendChild(exit);
+
+    var exitForm = exit.querySelector('.exit__form');
+    var exitErr = exit.querySelector('.exit__err');
+    exitForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = exitForm.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        exitErr.textContent = 'Enter a valid email address and we will send the link.';
+        exitErr.hidden = false;
+        exitForm.email.setAttribute('aria-invalid', 'true');
+        exitForm.email.focus();
+        return;
+      }
+      exitErr.hidden = true;
+      exitForm.email.setAttribute('aria-invalid', 'false');
+      var send = exitForm.querySelector('.exit__send');
+      send.disabled = true; send.textContent = 'Sending';
+      var first = exitForm.first_name.value.trim();
+      var data = {
+        tag: 'exit-intent',
+        source: 'Exit intent pop-up',
+        first_name: first,
+        name: first,
+        email: email,
+        assessment_url: new URL(assessHref, window.location.href).href,
+        page: window.location.pathname,
+        submittedAt: new Date().toISOString()
+      };
+      var sent = false;
+      function done() {
+        if (sent) return;
+        sent = true;
+        store('oyss:lead', String(Date.now()));
+        exit.querySelector('.exit__ask').hidden = true;
+        var d = exit.querySelector('.exit__done');
+        d.querySelector('.exit__to').textContent = email;
+        d.hidden = false;
+        var b = d.querySelector('.btn'); if (b) b.focus();
+      }
+      var endpoint = window.OYSS.endpoint && window.OYSS.endpoint();
+      if (endpoint) {
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(done, done);
+      } else {
+        setTimeout(done, 400);
+      }
+    });
 
     var lastFocus = null;
     var open = false;
@@ -1858,6 +1937,7 @@
     function typedSomething() {
       var any = false;
       document.querySelectorAll('input, textarea, select').forEach(function (el) {
+        if (el.closest('.exit')) return;
         if (el.type === 'radio' || el.type === 'checkbox') { if (el.checked) any = true; }
         else if (el.value && el.value.trim()) any = true;
       });
@@ -1884,19 +1964,21 @@
       requestAnimationFrame(function () {
         requestAnimationFrame(function () { exit.classList.add('is-in'); });
       });
-      var first = exit.querySelector('.btn');
+      var first = exit.querySelector('.exit__form input[name="email"]') || exit.querySelector('.btn');
       if (first) first.focus();
     }
 
     exit.querySelector('.exit__x').addEventListener('click', closeExit);
-    exit.querySelector('.exit__no').addEventListener('click', closeExit);
+    [].forEach.call(exit.querySelectorAll('.exit__no'), function (b) { b.addEventListener('click', closeExit); });
     exit.addEventListener('click', function (e) { if (e.target === exit) closeExit(); });
     document.addEventListener('keydown', function (e) {
       if (!open) return;
       if (e.key === 'Escape') { closeExit(); return; }
       /* Focus stays in the dialog while it is open. */
       if (e.key !== 'Tab') return;
-      var f = exit.querySelectorAll('button, a[href]');
+      var f = [].filter.call(exit.querySelectorAll('button, a[href], input'), function (el) {
+        return el.offsetParent !== null;
+      });
       var first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }

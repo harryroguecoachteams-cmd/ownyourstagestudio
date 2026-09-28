@@ -116,6 +116,10 @@ LOADER = r"""
     document.documentElement.classList.add('oyss-mounted');
     window.__oyssEngine();
     run(scripts, 0);
+    // The sticky bar and the exit pop-up, per page (feedback 14): the
+    // demo builds them into each page's shell; here the loader adds them.
+    var pc = window.__oyssPrompts && window.__oyssPrompts[t.getAttribute('data-page')];
+    if (pc && window.OYSS && window.OYSS.prompts) { try { window.OYSS.prompts(pc); } catch (e) {} }
     return true;
   }
   function tick() {
@@ -146,6 +150,28 @@ def main():
     engine_min_src.unlink()
     loader_min = LOADER  # small, left readable
 
+    # Prompts per GHL page: the same per-KIND config build.py writes into
+    # each demo page's shell, with the demo's file links swapped for the
+    # funnel slugs.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("oyss_build", ROOT / "build.py")
+    B = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(B)
+    cfgs = []
+    for row in B.SITE:
+        fname, kind = row[0], row[4]
+        js = B.PROMPTS.get(kind)
+        if not js:
+            continue
+        obj = re.search(r"OYSS\.prompts\((\{.*\})\);", js, re.S).group(1)
+        for k, v in sorted(B.SLUGS.items(), key=lambda kv: -len(kv[0])):
+            obj = obj.replace(f"'{k}'", f"'{v}'")
+        if ".html'" in obj:
+            raise SystemExit(f"prompts for {fname}: a link was not rewritten: {obj}")
+        page = fname.replace("/", "__")[:-5]
+        cfgs.append(f"{json.dumps(page)}:{obj}")
+    prompts_js = "window.__oyssPrompts={" + ",".join(cfgs) + "};"
+
     endpoint = f"window.OYSS_ENDPOINT={json.dumps(ENDPOINT)};" if ENDPOINT else ""
     tracking = (
         "<!-- Own Your Stage Studio: site stylesheet, light engine and page loader. "
@@ -155,7 +181,7 @@ def main():
         f'<link rel="icon" href="{media_url("favicon.svg")}" type="image/svg+xml">\n'
         f"<style>{HOST_CSS}</style>\n"
         f"<style>{css_for_ghl()}</style>\n"
-        f"<script>{endpoint}{engine_min}</script>\n"
+        f"<script>{endpoint}{prompts_js}{engine_min}</script>\n"
         f"<script>{loader_min}</script>\n"
     )
     (OUT / "site_tracking_body.html").write_text(tracking, encoding="utf8")
