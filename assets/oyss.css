@@ -6861,25 +6861,27 @@
    Harsh's image (feedback 16): six in the distribution ring, five
    outside, each at a generated angle mid-band (_art/gen_orbit.py),
    symmetric under the curved ring names. Eleven names fit inside the
-   rings from about 560px of figure width; below that (phones) the
-   rings carry the icons alone and the names stay for screen readers.
-   So on laptops the figure sits under the paragraph at full size.
+   rings from 500px of figure width; below that (phones) the rings
+   carry the icons alone and the names stay for screen readers.
    Geometry, percent of the square stage: circles 38 / 67 / 100,
    bands 19-33.5 and 33.5-50 of the radius.
    ============================================================ */
+/* Side by side, small (Harsh, 28 Sep: "make it small and make it side
+   by side"): the figure is 520px beside the paragraph; under 1200px there
+   is no room beside it, so it sits under the paragraph at the same size. */
 .oyss .essay--orbit .essay__inner {
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
   align-items: center;
 }
-@media (max-width: 1499px) {
+@media (max-width: 1199px) {
   .oyss .essay--orbit .essay__inner { grid-template-columns: 1fr; }
 }
 .oyss .orbit {
   grid-column: 2; margin: 0;
-  width: 100%; max-width: 680px; justify-self: center;
+  width: 100%; max-width: 520px; justify-self: center;
   container-type: inline-size;
 }
-@media (max-width: 1499px) {
+@media (max-width: 1199px) {
   .oyss .orbit { grid-column: 1; justify-self: center; margin-top: 3.4rem; }
 }
 .oyss .orbit__sr {
@@ -7030,9 +7032,9 @@
   10%           { transform: translateY(-2px) scale(1.07); }
 }
 
-/* Under ~560px of figure (phones): the rings carry the icons alone;
+/* Under 500px of figure (phones): the rings carry the icons alone;
    the names stay in the markup for screen readers. */
-@container (max-width: 559px) {
+@container (max-width: 499px) {
   .oyss .orbit__t {
     position: absolute; width: 1px; height: 1px; overflow: hidden;
     clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
