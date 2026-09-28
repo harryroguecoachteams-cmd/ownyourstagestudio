@@ -161,9 +161,6 @@ HERO = """<!-- ============ HERO ============ -->
       <h1 class="display" style="font-size:clamp(1.9rem,1.4rem + 2.2vw,3rem)">{title}</h1>
       <span class="pool" aria-hidden="true"></span>
       <p class="lead" style="margin-top:1.8rem;max-width:36rem">{blurb}</p>
-      <p class="draft-flag" style="margin-top:1.8rem;border-color:var(--gold-40);color:var(--gold);background:rgba(224, 90, 90, .08)">
-        Draft for review &middot; not yet legally executed
-      </p>
     </div>
   </div>
 </section>
@@ -179,7 +176,7 @@ BODY = """
 
       <div class="sheet__head" data-lit>
         <div>
-          <p class="sheet__kicker">Agreement &middot; draft for review</p>
+          <p class="sheet__kicker">Agreement &middot; read in full, then sign</p>
           <p class="sheet__title">{title}</p>
         </div>
         <p class="sheet__meta">
@@ -262,9 +259,10 @@ def sign_section(kind):
             ("ack_bind", "I voluntarily agree to be legally bound by this Agreement and I have the legal authority to enter into it."),
         ]
         cta = "Sign and continue to payment"
-        confirm = ("Your signature has been recorded and a confirmation is on its way to your "
-                   "inbox. The last step is the $47 Panelist Commitment and Administrative Fee, "
-                   "which confirms your speaking position.")
+        confirm = ("Your signature has been recorded. A signed copy of the agreement has been "
+                   "saved to your device as a PDF, and an email with a link to your signed copy "
+                   "is on its way to your inbox. The last step is the $47 Panelist Commitment "
+                   "and Administrative Fee, which confirms your speaking position.")
         after = """
         <div class="actions no-print" style="margin-top:2rem">
           <a class="btn btn--primary" href="https://link.fastpaydirect.com/payment-link/6ab42a504ae1d45672839331" target="_blank" rel="noopener">Pay the $47 fee</a>
@@ -293,9 +291,10 @@ def sign_section(kind):
             ("ack_ip", "I accept the recording and intellectual property provisions, and Florida law with Martin County venue."),
         ]
         cta = "Sign and continue to payment"
-        confirm = ("Your signature has been recorded and a confirmation is on its way to your "
-                   "inbox. The last step is the package payment, after which your event date "
-                   "is reserved.")
+        confirm = ("Your signature has been recorded. A signed copy of the agreement has been "
+                   "saved to your device as a PDF, and an email with a link to your signed copy "
+                   "is on its way to your inbox. The last step is the package payment, after "
+                   "which your event date is reserved.")
         after = """
         <div class="actions no-print" style="margin-top:2rem">
           <a class="btn btn--primary" href="https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334" target="_blank" rel="noopener">Pay in full, $2,997</a>
@@ -406,12 +405,22 @@ def sign_section(kind):
             <p class="eyebrow" style="color:var(--gold);margin-top:3rem">Signature</p>
             <div class="rule" style="margin:.9rem 0 1.8rem;background:rgba(228, 218, 214, .2)"></div>
 
-            <label class="field" style="margin:0">
-              <span class="field__label">Type your full legal name to sign</span>
-              <input class="field__input" type="text" name="signature" required autocomplete="off" placeholder="Your full legal name">
-            </label>
-            <div class="sig-preview" style="margin-top:1.2rem">
-              <span class="sig" id="sig-preview"></span>
+            <!-- Feedback 11: a real signature, drawn by the signer, not a name
+                 set in a script font. The canvas is the signature; the typed
+                 legal name above is who it belongs to. -->
+            <div class="sigpad" id="sigpad">
+              <div class="sigpad__head">
+                <span class="field__label" id="sigpad-label">Sign in the box with your finger, mouse or stylus</span>
+                <button type="button" class="sigpad__clear" id="sigpad-clear" hidden>Clear and sign again</button>
+              </div>
+              <div class="sigpad__box">
+                <canvas class="sigpad__canvas" id="sigpad-canvas" role="img" aria-labelledby="sigpad-label" tabindex="0"></canvas>
+                <span class="sigpad__ph" aria-hidden="true">Sign here</span>
+                <span class="sigpad__base" aria-hidden="true"><span>&times;</span></span>
+              </div>
+              <input type="hidden" name="signature_drawn" id="sigpad-value" required>
+              <p class="caption sigpad__alt">Unable to draw a signature?
+                <button type="button" class="sigpad__typebtn" id="sigpad-type">Adopt your typed legal name as your signature</button></p>
             </div>
             <p class="caption" style="color:var(--ivory-46);margin-top:.8rem">
               Signed on <span id="sig-date" style="color:var(--gold)"></span>. The date is
@@ -428,19 +437,20 @@ def sign_section(kind):
       <div id="signed-state" hidden>
         <p class="eyebrow" style="color:var(--gold)">Signed</p>
         <h2 style="color:var(--ivory);font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">
-          Agreement executed
+          Agreement signed
         </h2>
-        <div class="sig-preview" style="margin-top:1.8rem">
-          <span class="sig" id="done-name"></span>
+        <div class="sigpad__done" style="margin-top:1.8rem">
+          <img id="done-sig" alt="">
         </div>
         <p class="caption" style="color:var(--ivory-70);margin-top:1rem">
-          Signed <span id="done-date" style="color:var(--gold)"></span>
+          Signed by <span id="done-name" style="color:var(--ivory)"></span> on
+          <span id="done-date" style="color:var(--gold)"></span>
         </p>
-        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem">{confirm}</p>
-        {after}
+        <p class="lead" style="color:var(--ivory-70);margin-top:1.8rem" id="done-lead">{confirm}</p>
         <div class="actions no-print" style="margin-top:2rem">
-          <button type="button" class="btn btn--ghost" onclick="window.print()">Save a copy as PDF</button>
+          <button type="button" class="btn btn--ghost signed-pdf" id="download-signed">Download your signed copy (PDF)</button>
         </div>
+        <div id="done-after">{after}</div>
       </div>
 
     </div>

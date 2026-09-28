@@ -13,7 +13,7 @@
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/oyss.css?v=9923c47b">
+<link rel="stylesheet" href="assets/oyss.css?v=3026d7d2">
 <style>
 /* PAGE SHELL RESET.
    oyss.css carries no global reset on purpose: every selector is scoped
@@ -94,8 +94,8 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 
 
 <section class="sheetbay silked">
-  <div class="wrap wrap--tight">
-    <div class="sheet" data-lit>
+  <div class="wrap">
+    <div class="sheet sheet--wide" data-lit>
 
       <div class="sheet__head">
         <div>
@@ -369,6 +369,47 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
     </div><!-- /sheet -->
   </div>
 </section>
+<!-- Feedback 11: the host application closes on what happens next, and
+     so does this one now. Every step is stated elsewhere on this page or
+     in the agreement; nothing new is promised here. -->
+<section class="bay--half light">
+  <div class="wrap">
+    <div data-lit>
+      <p class="eyebrow eyebrow--gold">What happens next</p>
+      <h2 style="font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem);margin-top:.6rem">
+        Four steps, and none of them is a surprise.
+      </h2>
+    </div>
+
+    <div class="cuesheet" style="margin-top:2.4rem" data-lit data-cue="2">
+      <div class="cuesheet__rail" aria-hidden="true"><span class="cuesheet__marker"></span></div>
+      <div class="cuerow">
+        <div class="cuerow__n">01</div>
+        <div><h3 class="cuerow__label">We read it ourselves</h3>
+          <p class="body" style="max-width:44rem">Every application is reviewed by a person and kept on file for up to twelve months, so we can reach you when your expertise fits an upcoming panel topic.</p></div>
+      </div>
+      <div class="cuerow">
+        <div class="cuerow__n">02</div>
+        <div><h3 class="cuerow__label">An invitation to a specific panel</h3>
+          <p class="body" style="max-width:44rem">If you are selected, you receive the event details, the Featured Panelist Agreement and the Speaker Information Form.</p></div>
+      </div>
+      <div class="cuerow">
+        <div class="cuerow__n">03</div>
+        <div><h3 class="cuerow__label">The agreement and the fee</h3>
+          <p class="body" style="max-width:44rem">You sign the agreement on this site and pay the $47 Panelist Commitment and Administrative Fee. Your place is confirmed once both are done.</p></div>
+      </div>
+      <div class="cuerow">
+        <div class="cuerow__n">04</div>
+        <div><h3 class="cuerow__label">Preparation</h3>
+          <p class="body" style="max-width:44rem">We send your preparation meeting details, so you arrive on the day ready to give the audience something practical in ten minutes.</p></div>
+      </div>
+    </div>
+
+    <div class="actions" style="margin-top:2.6rem" data-lit data-cue="3">
+      <a class="cue" href="agreements/panelist.html">Read the agreement first</a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="footer footer--silk">
@@ -432,7 +473,7 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
 </footer>
 
 </div>
-<script src="assets/oyss.js?v=9923c47b"></script>
+<script src="assets/oyss.js?v=3026d7d2"></script>
 
 <script>
 (function () {
@@ -441,6 +482,13 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
   var done = document.getElementById('pan-done');
   var err  = document.getElementById('pan-error');
   if (!form) return;
+
+  /* Feedback 11, note 4: "keep the panelist application like other
+     pages". It now steps one section at a time in the same chrome as
+     the host application and the assessment. formSteps returns null
+     and changes nothing if the markup is not what it expects. */
+  var step = (window.OYSS && window.OYSS.formSteps)
+    ? window.OYSS.formSteps('panelist-application') : null;
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -466,8 +514,10 @@ html { font-size: clamp(100%, 62.5% + .4167vw, 112.5%); }
     if (missing.length) {
       err.textContent = 'Complete every required field. ' + missing.length + ' remaining.';
       err.hidden = false;
-      missing[0].scrollIntoView({ block: 'center' });
-      missing[0].focus();
+      if (!(step && step.reveal(missing[0]))) {
+        missing[0].scrollIntoView({ block: 'center' });
+        missing[0].focus();
+      }
       return;
     }
     err.hidden = true;

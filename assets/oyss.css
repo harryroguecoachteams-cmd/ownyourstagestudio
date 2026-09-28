@@ -6765,3 +6765,79 @@
 
 /* The founder field: without the silk the body can go darker. */
 .oyss .goldfield .body, .oyss .goldfield .byline__attrib { color: #4F4744; }
+
+/* ============================================================
+   63. FEEDBACK 11  (28 Sep 2026)
+   ============================================================ */
+
+/* Home essay: the portrait ran 560px against a text block of about
+   380, so it hung below the words. It now takes the height of the
+   text it sits beside, and a little more width, cropped on the face. */
+.oyss .essay--faced .essay__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: stretch; }
+.oyss .essay--faced .essay__portrait {
+  grid-row: 1; align-self: stretch;
+  min-height: 300px;
+}
+.oyss .essay__portrait img[src$="expert-ready2.jpg"] { object-position: 50% 20%; }
+@media (max-width: 900px) {
+  .oyss .essay--faced .essay__inner { grid-template-columns: 1fr; }
+  .oyss .essay--faced .essay__portrait { grid-row: 2; min-height: 0; aspect-ratio: 4 / 3; }
+}
+
+/* The signature pad: paper, ink, a line to sign on. */
+.oyss .sigpad__head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: .6rem 1.2rem; flex-wrap: wrap; margin-bottom: .8rem;
+}
+.oyss .sigpad__clear, .oyss .sigpad__typebtn {
+  background: none; border: 0; padding: .35rem 0; margin: 0; cursor: pointer;
+  font: inherit; font-size: var(--t-caption); color: var(--rose);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.oyss .sigpad__clear[hidden] { display: none; }
+.oyss .sigpad__box {
+  position: relative;
+  height: clamp(150px, 20vw, 190px);
+  background: #FBF8F5; border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .10);
+}
+.oyss .sigpad__canvas {
+  position: absolute; inset: 0; z-index: 2;
+  display: block; width: 100%; height: 100%;
+  cursor: crosshair; touch-action: none;
+}
+.oyss .sigpad__canvas:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.oyss .sigpad__base {
+  position: absolute; left: 7%; right: 5%; bottom: 27%; z-index: 1;
+  border-bottom: 1px solid rgba(31, 30, 29, .38);
+}
+.oyss .sigpad__base span {
+  position: absolute; left: -1.3em; bottom: .05em;
+  font-size: 1.35rem; line-height: 1; color: rgba(31, 30, 29, .55);
+}
+.oyss .sigpad__ph {
+  position: absolute; left: 9%; bottom: calc(27% + .5rem); z-index: 1;
+  font-family: var(--script); font-size: clamp(1.7rem, 1.4rem + 1vw, 2.2rem); line-height: 1;
+  color: rgba(31, 30, 29, .26); pointer-events: none; transition: opacity 200ms;
+}
+.oyss .sigpad.has-ink .sigpad__ph { opacity: 0; }
+.oyss .sigpad.is-invalid .sigpad__box { box-shadow: inset 0 0 0 2px var(--rose); }
+.oyss .sigpad__alt { margin-top: .9rem; color: var(--ivory-46); }
+.oyss .sigpad__done {
+  background: #FBF8F5; border-radius: 3px;
+  padding: .9rem 1.4rem; max-width: 30rem;
+}
+.oyss .sigpad__done img { display: block; max-width: 100%; max-height: 140px; height: auto; }
+.oyss .signblock .btn--ghost.signed-pdf { background: transparent; color: var(--ivory); border-color: rgba(248, 245, 242, .5); }
+
+/* Opened from the signed copy link in the email. */
+.oyss .signedcopy {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap;
+  margin: 0 0 2.2rem; padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--crimson); background: var(--blush);
+}
+.oyss .signedcopy__k {
+  font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--crimson);
+}
+.oyss .signedcopy__t { margin-top: .3rem; color: var(--navy); font-size: 1rem; }
+.oyss .signblock .btn--ghost.signed-pdf:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }

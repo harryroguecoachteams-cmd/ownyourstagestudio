@@ -692,31 +692,474 @@
   });
 
   /* ==========================================================
-     AGREEMENT SIGNING
+     AGREEMENT SIGNING  (rebuilt for feedback 11, 28 Sep 2026)
      Exposed as window.OYSS.signing so an agreement page wires
-     itself up with one call. Demo-functional by design: it
-     validates, renders the signature, stamps the date and
-     produces a signed record. CONFIG.endpoint is the single
-     line to change when the live GHL / payment hook exists.
+     itself up with one call.
+
+     Three things happen when somebody signs:
+       1. their signature is DRAWN, by them, on a pad. The typed
+          legal name says whose it is; it is not the signature.
+       2. a signed copy of the whole agreement is written as a PDF
+          in the browser and saved to their device, and the same
+          copy stays one button away on the page.
+       3. the record goes to the GHL workflow carrying a link
+          (signed_copy_url) that reopens this page as their signed
+          copy, so the confirmation email and Annette's
+          notification both carry the signed agreement.
+
+     The signed copy link holds the record in the URL fragment,
+     compressed. A fragment never reaches a server, so nothing is
+     stored anywhere new.
      ========================================================== */
   window.OYSS = window.OYSS || {};
+
+  var JSPDF_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  var PAD_W = 1000;   /* signature strokes are stored on a 1000 unit wide grid */
+  var INK = '#1F1E1D';
+
+  /* ---- the pad ------------------------------------------------ */
+  function SigPad(root, legalInput) {
+    var canvas = root.querySelector('canvas');
+    var clearBtn = root.querySelector('.sigpad__clear');
+    var typeBtn = root.querySelector('.sigpad__typebtn');
+    var value = root.querySelector('input[type="hidden"]');
+    var ctx = canvas.getContext('2d');
+    var strokes = [];          /* [[x,y],[x,y]...] in pad units */
+    var typed = '';            /* set when the typed fallback is adopted */
+    var cur = null, ratio = 1, padH = 300;
+
+    function size() {
+      var r = canvas.getBoundingClientRect();
+      if (!r.width) return;
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      ratio = r.width / PAD_W;
+      padH = Math.round(r.height / ratio);
+      ctx.setTransform(dpr * ratio, 0, 0, dpr * ratio, 0, 0);
+      draw();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, PAD_W, padH);
+      if (typed) { script(ctx, typed, padH, 1); return; }
+      paint(ctx, strokes, 1);
+    }
+
+    function point(e) {
+      var r = canvas.getBoundingClientRect();
+      return [Math.round((e.clientX - r.left) / ratio), Math.round((e.clientY - r.top) / ratio)];
+    }
+
+    function changed() {
+      var ink = typed || strokes.length;
+      root.classList.toggle('has-ink', !!ink);
+      root.classList.remove('is-invalid');
+      clearBtn.hidden = !ink;
+      value.value = typed ? 'typed' : (strokes.length ? 'drawn' : '');
+    }
+
+    canvas.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      e.preventDefault();
+      if (typed) { typed = ''; }
+      try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+      cur = [point(e)];
+      strokes.push(cur);
+      draw();
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      if (!cur) return;
+      e.preventDefault();
+      var evs = (e.getCoalescedEvents && e.getCoalescedEvents().length) ? e.getCoalescedEvents() : [e];
+      evs.forEach(function (ev) {
+        var p = point(ev), last = cur[cur.length - 1];
+        if (Math.abs(p[0] - last[0]) + Math.abs(p[1] - last[1]) >= 2) cur.push(p);
+      });
+      draw();
+    });
+    function end() {
+      if (!cur) return;
+      if (cur.length === 1) cur.push([cur[0][0] + 1, cur[0][1]]);   /* a dot is a dot */
+      cur = null;
+      draw();
+      changed();
+    }
+    canvas.addEventListener('pointerup', end);
+    canvas.addEventListener('pointercancel', end);
+
+    clearBtn.addEventListener('click', function () {
+      strokes = []; typed = ''; draw(); changed(); canvas.focus();
+    });
+    if (typeBtn) typeBtn.addEventListener('click', function () {
+      var n = (legalInput && legalInput.value.trim()) || '';
+      if (!n) {
+        if (legalInput) { legalInput.setAttribute('aria-invalid', 'true'); legalInput.focus(); }
+        return;
+      }
+      strokes = []; typed = n;
+      var go = function () { draw(); changed(); };
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('40px Sacramento').then(go, go);
+      } else { go(); }
+    });
+
+    size();
+    window.addEventListener('resize', function () { if (!cur) size(); });
+
+    return {
+      empty: function () { return !typed && !strokes.length; },
+      invalid: function () { root.classList.add('is-invalid'); canvas.focus(); },
+      data: function () {
+        return { m: typed ? 'typed' : 'drawn', t: typed, h: padH, s: typed ? '' : encodePath(strokes) };
+      }
+    };
+  }
+
+  function script(c, name, h, scale) {
+    c.fillStyle = INK;
+    c.font = Math.round(h * 0.34 * scale) + 'px Sacramento, "Segoe Script", cursive';
+    c.textBaseline = 'alphabetic';
+    c.fillText(name, 70 * scale, h * 0.70 * scale);
+  }
+
+  function paint(c, strokes, scale) {
+    c.lineCap = 'round'; c.lineJoin = 'round';
+    c.strokeStyle = INK; c.lineWidth = 4.2 * scale;
+    strokes.forEach(function (s) {
+      c.beginPath();
+      c.moveTo(s[0][0] * scale, s[0][1] * scale);
+      for (var i = 1; i < s.length - 1; i++) {
+        var mx = (s[i][0] + s[i + 1][0]) / 2, my = (s[i][1] + s[i + 1][1]) / 2;
+        c.quadraticCurveTo(s[i][0] * scale, s[i][1] * scale, mx * scale, my * scale);
+      }
+      var l = s[s.length - 1];
+      c.lineTo(l[0] * scale, l[1] * scale);
+      c.stroke();
+    });
+  }
+
+  /* strokes <-> "x,y dx,dy dx,dy;x,y ..." relative integers: small,
+     and it deflates well. */
+  function encodePath(strokes) {
+    return strokes.map(function (s) {
+      var out = [s[0][0] + ',' + s[0][1]];
+      for (var i = 1; i < s.length; i++) out.push((s[i][0] - s[i - 1][0]) + ',' + (s[i][1] - s[i - 1][1]));
+      return out.join(' ');
+    }).join(';');
+  }
+  function decodePath(str) {
+    if (!str) return [];
+    return str.split(';').map(function (seg) {
+      var pts = [], x = 0, y = 0;
+      seg.split(' ').forEach(function (pair, i) {
+        var v = pair.split(',').map(Number);
+        if (i === 0) { x = v[0]; y = v[1]; } else { x += v[0]; y += v[1]; }
+        pts.push([x, y]);
+      });
+      return pts;
+    });
+  }
+
+  /* The signature as a PNG, cropped to the ink, dark on transparent. */
+  function signaturePNG(sig) {
+    var scale = 0.9, h = sig.h || 300;
+    var c = document.createElement('canvas');
+    c.width = Math.round(PAD_W * scale); c.height = Math.round(h * scale);
+    var x = c.getContext('2d');
+    if (sig.m === 'typed') script(x, sig.t, h, scale);
+    else paint(x, decodePath(sig.s), scale);
+
+    var d = x.getImageData(0, 0, c.width, c.height).data;
+    var minX = c.width, minY = c.height, maxX = 0, maxY = 0;
+    for (var yy = 0; yy < c.height; yy++) {
+      for (var xx = 0; xx < c.width; xx++) {
+        if (d[(yy * c.width + xx) * 4 + 3] > 8) {
+          if (xx < minX) minX = xx;
+          if (xx > maxX) maxX = xx;
+          if (yy < minY) minY = yy;
+          if (yy > maxY) maxY = yy;
+        }
+      }
+    }
+    if (maxX <= minX) return { url: c.toDataURL('image/png'), w: c.width, h: c.height };
+    var m = 14;
+    minX = Math.max(0, minX - m); minY = Math.max(0, minY - m);
+    maxX = Math.min(c.width, maxX + m); maxY = Math.min(c.height, maxY + m);
+    var o = document.createElement('canvas');
+    o.width = maxX - minX; o.height = maxY - minY;
+    o.getContext('2d').drawImage(c, minX, minY, o.width, o.height, 0, 0, o.width, o.height);
+    return { url: o.toDataURL('image/png'), w: o.width, h: o.height };
+  }
+
+  /* ---- the signed copy link ------------------------------------ */
+  function b64url(bytes) {
+    var s = '';
+    for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function unb64url(str) {
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) str += '=';
+    var s = atob(str), b = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
+    return b;
+  }
+  function pack(obj) {
+    var raw = new TextEncoder().encode(JSON.stringify(obj));
+    if (!window.CompressionStream) return Promise.resolve('j' + b64url(raw));
+    try {
+      var cs = new CompressionStream('deflate-raw');
+      var w = cs.writable.getWriter(); w.write(raw); w.close();
+      return new Response(cs.readable).arrayBuffer().then(function (buf) {
+        return 'z' + b64url(new Uint8Array(buf));
+      }, function () { return 'j' + b64url(raw); });
+    } catch (_) { return Promise.resolve('j' + b64url(raw)); }
+  }
+  function unpack(str) {
+    var kind = str.charAt(0), bytes = unb64url(str.slice(1));
+    if (kind === 'j') return Promise.resolve(JSON.parse(new TextDecoder().decode(bytes)));
+    var ds = new DecompressionStream('deflate-raw');
+    var w = ds.writable.getWriter(); w.write(bytes); w.close();
+    return new Response(ds.readable).text().then(JSON.parse);
+  }
+
+  /* ---- the PDF --------------------------------------------------- */
+  function loadPdfLib() {
+    if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    return new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = JSPDF_SRC; s.async = true;
+      s.onload = function () { (window.jspdf && window.jspdf.jsPDF) ? res(window.jspdf.jsPDF) : rej(new Error('jsPDF')); };
+      s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  /* The standard PDF fonts speak WinAnsi only. */
+  function ansi(t) {
+    return String(t || '')
+      .replace(/[‘’‚]/g, "'").replace(/[“”„]/g, '"')
+      .replace(/[–—]/g, '-').replace(/…/g, '...').replace(/ /g, ' ')
+      .replace(/™/g, '(TM)')
+      .replace(/[^\x09\x0A\x0D\x20-\x7E¡-ÿ•]/g, '');
+  }
+
+  var LABELS = {
+    legal_name: 'Legal name', business_name: 'Business name', email: 'Email address',
+    phone: 'Telephone', event_title: 'Event title', event_theme: 'Event theme',
+    event_date: 'Proposed event date', event_time: 'Time and time zone',
+    event_audience: 'Intended audience', event_panelists: 'Target number of panelists',
+    event_cta: 'Primary call to action'
+  };
+
+  function buildPdf(rec) {
+    return loadPdfLib().then(function (JsPDF) {
+      var doc = new JsPDF({ unit: 'pt', format: 'letter' });
+      var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
+      var M = 60, y = M, CW = W - M * 2;
+      var title = rec.agreement;
+      var BODY = [40, 38, 36], DARK = [31, 30, 29], MUTED = [110, 104, 100], RED = [185, 28, 28];
+
+      function room(h) { if (y + h > H - M) { doc.addPage(); y = M; } }
+      /* one wrapped block; `mark` hangs in the left margin of its first line */
+      function text(str, size, style, gap, indent, color, mark) {
+        indent = indent || 0;
+        doc.setFont('helvetica', style || 'normal'); doc.setFontSize(size);
+        doc.setTextColor(color ? color[0] : BODY[0], color ? color[1] : BODY[1], color ? color[2] : BODY[2]);
+        var lines = doc.splitTextToSize(ansi(str), CW - indent), lh = size * 1.38;
+        lines.forEach(function (ln, i) {
+          room(lh);
+          if (i === 0 && mark) doc.text(ansi(mark), M + (indent >= 20 ? 2 : indent - 12), y + size);
+          doc.text(ln, M + indent, y + size);
+          y += lh;
+        });
+        y += gap || 0;
+      }
+
+      /* the head */
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(RED[0], RED[1], RED[2]);
+      doc.text('OWN YOUR STAGE STUDIO, LLC', M, y + 9); y += 22;
+      text(title, 19, 'bold', 4, 0, DARK);
+      text('Signed copy', 11, 'normal', 14, 0, MUTED);
+
+      /* the signing record */
+      var top = y;
+      y += 6;
+      text('SIGNING RECORD', 8.5, 'bold', 4, 14, RED);
+      Object.keys(LABELS).forEach(function (k) {
+        if (rec.fields[k]) text(LABELS[k] + ':  ' + rec.fields[k], 9.5, 'normal', 1, 14);
+      });
+      text('Signed:  ' + rec.signedAtDisplay + '  (' + rec.signedAt + ')', 9.5, 'normal', 1, 14);
+      text('Signature:  ' + (rec.sig.m === 'typed' ? 'typed legal name adopted as the signature' : 'drawn by the signer') +
+           ', electronic, Fla. Stat. 668.50', 9.5, 'normal', 1, 14);
+      text('Document:  ' + rec.url, 9.5, 'normal', 6, 14);
+      doc.setDrawColor(RED[0], RED[1], RED[2]); doc.setLineWidth(1.4);
+      doc.line(M, top, M, y);
+      y += 18;
+
+      /* the agreement, as published on the page it was signed on */
+      var body = document.getElementById('agreement-body');
+      [].slice.call(body ? body.children : []).forEach(function (el) {
+        var tag = el.tagName;
+        var plain = el.textContent.replace(/\s+/g, ' ').trim();
+        if (tag === 'H2') {
+          var n = el.querySelector('.doc__n');
+          var num = n ? n.textContent.trim() : '';
+          var head = num ? num + '. ' + plain.slice(num.length).trim() : plain;
+          y += 8; room(44);
+          text(head, 11, 'bold', 4, 0, DARK);
+        } else if (tag === 'H3') {
+          y += 2; room(32);
+          text(plain, 10, 'bold', 3, 0, DARK);
+        } else if (tag === 'UL' || tag === 'OL') {
+          [].slice.call(el.children).forEach(function (li, i) {
+            text(li.textContent.replace(/\s+/g, ' ').trim(), 9.5, 'normal', 2, 16, null,
+                 tag === 'OL' ? (i + 1) + '.' : '•');
+          });
+          y += 4;
+        } else if (plain) {
+          text(plain, 9.5, 'normal', 6);
+        }
+      });
+
+      /* the signature page */
+      doc.addPage(); y = M;
+      text('EXECUTION', 8.5, 'bold', 6, 0, RED);
+      text(title, 14, 'bold', 12, 0, DARK);
+      text('Acknowledged by the signer before signing:', 9.5, 'bold', 6);
+      (rec.acks || []).forEach(function (a) { text(a, 9.5, 'normal', 3, 22, null, '[X]'); });
+      y += 22;
+
+      var png = signaturePNG(rec.sig);
+      var sw = Math.min(260, png.w * 0.5), sh = sw * png.h / png.w;
+      if (sh > 90) { sh = 90; sw = sh * png.w / png.h; }
+      room(sh + 110);
+      doc.addImage(png.url, 'PNG', M, y, sw, sh);
+      y += sh + 4;
+      doc.setDrawColor(60, 58, 56); doc.setLineWidth(0.6); doc.line(M, y, M + 280, y);
+      y += 6;
+      text('Signature of ' + (rec.fields.legal_name || ''), 9, 'normal', 1, 0, MUTED);
+      if (rec.fields.business_name) text('For ' + rec.fields.business_name, 9, 'normal', 1, 0, MUTED);
+      text('Signed ' + rec.signedAtDisplay, 9, 'normal', 20, 0, MUTED);
+      text('The other party to this Agreement is Own Your Stage Studio, LLC, a Florida limited ' +
+           'liability company. This copy was generated at the moment of signing, from the ' +
+           'Agreement as published at ' + rec.url + '.', 8.5, 'normal', 0, 0, MUTED);
+
+      /* running foot */
+      var pages = doc.getNumberOfPages();
+      for (var i = 1; i <= pages; i++) {
+        doc.setPage(i);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(140, 134, 130);
+        doc.text(ansi(title + '  -  signed copy, ' + (rec.fields.legal_name || '')), M, H - 32);
+        doc.text('Page ' + i + ' of ' + pages, W - M, H - 32, { align: 'right' });
+      }
+      return doc;
+    });
+  }
+
+  function pdfName(rec) {
+    var who = String(rec.fields.legal_name || 'signer').replace(/[^\w .-]+/g, '').trim();
+    return 'Signed - ' + rec.agreement + ' - ' + who + ' - ' + String(rec.signedAt).slice(0, 10) + '.pdf';
+  }
+
+  function savePdf(rec, btn) {
+    var label = btn && btn.textContent;
+    if (btn) { btn.disabled = true; btn.textContent = 'Preparing your PDF'; }
+    return buildPdf(rec).then(function (doc) {
+      doc.save(pdfName(rec));
+    }).catch(function () {
+      /* The library could not load (offline, a blocker). The browser's
+         own print to PDF still produces the signed page. */
+      window.print();
+    }).then(function () {
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    });
+  }
+
+  function ackTexts(form) {
+    return [].slice.call(form.querySelectorAll('.check input[type="checkbox"]')).filter(function (b) {
+      return b.checked;
+    }).map(function (b) { return b.parentNode.textContent.replace(/\s+/g, ' ').trim(); });
+  }
+
+  function longDate(iso) {
+    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  /* ---- showing a signature that has been made ------------------- */
+  function showSigned(rec, asCopy) {
+    var panel = document.getElementById('sign-panel');
+    var done = document.getElementById('signed-state');
+    if (!done) return;
+    if (panel) panel.hidden = true;
+    done.hidden = false;
+    var img = document.getElementById('done-sig');
+    if (img) {
+      img.src = signaturePNG(rec.sig).url;
+      img.alt = 'Signature of ' + (rec.fields.legal_name || 'the signer');
+    }
+    var nm = document.getElementById('done-name');
+    var dt = document.getElementById('done-date');
+    if (nm) nm.textContent = rec.fields.legal_name || '';
+    if (dt) dt.textContent = rec.signedAtDisplay;
+    var dl = document.getElementById('download-signed');
+    if (dl) dl.onclick = function () { savePdf(rec, dl); };
+
+    if (!asCopy) return;
+    var lead = document.getElementById('done-lead');
+    if (lead) lead.textContent = 'This is the signed copy of this agreement. Download it as a PDF ' +
+      'with the full text, the signing record and the signature.';
+    var after = document.getElementById('done-after');
+    if (after) after.hidden = true;
+    var gm = document.getElementById('gate-msg');
+    if (gm) gm.remove();
+    /* and say so at the top, where the reader lands */
+    var head = document.querySelector('.docsheet .sheet__head');
+    if (head && !document.querySelector('.signedcopy')) {
+      var bar = document.createElement('div');
+      bar.className = 'signedcopy no-print';
+      bar.innerHTML = '<div><p class="signedcopy__k">Signed copy</p><p class="signedcopy__t"></p></div>' +
+        '<button type="button" class="btn btn--primary">Download signed PDF</button>';
+      bar.querySelector('.signedcopy__t').textContent = 'Signed by ' + (rec.fields.legal_name || '') +
+        (rec.fields.business_name ? ', ' + rec.fields.business_name : '') + ', on ' + rec.signedAtDisplay + '.';
+      var b = bar.querySelector('button');
+      b.addEventListener('click', function () { savePdf(rec, b); });
+      head.parentNode.insertBefore(bar, head.nextSibling);
+    }
+  }
 
   window.OYSS.signing = function (opts) {
     var cfg = opts || {};
     var form = document.getElementById(cfg.form || 'agreement-form');
     if (!form) return;
+    var agreement = cfg.agreement || 'Agreement';
+    var here = window.location.origin + window.location.pathname;
+
+    /* Opened from a signed copy link: show that signature, nothing to sign. */
+    var m = /[#&]signed=([^&]+)/.exec(window.location.hash);
+    if (m) {
+      var opened;
+      try { opened = unpack(decodeURIComponent(m[1])); } catch (_) { opened = Promise.reject(_); }
+      opened.then(function (p) {
+        showSigned({
+          agreement: agreement, fields: p.f || {}, acks: p.a || [], sig: p.g,
+          signedAt: p.d, signedAtDisplay: longDate(p.d), url: here
+        }, true);
+      }).catch(function () { /* a damaged link falls through to the unsigned page */ });
+    }
 
     var gate = document.getElementById(cfg.gate || 'sign-gate');
     var body = document.getElementById(cfg.body || 'agreement-body');
-    var nameIn = form.querySelector('[name="signature"]');
-    var preview = document.getElementById('sig-preview');
+    var legalIn = form.querySelector('[name="legal_name"]');
+    var padEl = document.getElementById('sigpad');
+    var pad = padEl ? SigPad(padEl, legalIn) : null;
     var dateOut = document.getElementById('sig-date');
     var submit = form.querySelector('[type="submit"]');
-    var done = document.getElementById('signed-state');
 
     /* The date is stamped, not typed. A party cannot backdate. */
     var now = new Date();
-    var stamp = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    var stamp = longDate(now.toISOString());
     if (dateOut) dateOut.textContent = stamp;
 
     /* The signature block stays locked until the document has actually been
@@ -732,6 +1175,8 @@
       var msg = document.getElementById('gate-msg');
       if (msg) msg.remove();
       window.removeEventListener('scroll', onScroll);
+      /* the pad measured itself while locked; measure again now it is live */
+      window.dispatchEvent(new Event('resize'));
     }
 
     function onScroll() {
@@ -754,78 +1199,87 @@
       unlock();
     }
 
-    /* Typed signature renders live in the brand serif. */
-    if (nameIn && preview) {
-      nameIn.addEventListener('input', function () {
-        preview.textContent = nameIn.value.trim();
-      });
-    }
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       var missing = [];
       form.querySelectorAll('[required]').forEach(function (el) {
+        if (el.type === 'hidden') return;
         var bad = (el.type === 'checkbox') ? !el.checked : !el.value.trim();
         el.setAttribute('aria-invalid', bad ? 'true' : 'false');
         if (bad) missing.push(el);
       });
+      var noSig = !!pad && pad.empty();
 
       var err = document.getElementById('sign-error');
-      if (missing.length) {
+      if (missing.length || noSig) {
         if (err) {
-          err.textContent = 'Complete every required field and acknowledgment before signing. ' +
-                            missing.length + ' remaining.';
+          err.textContent = (noSig && !missing.length)
+            ? 'Draw your signature in the box to sign.'
+            : 'Complete every required field and acknowledgment' + (noSig ? ', and draw your signature,' : '') +
+              ' before signing. ' + (missing.length + (noSig ? 1 : 0)) + ' remaining.';
           err.hidden = false;
         }
-        missing[0].focus();
+        if (missing.length) missing[0].focus(); else pad.invalid();
         return;
       }
       if (err) err.hidden = true;
 
-      var record = {};
-      new FormData(form).forEach(function (v, k) { record[k] = v; });
-      record.agreement = cfg.agreement || 'Agreement';
-      record.signedAt = now.toISOString();
-      record.signedAtDisplay = stamp;
-      /* The same shape every other form posts, so the one workflow can
-         create the contact, tag it and email both sides. */
-      record.tag = cfg.tag || 'agreement';
-      var legal = String(record.legal_name || record.signature || '').trim().split(/\s+/);
-      record.first_name = legal.shift() || '';
-      record.last_name = legal.join(' ');
-      record.business = record.business_name || '';
-      record.page = window.location.pathname;
-      record.submittedAt = record.signedAt;
-      var endpoint = cfg.endpoint || (window.OYSS.endpoint && window.OYSS.endpoint());
+      var fields = {};
+      new FormData(form).forEach(function (v, k) {
+        if (!/^ack_|^signature_drawn$/.test(k) && String(v).trim()) fields[k] = String(v).trim();
+      });
+      var sig = pad ? pad.data() : { m: 'typed', t: fields.legal_name || '', h: 300, s: '' };
+      var signed = {
+        agreement: agreement, fields: fields, acks: ackTexts(form), sig: sig,
+        signedAt: now.toISOString(), signedAtDisplay: stamp, url: here
+      };
 
       if (submit) { submit.disabled = true; submit.textContent = 'Recording signature'; }
 
-      function finish() {
-        if (done) {
-          document.getElementById('sign-panel').hidden = true;
-          done.hidden = false;
-          var nm = document.getElementById('done-name');
-          var dt = document.getElementById('done-date');
-          if (nm) nm.textContent = record.signature || '';
-          if (dt) dt.textContent = stamp;
-          done.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
-        }
-        try { window.sessionStorage.setItem('oyss:' + (cfg.agreement || 'doc'), JSON.stringify(record)); } catch (_) {}
-        if (typeof cfg.onSigned === 'function') cfg.onSigned(record);
-      }
+      pack({ v: 1, f: fields, a: signed.acks, g: sig, d: signed.signedAt }).then(function (packed) {
+        /* The same shape every other form posts, so the one workflow can
+           create the contact, tag it and email both sides. */
+        var record = {};
+        new FormData(form).forEach(function (v, k) { record[k] = v; });
+        record.agreement = agreement;
+        record.signedAt = signed.signedAt;
+        record.signedAtDisplay = stamp;
+        record.tag = cfg.tag || 'agreement';
+        record.signature = fields.legal_name || '';
+        record.signature_method = sig.m === 'typed' ? 'typed name adopted' : 'drawn by hand';
+        record.signed_copy_url = here + '#signed=' + packed;
+        var legal = String(fields.legal_name || '').trim().split(/\s+/);
+        record.first_name = legal.shift() || '';
+        record.last_name = legal.join(' ');
+        record.business = fields.business_name || '';
+        record.page = window.location.pathname;
+        record.submittedAt = signed.signedAt;
+        var endpoint = cfg.endpoint || (window.OYSS.endpoint && window.OYSS.endpoint());
 
-      /* One line to go live. Until an endpoint is set this stays
-         a local draft signature, which is what a demo should be. */
-      if (endpoint) {
-        fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(record)
-        }).then(finish).catch(finish);
-      } else {
-        setTimeout(finish, 550);
-      }
+        var finished = false;
+        function finish() {
+          if (finished) return;
+          finished = true;
+          showSigned(signed, false);
+          var done = document.getElementById('signed-state');
+          if (done) done.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
+          try { window.sessionStorage.setItem('oyss:' + agreement, JSON.stringify(record)); } catch (_) {}
+          /* their copy, straight away */
+          savePdf(signed, document.getElementById('download-signed'));
+          if (typeof cfg.onSigned === 'function') cfg.onSigned(record);
+        }
+
+        if (endpoint) {
+          fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(record)
+          }).then(finish, finish);
+        } else {
+          setTimeout(finish, 550);
+        }
+      });
     });
   };
 
@@ -1703,6 +2157,8 @@
     }
     function missingIn(i) {
       return fieldsIn(i).filter(function (el) {
+        /* a radio group carries `required` on its first option only */
+        if (el.type === 'radio') return !form.querySelector('input[name="' + el.name + '"]:checked');
         return el.type === 'checkbox' ? !el.checked : !el.value.trim();
       });
     }
