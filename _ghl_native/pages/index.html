@@ -113,49 +113,44 @@
          work, so the picture is that person, ready: eyes to camera,
          a settled smile, the light behind her rather than on her
          like an interrogation. -->
-    <!-- Feedback 13 (28 Sep): Harsh's own concentric image ("from known
-         here to known out there"), rebuilt as live markup without its arrow
-         and with only the words that matter: no title (the section has
-         one), no inner list (the paragraph beside it says it), and only
-         what the studio actually does in the distribution ring. The flow
-         he asked for: the inner circle glows, then distribution, then the
-         outside, a sense of expansion. Section 64 of oyss.css. -->
+    <!-- Feedback 13 + 14 (28 Sep): Harsh's concentric diagram. Feedback 14:
+         every circle its own background (like the outer one), "You are
+         here" instead of "Known here / You", better words than "Known out
+         there", and no words outside the circles (the phone key could not
+         be matched to the icons). So: three items per ring on short words,
+         left / right / bottom, which is what fits inside the rings even on
+         a 320px phone; the two ring names curve along the top of their
+         rings. Section 64 of oyss.css. -->
     <figure class="orbit" data-lit data-cue="2">
-      <div class="orbit__stage">
-        <span class="orbit__disc orbit__disc--out" aria-hidden="true"></span>
-        <span class="orbit__disc orbit__disc--mid" aria-hidden="true"></span>
-        <span class="orbit__disc orbit__disc--in" aria-hidden="true"></span>
+      <p class="orbit__sr">You are here, known inside your own network. Around you, distribution: panels, podcasts
+        and webinars. Around that, who should know you: new clients, event hosts and audiences.</p>
+      <div class="orbit__stage" aria-hidden="true">
+        <span class="orbit__disc orbit__disc--out"></span>
+        <span class="orbit__disc orbit__disc--mid"></span>
+        <span class="orbit__disc orbit__disc--in"></span>
 
         <div class="orbit__ring orbit__ring--in">
-          <p class="orbit__k orbit__k--in">Known here</p>
-          <span class="orbit__you">You</span>
+          <span class="orbit__here"></span>
+          <p class="orbit__k">You are here</p>
         </div>
 
         <div class="orbit__ring orbit__ring--mid">
-          <p class="orbit__k orbit__k--mid">Distribution</p>
+          <svg class="orbit__arc" viewBox="0 0 1000 1000"><path id="orbit-arc-mid" d="M226.2 451.7A278 278 0 0 1 773.8 451.7"/><text><textPath href="#orbit-arc-mid" startOffset="50%" text-anchor="middle">Distribution</textPath></text></svg>
           <ul class="orbit__items">
-            <li class="orbit__item" style="--x:33.74%;--y:33.74%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M8.8 5v14M15.2 5v14"/><circle cx="5.65" cy="10.4" r="1.4"/><circle cx="12" cy="10.4" r="1.4"/><circle cx="18.35" cy="10.4" r="1.4"/><path d="M4.1 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8M10.45 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8M16.8 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8"/></svg></span><span class="orbit__t">Panels</span></li>
-            <li class="orbit__item" style="--x:66.26%;--y:33.74%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9.5" y="2.5" width="5" height="10" rx="2.5"/><path d="M12 12.5v8M9 20.5h6"/><path d="M16.2 3.3a6 6 0 0 1 0 8.4M7.8 3.3a6 6 0 0 0 0 8.4M18.4 1.2a9 9 0 0 1 0 12.6M5.6 1.2a9 9 0 0 0 0 12.6"/></svg></span><span class="orbit__t">Podcasts</span></li>
-            <li class="orbit__item" style="--x:33.74%;--y:66.26%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5.8A2.8 2.8 0 0 1 5.8 3h7.4A2.8 2.8 0 0 1 16 5.8v4.4A2.8 2.8 0 0 1 13.2 13H8.2L5 15.8V13A2.8 2.8 0 0 1 3 10.2z"/><path d="M19 8.2a2.5 2.5 0 0 1 2 2.45v4.6a2.5 2.5 0 0 1-2.5 2.5H18v2.6l-3.1-2.6h-3.4a2.5 2.5 0 0 1-2.5-2.5V15"/></svg></span><span class="orbit__t">Interviews</span></li>
-            <li class="orbit__item" style="--x:66.26%;--y:66.26%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M10.4 7.9v5.2l4.3-2.6z"/></svg></span><span class="orbit__t">Webinars</span></li>
+            <li class="orbit__item orbit__item--l"><span class="orbit__ico"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M8.8 5v14M15.2 5v14"/><circle cx="5.65" cy="10.4" r="1.4"/><circle cx="12" cy="10.4" r="1.4"/><circle cx="18.35" cy="10.4" r="1.4"/><path d="M4.1 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8M10.45 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8M16.8 15.6c.4-1.2.9-1.8 1.55-1.8s1.15.6 1.55 1.8"/></svg></span><span class="orbit__t">Panels</span></li>
+            <li class="orbit__item orbit__item--r"><span class="orbit__ico"><svg viewBox="0 0 24 24"><rect x="9.5" y="2.5" width="5" height="10" rx="2.5"/><path d="M12 12.5v8M9 20.5h6"/><path d="M16.2 3.3a6 6 0 0 1 0 8.4M7.8 3.3a6 6 0 0 0 0 8.4M18.4 1.2a9 9 0 0 1 0 12.6M5.6 1.2a9 9 0 0 0 0 12.6"/></svg></span><span class="orbit__t">Podcasts</span></li>
+            <li class="orbit__item orbit__item--b"><span class="orbit__ico"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M10.4 7.9v5.2l4.3-2.6z"/></svg></span><span class="orbit__t">Webinars</span></li>
           </ul>
         </div>
 
         <div class="orbit__ring orbit__ring--out">
-          <p class="orbit__k orbit__k--out">Known out there</p>
+          <svg class="orbit__arc" viewBox="0 0 1000 1000"><path id="orbit-arc-out" d="M52.9 421.2A454 454 0 0 1 947.1 421.2"/><text><textPath href="#orbit-arc-out" startOffset="50%" text-anchor="middle">Who should know you</textPath></text></svg>
           <ul class="orbit__items">
-            <li class="orbit__item orbit__item--top" style="--x:50%;--y:11.8%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="7.4" r="3.6"/><path d="M4 21v-1.6A4.2 4.2 0 0 1 8.2 15.2h5.6a4.2 4.2 0 0 1 4.2 4.2V21"/><circle class="orbit__dot" cx="19.4" cy="4.6" r="2.2"/></svg></span><span class="orbit__t">Clients who<br>need you</span></li>
-            <li class="orbit__item" style="--x:9.5%;--y:50%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="4.8" cy="9" r="2.3"/><path d="M6.4 14.4H5.2A3.4 3.4 0 0 0 1.8 17.8V20"/><circle cx="19.2" cy="9" r="2.3"/><path d="M17.6 14.4h1.2a3.4 3.4 0 0 1 3.4 3.4V20"/><circle cx="12" cy="7.2" r="3"/><path d="M6.8 20.5v-1.3a4.2 4.2 0 0 1 4.2-4.2h2a4.2 4.2 0 0 1 4.2 4.2v1.3"/></svg></span><span class="orbit__t">New<br>audiences</span></li>
-            <li class="orbit__item" style="--x:90.5%;--y:50%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><span class="orbit__t">Strategic<br>partners</span></li>
-            <li class="orbit__item" style="--x:50%;--y:88.2%"><span class="orbit__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.8"/><path d="M15.4 15.4 21 21"/><circle cx="10.5" cy="8.9" r="1.8"/><path d="M7.7 13.6c.6-1.3 1.6-2 2.8-2s2.2.7 2.8 2"/></svg></span><span class="orbit__t">Hosts seeking<br>experts</span></li>
+            <li class="orbit__item orbit__item--l"><span class="orbit__ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="7.4" r="3.6"/><path d="M4 21v-1.6A4.2 4.2 0 0 1 8.2 15.2h5.6a4.2 4.2 0 0 1 4.2 4.2V21"/><circle class="orbit__dot" cx="19.4" cy="4.6" r="2.2"/></svg></span><span class="orbit__t">New<br>clients</span></li>
+            <li class="orbit__item orbit__item--r"><span class="orbit__ico"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.8"/><path d="M15.4 15.4 21 21"/><circle cx="10.5" cy="8.9" r="1.8"/><path d="M7.7 13.6c.6-1.3 1.6-2 2.8-2s2.2.7 2.8 2"/></svg></span><span class="orbit__t">Event<br>hosts</span></li>
+            <li class="orbit__item orbit__item--b"><span class="orbit__ico"><svg viewBox="0 0 24 24"><circle cx="4.8" cy="9" r="2.3"/><path d="M6.4 14.4H5.2A3.4 3.4 0 0 0 1.8 17.8V20"/><circle cx="19.2" cy="9" r="2.3"/><path d="M17.6 14.4h1.2a3.4 3.4 0 0 1 3.4 3.4V20"/><circle cx="12" cy="7.2" r="3"/><path d="M6.8 20.5v-1.3a4.2 4.2 0 0 1 4.2-4.2h2a4.2 4.2 0 0 1 4.2 4.2v1.3"/></svg></span><span class="orbit__t">Audiences</span></li>
           </ul>
         </div>
-      </div>
-
-      <!-- Phones: the rings keep their icons and the names come down here. -->
-      <div class="orbit__key" aria-hidden="true">
-        <p><b>Distribution</b><span>Panels</span> · <span>Podcasts</span> · <span>Interviews</span> · <span>Webinars</span></p>
-        <p><b>Known out there</b><span>Clients who need you</span> · <span>Hosts seeking experts</span> · <span>New audiences</span> · <span>Strategic partners</span></p>
       </div>
 
       <figcaption class="orbit__tag">Your expertise already exists.<br><span>We expand who gets to see it.</span></figcaption>
