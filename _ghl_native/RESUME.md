@@ -173,3 +173,28 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
   - Save the token as one line in `E:/_shared/secrets/oyss_ghl_pit.txt`, then run `python _relay/deploy.py`. Until then the relay answers 503 not_configured and the cron exits.
 - Tests: `scratchpad/relay_local_test.py [url]` 14/14 local + live (dry). `scratchpad/sim_signed.py` 11/11: signed-copy view, the relay payload is the same bytes as the download.
 - After the token: one live signing per agreement with events+oyss-test@ownyourstagestudio.com, the $47 test payment, then delete the TEST contacts.
+
+## 29 Sep 2026 (00:00-01:00 IST): tracking code LIVE, read-only live check
+- Body tracking code saved twice, both verified after a reload by SHA-256:
+  - a995101: 227,038 chars LF. Mobile fixes, the signed-copy header, and the relay hook `window.OYSS_DOCS`.
+  - then **ee64e46: 227,165 chars LF**. pdfName now uses the signer's local day. It used the UTC day, so a Florida signing after 8 PM got the next day's date in the filename.
+  - The GHL page blocks (`_ghl_native/pages/`) did not change, so no page pastes were needed.
+- **Hidden-tab save method (works; Harsh's tab stays in front):**
+  1. Open website Settings: `app.gohighlevel.com/v2/location/O1kebSJ9ZQAQPoaSv8lb/funnels-websites/websites/VxpsSqlLRJqrRH4qAFE0/settings`.
+  2. Poll until the Name input AND the Body textarea are filled (~10-20 s). Never write earlier.
+  3. `fetch` raw.githubusercontent at the commit SHA, CRLF->LF, and compare the SHA-256 with `git show <sha>:_ghl_native/site_tracking_body.html`.
+  4. Set the value with the native setter + focus + `InputEvent('input', {inputType: 'insertFromPaste'})` + change + blur.
+  5. Hook `XMLHttpRequest.send` and click Save **from script** (pointer/mouse events + `.click()`).
+  6. Expect POST `backend.leadconnectorhq.com/funnels/funnel/update-settings` -> 201, with the body containing your marker.
+  7. Reload and re-hash.
+  - In a hidden tab the extension's ref click on Save sends NOTHING (no request, no error).
+- `python _build/live_check_readonly.py [pages] [exit] [sign]`: live check that creates NO contacts and sends NO email.
+  - It intercepts the webhook + relay, then posts the captured relay payload to the live relay in dry mode (test key).
+  - 29 Sep result: pages 45/45 (1366/390/360), exit pop-up 3/3 (mouse leave + phone flick), signing + signed copy + relay dry 20/20.
+  - Output goes to `_build/livecheck/` (gitignored).
+- Relay (`deploy.py --check`): endpoint up, `configured: false`.
+- **Still blocked:**
+  1. RCT's GHL user is not an admin. Harsh, 29 Sep: "we need to get access to the full settings from annettes first".
+     - The Private Integrations page opens, but do not try to create one until Annette grants full access.
+     - Then: token -> `E:/_shared/secrets/oyss_ghl_pit.txt` -> `python _relay/deploy.py`.
+  2. Then the $47 payment test. It needs a real card, so Harsh or Annette pays and refunds in GHL; I verify the workflows + receipt.
