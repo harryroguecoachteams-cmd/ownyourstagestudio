@@ -16,7 +16,7 @@
      All CSS is scoped under .oyss, so nothing here can leak into
      the builder chrome or the rest of the funnel.
      ========================================================== -->
-<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=998e445c">
+<link rel="stylesheet" href="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.css?v=989d7f4c">
 <div class="oyss oyss--bleed">
 
 <!-- ---------- masthead ---------- -->
@@ -109,7 +109,7 @@
      offset column of running prose, because a page where every
      section is built from the same kit reads as machine made
      however good each section is. -->
-<section class="essay essay--faced">
+<section class="essay essay--faced essay--reach">
   <div class="essay__inner">
     <div class="essay__body" data-lit>
       <p class="essay__open">Most experts are not short of expertise.</p>
@@ -130,13 +130,58 @@
          work, so the picture is that person, ready: eyes to camera,
          a settled smile, the light behind her rather than on her
          like an interrogation. -->
-    <!-- Feedback 11 follow-up: the headshot "is not giving that vibe,
-         something feels missing". A headshot shows a person, not the
-         paragraph. This shows the paragraph: the expert at her best, in
-         the small room that already knows how good she is. -->
-    <figure class="essay__portrait" data-lit data-cue="2">
-      <img src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/media/essay-circle.jpg" width="1000" height="1000"
-           alt="An accomplished consultant in her fifties leading a small strategy session, four business owners around the table leaning in to listen.">
+    <!-- Feedback 11 follow-up. Harsh sent a ChatGPT mock of two circles and
+         a gap and asked for it better and truer to the words. Built as live
+         markup, not a picture: it scales, it stays sharp, and the argument
+         moves. Light spreads from "You" and stops dead at the edge of the
+         circle; the gap is where it stops. The right side is the paragraph's
+         "almost nobody has heard of them": people, not formats (the formats
+         are the catalogue further down this page, and nothing here is
+         something the studio does not do). Section 64 of oyss.css. -->
+    <figure class="reach" data-lit data-cue="2">
+      <div class="reach__stage">
+        <div class="reach__side reach__side--in">
+          <div class="reach__disc">
+            <span class="reach__pulse" aria-hidden="true"></span>
+            <span class="reach__pulse" aria-hidden="true"></span>
+            <span class="reach__pulse" aria-hidden="true"></span>
+            <div class="reach__body">
+              <p class="reach__k">Inside your circle</p>
+              <span class="reach__you">You</span>
+              <ul class="reach__list">
+                <li>Client results</li>
+                <li>Referrals</li>
+                <li>A reputation</li>
+                <li>A full calendar</li>
+              </ul>
+            </div>
+          </div>
+          <p class="reach__job">Good at the work</p>
+        </div>
+
+        <div class="reach__gap" aria-hidden="true"><span class="reach__line"></span></div>
+        <p class="reach__gapk">The distribution gap</p>
+
+        <div class="reach__side reach__side--out">
+          <div class="reach__disc">
+            <div class="reach__body">
+              <p class="reach__k">Outside it</p>
+              <p class="reach__sub">Almost nobody has heard of you</p>
+              <ul class="reach__who">
+                <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4"/></svg></span>Clients who need you</li>
+                <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></span>Hosts looking for experts</li>
+                <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.6"/><circle cx="16" cy="9" r="2.6"/><path d="M3 19c.8-2.8 2.8-4.2 5-4.2s4.2 1.4 5 4.2M11 19c.8-2.8 2.8-4.2 5-4.2s4.2 1.4 5 4.2"/></svg></span>Audiences who would listen</li>
+                <li><span class="reach__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg></span>Partners you have not met</li>
+              </ul>
+            </div>
+          </div>
+          <p class="reach__job">Known for the work</p>
+        </div>
+      </div>
+      <figcaption class="reach__sr">Inside your circle: you, with client results, referrals, a reputation and a
+        full calendar. Outside it, where almost nobody has heard of you: clients who need what you, hosts
+        looking for experts, audiences who would listen, and partners you have not met. Between them, the
+        distribution gap. Being good at the work and being known for the work are two different jobs.</figcaption>
     </figure>
   </div>
 </section>
@@ -709,5 +754,5 @@
 </footer>
 
 </div>
-<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=998e445c"></script>
+<script src="https://harryroguecoachteams-cmd.github.io/ownyourstagestudio/assets/oyss.js?v=989d7f4c"></script>
 

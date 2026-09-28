@@ -6844,3 +6844,162 @@
 }
 .oyss .signedcopy__t { margin-top: .3rem; color: var(--navy); font-size: 1rem; }
 .oyss .signblock .btn--ghost.signed-pdf:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }
+
+/* ============================================================
+   64. THE REACH  (feedback 11 follow-up, 28 Sep 2026)
+   The home essay's argument drawn as two circles and a gap.
+   The circle you already have is LIT; the market outside it
+   sits unlit. Light spreads from "You" and stops at the edge
+   of the circle, and the gap is where it stops. Wide: side by
+   side. Narrow (the figure's own width, not the screen's):
+   stacked, the gap turned horizontal.
+   ============================================================ */
+.oyss .essay--reach .essay__inner { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; }
+@media (max-width: 900px) { .oyss .essay--reach .essay__inner { grid-template-columns: 1fr; } }
+
+.oyss .reach { grid-column: 2; margin: 0; container-type: inline-size; }
+@media (max-width: 900px) { .oyss .reach { grid-column: 1; margin-top: 2.6rem; } }
+.oyss .reach__sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.oyss .reach__stage { position: relative; aspect-ratio: 100 / 80; }
+
+.oyss .reach__side { position: absolute; display: flex; flex-direction: column; align-items: center; }
+.oyss .reach__side--in  { left: 0;  top: 12%; width: 45%; }
+.oyss .reach__side--out { right: 0; top: 5%;  width: 59%; }
+.oyss .reach__disc {
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  overflow: hidden;
+}
+/* the lit circle */
+.oyss .reach__side--in .reach__disc {
+  background: radial-gradient(circle at 50% 44%, #FFFFFF 0%, #FDF4F2 42%, #F8DEDA 100%);
+  box-shadow: 0 0 0 1px rgba(185, 28, 28, .28), 0 18px 60px -18px rgba(224, 90, 90, .55);
+}
+.oyss .reach__side--in { z-index: 2; }
+/* the unlit market */
+.oyss .reach__side--out .reach__disc {
+  background: radial-gradient(circle at 62% 40%, #F7F4F1 0%, #EEE9E5 70%, #E7E1DC 100%);
+  box-shadow: 0 0 0 1px rgba(31, 30, 29, .12), inset 0 0 50px rgba(31, 30, 29, .05);
+}
+.oyss .reach__body { position: relative; z-index: 2; width: 74%; }
+.oyss .reach__side--out .reach__body { width: 72%; padding-left: 6%; }
+
+.oyss .reach__k {
+  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .16em; font-size: clamp(10px, 2.35cqw, 13px); line-height: 1.35; color: var(--navy);
+}
+.oyss .reach__sub {
+  margin-top: .35em; font-size: clamp(11px, 2.5cqw, 14px); line-height: 1.35;
+  font-style: italic; color: var(--slate);
+}
+.oyss .reach__you {
+  display: grid; place-items: center; margin: .75em auto;
+  width: 30%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #D23A3A, #B91C1C 60%, #8E1515);
+  color: #fff; font-family: var(--serif); font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; font-size: clamp(10px, 2.4cqw, 13px);
+  box-shadow: 0 0 0 6px rgba(224, 90, 90, .16), 0 0 26px rgba(224, 90, 90, .55);
+}
+.oyss .reach__list, .oyss .reach__who { list-style: none; margin: 0; padding: 0; }
+.oyss .reach__list li {
+  font-size: clamp(11px, 2.5cqw, 14px); line-height: 1.5; color: #4F4744;
+}
+.oyss .reach__who { margin-top: 1em; text-align: left; display: grid; gap: .7em; }
+.oyss .reach__who li {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .7em;
+  font-size: clamp(11px, 2.45cqw, 14px); line-height: 1.3; color: #4F4744;
+}
+.oyss .reach__ico {
+  display: grid; place-items: center;
+  width: clamp(26px, 6.4cqw, 36px); aspect-ratio: 1; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 1px rgba(31, 30, 29, .10);
+}
+.oyss .reach__ico svg {
+  width: 56%; height: 56%; fill: none; stroke: #8A817C; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.oyss .reach__job {
+  margin-top: .9em; font-family: var(--serif); font-weight: 600;
+  font-size: clamp(11px, 2.4cqw, 13.5px); letter-spacing: .02em; color: var(--navy);
+}
+.oyss .reach__side--out .reach__job { color: var(--slate); }
+
+/* the gap */
+.oyss .reach__gap {
+  position: absolute; left: 43.2%; top: 11%; bottom: 13%; width: 0; z-index: 3;
+}
+.oyss .reach__line {
+  position: absolute; top: 0; bottom: 0; left: -1px; width: 2px;
+  background: repeating-linear-gradient(180deg, #B91C1C 0 7px, transparent 7px 13px);
+  filter: drop-shadow(0 0 6px rgba(224, 90, 90, .7));
+  transform-origin: top; transform: scaleY(1);
+}
+.oyss .reach__gapk {
+  position: absolute; left: 43.2%; top: 0; transform: translateX(-50%);
+  width: max-content; max-width: 40%; text-align: center;
+  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .16em; font-size: clamp(10px, 2.3cqw, 13px); line-height: 1.3;
+  color: var(--crimson);
+}
+
+/* the light that stops at the edge */
+.oyss .reach__pulse {
+  position: absolute; left: 50%; top: 50%; width: 100%; aspect-ratio: 1;
+  border-radius: 50%; pointer-events: none; z-index: 1;
+  border: 1.5px solid rgba(185, 28, 28, .5);
+  background: radial-gradient(circle, rgba(224, 90, 90, 0) 55%, rgba(224, 90, 90, .10) 70%, rgba(224, 90, 90, 0) 71%);
+  transform: translate(-50%, -50%) scale(.2); opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .oyss .reach.lit .reach__pulse { animation: reach-pulse 3.6s cubic-bezier(.2, .6, .35, 1) infinite; }
+  .oyss .reach.lit .reach__pulse:nth-of-type(2) { animation-delay: 1.2s; }
+  .oyss .reach.lit .reach__pulse:nth-of-type(3) { animation-delay: 2.4s; }
+  .oyss .reach .reach__line { transform: scaleY(0); transition: transform 1100ms var(--fade-up) 500ms; }
+  .oyss .reach.lit .reach__line { transform: scaleY(1); animation: reach-gap 1.2s ease-in-out 1.6s infinite; }
+  .oyss .reach .reach__who li { opacity: 0; transition: opacity 700ms var(--fade-up); }
+  .oyss .reach.lit .reach__who li { opacity: 1; }
+  .oyss .reach.lit .reach__who li:nth-child(1) { transition-delay: 900ms; }
+  .oyss .reach.lit .reach__who li:nth-child(2) { transition-delay: 1050ms; }
+  .oyss .reach.lit .reach__who li:nth-child(3) { transition-delay: 1200ms; }
+  .oyss .reach.lit .reach__who li:nth-child(4) { transition-delay: 1350ms; }
+}
+@keyframes reach-pulse {
+  0%   { transform: translate(-50%, -50%) scale(.22); opacity: 0; }
+  12%  { opacity: .95; }
+  78%  { opacity: .55; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+/* the edge answers each pulse as it arrives */
+@keyframes reach-gap {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(224, 90, 90, .45)); }
+  60%      { filter: drop-shadow(0 0 12px rgba(224, 90, 90, .95)); }
+}
+
+/* Narrow figure: stack. The gap turns horizontal. */
+@container (max-width: 440px) {
+  .oyss .reach__stage { aspect-ratio: auto; display: flex; flex-direction: column; align-items: center; }
+  .oyss .reach__side { position: relative; left: auto; right: auto; top: auto; }
+  .oyss .reach__side--in  { width: 76%; }
+  .oyss .reach__side--out { width: 94%; margin-top: 6px; }
+  .oyss .reach__gap { position: relative; left: auto; top: auto; bottom: auto; width: 64%; height: 2px; margin-top: 22px; }
+  .oyss .reach__line {
+    top: -1px; bottom: auto; left: 0; width: 100%; height: 2px;
+    background: repeating-linear-gradient(90deg, #B91C1C 0 7px, transparent 7px 13px);
+    transform-origin: left;
+  }
+  .oyss .reach .reach__line { transform: scaleX(0); }
+  .oyss .reach.lit .reach__line { transform: scaleX(1); }
+  .oyss .reach__gapk { position: relative; left: auto; transform: none; max-width: none; margin-top: 10px; }
+  .oyss .reach__k, .oyss .reach__gapk { font-size: 12px; }
+  .oyss .reach__you, .oyss .reach__job { font-size: 12.5px; }
+  .oyss .reach__list li, .oyss .reach__who li, .oyss .reach__sub { font-size: 14px; }
+  .oyss .reach__ico { width: 32px; }
+  .oyss .reach__side--out .reach__body { width: 70%; padding-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oyss .reach__pulse { display: none; }
+}
