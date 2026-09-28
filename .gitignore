@@ -8,3 +8,5 @@ _build/live/
 _build/sim/
 _build/sec/
 _build/payloads.json
+_build/livetest_*/
+_build/usertest/
