@@ -7068,7 +7068,10 @@
    every six seconds, one bar at a time, like a follow spot
    crossing the stage. Reduced motion keeps the plain bars.
    ============================================================ */
-.oyss .shift { border-top: 0; position: relative; padding-top: calc(1.4rem + 3px); }
+/* overflow hidden: the passing light travels past the bar's right end
+   and, on a phone where the bars are full width, pushed the page 20px
+   wider than the screen (28 Sep 2026) */
+.oyss .shift { border-top: 0; position: relative; padding-top: calc(1.4rem + 3px); overflow: hidden; }
 .oyss .shift::before, .oyss .shift::after {
   content: ''; position: absolute; top: 0; left: 0; height: 3px; pointer-events: none;
 }
@@ -7139,4 +7142,50 @@
 .oyss .exit__ask[hidden], .oyss .exit__done[hidden] { display: none; }
 @media (max-width: 520px) {
   .oyss .exit__form { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   67. THE BAR FITS THE PHONE  (28 Sep 2026)
+   Harsh: "on mobile there is spacing and right side issue". The
+   phone bar's button kept "Book a Stop Hiding Strategy Call" on
+   one line, 416px of button in a 350px column, so the bar and the
+   whole page grew to 455px and the page scrolled sideways once the
+   bar came in. Phones now get the short label, and nothing in the
+   bar may be wider than the screen whatever the label.
+   ============================================================ */
+.oyss .prompt { max-width: 100vw; box-sizing: border-box; overflow: hidden; }
+.oyss .prompt__inner { box-sizing: border-box; max-width: min(var(--wrap), 100%); }
+.oyss .prompt__cta-s { display: none; }
+@media (max-width: 760px) {
+  .oyss .prompt__cta-l { display: none; }
+  .oyss .prompt__cta-s { display: inline; }
+  .oyss .prompt .btn {
+    box-sizing: border-box; max-width: 100%; min-width: 0;
+    white-space: normal; text-align: center; letter-spacing: .1em;
+  }
+}
+
+/* The exit pop-up on phones (28 Sep 2026): it sat UNDER the sticky
+   masthead (z 80 against 90), so the top of the card and its close
+   button were covered, and on a short phone the card was taller than
+   the screen with nothing to scroll. Now it is above everything, it
+   centres when it fits and scrolls when it does not (auto margins in a
+   flex overlay, the safe way to centre), and it is more compact. */
+.oyss .exit {
+  z-index: 120;
+  display: flex;
+  overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+}
+.oyss .exit__card { margin: auto; }
+@media (max-width: 520px) {
+  .oyss .exit { padding: 12px; }
+  .oyss .exit__card { padding: 26px 22px 22px; }
+  .oyss .exit__eyebrow { margin-bottom: .6rem; }
+  .oyss .exit__t { font-size: 1.5rem; }
+  .oyss .exit__p { margin-top: .8rem; font-size: 1rem; line-height: 1.55; }
+  .oyss .exit__form { margin-top: 1.1rem; gap: .7rem; }
+  .oyss .exit__field input { min-height: 46px; }
+  .oyss .exit__fine { margin-top: .8rem; }
+  .oyss .exit__ask .exit__actions { margin-top: 1rem; gap: .4rem 1.4rem; }
+  .oyss .exit__x { top: 2px; right: 2px; }
 }

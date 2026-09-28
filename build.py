@@ -418,14 +418,14 @@ PROMPTS = {
   after: '#formats',
   barTitle: 'Talk to us about your stage.',
   barMeta: 'Thirty minutes on Zoom, complimentary.',
-  barCta: 'Book a Stop Hiding Strategy Call', barHref: 'contact.html',
+  barCta: 'Book a Stop Hiding Strategy Call', barCtaShort: 'Book a strategy call', barHref: 'contact.html',
   exitHref: 'assessment.html', privacyHref: 'privacy.html'
 });</script>""",
     "guide": """<script>OYSS.prompts({
   after: '.flood, .figure__value, .bay--half',
   barTitle: 'Find out how visible your authority is first.',
   barMeta: 'Twelve questions, about five minutes, no email required.',
-  barCta: 'Take the assessment', barHref: 'assessment.html',
+  barCta: 'Take the assessment', barCtaShort: 'Take the assessment', barHref: 'assessment.html',
   exitTitle: 'One question before you go.',
   exitBody: 'How visible is your authority today? Twelve questions across six pillars, about five minutes. Take it now, or leave your email and we will send you the link for later.',
   exitHref: 'assessment.html', privacyHref: 'privacy.html'

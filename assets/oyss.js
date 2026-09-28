@@ -1787,7 +1787,13 @@
             '<span class="prompt__t">' + (cfg.barTitle || 'Ready to host your own panel?') + '</span>' +
             '<span class="prompt__m">' + (cfg.barMeta || 'Eight minutes to apply. No payment at this step.') + '</span>' +
           '</span>' +
-          '<a class="btn btn--primary" href="' + (cfg.barHref || 'apply.html') + '">' + (cfg.barCta || 'Apply to host') + '</a>' +
+          /* two labels: the full one, and a short one for phones, where the
+             full label on one line pushed the bar (and the page) wider than
+             the screen (28 Sep 2026) */
+          '<a class="btn btn--primary" href="' + (cfg.barHref || 'apply.html') + '">' +
+            '<span class="prompt__cta-l">' + (cfg.barCta || 'Apply to host') + '</span>' +
+            '<span class="prompt__cta-s">' + (cfg.barCtaShort || cfg.barCta || 'Apply to host') + '</span>' +
+          '</a>' +
           '<button class="prompt__x" type="button" aria-label="Dismiss">&times;</button>' +
         '</div>';
       root.appendChild(bar);
