@@ -7189,3 +7189,7 @@
   .oyss .exit__ask .exit__actions { margin-top: 1rem; gap: .4rem 1.4rem; }
   .oyss .exit__x { top: 2px; right: 2px; }
 }
+
+/* The signed copy, opened from the email link: the header carries it. */
+.oyss .signedhero { margin-top: 1.8rem; }
+.oyss .stage .signedhero .cue { color: var(--ivory); }

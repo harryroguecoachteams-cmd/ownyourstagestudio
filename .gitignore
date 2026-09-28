@@ -10,3 +10,8 @@ _build/sec/
 _build/payloads.json
 _build/livetest_*/
 _build/usertest/
+
+# relay secrets and state (never in the repo)
+_relay/state/
+_relay/test_key.txt
+_relay/ghl_pit.txt

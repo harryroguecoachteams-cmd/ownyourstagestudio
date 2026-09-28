@@ -1068,11 +1068,12 @@
     return 'Signed - ' + rec.agreement + ' - ' + who + ' - ' + String(rec.signedAt).slice(0, 10) + '.pdf';
   }
 
-  function savePdf(rec, btn) {
+  function savePdf(rec, btn, after) {
     var label = btn && btn.textContent;
     if (btn) { btn.disabled = true; btn.textContent = 'Preparing your PDF'; }
     return buildPdf(rec).then(function (doc) {
       doc.save(pdfName(rec));
+      if (after) { try { after(doc); } catch (_) {} }
     }).catch(function () {
       /* The library could not load (offline, a blocker). The browser's
          own print to PDF still produces the signed page. */
@@ -1080,6 +1081,34 @@
     }).then(function () {
       if (btn) { btn.disabled = false; btn.textContent = label; }
     });
+  }
+
+  /* The studio's copy (28 Sep 2026). Harsh: "add a automation to send the
+     signed agreement ... to the person email". The same PDF the signer has
+     just saved goes to the records relay, which files it in Annette's GHL
+     (Media Storage > Signed agreements, and on the contact) and emails it
+     to the signer from events@ with Annette in Bcc. Fire and forget: the
+     signer's own copy is already saved, and the workflow's confirmation
+     email goes out either way. One retry if the network drops. */
+  function fileCopy(doc, rec, record) {
+    var url = window.OYSS.docsEndpoint && window.OYSS.docsEndpoint();
+    if (!url || !record.email) return;
+    var b64 = String(doc.output('datauristring')).split(',')[1] || '';
+    if (!b64 || b64.length > 6000000) return;
+    var body = JSON.stringify({
+      agreement: rec.agreement, email: record.email, first_name: record.first_name || '',
+      last_name: record.last_name || '', legal_name: rec.fields.legal_name || '',
+      business_name: rec.fields.business_name || '', signedAt: rec.signedAt,
+      signedAtDisplay: rec.signedAtDisplay, signature_method: record.signature_method || '',
+      agreement_version: record.agreement_version || '', signed_copy_url: record.signed_copy_url || '',
+      filename: pdfName(rec), pdf: b64
+    });
+    function post(retry) {
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body })
+        .then(function (r) { if (r.status >= 500 && r.status !== 503 && retry) setTimeout(function () { post(false); }, 4000); },
+              function () { if (retry) setTimeout(function () { post(false); }, 4000); });
+    }
+    post(true);
   }
 
   function ackTexts(form) {
@@ -1138,7 +1167,40 @@
     if (after) after.hidden = true;
     var gm = document.getElementById('gate-msg');
     if (gm) gm.remove();
-    /* and say so at the top, where the reader lands */
+    var who = (rec.fields.legal_name || '') + (rec.fields.business_name ? ', ' + rec.fields.business_name : '');
+    document.title = 'Signed copy | ' + rec.agreement;
+
+    /* Harsh, 28 Sep: "view and download ... is not working as expected, I
+       cannot see the agreement signed file". It worked, but the page opened
+       on the unsigned header ("Read it, then sign at the bottom of the
+       page") and the signed-copy box sat below the fold, so it looked like
+       the plain agreement. The header itself now says it is the signed
+       copy and carries the download, on any screen. */
+    var heroLead = document.querySelector('.oyss .stage .lead');
+    if (heroLead && !document.querySelector('.signedhero')) {
+      var eb = heroLead.parentNode.querySelector('.eyebrow');
+      if (eb) eb.textContent = 'Signed copy';
+      heroLead.textContent = 'Signed by ' + who + ' on ' + rec.signedAtDisplay + '. This is your signed copy of the agreement.';
+      if (rec.changed) {
+        heroLead.textContent += ' The wording on this page has changed since it was signed; the PDF you saved when you signed is the exact signed version.';
+      }
+      var acts = document.createElement('div');
+      acts.className = 'actions signedhero no-print';
+      acts.innerHTML = '<button type="button" class="btn btn--primary">Download the signed PDF</button>' +
+                       '<a class="cue" href="#signed-state">See the signature</a>';
+      heroLead.parentNode.insertBefore(acts, heroLead.nextSibling);
+      var hb = acts.querySelector('button');
+      hb.addEventListener('click', function () { savePdf(rec, hb); });
+      acts.querySelector('a').addEventListener('click', function (e) {
+        e.preventDefault();
+        var t = document.getElementById('signed-state');
+        if (t) t.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
+      });
+      var kick = document.querySelector('.docsheet .sheet__kicker');
+      if (kick) kick.textContent = 'Agreement \u00b7 signed copy';
+      return;
+    }
+    /* fallback: say so at the top of the document */
     var head = document.querySelector('.docsheet .sheet__head');
     if (head && !document.querySelector('.signedcopy')) {
       var bar = document.createElement('div');
@@ -1297,8 +1359,10 @@
           var done = document.getElementById('signed-state');
           if (done) done.scrollIntoView({ behavior: CALM ? 'auto' : 'smooth', block: 'center' });
           try { window.sessionStorage.setItem('oyss:' + agreement, JSON.stringify(record)); } catch (_) {}
-          /* their copy, straight away */
-          savePdf(signed, document.getElementById('download-signed'));
+          /* their copy, straight away, and the studio's */
+          savePdf(signed, document.getElementById('download-signed'), function (doc) {
+            fileCopy(doc, signed, record);
+          });
           if (typeof cfg.onSigned === 'function') cfg.onSigned(record);
         }
 
@@ -2380,6 +2444,7 @@
      from the browser: anything in page source is public.
      ========================================================== */
   window.OYSS.endpoint = function () { return window.OYSS_ENDPOINT || null; };
+  window.OYSS.docsEndpoint = function () { return window.OYSS_DOCS || null; };
 
   /* A short form: validate the required fields, collect everything,
      record both text message consents as an explicit yes or no, post

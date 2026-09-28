@@ -148,3 +148,28 @@ Order was deliberate: the workflow first, so the exit pop-up could never post be
    phone/business writes); 12 emails "sent" (6 to events@, 6 to the leads, all 6 read back in the RCT inbox);
    the tracked "View and download" link 302s to /panelist-agreement#signed=... (fragment kept) and the signed
    copy + PDF render on the live site. All 6 TEST contacts deleted afterwards.
+
+## Signed agreements + receipts relay (28 Sep 2026, evening). Built + deployed, WAITING FOR THE GHL TOKEN.
+Harsh: "add a automation to send the signed agreement and payment recipt to the person email when they done with it".
+Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
+- Public endpoint `https://roguecoachteams.com/relay/oyss-docs.php`. Private code + state in `/home/rogucmxm/oyss_private`, outside the web root.
+- Signing: the agreement page posts the PDF it just saved (`fileCopy` in oyss.js; `window.OYSS_DOCS` is set in the GHL tracking code only, never on the demo).
+  - The relay checks it: origin, the PDF's running foot names the agreement, the signing record holds the same email, and rate limits.
+  - Then, in Annette's GHL, via her token:
+    - upsert the contact
+    - upload the PDF to Media Storage > Signed agreements (6aba4580b5e520ac173482ac)
+    - set the contact field Signed Panelist Agreement (PDF) 3Q7VzuoEGmOPlUMRbeE9 or Signed Host Agreement (PDF) MtwZ8bIBvgKwg5lpjExo
+    - email the signer from events@ (Conversations API) with the PDF attached, Bcc events@
+    - add a note and the tag signed-agreement-sent
+  - If they paid first, the receipt goes along.
+- Receipts: cron `*/5 * * * * /usr/local/bin/php -q /home/rogucmxm/oyss_private/receipts.php` (cPanel linekey 3341189030).
+  - Every succeeded live payment after RECEIPTS_FROM gets a receipt PDF (`receipt_pdf`, own tiny PDF writer).
+  - The PDF goes to Media Storage > Payment receipts (6aba45817ef452865a1cf081) and to the field Payment Receipt (PDF) JM7IfUflED93E5R08NVH, with a note and the tag receipt-sent.
+  - It is emailed from events@ with Bcc events@. The first receipt for a line also attaches that line's signed agreement.
+- The workflow's own emails are unchanged. The relay's emails are the document deliveries: "Your signed ... (PDF)" and "Your receipt ...".
+- **BLOCKER:** Annette's GHL Private Integration token.
+  - Where: sub-account Settings > Private Integrations > Create new integration, named "Website documents".
+  - Scopes: contacts.readonly, contacts.write, medias.readonly, medias.write, conversations.readonly, conversations.write, conversations/message.readonly, conversations/message.write, payments/transactions.readonly.
+  - Save the token as one line in `E:/_shared/secrets/oyss_ghl_pit.txt`, then run `python _relay/deploy.py`. Until then the relay answers 503 not_configured and the cron exits.
+- Tests: `scratchpad/relay_local_test.py [url]` 14/14 local + live (dry). `scratchpad/sim_signed.py` 11/11: signed-copy view, the relay payload is the same bytes as the download.
+- After the token: one live signing per agreement with events+oyss-test@ownyourstagestudio.com, the $47 test payment, then delete the TEST contacts.
