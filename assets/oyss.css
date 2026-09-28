@@ -6846,184 +6846,193 @@
 .oyss .signblock .btn--ghost.signed-pdf:hover { background: var(--ivory); color: var(--navy); border-color: var(--ivory); }
 
 /* ============================================================
-   64. THE REACH  (feedback 11 follow-up and feedback 12, 28 Sep 2026)
-   The essay's argument as two circles and the gap between them.
-   Third pass. Feedback 12: "the text is not inside the circle",
-   "the dotted line is not clean", "the whole circle's design is
-   very childish", and "if all these icons can be in motion then
-   it will look awesome". So:
-     - your circle carries the only tint (it is the lit one); the
-       circle outside it is an empty hairline, unclaimed space
-     - no badges, no glows, no gradients: 1px lines, one red
-     - the gap is a fine line of round dots, named in its own row
-     - text is measured inside both circles at every width
-     - the icons move, one at a time, each saying what it means:
-         a client lifts and a notification lands
-         the host's mic sends out its signal
-         the audience nods, one after another
-         the partner link snaps together
-       then the whole thing rests. Nothing else moves.
-   Wide: side by side. Narrow (the FIGURE's width, not the
-   screen's): stacked, the gap a dotted rule between them.
+   64. THE ORBIT  (feedback 13, 28 Sep 2026)
+   Harsh's concentric image, "from known here to known out there",
+   rebuilt as markup: three circles, each with its own tint and its
+   own glow, no arrow, only the words that matter.
+     inner  Known here: You
+     ring   Distribution: what the studio produces
+     outer  Known out there: who that reaches
+   Motion, as he described it: the circles build outward from the
+   centre when the figure first lights; after that a glow travels
+   inner, then distribution, then outside, every 7 seconds, and each
+   ring's icons lift as it passes. That is the expansion.
+   Geometry (percent of the square stage): circles 30 / 62 / 100,
+   so the bands run 15-31 and 31-50 of the radius. Item positions
+   were checked so every item sits inside its band at every width.
+   Under 480px of figure width the item names move to a key under
+   the figure and the rings keep only their icons.
    ============================================================ */
-.oyss .essay--reach .essay__inner {
+.oyss .essay--orbit .essay__inner {
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   align-items: center;
 }
-/* Under 1200px the figure would be squeezed below ~520px beside the
-   text, so it goes under the text instead, at its full size. */
 @media (max-width: 1199px) {
-  .oyss .essay--reach .essay__inner { grid-template-columns: 1fr; }
+  .oyss .essay--orbit .essay__inner { grid-template-columns: 1fr; }
 }
-
-.oyss .reach {
+.oyss .orbit {
   grid-column: 2; margin: 0;
   width: 100%; max-width: 640px; justify-self: center;
   container-type: inline-size;
 }
 @media (max-width: 1199px) {
-  .oyss .reach { grid-column: 1; justify-self: start; margin-top: 3.2rem; }
-}
-.oyss .reach__sr {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  .oyss .orbit { grid-column: 1; justify-self: start; margin-top: 3.4rem; }
 }
 
-.oyss .reach__stage {
-  display: grid;
-  grid-template-columns: 40fr 6fr 54fr;
-  align-items: center;
-  padding-top: 30px;   /* the row the gap's name sits in */
+.oyss .orbit__stage { position: relative; aspect-ratio: 1; }
+
+/* the three circles */
+.oyss .orbit__disc { position: absolute; border-radius: 50%; }
+.oyss .orbit__disc--out { inset: 0; background: #F4F0EC; box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .10); }
+.oyss .orbit__disc--mid { left: 19%; top: 19%; width: 62%; height: 62%; background: #FBECEA; box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .18); }
+.oyss .orbit__disc--in  { left: 35%; top: 35%; width: 30%; height: 30%; background: #F8DFDB; box-shadow: inset 0 0 0 1.5px rgba(185, 28, 28, .85); }
+/* each circle's glow, a layer of its own so it can breathe */
+.oyss .orbit__disc::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  pointer-events: none; opacity: .4;
 }
-.oyss .reach__circle {
-  aspect-ratio: 1; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+.oyss .orbit__disc--in::after  { box-shadow: 0 0 22px 3px rgba(224, 90, 90, .60); }
+.oyss .orbit__disc--mid::after { box-shadow: 0 0 36px 5px rgba(224, 90, 90, .40); }
+.oyss .orbit__disc--out::after { box-shadow: 0 0 52px 6px rgba(224, 90, 90, .24); }
+
+/* the words */
+.oyss .orbit__ring { position: absolute; inset: 0; }
+.oyss .orbit__k {
+  position: absolute; left: 50%; transform: translate(-50%, -50%);
+  margin: 0; white-space: nowrap;
+  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+  font-size: 11px; font-size: clamp(9.5px, 2cqw, 12.5px);
+  letter-spacing: .18em; line-height: 1.2;
+}
+.oyss .orbit__k--in  { top: 42.3%; color: var(--crimson); }
+.oyss .orbit__k--mid { top: 23.4%; color: var(--crimson); }
+.oyss .orbit__k--out { top: 4.4%;  color: var(--navy); }
+
+.oyss .orbit__you {
+  position: absolute; left: 50%; top: 52.6%; transform: translate(-50%, -50%);
+  display: grid; place-items: center;
+  width: 46px; width: clamp(36px, 8.6cqw, 56px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--crimson); color: #fff;
+  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+  font-size: 11px; font-size: clamp(9.5px, 1.95cqw, 12.5px);
+  letter-spacing: .16em; text-indent: .16em;
+  box-shadow: 0 6px 16px -6px rgba(185, 28, 28, .6);
+}
+
+.oyss .orbit__items { list-style: none; margin: 0; padding: 0; }
+.oyss .orbit__item {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 5px; gap: clamp(3px, .9cqw, 7px);
   text-align: center;
 }
-.oyss .reach__circle--in  { background: #FBF3F2; box-shadow: inset 0 0 0 1px rgba(185, 28, 28, .26); }
-.oyss .reach__circle--out { background: transparent; box-shadow: inset 0 0 0 1px rgba(31, 30, 29, .16); }
-
-/* one label style: the two circle names and the gap */
-.oyss .reach__k, .oyss .reach__gapk {
-  margin: 0;
-  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
-  font-size: 11px; font-size: clamp(10px, 2cqw, 12px);
-  letter-spacing: .18em; line-height: 1.5;
-  color: var(--navy);
-}
-.oyss .reach__gapk { color: var(--crimson); white-space: nowrap; }
-
-.oyss .reach__you {
+.oyss .orbit__ico {
   display: grid; place-items: center;
-  width: 42px; width: clamp(38px, 7.6cqw, 48px); aspect-ratio: 1; border-radius: 50%;
-  margin: 10px 0 8px; margin: clamp(8px, 1.8cqw, 12px) 0 clamp(6px, 1.4cqw, 10px);
-  background: var(--white); box-shadow: inset 0 0 0 1.5px var(--crimson);
-  font-family: var(--serif); font-weight: 700; text-transform: uppercase;
-  font-size: 11px; font-size: clamp(10px, 1.9cqw, 12px);
-  letter-spacing: .16em; text-indent: .16em; color: var(--crimson);
+  width: 32px; width: clamp(28px, 6cqw, 38px); aspect-ratio: 1; border-radius: 50%;
+}
+.oyss .orbit__ring--mid .orbit__ico { background: rgba(185, 28, 28, .09); }
+.oyss .orbit__ring--out .orbit__ico { background: rgba(31, 30, 29, .06); }
+.oyss .orbit__ico svg {
+  width: 56%; height: 56%;
+  fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.oyss .orbit__ring--mid .orbit__ico svg { stroke: var(--crimson); }
+.oyss .orbit__ring--out .orbit__ico svg { stroke: #4F4744; }
+.oyss .orbit__ico .orbit__dot { fill: var(--crimson); stroke: none; }
+.oyss .orbit__t {
+  font-size: 12px; font-size: clamp(11px, 2.3cqw, 13.5px);
+  line-height: 1.25; color: #3E3835; white-space: nowrap;
 }
 
-.oyss .reach__list, .oyss .reach__who { list-style: none; margin: 0; padding: 0; }
-.oyss .reach__list li {
-  font-size: 13px; font-size: clamp(12px, 2.4cqw, 14.5px);
-  line-height: 1.5; color: #4F4744;
+.oyss .orbit__tag {
+  margin-top: 22px; margin-top: clamp(16px, 4cqw, 28px);
+  text-align: center;
+  font-family: var(--serif); font-weight: 600;
+  font-size: 17px; font-size: clamp(16px, 3.2cqw, 20px);
+  line-height: 1.4; color: var(--navy);
 }
-.oyss .reach__who {
-  display: grid; gap: 11px; gap: clamp(9px, 2cqw, 13px);
-  margin-top: 14px; margin-top: clamp(12px, 2.6cqw, 17px);
-  text-align: left;
-}
-.oyss .reach__who li {
-  display: flex; align-items: center; gap: 11px; gap: clamp(9px, 2cqw, 13px);
-  font-size: 13px; font-size: clamp(12px, 2.4cqw, 14.5px);
-  line-height: 1.3; color: #3E3835;
-}
+.oyss .orbit__tag span { color: var(--crimson); }
 
-/* the icons: fine line, one red, no badges */
-.oyss .ri {
-  flex: none; display: block; overflow: visible;
-  width: 20px; height: 20px; width: clamp(18px, 3.7cqw, 23px); height: clamp(18px, 3.7cqw, 23px);
-  fill: none; stroke: var(--crimson); stroke-width: 1.5;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-.oyss .ri .ri__ping { fill: var(--crimson); stroke: none; }
-.oyss .ri g, .oyss .ri path, .oyss .ri circle { transform-box: fill-box; transform-origin: 50% 50%; }
+.oyss .orbit__key { display: none; }
 
-/* the gap: a fine line of round dots, the full height of the diagram,
-   and its name centred above it in the stage's top row */
-.oyss .reach__gap { position: relative; align-self: stretch; }
-.oyss .reach__gap::after {
-  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 4px; margin-left: -2px;
-  background: radial-gradient(circle, var(--crimson) 0 .9px, transparent 1.25px) center top / 4px 7px repeat-y;
-}
-.oyss .reach__gapk {
-  position: absolute; left: 50%; bottom: calc(100% + 10px);
-  transform: translateX(-50%);
-}
-
-/* the motion: an 8 second round, one icon every 2 seconds, then rest */
+/* motion */
 @media (prefers-reduced-motion: no-preference) {
-  .oyss .reach.lit .ri__body       { animation: ri-lift   8s ease-in-out .8s infinite both; }
-  .oyss .reach.lit .ri__ping       { animation: ri-ping   8s ease-out    .8s infinite both; }
-  .oyss .reach.lit .ri__wave--1    { animation: ri-signal 8s ease-out   2.8s infinite both; }
-  .oyss .reach.lit .ri__wave--2    { animation: ri-signal 8s ease-out  3.05s infinite both; }
-  .oyss .reach.lit .ri__p--1       { animation: ri-nod    8s ease-in-out 4.8s infinite both; }
-  .oyss .reach.lit .ri__p--2       { animation: ri-nod    8s ease-in-out 5.0s infinite both; }
-  .oyss .reach.lit .ri__p--3       { animation: ri-nod    8s ease-in-out 5.2s infinite both; }
-  .oyss .reach.lit .ri__l--a       { animation: ri-link-a 8s cubic-bezier(.3, .7, .3, 1) 6.8s infinite both; }
-  .oyss .reach.lit .ri__l--b       { animation: ri-link-b 8s cubic-bezier(.3, .7, .3, 1) 6.8s infinite both; }
+  /* the build: outward from the centre, once */
+  .oyss .orbit .orbit__disc, .oyss .orbit .orbit__ring, .oyss .orbit .orbit__tag { opacity: 0; }
+  .oyss .orbit.lit .orbit__disc--in  { --from: .45; animation: orbit-grow  .9s cubic-bezier(.2, .7, .2, 1) .10s both, orbit-swell 7s ease-in-out 2.8s infinite; }
+  .oyss .orbit.lit .orbit__disc--mid { --from: .70; animation: orbit-grow 1.0s cubic-bezier(.2, .7, .2, 1) .55s both, orbit-swell 7s ease-in-out 3.6s infinite; }
+  .oyss .orbit.lit .orbit__disc--out { --from: .84; animation: orbit-grow 1.1s cubic-bezier(.2, .7, .2, 1) 1.0s both, orbit-swell 7s ease-in-out 4.4s infinite; }
+  .oyss .orbit.lit .orbit__ring--in  { animation: orbit-fade .6s ease-out .45s both; }
+  .oyss .orbit.lit .orbit__ring--mid { animation: orbit-fade .6s ease-out .95s both; }
+  .oyss .orbit.lit .orbit__ring--out { animation: orbit-fade .6s ease-out 1.45s both; }
+  .oyss .orbit.lit .orbit__tag       { animation: orbit-fade .7s ease-out 1.9s both; }
+
+  /* each circle flares as it arrives, then the glow travels outward on a loop */
+  .oyss .orbit.lit .orbit__disc--in::after  { animation: orbit-arrive 1.3s ease-out .10s both, orbit-glow 7s ease-in-out 2.8s infinite; }
+  .oyss .orbit.lit .orbit__disc--mid::after { animation: orbit-arrive 1.3s ease-out .55s both, orbit-glow 7s ease-in-out 3.6s infinite; }
+  .oyss .orbit.lit .orbit__disc--out::after { animation: orbit-arrive 1.3s ease-out 1.0s both, orbit-glow 7s ease-in-out 4.4s infinite; }
+
+  /* and each ring's icons lift as the glow passes through it */
+  .oyss .orbit.lit .orbit__you                   { animation: orbit-you  7s ease-in-out 2.8s infinite; }
+  .oyss .orbit.lit .orbit__ring--mid .orbit__ico { animation: orbit-lift 7s ease-in-out 3.6s infinite; }
+  .oyss .orbit.lit .orbit__ring--out .orbit__ico { animation: orbit-lift 7s ease-in-out 4.4s infinite; }
 }
-@keyframes ri-lift {
-  0%, 18%, 100% { transform: none; }
-  7%            { transform: translateY(-1.4px); }
+@keyframes orbit-grow {
+  from { opacity: 0; transform: scale(var(--from, .8)); }
+  to   { opacity: 1; transform: none; }
 }
-@keyframes ri-ping {
-  0%, 16%, 100% { transform: scale(1); }
-  3%            { transform: scale(0); }
-  9%            { transform: scale(1.35); }
-  13%           { transform: scale(.92); }
+@keyframes orbit-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-@keyframes ri-signal {
-  0%, 12%, 100% { opacity: 1; }
-  3%            { opacity: 0; }
+@keyframes orbit-arrive {
+  0%   { opacity: 0; }
+  45%  { opacity: 1; }
+  100% { opacity: .4; }
 }
-@keyframes ri-nod {
-  0%, 11%, 100% { transform: none; }
-  4%            { transform: translateY(-1.4px); }
-  8%            { transform: translateY(.3px); }
+@keyframes orbit-glow {
+  0%, 24%, 100% { opacity: .4; }
+  10%           { opacity: 1; }
 }
-@keyframes ri-link-a {
-  0%, 16%, 100% { transform: none; }
-  5%            { transform: translate(1.8px, -1.8px); }
-  12%           { transform: translate(-.25px, .25px); }
+/* the circle itself swells a touch as its glow passes: the expansion.
+   `scale`, not `transform`, so it composes with the build animation. */
+@keyframes orbit-swell {
+  0%, 24%, 100% { scale: 1; }
+  10%           { scale: 1.012; }
 }
-@keyframes ri-link-b {
-  0%, 16%, 100% { transform: none; }
-  5%            { transform: translate(-1.8px, 1.8px); }
-  12%           { transform: translate(.25px, -.25px); }
+@keyframes orbit-you {
+  0%, 24%, 100% { scale: 1; }
+  10%           { scale: 1.08; }
+}
+@keyframes orbit-lift {
+  0%, 24%, 100% { transform: none; }
+  10%           { transform: translateY(-2px) scale(1.07); }
 }
 
-/* Narrow figure: stacked, the gap a dotted rule with its name in the middle. */
-@container (max-width: 459px) {
-  .oyss .reach__stage { grid-template-columns: 1fr; justify-items: center; padding-top: 0; }
-  .oyss .reach__circle--in  { width: 72%; max-width: 260px; }
-  .oyss .reach__circle--out { width: 92%; max-width: 320px; }
-  .oyss .reach__gap {
-    align-self: auto; width: 100%;
-    display: flex; align-items: center; gap: 12px;
-    margin: 22px 0;
+/* Narrow figure: icons stay in the rings, their names come down to a key. */
+@container (max-width: 479px) {
+  .oyss .orbit__t {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
   }
-  .oyss .reach__gap::before, .oyss .reach__gap::after {
-    content: ''; position: static; flex: 1;
-    width: auto; height: 4px; margin: 0;
-    background: radial-gradient(circle, var(--crimson) 0 .9px, transparent 1.25px) left center / 7px 4px repeat-x;
+  .oyss .orbit__ico { width: 30px; }
+  /* smaller rings: the names tighten and each moves to where its band is
+     widest, so no letter touches a circle line (measured at 324-460px) */
+  .oyss .orbit__k { font-size: 9px; letter-spacing: .1em; }
+  .oyss .orbit__k--in  { top: 43.6%; }
+  .oyss .orbit__k--mid { top: 25.4%; }
+  .oyss .orbit__k--out { top: 6%; }
+  .oyss .orbit__you { top: 53.6%; width: 38px; font-size: 9.5px; }
+  .oyss .orbit__item--top { --y: 13.3% !important; }
+  .oyss .orbit__key { display: block; margin-top: 20px; text-align: center; }
+  .oyss .orbit__key p { margin: 0; font-size: 14px; line-height: 1.55; color: #4F4744; }
+  .oyss .orbit__key p + p { margin-top: 12px; }
+  .oyss .orbit__key b {
+    display: block; margin-bottom: 3px;
+    font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+    font-size: 10.5px; letter-spacing: .18em; color: var(--crimson);
   }
-  .oyss .reach__gapk { position: static; transform: none; }
-  .oyss .reach__k, .oyss .reach__gapk { font-size: 11px; }
-  .oyss .reach__you { width: 42px; margin: 12px 0 10px; font-size: 11px; }
-  .oyss .reach__list li, .oyss .reach__who li { font-size: 14px; }
-  .oyss .reach__who { gap: 12px; margin-top: 16px; }
-  .oyss .reach__who li { gap: 12px; }
-  .oyss .ri { width: 21px; height: 21px; }
+  .oyss .orbit__key p + p b { color: var(--navy); }
+  .oyss .orbit__key span { white-space: nowrap; }
+  .oyss .orbit__tag { margin-top: 18px; }
 }
