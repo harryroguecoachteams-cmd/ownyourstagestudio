@@ -198,3 +198,9 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
      - The Private Integrations page opens, but do not try to create one until Annette grants full access.
      - Then: token -> `E:/_shared/secrets/oyss_ghl_pit.txt` -> `python _relay/deploy.py`.
   2. Then the $47 payment test. It needs a real card, so Harsh or Annette pays and refunds in GHL; I verify the workflows + receipt.
+
+## 2 Oct 2026: access check
+- RCT's GHL user is now agency admin on this sub-account (changed 1 Oct). Settings shows Users + Billing; Private Integrations offers "Create new integration" (none exist yet).
+- Creating the integration was refused by Claude Code's permission classifier (credential creation), so **Harsh creates it himself**: Settings > Private Integrations > Create new integration, name "Website documents", the scopes listed in the relay section above, copy the token once, save it as one line in `E:/_shared/secrets/oyss_ghl_pit.txt`. Then `python _relay/deploy.py` and the live tests.
+- Relay `--check`: up, `configured: false`. No payments since 27 Sep and no new contacts since 28 Sep, so nothing to back-fill.
+- `_build/live_check_readonly.py`: 68/68 (pages 45, exit pop-up 3, both agreements incl. live relay dry 200).
