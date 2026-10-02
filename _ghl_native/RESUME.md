@@ -246,3 +246,13 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
   - payment links: $47 / $2,997 / $1,550 x 2 (`totalCycles: 2`)
   - services anchors, calendar slots
 - Noted for Harsh: ownthestagestudio.com auto-renew is OFF (expires 22 Jul 2027). Domain card still says "Set Default Page", which the `/` redirect covers.
+- Body code 0e0f907 (227,999 chars LF, SHA-256 24c85b20...): `build_ghl.py` now writes a tiny script at the top that preloads the current page's hero image.
+  - LIVE on all 15 pages.
+  - Result: the hero image now loads in ~30 ms, but mobile LCP did NOT move. The bottleneck is first paint (FCP 5.5-6.2 s under Lighthouse's slow-4G + 4x CPU): GHL's own JS plus our 228 KB inline bundle.
+  - Lighthouse: mobile performance 31-37, desktop 69 (LCP 2.0 s); accessibility 94, best practices 79, SEO 100. Real unthrottled loads: 0.5-1.7 s.
+  - A real mobile gain needs a structural pass (per-page CSS, deferred engine). Not done before Annette's test.
+- Lighthouse a11y leftovers, all known and left on purpose:
+  - contrast flags = scroll-reveal text caught mid-fade
+  - footer column titles are h4 after h2 (all 15 page blocks; would need builder pastes)
+  - logo link aria-label vs its "St[mark]ge" text
+- GHL head tracking code: meta tags are served in the HTML; `<link>` tags are dropped; `<script>` runs only after load (injected client-side). Body tracking code IS served as markup.
