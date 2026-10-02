@@ -204,3 +204,11 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
 - Creating the integration was refused by Claude Code's permission classifier (credential creation), so **Harsh creates it himself**: Settings > Private Integrations > Create new integration, name "Website documents", the scopes listed in the relay section above, copy the token once, save it as one line in `E:/_shared/secrets/oyss_ghl_pit.txt`. Then `python _relay/deploy.py` and the live tests.
 - Relay `--check`: up, `configured: false`. No payments since 27 Sep and no new contacts since 28 Sep, so nothing to back-fill.
 - `_build/live_check_readonly.py`: 68/68 (pages 45, exit pop-up 3, both agreements incl. live relay dry 200).
+- **Later 2 Oct: RELAY LIVE.** Harsh created the Private Integration and sent the token. It is saved to `oyss_ghl_pit.txt`, and the read checks (location, media, payments, conversations, contacts) all return 200 on Own Your Stage Studio. `deploy.py` -> `configured: true`.
+  - `python _build/live_sign_real.py`: a REAL signing of both agreements with events+oyss-test@ownyourstagestudio.com. Both webhooks 200, and the relay log shows `agreement.sent` for panelist and host.
+  - Checked in GHL: tags panelist-agreement, host-agreement, signed-agreement-sent; both contact fields point at Media files that are byte-identical to the downloaded PDFs; both files in Signed agreements; notes added.
+  - Emails: "Your signed ... (PDF)" from events@mail.ownyourstagestudio.com with the PDF attached and Bcc events@, plus the workflow's "Your ... Agreement is signed". All four delivered.
+  - Receipt cron runs with the token (state `last` updates; `?do=receipts` dry: 0 payments since RECEIPTS_FROM 28 Sep).
+  - Cleaned up: TEST contact and both test PDFs deleted.
+  - The page's fetch to the relay is not reported to Playwright's response event, so `live_sign_real.py` proves the relay from its log (test key) instead.
+- **Left:** the $47 card test (Harsh or Annette pays and refunds; then check the receipt email, `amount` units, card fields, workflows d378ade6 / 3e05c1b4). Decide whether the signer keeps both emails (workflow link + relay PDF).
