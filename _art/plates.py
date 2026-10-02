@@ -21,7 +21,7 @@ Two layouts, matching the ones the old set had:
     python -m http.server 8899      # from the site root
     python _art/plates.py
 """
-import pathlib
+import sys, pathlib
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -45,6 +45,9 @@ def lockup(scale=1.0):
 # key, output, layout, role, name, title
 PLATES = [
     ("holding-slide", "assets/media/stage-holding-slide.jpg", "holding", None, None, None),
+    # the link preview (og:image) for every page, 2 Oct 2026: the holding
+    # slide with the address where the slide says "Starting shortly"
+    ("share-card", "assets/media/share-card.jpg", "share", None, None, None),
     ("stage-holding", "assets/stage-holding.png", "holding", None, None, None),
     ("virtual-stage", "assets/virtual-stage.png", "holding", None, None, None),
     ("stage-host", "assets/stage-host.png", "corner", "Host",
@@ -55,14 +58,15 @@ PLATES = [
 
 
 def page_html(layout, role, name, title, w, h):
-    if layout == "holding":
+    if layout in ("holding", "share"):
+        strip = "ownyourstagestudio.com" if layout == "share" else "Starting shortly"
         body = f"""
   <div class="plate__mid">
     {lockup()}
     <span class="plate__rule"></span>
     <p class="plate__sub">We build the stage. You steal the show.</p>
   </div>
-  <p class="plate__strip">Starting shortly</p>"""
+  <p class="plate__strip">{strip}</p>"""
     else:
         # The full lockup belongs to the host frame and the mark alone to a
         # panelist's. That was the old set's rule and it is still the right one:
@@ -120,15 +124,16 @@ def page_html(layout, role, name, title, w, h):
   .plate .lockup--stack {{ font-size:calc({round(w * 0.058)}px * var(--k,1)); }}
   .plate__rule {{ width:{round(w * 0.050)}px; height:3px; border-radius:2px;
                   background:#E05A5A; margin-top:{round(w * 0.024)}px; }}
-  .plate__sub {{
+  /* .oyss .plate p: the site's own .oyss p (0,1,1) outranks a bare class and turned both lines dark */
+  .oyss .plate .plate__sub {{
     margin:{round(w * 0.019)}px 0 0;
     font-family:var(--sans); font-style:italic; font-weight:400;
     font-size:{round(w * 0.0165)}px; color:#F3B0AE; letter-spacing:.01em;
   }}
-  .plate__strip {{
+  .oyss .plate .plate__strip {{
     position:absolute; left:0; right:0; bottom:{round(h * 0.086)}px; z-index:3; margin:0;
     text-align:center; font-family:var(--serif); font-weight:600;
-    font-size:{round(w * 0.0095)}px; letter-spacing:.42em; text-transform:uppercase;
+    font-size:{max(14, round(w * 0.0095))}px; letter-spacing:.42em; text-transform:uppercase;
     color:rgba(248,245,242,.46);
   }}
   /* the corner set: identification, kept out of the way of a face */
@@ -180,8 +185,11 @@ def main():
     tmp = ROOT / "_art" / "_plate.html"
     with sync_playwright() as p:
         b = p.chromium.launch(channel="chrome")
+        only = sys.argv[1:]
         for key, out, layout, role, name, title in PLATES:
-            w, h = (1600, 900) if key == "holding-slide" else (1920, 1080)
+            if only and key not in only:
+                continue
+            w, h = {"holding-slide": (1600, 900), "share-card": (1200, 630)}.get(key, (1920, 1080))
             tmp.write_text(page_html(layout, role, name, title, w, h), encoding="utf-8")
             pg = b.new_page(viewport={"width": w, "height": h}, device_scale_factor=1)
             pg.goto(tmp.as_uri(), wait_until="networkidle")
