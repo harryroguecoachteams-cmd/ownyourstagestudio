@@ -218,3 +218,31 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
   - Re-test with `live_sign_real.py`: 6/6. The signer got ONE email per agreement ("Your signed ... (PDF)", pay links + "The last step"); Annette's "Website: <tag> from <name>" notification still went out. Test contact + PDFs deleted.
   - The payment workflows' emails (confirm_payment / confirm_panelist_fee) carry the welcome + next steps, not a receipt, so they stay next to the relay's receipt.
 - Also deleted on Harsh's OK: the RCT test contacts "ainsley" (exit-intent, 28 Sep) and "rcrt coach" (assessment, 18 Sep).
+
+## 2-3 Oct 2026: pre-handoff sweep (before Annette's own test round)
+- `_build/final_sweep.py <widths> [--shots]`: 15 pages x 11 widths (320-1920). Checks:
+  - overflow
+  - contrast (audit.py probe) and the masthead over footage
+  - broken images, clipped or wrapped buttons, tiny text, tap targets, missing alt text
+  - template tokens, JS and console errors, failed requests, meta
+  - Result: 0 overflow, 0 broken images, 0 JS errors at every width, and one h1 per page.
+- `_build/final_flows.py` (read-only, posts intercepted):
+  - desktop nav + dropdown, menu at 360/390/768/1024
+  - assessment (result, PDF, email-me), both stepped applications (empty step is stopped, submitted through 8 steps)
+  - calendar, FAQ, videos, every link, the 3 payment links
+  - Result: 64/66. The 2 "fails" are the retired home Let's talk GHL form, which no page embeds since 25 Sep.
+- Fixed:
+  - Head tracking code (`_ghl_native/site_tracking_head.html`, 1,563 chars): og:image share card (`assets/media/share-card.jpg`, 1200x630, `_art/plates.py share-card`, in her GHL Media) + twitter card. GHL serves the meta tags in the HTML but DROPS `<link>` tags from the head code, so the PNG icons (32, 192, apple-touch 180) are added by a small script.
+  - Body tracking code b6ec99e (227,220 chars; SHA-256 LF 0ffbdd7c...), exactly 4 CSS edits:
+    - orbit "You are here" #EE8A85 (6.4:1)
+    - signature-line cross .68 (5.3:1)
+    - "Sign here" hint .52 (3.3:1)
+    - `.btn` centred + `text-wrap: balance` (wrapped phone labels)
+  - XML sitemap was EMPTY: generated in Settings > Domains > ownyourstagestudio.com > row menu > XML Sitemap (all 15 pages). Live sitemap.xml lists 15 URLs.
+  - Redirects /contact and /book -> /strategy-session (ids KhVlSrjNDuALLOgJvtct, QC1xghUmjAEq9bwv46xH).
+  - `_art/plates.py`: `.oyss .plate p` specificity fix (the site's `.oyss p` had turned the plate text dark). It needs `python _build/serve.py . 8899` running.
+- Checked OK:
+  - http/www/root redirects, SSL (Google Trust, to 18 Dec, auto)
+  - payment links: $47 / $2,997 / $1,550 x 2 (`totalCycles: 2`)
+  - services anchors, calendar slots
+- Noted for Harsh: ownthestagestudio.com auto-renew is OFF (expires 22 Jul 2027). Domain card still says "Set Default Page", which the `/` redirect covers.
