@@ -44,9 +44,17 @@ function agreements()
     return array(
         'Featured Panelist Agreement' => array(
             'line' => 'panelist', 'field' => FIELD_PANELIST, 'page' => SITE . '/panelist-agreement',
+            /* the last step, as the workflow's confirmation email had it (2 Oct 2026 this email replaced that one) */
+            'pay_intro' => 'Your speaking position is confirmed once the $47 Panelist Commitment and Administrative Fee is paid.',
+            'pay' => array(array('Pay the $47 fee', 'https://link.fastpaydirect.com/payment-link/6ab42a504ae1d45672839331')),
+            'next' => 'We will be in touch with your preparation meeting details.',
         ),
         'Done-For-You Panel Host Services Agreement' => array(
             'line' => 'host', 'field' => FIELD_HOST, 'page' => SITE . '/host-agreement',
+            'pay_intro' => 'Your event date is reserved once payment has processed and your intake is complete. Choose the option that suits you:',
+            'pay' => array(array('Pay in full, $2,997', 'https://link.fastpaydirect.com/payment-link/6a8f2bcbf9c8c807930ba334'),
+                           array('Two payments of $1,550', 'https://link.fastpaydirect.com/payment-link/6a919448f9c8c807930ba92c')),
+            'next' => 'We will be in touch about your intake within two business days.',
         ),
     );
 }
@@ -275,6 +283,19 @@ function agreement_email($d, $withReceipt)
     if ($d['signed_copy_url'] !== '') {
         $inner .= p('You can also open the signed copy on the website at any time:') .
             '<p style="margin:10px 0 18px"><a href="' . h($d['signed_copy_url']) . '" style="display:inline-block;border:2px solid #B91C1C;color:#B91C1C;text-decoration:none;font:700 15px Arial,sans-serif;padding:12px 24px;border-radius:2px">Open your signed agreement</a></p>';
+    }
+    $AG = agreements();
+    $meta = isset($AG[$d['agreement']]) ? $AG[$d['agreement']] : null;
+    if ($meta && $withReceipt) {
+        $inner .= kicker('What happens next') . p('Your payment is received, thank you. ' . h($meta['next']));
+    } elseif ($meta) {
+        $inner .= kicker('The last step') . p(h($meta['pay_intro']));
+        foreach ($meta['pay'] as $i => $b) {
+            $inner .= '<p style="margin:' . ($i ? '0' : '10px') . ' 0 18px"><a href="' . h($b[1]) . '" style="display:inline-block;' .
+                ($i ? 'border:2px solid #B91C1C;color:#B91C1C;padding:12px 24px;' : 'background:#B91C1C;color:#fff;padding:14px 26px;') .
+                'text-decoration:none;font:700 15px Arial,sans-serif;border-radius:2px">' . h($b[0]) . '</a></p>';
+        }
+        $inner .= p('If you have already paid, thank you, there is nothing more to do here. ' . h($meta['next']));
     }
     return email_shell($inner, 'You are receiving this because you signed the ' . h($d['agreement']) .
         ' at ownyourstagestudio.com. This email is your copy of the signed agreement.');

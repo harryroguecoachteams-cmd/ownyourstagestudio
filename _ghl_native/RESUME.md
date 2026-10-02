@@ -212,3 +212,7 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
   - Cleaned up: TEST contact and both test PDFs deleted.
   - The page's fetch to the relay is not reported to Playwright's response event, so `live_sign_real.py` proves the relay from its log (test key) instead.
 - **Left:** the $47 card test (Harsh or Annette pays and refunds; then check the receipt email, `amount` units, card fields, workflows d378ade6 / 3e05c1b4). Decide whether the signer keeps both emails (workflow link + relay PDF).
+- **2 Oct, Harsh: "drop the workflow email".** The workflow's signer email ("Your ... Agreement is signed") was the only place with the payment step ($47 link; host $2,997 / 2 x $1,550 links). Those links, plus the "next" line, moved into the relay's PDF email (`agreements()` pay_intro / pay / next in lib.php). If a receipt is already on the contact, it says "Your payment is received" instead of showing the buttons. Deployed; a live dry run shows the links.
+  - TO DO in the builder (needs a VISIBLE tab; the builder is the cross-origin iframe client-app-automation-workflows.leadconnectorhq.com): in workflow 5e574732, delete the email-to-the-person action in the Host agreement and Panelist agreement branches ONLY. Keep Annette's notification. Save.
+  - The payment workflows' emails (confirm_payment / confirm_panelist_fee) carry the welcome + next steps, not a receipt, so they stay next to the relay's receipt.
+- Also deleted on Harsh's OK: the RCT test contacts "ainsley" (exit-intent, 28 Sep) and "rcrt coach" (assessment, 18 Sep).
