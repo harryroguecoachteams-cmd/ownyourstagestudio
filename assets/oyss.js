@@ -125,10 +125,16 @@
        The hero beam is the logo icon at architectural scale. It
        strikes once, on load, and the pool blooms where it lands.
        -------------------------------------------------------- */
+    /* On GHL the page can be painted at parse time by its boot script
+       (build_ghl.py BOOT) and the engine only arrives once GHL has
+       hydrated, a second or more later. By then the visitor has been
+       looking at a lamp resting lit; striking it now would black the
+       stage out and bring it back. */
+    var LATE = window.__oyssBootAt && Date.now() - window.__oyssBootAt > 400;
     if (!CALM) {
       requestAnimationFrame(function () {
         setTimeout(function () {
-          document.querySelectorAll('.spot').forEach(strike);
+          if (!LATE) document.querySelectorAll('.spot').forEach(strike);
           document.querySelectorAll('.beam').forEach(function (b) { b.classList.add('beam--lit'); });
           document.querySelectorAll('.landing').forEach(function (l) { l.classList.add('landing--lit'); });
         }, 120);

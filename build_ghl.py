@@ -105,17 +105,24 @@ LOADER = r"""
   function mount() {
     var t = document.querySelector('template.oyss-page');
     if (!t) return false;
-    var host = document.createElement('div');
-    host.className = 'oyss-mount';
-    var frag = t.content.cloneNode(true);
-    var scripts = [].slice.call(frag.querySelectorAll('script'));
-    scripts.forEach(function (s) { s.parentNode.removeChild(s); });
-    host.appendChild(frag);
-    // The root domain still serves the old GHL page, so home links go to /home
-    // until an admin sets /home as the domain's default page.
-    [].forEach.call(host.querySelectorAll('a[href="/"]'), function (a) { a.setAttribute('href', '/home'); });
-    document.body.insertBefore(host, document.body.firstChild);
-    document.documentElement.classList.add('oyss-mounted');
+    var scripts;
+    if (document.querySelector('.oyss-mount')) {
+      // The page's own boot script (BOOT below) already painted it at parse
+      // time; only the engine and the page's scripts are left to run.
+      scripts = [].slice.call(t.content.querySelectorAll('script'));
+    } else {
+      var host = document.createElement('div');
+      host.className = 'oyss-mount';
+      var frag = t.content.cloneNode(true);
+      scripts = [].slice.call(frag.querySelectorAll('script'));
+      scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+      host.appendChild(frag);
+      // The root domain still serves the old GHL page, so home links go to /home
+      // until an admin sets /home as the domain's default page.
+      [].forEach.call(host.querySelectorAll('a[href="/"]'), function (a) { a.setAttribute('href', '/home'); });
+      document.body.insertBefore(host, document.body.firstChild);
+      document.documentElement.classList.add('oyss-mounted');
+    }
     window.__oyssEngine();
     run(scripts, 0);
     // The sticky bar and the exit pop-up, per page (feedback 14): the
@@ -132,7 +139,62 @@ LOADER = r"""
 })();
 """
 
+# Page boot (5 Oct 2026). GHL changed how it serves the website's tracking
+# code: with no cookie banner it now holds the head AND body code back until
+# the visitor touches, scrolls or types, or 4 s pass (stcdn _preview chunk
+# "HtmlPreview", defer -> listeners on pointerdown/keydown/touchstart/scroll/
+# mousemove). On a phone that read as "every page opens blank white until I
+# touch the screen". The page's own Custom Code element is still served as
+# real markup, so this script, at the end of every page block, is the only
+# code that runs at parse time. It does two things:
+#   1. releases GHL's gate at once (it listens for scroll), so the engine
+#      arrives as soon as GHL has hydrated, instead of on the first touch;
+#   2. if the stylesheet is already on the page (the head code's <style>
+#      blocks ARE served in <head>, and carry --oyss-boot), mounts the page
+#      right now, so it paints with the HTML instead of after GHL's own JS.
+# Kept small and stable on purpose: changing it means 15 builder pastes.
+# Everything else stays in the tracking code.
+BOOT = r"""
+(function () {
+  var w = window, d = document, de = d.documentElement;
+  if (w.__oyssBoot) return;
+  w.__oyssBoot = 1;
+  var n = 0;
+  (function kick() {
+    if (w.__oyssLoader || ++n > 100) return;
+    try { w.dispatchEvent(new Event('scroll')); } catch (e) {}
+    setTimeout(kick, 60);
+  })();
+  var t = d.querySelector('template.oyss-page');
+  if (!t || d.querySelector('.oyss-mount')) return;
+  try { if (!getComputedStyle(de).getPropertyValue('--oyss-boot').trim()) return; } catch (e) { return; }
+  var host = d.createElement('div');
+  host.className = 'oyss-mount';
+  var frag = t.content.cloneNode(true);
+  [].forEach.call(frag.querySelectorAll('script'), function (s) { s.parentNode.removeChild(s); });
+  host.appendChild(frag);
+  [].forEach.call(host.querySelectorAll('a[href="/"]'), function (a) { a.setAttribute('href', '/home'); });
+  d.body.insertBefore(host, d.body.firstChild);
+  de.classList.add('oyss-mounted', 'oyss-booted');
+  w.__oyssBootAt = Date.now();
+  var bar = host.querySelector('.masthead');
+  if (bar) de.style.setProperty('--oyss-mh', Math.round(bar.getBoundingClientRect().height) + 'px');
+  de.style.setProperty('--oyss-sbw', (w.innerWidth - de.clientWidth) + 'px');
+  [].forEach.call(host.querySelectorAll('.beam'), function (b) { b.classList.add('beam--lit'); });
+  if (!('IntersectionObserver' in w)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('lit');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+  [].forEach.call(host.querySelectorAll('[data-lit]'), function (el) { io.observe(el); });
+})();
+"""
+
 HOST_CSS = (
+    ":root{--oyss-boot:1}"
     "html,body{margin:0;background:#F8F5F2}"
     "html{font-size:clamp(100%,62.5% + .4167vw,112.5%)}"
     ".oyss-mount{width:100%}"
@@ -200,15 +262,24 @@ def main():
                ",p=location.pathname.replace(/\\/+$/,'').toLowerCase()||'/home',f=H[p];if(!f)return;"
                "var l=document.createElement('link');l.rel='preload';l.as='image';l.href=M+f;"
                "l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();")
-    tracking = (
-        "<!-- Own Your Stage Studio: site stylesheet, light engine and page loader. "
-        "Generated by build_ghl.py; paste the whole file, do not edit here. -->\n"
-        f"<script>{hero_js}</script>\n"
-        '<link rel="preconnect" href="https://fonts.googleapis.com">'
-        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-        f'<link rel="icon" href="{media_url("favicon.svg")}" type="image/svg+xml">\n'
+    # 5 Oct 2026: the stylesheet moved to the HEAD code. GHL serves the head
+    # code's <style> blocks inside <head> (its parser keeps meta, JSON-LD and
+    # style tags), while the body code is now held back until the visitor
+    # interacts (see BOOT). The hero preload above is not emitted any more:
+    # it relied on the body code running at parse time, which GHL stopped.
+    del hero_js
+    head = (
+        (ROOT / "_ghl_head.html").read_text(encoding="utf8").rstrip() + "\n"
+        "<!-- Own Your Stage Studio: site stylesheet (served in <head>, so pages paint "
+        "with the HTML). Generated by build_ghl.py; paste the whole file, do not edit here. -->\n"
         f"<style>{HOST_CSS}</style>\n"
         f"<style>{css_for_ghl()}</style>\n"
+    )
+    (OUT / "site_tracking_head.html").write_text(head, encoding="utf8")
+    tracking = (
+        "<!-- Own Your Stage Studio: light engine and page loader (the stylesheet is in the "
+        "head code). Generated by build_ghl.py; paste the whole file, do not edit here. -->\n"
+        f'<link rel="icon" href="{media_url("favicon.svg")}" type="image/svg+xml">\n'
         f"<script>{endpoint}{prompts_js}{engine_min}</script>\n"
         f"<script>{loader_min}</script>\n"
     )
@@ -227,10 +298,12 @@ def main():
         block = (
             f"<!-- OYSS page: {page}. Generated by build_ghl.py. -->\n"
             f'<template class="oyss-page" data-page="{page}">\n{s.strip()}\n</template>\n'
+            f"<script>{BOOT.strip()}</script>\n"
         )
         (OUT / "pages" / f.name).write_text(block, encoding="utf8")
 
-    sizes = {p.name: p.stat().st_size for p in [OUT / "site_tracking_body.html", *sorted((OUT / "pages").glob("*.html"))]}
+    sizes = {p.name: p.stat().st_size for p in [OUT / "site_tracking_head.html", OUT / "site_tracking_body.html",
+                                                *sorted((OUT / "pages").glob("*.html"))]}
     for k, v in sizes.items():
         print(f"{v/1024:8.1f} KB  {k}")
     print("endpoint:", ENDPOINT or "(none yet)")

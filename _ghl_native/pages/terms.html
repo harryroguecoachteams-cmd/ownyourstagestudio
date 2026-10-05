@@ -203,3 +203,39 @@
 
 </div>
 </template>
+<script>(function () {
+  var w = window, d = document, de = d.documentElement;
+  if (w.__oyssBoot) return;
+  w.__oyssBoot = 1;
+  var n = 0;
+  (function kick() {
+    if (w.__oyssLoader || ++n > 100) return;
+    try { w.dispatchEvent(new Event('scroll')); } catch (e) {}
+    setTimeout(kick, 60);
+  })();
+  var t = d.querySelector('template.oyss-page');
+  if (!t || d.querySelector('.oyss-mount')) return;
+  try { if (!getComputedStyle(de).getPropertyValue('--oyss-boot').trim()) return; } catch (e) { return; }
+  var host = d.createElement('div');
+  host.className = 'oyss-mount';
+  var frag = t.content.cloneNode(true);
+  [].forEach.call(frag.querySelectorAll('script'), function (s) { s.parentNode.removeChild(s); });
+  host.appendChild(frag);
+  [].forEach.call(host.querySelectorAll('a[href="/"]'), function (a) { a.setAttribute('href', '/home'); });
+  d.body.insertBefore(host, d.body.firstChild);
+  de.classList.add('oyss-mounted', 'oyss-booted');
+  w.__oyssBootAt = Date.now();
+  var bar = host.querySelector('.masthead');
+  if (bar) de.style.setProperty('--oyss-mh', Math.round(bar.getBoundingClientRect().height) + 'px');
+  de.style.setProperty('--oyss-sbw', (w.innerWidth - de.clientWidth) + 'px');
+  [].forEach.call(host.querySelectorAll('.beam'), function (b) { b.classList.add('beam--lit'); });
+  if (!('IntersectionObserver' in w)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('lit');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+  [].forEach.call(host.querySelectorAll('[data-lit]'), function (el) { io.observe(el); });
+})();</script>

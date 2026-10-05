@@ -255,4 +255,46 @@ Code in `_relay/` (deploy: `python _relay/deploy.py`; status only: `--check`).
   - contrast flags = scroll-reveal text caught mid-fade
   - footer column titles are h4 after h2 (all 15 page blocks; would need builder pastes)
   - logo link aria-label vs its "St[mark]ge" text
-- GHL head tracking code: meta tags are served in the HTML; `<link>` tags are dropped; `<script>` runs only after load (injected client-side). Body tracking code IS served as markup.
+- GHL head tracking code: meta tags are served in the HTML; `<link>` tags are dropped; `<script>` runs only after load (injected client-side). Body tracking code IS served as markup. (No longer true from 5 Oct, see below.)
+
+## 5 Oct 2026: "every page opens blank white on mobile until I touch the screen"
+
+**Cause (GHL platform change between 3 and 5 Oct, not a setting):** the head and body tracking code are no
+longer served as markup. GHL's stcdn `_preview` bundle now renders them through `HtmlPreview` with
+`defer: true` whenever cookie consent is off (`zs()`), and the defer waits for the first
+pointerdown / keydown / touchstart / scroll / mousemove, or 4 s. "Optimize JavaScript" is still OFF
+(`isOptimisePageLoad: false` in the payload); it is not that. On desktop the mouse moves at once, so
+nobody saw it; on a phone the page sat blank (the page block is an inert `<template>`) until a touch.
+Measured on the live site, Pixel 7, no input: mounted at 5.2-7.6 s; with a tap at 1.5 s: mounted at 1.53 s.
+
+**What GHL still serves as real markup:** each page's Custom Code element (SSR), and from the head code
+only `<meta>`, JSON-LD and `<style>` tags (parser `Ra()`, sent through useHead, so they land in `<head>`).
+
+**The fix (build_ghl.py, commit below):**
+- `pages/*.html`: a small BOOT script after the template, the only code that runs at parse time:
+  1. dispatches `scroll` on window every 60 ms until `window.__oyssLoader` exists, which releases GHL's gate as soon as it is listening;
+  2. if `--oyss-boot` is set (it is in the head code's CSS), mounts the page right away, lights the
+     reveal with its own IntersectionObserver, measures `--oyss-mh` / `--oyss-sbw`, adds `beam--lit`.
+  Changing BOOT means 15 builder pastes, so it is small and everything else stays in the tracking code.
+- `site_tracking_head.html` is now GENERATED: `_ghl_head.html` (the hand-written meta + icons, moved
+  from here) + `HOST_CSS` + the whole stylesheet. 157 KB.
+- `site_tracking_body.html`: engine + loader only (67 KB, was 228 KB). The loader skips the DOM mount
+  when BOOT already did it and just runs the engine, the page's scripts and the prompts.
+  The hero-preload script is gone (it relied on the body code running at parse time).
+- `oyss.js`: if the page was booted more than 400 ms before the engine arrives, it does not re-strike
+  the `.spot` lamp (it would black out a stage the visitor is already looking at).
+
+**Tested against the live pages with the new files swapped in (route interception,
+`_build/blank_fix/simnew.py full|pageonly|live <device> <paths>`):**
+- full fix: first paint 0.8-2 s, engine 2-3.6 s, all 15 pages x iPhone 13 + desktop: 0 errors, 0 overflow, one mount, lamp never dips
+- page block only (old head): mount 1.6-2.1 s
+- live today: 5.8-7.6 s
+- `_build/blank_fix/interact.py`: wheel-scroll down home (sections light within ~0.5 s), menu opens, assessment Q1 -> Q2.
+
+**Deploy order (each step leaves a working site):**
+1. Head tracking code := `site_tracking_head.html`. Verify: `curl` a page, the `<head>` must hold a
+   `<style>` with `--oyss-boot` and the full CSS, with `>` NOT escaped. If GHL does not serve it,
+   STOP: the new body code has no CSS of its own.
+2. Body tracking code := `site_tracking_body.html`.
+3. Each page's Custom Code element := `pages/<page>.html`, publish (page ids in `page_ids.json`).
+4. Re-run `simnew.py live "Pixel 7" <all 15 paths>`: expect booted True, first mount ~1 s.
