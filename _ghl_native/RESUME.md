@@ -298,3 +298,14 @@ only `<meta>`, JSON-LD and `<style>` tags (parser `Ra()`, sent through useHead, 
 2. Body tracking code := `site_tracking_body.html`.
 3. Each page's Custom Code element := `pages/<page>.html`, publish (page ids in `page_ids.json`).
 4. Re-run `simnew.py live "Pixel 7" <all 15 paths>`: expect booted True, first mount ~1 s.
+
+**DEPLOYED 5 Oct 2026, 16:45-17:10 IST (ba96d88), all 4 steps done and verified:**
+- Head code saved by script (update-settings 201), 160,464 chars LF, hash = commit. Served: both `<style>` blocks verbatim in `<head>`, `>` not escaped.
+- Body code saved by script (201), 68,785 chars, hash = commit; both re-checked after a reload.
+  Rollback = `git show 23d91dd:_ghl_native/site_tracking_{head,body}.html` (what was live before; hashes matched).
+- In-between state (new head + body, old page blocks) checked live: all pages mounted, 0 errors.
+- 15 Custom Code pastes + Publish in the builder (Set-Clipboard, ctrl+a / ctrl+v, last line number checked per page).
+  The MCP tab was visible this time, no help needed. The builder takes ~18 s to load.
+- Live results: every page serves the new block byte-for-byte with the BOOT script;
+  `simnew.py live` Pixel 7 / iPhone 13 / desktop x 15 pages: booted True, first paint 0.65-2.0 s (was 5.7-7.6 s), 0 errors, 0 overflow, lamp never dips;
+  `interact.py live`: menu opens, assessment Q1 -> Q2; `live_check_readonly.py pages exit sign`: 68/68.
