@@ -1,0 +1,38 @@
+[
+ {
+  "file": "nurture_1a_assessment_reminder.html",
+  "action": "Email 1 (pop-up only): assessment reminder",
+  "subject": "Later has a way of becoming never",
+  "preheader": "The Readiness Assessment link, one more time. About five minutes."
+ },
+ {
+  "file": "nurture_1b_your_result.html",
+  "action": "Email 1 (took the assessment): your result",
+  "subject": "What your result is really telling you",
+  "preheader": "It is not a grade. It is a map."
+ },
+ {
+  "file": "nurture_2_getting_ready.html",
+  "action": "Email 2: my story",
+  "subject": "I was getting ready to get ready",
+  "preheader": "For a very long time, that was me. Maybe it is you, too."
+ },
+ {
+  "file": "nurture_3_your_own_stage.html",
+  "action": "Email 3: create your own stage",
+  "subject": "Stop waiting to be invited onto someone else's stage",
+  "preheader": "Why we build panels, and what one evening leaves behind."
+ },
+ {
+  "file": "nurture_4_three_shifts.html",
+  "action": "Email 4: three shifts, two ways onto the stage",
+  "subject": "Three shifts that make your authority visible",
+  "preheader": "Decide what you want to be known for. Then build the stage."
+ },
+ {
+  "file": "nurture_5_strategy_call.html",
+  "action": "Email 5: invitation to the Strategy Call",
+  "subject": "Stop getting ready. Start getting recognized.",
+  "preheader": "Thirty minutes on Zoom, complimentary. Bring the subject you want to be known for."
+ }
+]

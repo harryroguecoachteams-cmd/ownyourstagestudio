@@ -298,29 +298,39 @@ def lockup(gid, base, tagline=False, tone=""):  # gid kept: the callers name the
 
 
 # FEEDBACK 9.0, NOTE 1: "the menu bar looks very cluttered ... add things
-# you do in a dropdown". Seven items and a button became four and a button:
-# everything the studio SELLS sits under one "What we do" menu, flagship
-# first, so the bar itself reads as a sentence rather than a site map.
-WHAT_WE_DO = [
-    ("experience.html", "Virtual Panel Events", "The flagship: host your own produced panel"),
-    ("services.html",   "All services",         "Webinars, summits, series, podcasts and more"),
-    ("panelists.html",  "Panelist Program",     "Join a panel as a featured expert"),
+# you do in a dropdown". Seven items and a button became four and a button.
+# 22 Oct 2026 (Fabienne's Loom for Annette): split hosts from panelists, so a
+# visitor can see at once which side is theirs. "Be a host" holds the flagship
+# and every other format; "Be a panelist" holds the program and its
+# application. On the phone the two lists stay open, each under its label.
+NAV_GROUPS = [
+    ("host", "Be a host", [
+        ("experience.html", "Virtual Panel Events", "The flagship: host your own produced panel"),
+        ("services.html",   "All services",         "Webinars, summits, series, podcasts and more"),
+    ]),
+    ("panelist", "Be a panelist", [
+        ("panelists.html",      "Panelist Program",       "Join a panel as a featured expert"),
+        ("apply-panelist.html", "Apply to be a panelist", "A short application, kept on file for a year"),
+    ]),
 ]
 NAV_REST = [("assessment.html", "Assessment"), ("about.html", "About"), ("faq.html", "FAQ")]
 
 
 def masthead(current, base):
-    in_menu = any(f == current for f, _, _ in WHAT_WE_DO)
-    items = []
-    for f, label, sub in WHAT_WE_DO:
-        cur = ' aria-current="page"' if f == current else ""
-        items.append(f'          <a href="{base}{f}"{cur}><b>{label}</b><span>{sub}</span></a>')
-    links = [f"""      <div class="navdrop{' is-current' if in_menu else ''}">
-        <button class="navdrop__btn" type="button" aria-expanded="false" aria-controls="navdrop-menu">What we do</button>
-        <div class="navdrop__menu" id="navdrop-menu">
+    links = []
+    for key, title, entries in NAV_GROUPS:
+        in_menu = any(f == current for f, _, _ in entries)
+        items = []
+        for f, label, sub in entries:
+            cur = ' aria-current="page"' if f == current else ""
+            items.append(f'          <a href="{base}{f}"{cur}><b>{label}</b><span>{sub}</span></a>')
+        links.append(f"""      <div class="navdrop{' is-current' if in_menu else ''}">
+        <button class="navdrop__btn" type="button" aria-expanded="false" aria-controls="navdrop-{key}">{title}</button>
+        <span class="navdrop__label">{title}</span>
+        <div class="navdrop__menu" id="navdrop-{key}">
 {chr(10).join(items)}
         </div>
-      </div>"""]
+      </div>""")
     for f, label in NAV_REST:
         cur = ' aria-current="page"' if f == current else ""
         links.append(f'      <a href="{base}{f}"{cur}>{label}</a>')

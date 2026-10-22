@@ -1510,32 +1510,38 @@
   }
 
   /* ==========================================================
-     THE "WHAT WE DO" MENU (feedback 9.0, note 1)
-     Opens on hover and on focus with a pointer that can hover,
-     on click everywhere, closes on Escape and on an outside
-     click. Inside the phone panel it is simply an open list.
+     THE MENUS: "Be a host" and "Be a panelist" (feedback 9.0,
+     note 1; split on 22 Oct 2026). Each opens on hover and on
+     focus with a pointer that can hover, on click everywhere,
+     closes on Escape and on an outside click, and opening one
+     closes the other. Inside the phone panel both are simply
+     open lists under their labels.
      ========================================================== */
   (function () {
-    var drop = document.querySelector('.navdrop');
-    if (!drop) return;
-    var btn = drop.querySelector('.navdrop__btn');
-    var set = function (open) {
-      drop.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    };
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      set(!drop.classList.contains('is-open'));
-    });
+    var drops = [].slice.call(document.querySelectorAll('.navdrop'));
+    if (!drops.length) return;
     var hover = window.matchMedia('(hover: hover) and (min-width: 1041px)');
-    drop.addEventListener('mouseenter', function () { if (hover.matches) set(true); });
-    drop.addEventListener('mouseleave', function () { if (hover.matches) set(false); });
-    document.addEventListener('click', function (e) { if (!drop.contains(e.target)) set(false); });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && drop.classList.contains('is-open')) { set(false); btn.focus(); }
-    });
-    drop.addEventListener('focusout', function (e) {
-      if (!drop.contains(e.relatedTarget)) set(false);
+    drops.forEach(function (drop) {
+      var btn = drop.querySelector('.navdrop__btn');
+      var set = function (open) {
+        if (open) drops.forEach(function (d) { if (d !== drop && d.classList.contains('is-open')) d.__oyssSet(false); });
+        drop.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      drop.__oyssSet = set;
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        set(!drop.classList.contains('is-open'));
+      });
+      drop.addEventListener('mouseenter', function () { if (hover.matches) set(true); });
+      drop.addEventListener('mouseleave', function () { if (hover.matches) set(false); });
+      document.addEventListener('click', function (e) { if (!drop.contains(e.target)) set(false); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && drop.classList.contains('is-open')) { set(false); btn.focus(); }
+      });
+      drop.addEventListener('focusout', function (e) {
+        if (!drop.contains(e.relatedTarget)) set(false);
+      });
     });
   })();
 
@@ -1943,7 +1949,7 @@
             '<button class="btn btn--primary exit__send" type="submit">Email me the link</button>' +
             '<p class="exit__err" role="alert" hidden></p>' +
           '</form>' +
-          '<p class="exit__fine">We will email you the link. You can unsubscribe at any time. ' +
+          '<p class="exit__fine">We will email you the link, then five short notes from Annette over the next two weeks. You can unsubscribe at any time. ' +
             '<a href="' + (cfg.privacyHref || 'privacy.html') + '" target="_blank" rel="noopener">Privacy policy</a></p>' +
           '<div class="exit__actions">' +
             '<a class="exit__now" href="' + assessHref + '">Take it now instead</a>' +

@@ -6458,9 +6458,17 @@
 .oyss .masthead .navdrop__menu a:focus-visible { background: rgba(248, 245, 242, .06); }
 .oyss .masthead .navdrop__menu a[aria-current="page"] { background: rgba(224, 90, 90, .1); }
 
+/* The group's name, shown only in the phone panel, where the button is not. */
+.oyss .navdrop__label { display: none; }
+
 @media (max-width: 1040px) {
   .oyss .navdrop { border-bottom: 1px solid rgba(228, 218, 214, .1); }
   .oyss .navdrop__btn { display: none; }
+  .oyss .navdrop__label {
+    display: block; padding: .9rem 0 0;
+    font-size: var(--t-caption); font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold);
+  }
   .oyss .navdrop__menu {
     position: static; opacity: 1; visibility: visible; transform: none;
     min-width: 0; background: none; border: 0; box-shadow: none; padding: .4rem 0;
@@ -7195,3 +7203,34 @@
 /* The signed copy, opened from the email link: the header carries it. */
 .oyss .signedhero { margin-top: 1.8rem; }
 .oyss .stage .signedhero .cue { color: var(--ivory); }
+
+/* ==================================================================
+   ANNETTE, LIVE (22 Oct 2026)
+   Her own speaking spots: one on the home page (#live, the standard
+   film components), two side by side on the Panelist Program page,
+   with two portraits from her January shoot under them.
+   ================================================================== */
+.oyss .livepair {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 32px);
+  margin-top: clamp(26px, 3.6vw, 48px);
+}
+.oyss .livepair__item { margin: 0; }
+.oyss .livepair .videoblock { margin-top: 0; }
+.oyss .livepair__item figcaption { margin-top: .8rem; color: var(--slate); }
+.oyss .livepair__item figcaption b { color: var(--navy); font-weight: 600; }
+.oyss .livepair .videoblock__label { font-size: clamp(1.05rem, .85rem + .6vw, 1.35rem); }
+
+.oyss .livephotos {
+  display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 260px) minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 32px); align-items: center;
+  margin-top: clamp(34px, 4.6vw, 64px);
+}
+.oyss .livephotos .portrait { margin: 0; }
+.oyss .livephotos__text .lead { margin: 0; max-width: 30rem; }
+
+@media (max-width: 900px) {
+  .oyss .livepair { grid-template-columns: 1fr; }
+  .oyss .livephotos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .oyss .livephotos__text { grid-column: 1 / -1; }
+}
