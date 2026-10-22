@@ -7305,3 +7305,17 @@
 @media (max-width: 1040px) {
   .oyss .masthead .navdrop__menu a[aria-current="page"] { margin-inline: -.75rem; padding-inline: .75rem; }
 }
+
+/* About page: a few days, in pictures (22 Oct 2026). Four portrait
+   tiles, one of them a silent loop, on the same grid as the photo row
+   on the Panelist Program page. */
+.oyss .dayrow {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 28px);
+  margin-top: clamp(26px, 3.6vw, 48px);
+}
+.oyss .dayrow .portrait { margin: 0; }
+.oyss .dayrow video { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) {
+  .oyss .dayrow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

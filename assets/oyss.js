@@ -2196,6 +2196,22 @@
      first press is also the first byte fetched, so nothing is
      downloaded for a reader who never presses it.
      -------------------------------------------------------- */
+  /* 22 Oct 2026: the About page's silent loop plays only while it is on
+     screen, and never for a reader who asked for reduced motion. Until
+     then the poster stands in, and nothing is fetched. */
+  (function () {
+    var clips = [].slice.call(document.querySelectorAll('video.loopclip'));
+    if (!clips.length || CALM || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.35 });
+    clips.forEach(function (v) { io.observe(v); });
+  })();
+
   (function () {
     /* 22 Oct 2026: while any film plays, the bottom bar steps aside. On a
        wide screen it covered the captions and the controls. */
