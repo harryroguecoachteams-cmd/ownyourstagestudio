@@ -310,7 +310,7 @@ NAV_GROUPS = [
     ]),
     ("panelist", "Be a panelist", [
         ("panelists.html",      "Panelist Program",       "Join a panel as a featured expert"),
-        ("apply-panelist.html", "Apply to be a panelist", "A short application, kept on file for a year"),
+        ("apply-panelist.html", "Apply to be a panelist", "A short application, kept on file for up to a year"),
     ]),
 ]
 NAV_REST = [("assessment.html", "Assessment"), ("about.html", "About"), ("faq.html", "FAQ")]

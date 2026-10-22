@@ -1531,7 +1531,10 @@
       drop.__oyssSet = set;
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
-        set(!drop.classList.contains('is-open'));
+        /* 22 Oct 2026: with a mouse, the pointer already opened the menu on
+           its way in, so the click that follows must not shut it again.
+           Keyboard clicks (detail 0) and touch still toggle. */
+        set(hover.matches && e.detail > 0 ? true : !drop.classList.contains('is-open'));
       });
       drop.addEventListener('mouseenter', function () { if (hover.matches) set(true); });
       drop.addEventListener('mouseleave', function () { if (hover.matches) set(false); });
@@ -2194,10 +2197,28 @@
      downloaded for a reader who never presses it.
      -------------------------------------------------------- */
   (function () {
+    /* 22 Oct 2026: while any film plays, the bottom bar steps aside. On a
+       wide screen it covered the captions and the controls. */
+    function hushBar() {
+      var playing = [].some.call(document.querySelectorAll('.videoblock video'), function (v) { return !v.paused && !v.ended; });
+      [].forEach.call(document.querySelectorAll('.oyss .prompt'), function (bar) { bar.classList.toggle('is-hushed', playing); });
+    }
     document.querySelectorAll('.videoblock').forEach(function (block) {
       var clip = block.querySelector('video');
       var btn = block.querySelector('.videoblock__play');
       if (!clip || !btn) return;
+
+      /* 22 Oct 2026: one film at a time. The Panelist Program page has two
+         players side by side and the home page has two films, so starting
+         one pauses any other that is playing. */
+      clip.addEventListener('play', function () {
+        [].forEach.call(document.querySelectorAll('.videoblock video'), function (v) {
+          if (v !== clip && !v.paused) v.pause();
+        });
+        hushBar();
+      });
+      clip.addEventListener('pause', hushBar);
+      clip.addEventListener('ended', hushBar);
 
       /* The element ships WITH controls, so a reader with no
          JavaScript gets a playable film. This takes them off

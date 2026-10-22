@@ -7234,3 +7234,74 @@
   .oyss .livephotos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .oyss .livephotos__text { grid-column: 1 / -1; }
 }
+
+/* ------------------------------------------------------------------
+   22 Oct 2026, fresh-eyes review of the live sections.
+   ------------------------------------------------------------------ */
+/* The film's centered play disc was drawn for a poster with no face in
+   it. On these talking-head frames it sat on Annette's face, so the
+   control moves to the empty curtain, bottom left. */
+.oyss #live .videoblock__play,
+.oyss #annette-live .videoblock__play {
+  justify-content: flex-start; align-items: flex-end;
+  padding: 0 clamp(14px, 4.5%, 30px) clamp(14px, 4.5%, 30px);
+}
+.oyss #live .videoblock__label b,
+.oyss #annette-live .videoblock__label b { text-wrap: balance; }
+@media (max-width: 620px) {
+  .oyss #live .videoblock__play,
+  .oyss #annette-live .videoblock__play {
+    flex-direction: row; justify-content: flex-start; align-items: flex-end;
+    gap: 10px; padding: 0 12px 12px;
+  }
+  .oyss #live .videoblock__ico,
+  .oyss #annette-live .videoblock__ico { width: 44px; }
+  .oyss #live .videoblock__label,
+  .oyss #annette-live .videoblock__label { text-align: left; }
+  .oyss #live .videoblock__label b,
+  .oyss #annette-live .videoblock__label b { letter-spacing: .12em; max-width: 15rem; }
+}
+
+/* Four chapters, not the film's six: the strip spans its rule. */
+.oyss #live .filmcues { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  .oyss #live .filmcues { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .oyss #live .filmcue:nth-child(n+3) { border-top: 1px solid rgba(31, 30, 29, .14); }
+}
+/* A tapped chapter kept its hover red on touch, so two looked live. */
+@media (hover: none) {
+  .oyss .filmcue:hover:not(.on)::before { transform: scaleX(0); }
+  .oyss .filmcue:hover:not(.on) .filmcue__n { color: inherit; }
+}
+/* The one link from Home to the panelist section has to look like one. */
+.oyss .filmcues__hint a {
+  color: var(--ink); text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.oyss .filmcues__hint a:hover { color: var(--red); }
+
+/* Both sections sit next to a band of the same color, so the full
+   padding read as a hole. Half, as on the experience page. */
+.oyss #live, .oyss #annette-live { padding-bottom: calc(var(--bay) * .58); }
+
+/* The photo row follows the players' two columns, and the plate is
+   sized for a photo this small. */
+@media (min-width: 901px) {
+  .oyss .livephotos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .oyss .livephotos__text { grid-column: span 2; }
+}
+.oyss .livephotos .portrait__plate { padding: 1.6rem .9rem .8rem; }
+.oyss .livephotos .portrait__plate .name { font-size: 1.05rem; text-wrap: balance; }
+@media (max-width: 520px) {
+  .oyss .livephotos .portrait__plate { display: none; }
+}
+.oyss .livephotos__text .lead { text-wrap: pretty; }
+
+/* While a film plays, the bar steps aside (oyss.js, hushBar). */
+.oyss .prompt.is-in.is-hushed { transform: translateY(110%); opacity: 0; pointer-events: none; }
+.oyss .prompt--top.is-in.is-hushed { transform: translateY(-110%); }
+
+/* Phone menu: the current page's tint had no room around its text. */
+@media (max-width: 1040px) {
+  .oyss .masthead .navdrop__menu a[aria-current="page"] { margin-inline: -.75rem; padding-inline: .75rem; }
+}
