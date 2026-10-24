@@ -318,6 +318,10 @@ NAV_REST = [("assessment.html", "Assessment"), ("about.html", "About"), ("faq.ht
 
 def masthead(current, base):
     links = []
+    # Annette, 24 Oct 2026: visitors do not click the logo to get home, so
+    # Home gets its own tab, first in the bar.
+    cur = ' aria-current="page"' if current == "index.html" else ""
+    links.append(f'      <a href="{base}index.html"{cur}>Home</a>')
     for key, title, entries in NAV_GROUPS:
         in_menu = any(f == current for f, _, _ in entries)
         items = []
